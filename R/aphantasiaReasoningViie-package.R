@@ -19,5 +19,7 @@ ignore_unused_imports <- function() {
   crayon::underline # for glue_col
   rlang::expr
   sessioninfo::session_info
+  dplyr::mutate
+  stringr::str_detect
   return(NULL)
 }

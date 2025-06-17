@@ -16,7 +16,13 @@ Imports:
     crayon,
     glue,
     sessioninfo (== 1.2.2),
-    rlang
+    rlang,
+    dplyr,
+    stringr
 Suggests: 
+    here,
+    openxlsx,
+    osfr,
+    readxl,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
