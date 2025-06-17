@@ -1,0 +1,6 @@
+^renv$
+^renv\.lock$
+^aphantasiaReasoningViie\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
