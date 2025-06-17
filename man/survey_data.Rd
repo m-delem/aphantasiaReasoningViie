@@ -3,9 +3,9 @@
 \docType{data}
 \name{survey_data}
 \alias{survey_data}
-\title{Dataset with the participant's questionnaire data}
+\title{Participant's questionnaire data}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 125 rows and 98 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 125 rows and 103 columns.
 }
 \source{
 Data collected through online experiments
@@ -50,6 +50,17 @@ during the experiment)
 external support during the experiment, e.g. paper)
 \item \verb{strats_*} (self-report of the strategies used by the participant during
 the experiment)
+\item \code{has_adhd} (self-report of whether the participant has ADHD)
+\item \code{has_asd} (self-report of whether the participant has ASD)
+\item \code{has_dyslexia} (self-report of whether the participant has dyslexia)
+\item \code{has_other_neuro_trouble} (self-report of whether the participant has
+other neurological troubles)
+\item \code{has_treatment} (self-report of whether the participant is under treatment
+for a neurological trouble)
+\item \code{has_been_distracted} (self-report of whether the participant has been
+distracted during the experiment)
+\item \code{has_cheated} (self-report of whether the participant has used external
+help to answer the questions)
 }
 }
 \details{

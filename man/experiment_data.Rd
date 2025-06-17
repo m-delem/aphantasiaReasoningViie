@@ -3,7 +3,7 @@
 \docType{data}
 \name{experiment_data}
 \alias{experiment_data}
-\title{Dataset with the reasoning experiment data}
+\title{Reasoning experiment data}
 \format{
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3375 rows and 15 columns.
 }
@@ -30,7 +30,7 @@ the survey data)
 i.e., the response screen)
 \item \code{rt_total} (the total time spent on the trial)
 \item \code{response} (the participant's response, TRUE or FALSE)
-\item \code{correct_reponse} (the correct response to the problem, TRUE or FALSE)
+\item \code{correct_response} (the correct response to the problem, TRUE or FALSE)
 \item \code{accuracy} (the accuracy of the participant's response, TRUE or FALSE)
 }
 }
