@@ -1,0 +1,37 @@
+Filtration more easily done with survey_data:
+
+language: keep only FR, count FR/EN
+vviq_is_complete only, count removed
+osivq_is_complete only, count removed post VVIQ
+raven_is_complete only, count removed post OS/VV
+create function to remove manually identified, with options for, in order:
+- has_cheated
+- has_been_distracted
+- has_dyslexia
+- has_treatment
+- has_adhd
+- has_asd
+- has_other_neuro_trouble
+Count removed AFTER having removed the previous one
+
+filter_outlier_ids(
+ exclude_no_vviq,
+ exclude_no_osivq,
+ exclude_cheaters,
+ exclude_distracted,
+ exclude_dyslexia,
+ exclude_adhd,
+ exclude_asd,
+ exclude_other,
+ exclude_treatment
+)
+
+Then we can inner_join with experiment_data by id
+
+Then filtration using experiment_data:
+
+- Accuracy < 0.5
+
+Global RT, using median:
+- Function to plot the distribution of mean/median RTs
+- Function to filter either statistically or specific participants

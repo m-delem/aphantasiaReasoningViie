@@ -66,7 +66,10 @@ survey_data <-
         "wbwg888518836285526bvbw"
       ), TRUE, FALSE
     ),
-    has_treatment = ifelse(treatment != "yes" | is.na(treatment), FALSE, TRUE),
+    has_treatment = ifelse(
+      treatment != "yes" | prognosis != "yes" | is.na(treatment),
+      FALSE, TRUE
+    ),
     has_been_distracted = ifelse(
       id %in% c(
         "akao550473973998319bmig",
@@ -87,9 +90,10 @@ survey_data <-
         "sixo57424946541911mrdn",
         "wczz320907976180679kghc"
       ), TRUE, FALSE
-    ),
-    .keep = "unused"
-  )
+    )
+  ) |>
+  dplyr::relocate(prognosis:treatment, .before = "has_adhd") |>
+  dplyr::relocate(met_issues:what_external_support, .after = "has_cheated")
 
 experiment_data <-
   expe_reasoning_viie_data |>
