@@ -1,93 +1,35 @@
-Filtration more easily done with survey_data:
 
-language: keep only FR, count FR/EN
-vviq_is_complete only, count removed
-osivq_is_complete only, count removed post VVIQ
-raven_is_complete only, count removed post OS/VV
-create function to remove manually identified, with options for, in order:
-- has_cheated
-- has_been_distracted
-- has_dyslexia
-- has_treatment
-- has_adhd
-- has_asd
-- has_other_neuro_trouble
-Count removed AFTER having removed the previous one
-
-filter_outlier_ids(
- exclude_no_vviq,
- exclude_no_osivq,
- exclude_cheaters,
- exclude_distracted,
- exclude_dyslexia,
- exclude_adhd,
- exclude_asd,
- exclude_other,
- exclude_treatment
-)
-
-Then we can inner_join with experiment_data by id
-
-Then filtration using experiment_data:
-
-- Accuracy < 0.5
-
-Global RT, using median:
-- Function to plot the distribution of mean/median RTs
-- Function to filter either statistically or specific participants
-
---> At this point, all suspicious participants should have been excluded
-
-Now we can recreate two filtered data frames equivalent to survey_data and
-experiment_data
-- filtered_survey_data & filtered_expe_data?
 I think I could create less data frames than in the previous DLC version. This
 one had:
-- df_raw, df_raw_to_check, df_raw_expe -> already integrated in survey_data
-  and experiment_data
+
 - df_zero: the central data frame with:
-  -> the initial outlier ID filtering -> replaced above
   -> the clusters created with OSIVQ
+
 - df_osivq: df_zero reduced to one line per ID to perform clustering
   -> this could be replaced by doing the clustering on filtered_survey_data
+
 - cluster_osivq_data & add_cluster_column: I need a more robust way of deciding
   which clustering to use and how to name the resulting clusters
   -> function to plot the clusters + describe again? Decide based on that
   -> function where I specify explicitly which names I want for clusters 1/2/3
      etc.
+
 - df_acc doesnt seem necessary, unless the additional columns are used for
   plotting
+
 - df_rt adds the filtering of outlier RT trials
   -> design a distribution plotting function too?
+
 - df_rt_long: need a function - get_longer_terms on filtered_expe_data
+
 - df_strats: simply factor_strategies on filtered_survey_data
+
 - df_strats_long: function get_longer_strats on filtered_survey_data
 
 - Better describe_sample function
+
 - When to add the factoring functions?
 -> factor_groups
 -> factor_categories
 -> factor_strategies
 -> add factor_clusters too?
-
-
--------
-Earthquake on NsCo day:
-
-- Recommendation to drop GitHub -> doable, but so integrated in my workflow...
--> Can I implement my new package workflow with GitLab?
--> Can I have package websites on GitLab?
--> Maybe only use Source Code Heritage to save and protect my GH repos?
-
-- Recommendation to drop OSF -> very tough
--> Collaboration
--> Centralised all in one place
--> Recognised by many journal
--> Preprints
--> DOI exists
-
-Look up the internet: how to write good metadata?
-Think about the triad:
-- Open access paper
-- Open data + metadata
-- Open source code

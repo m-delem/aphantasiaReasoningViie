@@ -20,10 +20,13 @@ Imports:
     dplyr,
     stringr
 Suggests: 
+    ggplot2,
     here,
     openxlsx,
     osfr,
     readxl,
+    showtext,
+    sysfonts,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 LazyData: true

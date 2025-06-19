@@ -5,7 +5,7 @@
 \alias{survey_data}
 \title{Participant's questionnaire data}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 125 rows and 103 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 125 rows and 105 columns.
 }
 \source{
 Data collected through online experiments
