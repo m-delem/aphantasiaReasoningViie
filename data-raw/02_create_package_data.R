@@ -98,7 +98,7 @@ survey_data <-
 experiment_data <-
   expe_reasoning_viie_data |>
   dplyr::select(
-    id, language, Group,
+    id, language, group = Group,
     expe_phase, trial_number, problem = trial_code,
     category:correct_response, accuracy
   ) |>
