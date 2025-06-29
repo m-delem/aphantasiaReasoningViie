@@ -82,6 +82,10 @@ theme_pdf <- function(
     legend_relative = 1,
     ...
 ) {
+  rlang::check_installed("ggplot2")
+  rlang::check_installed("sysfonts")
+  rlang::check_installed("showtext")
+
   try(sysfonts::font_add_google(family), silent = TRUE)
   showtext::showtext_auto()
 

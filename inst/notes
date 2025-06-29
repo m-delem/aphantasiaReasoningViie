@@ -1,35 +1,6 @@
 
-I think I could create less data frames than in the previous DLC version. This
-one had:
-
-- df_zero: the central data frame with:
-  -> the clusters created with OSIVQ
-
-- df_osivq: df_zero reduced to one line per ID to perform clustering
-  -> this could be replaced by doing the clustering on filtered_survey_data
-
 - cluster_osivq_data & add_cluster_column: I need a more robust way of deciding
   which clustering to use and how to name the resulting clusters
   -> function to plot the clusters + describe again? Decide based on that
   -> function where I specify explicitly which names I want for clusters 1/2/3
      etc.
-
-- df_acc doesnt seem necessary, unless the additional columns are used for
-  plotting
-
-- df_rt adds the filtering of outlier RT trials
-  -> design a distribution plotting function too?
-
-- df_rt_long: need a function - get_longer_terms on filtered_expe_data
-
-- df_strats: simply factor_strategies on filtered_survey_data
-
-- df_strats_long: function get_longer_strats on filtered_survey_data
-
-- Better describe_sample function
-
-- When to add the factoring functions?
--> factor_groups
--> factor_categories
--> factor_strategies
--> add factor_clusters too?

@@ -18,12 +18,20 @@ Imports:
     sessioninfo (== 1.2.2),
     rlang,
     dplyr,
-    stringr
+    stringr,
+    tidyr
 Suggests: 
+    diceR,
+    emmeans,
     ggplot2,
+    glmmTMB,
     here,
+    mgcv,
     openxlsx,
+    ordinal,
     osfr,
+    parameters,
+    performance,
     readxl,
     showtext,
     sysfonts,

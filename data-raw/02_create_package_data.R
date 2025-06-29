@@ -1,9 +1,8 @@
 # Create the clean datasets from the raw OSF data (see import_osf_data.R)
 devtools::load_all()
 
-data_paths <- here::here("inst/extdata") |> fs::dir_ls(glob = "*.rda")
-load(data_paths[1]) # common_survey_data_full
-load(data_paths[2]) # expe_reasoning_viie_data
+load(here::here("inst/extdata/common_survey_data_full.rda"))
+load(here::here("inst/extdata/expe_reasoning_viie_data.rda"))
 
 survey_data <-
   dplyr::inner_join(
