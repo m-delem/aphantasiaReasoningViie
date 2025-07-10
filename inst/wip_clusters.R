@@ -1,28 +1,23 @@
 devtools::load_all()
 
-df_survey  <- get_clean_data(verbose = TRUE)$df_survey
+df_survey  <- get_clean_data(n_groups = 2)$df_survey
 
-clustering <- cluster_osivq(
-  df_survey,
-  algorithms = c("gmm", "pam", "cmeans"),
-  progress = FALSE,
-  verbose = FALSE
+# Clustering OSIVQ data
+clustering <- cluster_osivq(df_survey)
+
+# Checking cluster properties to define names for each cluster
+df_survey |>
+  add_named_clusters(clustering) |>
+  summarise_clustering()
+
+# Adding named clusters to the survey data
+df_survey <- add_named_clusters(
+  df_survey, clustering,
+  names  = c("verbaliser", "visualiser", "spatialiser"),
+  levels = c("visualiser", "spatialiser", "verbaliser"),
+  base = 1
 )
 
-clustering$clusters |>
-  as.data.frame() |>
-  dplyr::group_by(kmodes) |>
-  dplyr::count()
-
-df_survey |>
-  dplyr::mutate(cluster = clustering$clusters[, "kmodes"]) |>
-  dplyr::reframe(
-    .by = c("group", "cluster"),
-    n = dplyr::n(),
-    vviq = mean(vviq_total_score, na.rm = TRUE) |> round(2),
-    object  = mean(osivq_object, na.rm = TRUE) |> round(2),
-    spatial = mean(osivq_spatial, na.rm = TRUE) |> round(2),
-    verbal  = mean(osivq_verbal, na.rm = TRUE) |> round(2),
-    raven = mean(raven_score, na.rm = TRUE) |> round(2),
-  ) |>
-  dplyr::arrange(cluster)
+# Checks
+contrasts(df_survey$cluster)
+summarise_clustering(df_survey)
