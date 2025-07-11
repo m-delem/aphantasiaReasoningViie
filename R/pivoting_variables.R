@@ -36,7 +36,11 @@ pivot_strategies_longer <- function(df) {
   df_pivoted <-
     df |>
     factor_strategies(ordered = FALSE) |>
-    dplyr::select("id":"group", "visual_strat":"sensorimotor_strat") |>
+    dplyr::select(
+      "id":"group",
+      tidyselect::contains("cluster"),
+      "visual_strat":"sensorimotor_strat"
+    ) |>
     tidyr::pivot_longer(
       cols = "visual_strat":"sensorimotor_strat",
       names_to = "strategy",

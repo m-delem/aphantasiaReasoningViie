@@ -4,6 +4,7 @@ df_expe    <- get_clean_data(n_groups = 3)$df_expe
 df_rt      <- filter_trials_on_rt(df_expe)
 df_rt_long <- pivot_terms_longer(df_rt)
 
+# Accuracy ----------------------------
 m_acc_vviq <-
   glmmTMB::glmmTMB(
     data    = df_expe,
@@ -20,6 +21,7 @@ m_acc_vviq |> report_contrast(~ category | group) |> knitr::kable()
 m_acc_vviq |> report_contrast(~ category * group, interaction = TRUE) |>
   knitr::kable()
 
+# RT ---------------------------------
 m_rt_vviq <-
   glmmTMB::glmmTMB(
     data    = df_rt,
@@ -82,3 +84,17 @@ m_nl_vviq |>
     ),
   ) |>
   knitr::kable(digits = 3)
+
+# Strategies ---------------------------------------
+df_survey  <- get_clean_data(n_groups = 3)$df_survey
+df_strats_long <- pivot_strategies_longer(df_survey)
+
+m_strats_vviq <- fit_clm(score ~ group * strategy, df_strats_long)
+
+cat("\014")
+m_strats_vviq |> get_singularity()
+m_strats_vviq |> get_performance() |> knitr::kable(align = "c")
+m_strats_vviq |> report_contrast(~ group | strategy) |> knitr::kable()
+m_strats_vviq |> report_contrast(~ strategy | group) |> knitr::kable()
+m_strats_vviq |> report_contrast(~ group * strategy, interaction = TRUE) |>
+  knitr::kable()

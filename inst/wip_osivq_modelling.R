@@ -1,6 +1,6 @@
 devtools::load_all()
 
-# 1. Creating OSIVQ clusters ------------------------
+# Creating OSIVQ clusters ------------------------
 df_survey  <- get_clean_data()$df_survey
 # Clustering OSIVQ data
 clustering <- cluster_osivq(df_survey)
@@ -20,7 +20,7 @@ df_survey <- add_named_clusters(
 contrasts(df_survey$cluster)
 summarise_clustering(df_survey)
 
-# 2. Modelling the VIIE with OSIVQ clusters -------
+# Modelling the VIIE with OSIVQ clusters -------
 df_expe <-
   dplyr::left_join(
     get_clean_data(n_groups = 3)$df_expe,
@@ -112,3 +112,16 @@ m_nlm_nl_osivq_vviq |>
     ),
   ) |>
   knitr::kable(digits = 3)
+
+# Strategies ------------------------------------
+df_strats_long <- pivot_strategies_longer(df_survey)
+
+m_strats_osivq <- fit_clm(score ~ cluster * strategy, df_strats_long)
+
+cat("\014")
+m_strats_osivq |> get_singularity()
+m_strats_osivq |> get_performance() |> knitr::kable(align = "c")
+m_strats_osivq |> report_contrast(~ cluster | strategy) |> knitr::kable()
+m_strats_osivq |> report_contrast(~ strategy | cluster) |> knitr::kable()
+m_strats_osivq |> report_contrast(~ cluster * strategy, interaction = TRUE) |>
+  knitr::kable()
