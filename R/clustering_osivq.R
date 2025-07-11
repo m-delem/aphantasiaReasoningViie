@@ -50,7 +50,8 @@ cluster_osivq <- function(
 #' @param method A character string specifying the consensus clustering method
 #' to use. Must be "kmodes", "majority", or "CSPA". Default is "CSPA".
 #'
-#' @returns
+#' @returns A data frame with an additional column `cluster` that contains the
+#' named cluster assignments.
 #' @export
 add_named_clusters <- function(
     df,

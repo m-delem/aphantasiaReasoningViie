@@ -13,11 +13,19 @@ df_survey |>
 # Adding named clusters to the survey data
 df_survey <- add_named_clusters(
   df_survey, clustering,
-  names  = c("verbaliser", "visualiser", "spatialiser"),
-  levels = c("visualiser", "spatialiser", "verbaliser"),
+  names  = c("Verbaliser", "Visualiser", "Spatialiser"),
+  levels = c("Visualiser", "Spatialiser", "Verbaliser"),
+  contrasts = c("_visualiser", "_spatialiser", "_verbaliser"),
   base = 1
 )
 
 # Checks
 contrasts(df_survey$cluster)
 summarise_clustering(df_survey)
+
+# Plotting
+plot_osivq_ternary(
+  df_survey,
+  colours = palette.colors()[c(3, 2, 4)],
+  base_theme = ggplot2::theme_grey
+)
