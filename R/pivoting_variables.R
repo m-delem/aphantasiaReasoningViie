@@ -47,7 +47,30 @@ pivot_strategies_longer <- function(df) {
       values_to = "score"
     ) |>
     dplyr::filter(.data$score != 0) |>
-    dplyr::mutate(score = factor(.data$score, levels = 1:5))
+    dplyr::mutate(
+      score = factor(.data$score, levels = 1:5),
+      strategy = factor(
+        .data$strategy,
+        levels = c(
+          "visual_strat",
+          "spatial_strat",
+          "verbal_strat",
+          "semantic_strat",
+          "sensorimotor_strat"
+        ),
+        labels = c(
+          "Visual",
+          "Spatial",
+          "Verbal",
+          "Semantic",
+          "Sensorimotor"
+          )
+        ) |>
+        add_factor_contrasts(
+          n = c("_visual", "_spatial", "_verbal", "_semantic", "_sensorimotor"),
+          base = 1
+        )
+    )
 
   return(df_pivoted)
 }

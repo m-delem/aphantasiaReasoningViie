@@ -1,0 +1,302 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| label: cluster-composition
+#| fig-width: 5
+#| fig-height: 4
+#| eval: false
+
+plot_osivq_ternary(df_osivq, plot_it = TRUE) |> 
+  save_plot(
+    path     = "outputs/figures/osivq_composition.pdf", 
+    ncol     = 1, 
+    height   = 80,
+    verbose  = FALSE
+  )
+```
+
+```{r}
+#| label: accuracy-plots
+
+p1 <- 
+  df_acc |> 
+  plot_accuracy(
+    x_var       = Group, 
+    group_var   = Group, 
+    colour_var  = category,
+    title       = "VVIQ groups",
+    subtitle    = write_sample_info(df_acc, n_groups = 2, type = "groups"),
+    plot.margin = ggplot2::margin(1, 3, 1, 1, unit = "mm"),
+  )
+
+p2 <- 
+  df_acc |> 
+  plot_accuracy(
+    x_var       = cluster, 
+    group_var   = cluster, 
+    colour_var  = category, 
+    title       = "OSIVQ clusters",
+    subtitle    = write_sample_info(df_acc, n_groups = 2, type = "clusters"),
+    plot.margin  = ggplot2::margin(1, 1, 1, 3, unit = "mm"),
+    axis.title.y = ggplot2::element_blank(),
+  )
+
+p_acc <- 
+  p1 + p2 + 
+  patchwork::plot_layout(guides = "collect") &
+  ggplot2::theme(legend.position = "bottom")
+
+save_plot(
+  plot     = p_acc, 
+  path     = "outputs/figures/accuracy_plots.pdf", 
+  ncol     = 2, 
+  height   = 100,
+  print_it = TRUE, 
+  verbose  = TRUE
+)
+```
+
+```{r}
+p <- performance::check_model(m_rt_vviq, residual_type = "normal")
+```
+
+```{r}
+p1 <- 
+  df_rt |> 
+  factor_groups(n_groups = 2, title_case = TRUE) |> 
+  plot_rt_violins(
+    Group, 
+    version = "group_cat", 
+    title   = "RT per VVIQ group and category",
+    y_max   = 55,
+    plot.margin     = ggplot2::margin(r = 12),
+    plot.title      = ggplot2::element_text(size = 8, margin = margin(b = 10)),
+    axis.text.x     = ggplot2::element_text(size = 7),
+    legend.text     = ggplot2::element_text(size = 7),
+    legend.position = "top",
+    legend.text.position = "right",
+  ) +
+  ggplot2::scale_x_discrete(position = "top")
+
+p2 <-
+  df_rt_osivq |> 
+  plot_rt_violins(
+    cluster, 
+    version = "group_cat",
+    title   = "RT per OSIVQ cluster and category",
+    y_max   = 55,
+    plot.margin     = ggplot2::margin(l = 12),
+    plot.title      = ggplot2::element_text(size = 8, margin = margin(b = 10)),
+    axis.text.x     = ggplot2::element_text(size = 7),
+    legend.text     = ggplot2::element_text(size = 7),
+    legend.position = "top",
+    legend.text.position = "right",
+  ) +
+  ggplot2::scale_x_discrete(position = "top")
+
+p_rt <- p1 + p2 + plot_layout(axes = "collect_y")
+
+save_plot(
+  p_rt, 
+  glue::glue("{figures}/rt_plots.pdf"), 
+  ncol = 2, 
+  height = 100,
+  print_it = params$print_plots, 
+  verbose = TRUE
+)
+```
+
+```{r}
+p_checks <- 
+  plot_model_predictions(m_rt_tmb) + 
+  plot_model_predictions(m_rt_brms)
+
+save_plot(
+  p_checks, 
+  glue::glue("{figures}/models_pp_checks.pdf"), 
+  ncol     = 2, 
+  height   = 75,
+  print_it = params$print_plots,
+  verbose  = params$verbose
+  )
+```
+
+```{r}
+p_estimates <- 
+  plot_model_estimates(m_rt_tmb, Group, category) +
+  (plot_model_estimates(m_rt_brms, Group, category) + 
+     ggplot2::theme(plot.margin = ggplot2::margin(t = 14))) +
+  patchwork::plot_layout(guides = "collect")
+
+save_plot(
+  p_estimates, 
+  glue::glue("{figures}/models_rt_estimates.pdf"), 
+  ncol     = 2, 
+  height   = 80,
+  print_it = params$print_plots,
+  verbose  = params$verbose
+  )
+```
+
+```{r}
+p1 <- 
+  plot_strategies(
+    df_strats |> factor_groups(n_groups = 2, title_case = TRUE), 
+    group_var = Group,
+    title = "Strategies per VVIQ group",
+    type  = "reeder_line"
+  ) +
+  theme_phantasia(
+    plot.title  = ggplot2::element_text(
+      size = 8, margin = ggplot2::margin(b = 10)),
+    legend.text = ggplot2::element_text(size = 7),
+    axis.text.x = ggplot2::element_text(size = 7),
+    axis.text.y = ggplot2::element_text(size = 7),
+  )
+
+p2 <-
+  plot_strategies(
+    df_strats_osivq, 
+    group_var = cluster,
+    title = "Strategies per OSIVQ cluster",
+    type  = "reeder_line"
+  ) +
+  theme_phantasia(
+    plot.title  = ggplot2::element_text(
+      size = 8, margin = ggplot2::margin(b = 10)),
+    legend.text = ggplot2::element_text(size = 7),
+    axis.text.x = ggplot2::element_text(size = 7),
+    axis.text.y = ggplot2::element_text(size = 7),
+  )
+
+p <- 
+  p1 + p2 + 
+  patchwork::plot_layout(axes = "collect_y", guides = "collect") &
+  ggplot2::theme(legend.position = "top")
+
+save_plot(
+  p, 
+  glue::glue("{figures}/strats_lines.pdf"), 
+  ncol     = 2, 
+  height   = 85,
+  print_it = params$print_plots, 
+  verbose  = TRUE
+)
+```
+
+```{r}
+p1 <-
+  plot_strategies(
+    df_strats |> factor_groups(n_groups = 2, title_case = TRUE), 
+    group_var = Group,
+    title     = "Strategies per VVIQ group",
+    type      = "reeder_bar",
+    plot.title  = ggplot2::element_text(
+      size = 8, margin = ggplot2::margin(b = 10), hjust = 0.5),
+    strip.text  = ggplot2::element_text(size = 7),
+    axis.text.y = ggplot2::element_text(size = 7),
+    legend.text = ggplot2::element_text(size = 6),
+    legend.justification = "center",
+    plot.margin = ggplot2::margin(r = 12)
+  ) +
+  scale_x_discrete(position = "bottom")
+
+p2 <-
+  plot_strategies(
+    df_strats_osivq, 
+    group_var = cluster,
+    title     = "Strategies per OSIVQ cluster",
+    type      = "reeder_bar",
+    plot.title  = ggplot2::element_text(
+      size = 8, margin = ggplot2::margin(b = 10), hjust = 0.5),
+    strip.text  = ggplot2::element_text(size = 7),
+    axis.text.y = ggplot2::element_text(size = 7),
+    legend.text = ggplot2::element_text(size = 6),
+    legend.justification = "center",
+    plot.margin = ggplot2::margin(l = 12)
+  )
+
+p <-
+  p1 + p2 + 
+  patchwork::plot_layout(guides = "collect") &
+  ggplot2::theme(
+    legend.position = "bottom",
+    legend.text.position = "bottom"
+    )
+
+save_plot(
+  p, 
+  glue::glue("{figures}/strats_bars.pdf"), 
+  ncol = 2, 
+  height = 160,
+  print_it = params$print_plots, 
+  verbose = TRUE
+)
+```
+
+```{r}
+#| eval: false
+
+plot(m_nl_vviq)
+```
+
+```{r}
+#| eval: false
+
+library(ggplot2)
+
+m_nl_relations <- 
+  modelbased::estimate_relation(m_nl_vviq, by = c("Group_category", "Term"))
+
+df_effects <- 
+  tibble::tibble(
+    Group = c("Typical", "Aphantasia", "Typical"),
+    x_star = c(1.94, 3.06, 3.06),
+    y_star = c(6.4, 8.9, 8.9),
+    stars  = c("**", "*", "***"),
+    x_line = c(1.88, 3, 3),
+    x_line_end = c(2.0, 3.12, 3.12),
+    y_line = c(6.3, 8.8, 8.8)
+  )
+
+m_nl_relations |> 
+  as.data.frame() |>
+  dplyr::select(Group_category, Term, Predicted, CI_low, CI_high) |> 
+  tidyr::separate_wider_delim(
+    Group_category, 
+    delim = ".", 
+    names = c("Group", "category")
+  ) |> 
+  ggplot(
+    aes(
+      x = factor(Term), 
+      y = Predicted, 
+      color = category, 
+      group = category
+  )) +
+  geom_smooth(
+    position = position_dodge(width = 0.3),
+    se = FALSE,
+    linewidth = 0.3
+  ) +
+  geom_pointrange(
+    aes(ymin = CI_low, ymax = CI_high), 
+    position = position_dodge(width = 0.3)
+  ) +
+  add_significance(df_effects, 4, 0.4) +
+  facet_wrap(~ Group) +
+  labs(x = NULL, y = "Predicted RT", color = "Category") +
+  scale_x_discrete(
+    labels = c("Premise 1", "Premise 2", "Premise 3", "Conclusion")
+  ) +
+  scale_y_continuous(breaks = scales::breaks_pretty(15)) +
+  scale_discrete_phantasia() +
+  theme_phantasia(
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank()
+  )
+```

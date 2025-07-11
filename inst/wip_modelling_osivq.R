@@ -71,7 +71,7 @@ m_nl_osivq <-
     formula = rt ~
       cluster_category +
       s(term, by = cluster_category,    bs = "tp", k = 4) +
-      s(term, problem, by = cluster,    bs = "fs", m = 1, k = 4) +
+      # s(term, problem, by = cluster,    bs = "fs", m = 1, k = 4),
       s(term, id,      by = category, bs = "fs", m = 1, k = 4),
     family  = Gamma(link = "identity"),
     data    = df_rt_long,
@@ -80,7 +80,7 @@ m_nl_osivq <-
 
 cat("\014")
 m_nl_osivq |> get_singularity()
-m_nlm_nl_osivq_vviq |>
+m_nl_osivq |>
   get_contrast(
     ~ cluster_category | term,
     at = list(term = c(1, 2, 3, 4)),
