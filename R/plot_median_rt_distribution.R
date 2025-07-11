@@ -6,11 +6,13 @@
 #' for identifying suspicious median RTs. The default is 2, which means that
 #' median RTs that are more than 2 standard deviations away from the mean
 #' will be considered suspicious.
+#' @param ... Additional arguments passed to the [theme_pdf()] function for
+#' customizing the plot theme.
 #'
 #' @returns A ggplot2 object showing the distribution of median RTs across
 #' participants, with suspicious median RTs highlighted.
 #' @export
-plot_median_rt_distribution <- function(df, sd_mult = 2) {
+plot_median_rt_distribution <- function(df, sd_mult = 2, ...) {
   p <-
     df |>
     dplyr::group_by(id) |>
@@ -63,7 +65,7 @@ plot_median_rt_distribution <- function(df, sd_mult = 2) {
       y = "Count",
       title = "Distribution of median RT across participants"
     ) +
-    theme_pdf()
+    theme_pdf(...)
 
   return(p)
 }
