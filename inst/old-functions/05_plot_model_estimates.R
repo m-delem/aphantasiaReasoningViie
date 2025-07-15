@@ -4,9 +4,9 @@
 #' `lme4` package, a `glmmTMB` object from the `glmmTMB` package, or a
 #' `brmsfit` object from the `brms` package.
 #' @param var_1 Name of the variable to plot on the x-axis.
-#' @param var_2 Name of the variable to use as a grouping factor for the color 
+#' @param var_2 Name of the variable to use as a grouping factor for the color
 #' and fill aesthetics.
-#' @param print_it Logical. If `TRUE`, the plot will be printed. Default is 
+#' @param print_it Logical. If `TRUE`, the plot will be printed. Default is
 #' `FALSE`.
 #' @param ... Additional arguments to be passed to the `ggplot2::theme()`
 #' function.
@@ -14,7 +14,7 @@
 #' @returns A `ggplot` object representing the model-estimated means.
 #' @export
 plot_model_estimates <- function(
-    model, 
+    model,
     var_1 = NULL,
     var_2 = NULL,
     print_it = FALSE,
@@ -32,7 +32,7 @@ plot_model_estimates <- function(
   if (class(model) %in% c("lmerMod", "glmerMod")) {
     title <- "Frequentist GLMM (lme4 package)"
     y_title <- "Mean RT ± SE (s)"
-    
+
   } else if ((class(model) == "glmmTMB")) {
     title <- "Frequentist GLMM estimates (glmmTMB package)"
     y_title <- "Mean RT ± SE (s)"
@@ -50,7 +50,7 @@ plot_model_estimates <- function(
   } else {
     bye <- c(var_1_str, var_2_str)
   }
-  
+
   estimated_means <- custom_model_estimates(model, by = bye)
   if (!c("lower" %in% colnames(estimated_means))) {
     stop(glue::glue_col(
@@ -60,9 +60,9 @@ plot_model_estimates <- function(
       " plotted."
     ))
   }
-  
-  p <- 
-    estimated_means |> 
+
+  p <-
+    estimated_means |>
     ggplot2::ggplot(
       ggplot2::aes(
         x = {{ var_1 }},
@@ -81,19 +81,18 @@ plot_model_estimates <- function(
       y = y_title
     ) +
     ggplot2::scale_y_continuous(breaks = scales::breaks_pretty(n = 8)) +
-    see::scale_colour_okabeito(order = c(3, 1, 2, 4, 5, 6, 7, 8)) +
     ggplot2::labs(color = "Relations:", fill = "Relations:") +
     ggplot2::theme_minimal() +
     ggplot2::theme(
       legend.title = ggplot2::element_text(size = 7),
       legend.text  = ggplot2::element_text(size = 7),
       plot.title   = ggplot2::element_text(
-        size = 7, 
+        size = 7,
         margin = ggplot2::margin(b = 10)
       ),
       axis.title.x = ggplot2::element_blank(),
       axis.title.y = ggplot2::element_text(
-        size = 7, 
+        size = 7,
         margin = ggplot2::margin(r = 7)
       ),
       axis.text.x  = ggplot2::element_text(size = 7),
@@ -102,7 +101,7 @@ plot_model_estimates <- function(
       panel.grid.major.x = ggplot2::element_blank(),
     ) +
     ggplot2::theme(...)
-  
+
   if (print_it) print(p)
   return(p)
 }
