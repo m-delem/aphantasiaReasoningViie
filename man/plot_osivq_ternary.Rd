@@ -32,3 +32,12 @@ A ggplot object representing the OSIVQ scores in a ternary diagram.
 \description{
 Plot the OSIVQ scores of clusters in a ternary diagram
 }
+\examples{
+df <- get_clean_data()$df_survey
+
+# Clustering the sample based on OSIVQ scores
+clustering <- cluster_osivq(df)
+df <- add_named_clusters(df, clustering)
+
+plot_osivq_ternary(df, base_theme = ggplot2::theme_grey)
+}

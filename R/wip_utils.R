@@ -1,36 +1,80 @@
+#' Compute NIEQ scores by combining the frequency and proportion items of each
+#' subscale
+#'
+#' @param df A data frame containing the NIEQ data with columns for frequency
+#' and proportion of each subscale.
+#'
+#' @returns A data frame with new columns for NIEQ scores, calculated as the
+#' mean of the frequency and proportion items for each subscale.
+#' @export
+#'
+#' @examples
+#' df <- compute_nieq_scores(survey_data)
+#' df |>
+#'   dplyr::filter(nieq_is_complete == TRUE) |>
+#'   dplyr::select("id", tidyselect::contains("nieq_")) |>
+#'   head()
 compute_nieq_scores <- function(df) {
   df_scored <-
     df |>
     dplyr::mutate(
-      nieq_voice    = (nieq_freq_inner_voice + nieq_prop_inner_voice) / 2,
-      nieq_visual   = (nieq_freq_mental_imagery + nieq_prop_mental_imagery) / 2,
-      nieq_emotions = (nieq_freq_emotions + nieq_prop_emotions) / 2,
-      nieq_sensory  = (nieq_freq_sensory_focus + nieq_prop_sensory_focus) / 2,
-      nieq_abstract = (nieq_freq_unsymbolised + nieq_prop_unsymbolised) / 2
+      nieq_voice    =
+        (.data$nieq_freq_inner_voice + .data$nieq_prop_inner_voice) / 2,
+      nieq_visual   =
+        (.data$nieq_freq_mental_imagery + .data$nieq_prop_mental_imagery) / 2,
+      nieq_emotions =
+        (.data$nieq_freq_emotions + .data$nieq_prop_emotions) / 2,
+      nieq_sensory  =
+        (.data$nieq_freq_sensory_focus + .data$nieq_prop_sensory_focus) / 2,
+      nieq_abstract =
+        (.data$nieq_freq_unsymbolised + .data$nieq_prop_unsymbolised) / 2
     ) |>
     dplyr::relocate("nieq_voice":"nieq_abstract", .after = "nieq_is_complete")
   return(df_scored)
 }
 
+#' Helper function to quickly describe the cleaned survey data
+#'
+#' @param df A data frame containing the survey data columns related to the
+#' questionnaires. Note that the functions computes means for the combined
+#' NIEQ scores, so the data frame must have gone through
+#' [compute_nieq_scores()].
+#'
+#' @returns A data frame summarising the survey data grouped by VVIQ group,
+#' including sample size, gender distribution, mean scores for VVIQ, OSIVQ
+#' sub-scales, Raven matrices and NIEQ sub-scales, along with the number of
+#' participants who completed the NIEQ questionnaire (which was part of another
+#' online experiment, so completely optional).
+#' @export
+#'
+#' @examples
+#' # The filtering function removes participants with bad or incomplete data,
+#' # notably those who did not complete certain questionnaires.
+#' survey_data |>
+#'  filter_manually_identified_ids() |>
+#'  compute_nieq_scores() |>
+#'  describe_survey_data()
+#'
+#' @keywords internal
 describe_survey_data <- function(df) {
   df_summary <-
     df |>
-    dplyr::group_by(group) |>
+    dplyr::group_by(.data$group) |>
     dplyr::reframe(
       n = dplyr::n(),
-      female = sum(gender == "f"),
-      other  = sum(!(gender %in% c("m", "f"))),
-      vviq = mean(vviq_total_score, na.rm = TRUE) |> round(2),
-      object  = mean(osivq_object, na.rm = TRUE) |> round(2),
-      spatial = mean(osivq_spatial, na.rm = TRUE) |> round(2),
-      verbal  = mean(osivq_verbal, na.rm = TRUE) |> round(2),
-      raven = mean(raven_score, na.rm = TRUE) |> round(2),
-      nieq_completed = sum(nieq_is_complete == TRUE),
-      voice = mean(nieq_voice, na.rm = TRUE) |> round(2),
-      visual = mean(nieq_visual, na.rm = TRUE) |> round(2),
-      emotions = mean(nieq_emotions, na.rm = TRUE) |> round(2),
-      sensory = mean(nieq_sensory, na.rm = TRUE) |> round(2),
-      abstract = mean(nieq_abstract, na.rm = TRUE) |> round(2)
+      female = sum(.data$gender == "f"),
+      other  = sum(!(.data$gender %in% c("m", "f"))),
+      vviq   = mean(.data$vviq_total_score, na.rm = TRUE) |> round(2),
+      object   = mean(.data$osivq_object, na.rm = TRUE) |> round(2),
+      spatial  = mean(.data$osivq_spatial, na.rm = TRUE) |> round(2),
+      verbal   = mean(.data$osivq_verbal, na.rm = TRUE) |> round(2),
+      raven    = mean(.data$raven_score, na.rm = TRUE) |> round(2),
+      nieq_completed = sum(.data$nieq_is_complete == TRUE),
+      voice    = mean(.data$nieq_voice, na.rm = TRUE) |> round(2),
+      visual   = mean(.data$nieq_visual, na.rm = TRUE) |> round(2),
+      emotions = mean(.data$nieq_emotions, na.rm = TRUE) |> round(2),
+      sensory  = mean(.data$nieq_sensory, na.rm = TRUE) |> round(2),
+      abstract = mean(.data$nieq_abstract, na.rm = TRUE) |> round(2)
     )
   return(df_summary)
 }

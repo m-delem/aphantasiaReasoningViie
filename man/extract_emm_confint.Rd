@@ -16,3 +16,4 @@ A data frame with the confidence interval formatted as a string.
 \description{
 Extract and format the confidence interval of an emmeans object
 }
+\keyword{internal}

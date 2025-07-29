@@ -2,6 +2,15 @@
 "_PACKAGE"
 
 ## usethis namespace: start
+#' @importFrom grDevices palette.colors
+#' @importFrom rlang .data
+#' @importFrom rlang :=
+#' @importFrom stats confint
+#' @importFrom stats contr.treatment
+#' @importFrom stats contrasts<-
+#' @importFrom stats formula
+#' @importFrom stats median
+#' @importFrom stats sd
 ## usethis namespace: end
 NULL
 

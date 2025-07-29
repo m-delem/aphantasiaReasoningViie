@@ -8,7 +8,7 @@ plot_median_rt_distribution(df, sd_mult = 2, ...)
 }
 \arguments{
 \item{df}{A data frame containing participant responses with an \code{id} column
-and a \code{median_rt} per ID column.}
+and a \code{rt_total} for each trial.}
 
 \item{sd_mult}{A numeric value indicating how many standard deviations to use
 for identifying suspicious median RTs. The default is 2, which means that
@@ -24,4 +24,8 @@ participants, with suspicious median RTs highlighted.
 }
 \description{
 Plot the distribution of the median RT across participants
+}
+\examples{
+df <- get_clean_data(sd_mult = 10)$df_expe
+plot_median_rt_distribution(df)
 }

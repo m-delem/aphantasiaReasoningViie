@@ -13,7 +13,7 @@ df_survey |>
 # Adding named clusters to the survey data
 df_survey <- add_named_clusters(
   df_survey, clustering,
-  names  = c("Verbaliser", "Visualiser", "Spatialiser"),
+  names  = c("Spatialiser", "Visualiser", "Verbaliser"),
   levels = c("Visualiser", "Spatialiser", "Verbaliser"),
   contrasts = c("_visualiser", "_spatialiser", "_verbaliser"),
   base = 1

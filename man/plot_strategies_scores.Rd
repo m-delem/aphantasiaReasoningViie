@@ -4,7 +4,7 @@
 \alias{plot_strategies_scores}
 \title{Plot mean strategy scores for groups}
 \usage{
-plot_strategies_scores(df_long, grouping = group, x_labels = NULL, ...)
+plot_strategies_scores(df_long, grouping = "group", x_labels = NULL, ...)
 }
 \arguments{
 \item{df_long}{A data frame containing the strategies data in a long format
@@ -26,4 +26,11 @@ standard error of the mean.
 }
 \description{
 Plot mean strategy scores for groups
+}
+\examples{
+df_long <-
+  get_clean_data()$df_survey |>
+  pivot_strategies_longer()
+
+plot_strategies_scores(df_long, grouping = group)
 }

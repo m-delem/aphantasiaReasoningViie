@@ -9,7 +9,7 @@ filter_trials_on_rt(
   mult = 2,
   min_rt = 0.6,
   max_rt = 30,
-  verbose = TRUE,
+  verbose = FALSE,
   ...
 )
 }
@@ -38,4 +38,9 @@ removed based on the specified thresholds.
 }
 \description{
 Filter outlier trials based on mean response time per participant
+}
+\examples{
+df_rt <-
+  get_clean_data()$df_expe |>
+  filter_trials_on_rt()
 }

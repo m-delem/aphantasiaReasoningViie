@@ -8,7 +8,7 @@ filter_manually_identified_ids(
   df,
   exclude_no_vviq = TRUE,
   exclude_no_osivq = TRUE,
-  exclude_no_raven = FALSE,
+  exclude_no_raven = TRUE,
   exclude_cheated = TRUE,
   exclude_distracted = TRUE,
   exclude_treatment = FALSE,
@@ -58,4 +58,18 @@ criteria.
 }
 \description{
 Filter manually identified participant based on various criteria
+}
+\examples{
+df <- filter_manually_identified_ids(survey_data)
+
+# We might want to try being less strict and keeping people who did not
+# complete the OSIVQ or Raven, e.g. if we're only interested in the VVIQ
+df <-
+ filter_manually_identified_ids(
+  survey_data,
+  exclude_no_osivq = FALSE,
+  exclude_no_raven = FALSE
+ )
+# Alternatively we could study a sample without any psychiatric/neurological
+# troubles, etc.
 }

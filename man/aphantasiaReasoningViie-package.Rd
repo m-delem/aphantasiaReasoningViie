@@ -4,9 +4,19 @@
 \name{aphantasiaReasoningViie-package}
 \alias{aphantasiaReasoningViie}
 \alias{aphantasiaReasoningViie-package}
-\title{aphantasiaReasoningViie: Data Analysis for the EMC Lab.'s Study on Aphantasia and Reasoning}
+\title{aphantasiaReasoningViie: Data Analysis for "The Impact of Mental Images on Reasoning: A Study on Aphantasia"}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 This package contains all the code to reproduce the analyses associated with the 2025 online study on aphantasia and reasoning.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://m-delem.github.io/aphantasiaReasoningViie/}
+  \item \url{https://github.com/m-delem/aphantasiaReasoningViie}
+}
+
 }
 \author{
 \strong{Maintainer}: Maël Delem \email{mael.delem@pm.me} (\href{https://orcid.org/0009-0005-8518-1991}{ORCID})

@@ -19,3 +19,4 @@ A factor vector with treatment contrasts added.
 \description{
 Add treatment contrasts to a factor
 }
+\keyword{internal}

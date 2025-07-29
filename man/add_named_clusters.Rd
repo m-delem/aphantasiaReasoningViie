@@ -23,6 +23,19 @@ add_named_clusters(
 
 \item{method}{A character string specifying the consensus clustering method
 to use. Must be "kmodes", "majority", or "CSPA". Default is "CSPA".}
+
+\item{names}{A character vector of names for the clusters. Default is
+\code{c("cluster_1", "cluster_2", "cluster_3")}.}
+
+\item{levels}{A character vector of levels for the factor. Default is the
+same as \code{names}.}
+
+\item{contrasts}{A character vector of contrasts for the factor levels.}
+
+\item{base}{An integer indicating the base level for the contrasts. Default
+is 1, which corresponds to the first cluster in \code{names}.}
+
+\item{...}{Additional arguments passed to \code{\link[=add_factor_contrasts]{add_factor_contrasts()}}.}
 }
 \value{
 A data frame with an additional column \code{cluster} that contains the

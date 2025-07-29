@@ -8,6 +8,9 @@
 #' @param cons.funs A character vector of consensus functions to use. Default is
 #' `c("CSPA")`. See `?diceR::dice()` for more details.
 #' @param seed An integer seed for reproducibility. Default is 667.
+#' @param progress Logical value indicating whether to show a progress bar.
+#' @param verbose Logical value indicating whether to print detailed messages
+#' during the clustering process.
 #'
 #' @returns A list with the clustering results from [diceR::dice()].
 #' @export
@@ -25,7 +28,12 @@ cluster_osivq <- function(
 
   clustering <-
     diceR::dice(
-      dplyr::select(df, osivq_object, osivq_spatial, osivq_verbal),
+      dplyr::select(
+        df,
+        .data$osivq_object,
+        .data$osivq_spatial,
+        .data$osivq_verbal
+      ),
       nk     = 3,
       p.item = 1,
       algorithms = algorithms,
@@ -49,6 +57,14 @@ cluster_osivq <- function(
 #' @param clustering A clustering object obtained from [cluster_osivq()].
 #' @param method A character string specifying the consensus clustering method
 #' to use. Must be "kmodes", "majority", or "CSPA". Default is "CSPA".
+#' @param names A character vector of names for the clusters. Default is
+#' `c("cluster_1", "cluster_2", "cluster_3")`.
+#' @param levels A character vector of levels for the factor. Default is the
+#' same as `names`.
+#' @param contrasts A character vector of contrasts for the factor levels.
+#' @param base An integer indicating the base level for the contrasts. Default
+#' is 1, which corresponds to the first cluster in `names`.
+#' @param ... Additional arguments passed to [add_factor_contrasts()].
 #'
 #' @returns A data frame with an additional column `cluster` that contains the
 #' named cluster assignments.
@@ -68,15 +84,15 @@ add_named_clusters <- function(
     dplyr::mutate(
       cluster = clustering$clusters[, method],
       cluster = dplyr::case_when(
-        cluster == 1 ~ names[1],
-        cluster == 2 ~ names[2],
-        cluster == 3 ~ names[3],
+        .data$cluster == 1 ~ names[1],
+        .data$cluster == 2 ~ names[2],
+        .data$cluster == 3 ~ names[3],
         TRUE ~ NA
         ) |>
         factor(levels = levels) |>
         add_factor_contrasts(n = contrasts, base = base, ...)
     ) |>
-    dplyr::relocate(cluster, .after = "group")
+    dplyr::relocate(.data$cluster, .after = "group")
   return(df_with_cluster)
 }
 
@@ -95,13 +111,13 @@ summarise_clustering <- function(df) {
     dplyr::reframe(
       .by = c("group", "cluster"),
       n = dplyr::n(),
-      vviq    = mean(vviq_total_score, na.rm = TRUE) |> round(2),
-      object  = mean(osivq_object,  na.rm = TRUE) |> round(2),
-      spatial = mean(osivq_spatial, na.rm = TRUE) |> round(2),
-      verbal  = mean(osivq_verbal,  na.rm = TRUE) |> round(2),
-      raven   = mean(raven_score,   na.rm = TRUE) |> round(2),
+      vviq    = mean(.data$vviq_total_score, na.rm = TRUE) |> round(2),
+      object  = mean(.data$osivq_object,  na.rm = TRUE) |> round(2),
+      spatial = mean(.data$osivq_spatial, na.rm = TRUE) |> round(2),
+      verbal  = mean(.data$osivq_verbal,  na.rm = TRUE) |> round(2),
+      raven   = mean(.data$raven_score,   na.rm = TRUE) |> round(2),
     ) |>
-    dplyr::arrange(cluster)
+    dplyr::arrange(.data$cluster)
 
   return(df_summary)
 }

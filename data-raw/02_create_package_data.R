@@ -72,6 +72,7 @@ survey_data <-
     has_been_distracted = ifelse(
       id %in% c(
         "akao550473973998319bmig",
+        "akdu76317498757772sfnk",
         "bpbg819500163736444kpjq",
         "eba468419788916277jsum",
         "gxen13134778950801xhpe",
@@ -79,6 +80,7 @@ survey_data <-
         "jrvo66323815286541ules",
         "mcfh7605835623634kafe",
         "mdqm339933530726527rpkx",
+        "nkfr815145473958842kyxf",
         "uepg64719531843102bsfh",
         "zqqy76797125458479dgrr"
       ), TRUE, FALSE

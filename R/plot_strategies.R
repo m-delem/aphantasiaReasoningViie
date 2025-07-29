@@ -10,7 +10,14 @@
 #' @returns A ggplot2 object showing the proportions of strategy use for each
 #' group as a barplot, with strategies as facets.
 #' @export
-plot_strategies_barplot <- function(df_long, grouping = group, ...) {
+#'
+#' @examples
+#' df_long <-
+#'   get_clean_data()$df_survey |>
+#'   pivot_strategies_longer()
+#'
+#' plot_strategies_barplot(df_long, grouping = group)
+plot_strategies_barplot <- function(df_long, grouping = "group", ...) {
   df_plot <-
     df_long |>
     dplyr::mutate(
@@ -18,7 +25,7 @@ plot_strategies_barplot <- function(df_long, grouping = group, ...) {
         {{ grouping }},
         rev(levels(dplyr::pull(df_long, {{ grouping }})))
       ),
-      score = as.numeric(score)
+      score = as.numeric(.data$score)
     ) |>
     dplyr::select({{ grouping }}, "strategy", "score") |>
     dplyr::group_by({{ grouping }}, .data$strategy) |>
@@ -59,7 +66,7 @@ plot_strategies_barplot <- function(df_long, grouping = group, ...) {
       size = 1.5,
     ) +
     ggplot2::geom_text(
-      ggplot2::aes(label = label_white),
+      ggplot2::aes(label = .data$label_white),
       color = "white",
       position = ggplot2::position_fill(vjust = 0.5),
       size = 1.5,
@@ -109,9 +116,16 @@ plot_strategies_barplot <- function(df_long, grouping = group, ...) {
 #' with strategies as colors and filled points, and error bars representing
 #' standard error of the mean.
 #' @export
+#'
+#' @examples
+#' df_long <-
+#'   get_clean_data()$df_survey |>
+#'   pivot_strategies_longer()
+#'
+#' plot_strategies_scores(df_long, grouping = group)
 plot_strategies_scores <- function(
     df_long,
-    grouping = group,
+    grouping = "group",
     x_labels = NULL,
     ...
 ) {

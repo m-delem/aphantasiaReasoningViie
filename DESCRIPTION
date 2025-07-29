@@ -1,12 +1,12 @@
 Package: aphantasiaReasoningViie
-Title: Data Analysis for the EMC Lab.'s Study on Aphantasia and Reasoning
+Title: Data Analysis for "The Impact of Mental Images on Reasoning: A Study on Aphantasia"
 Version: 0.0.0.9000
 Authors@R: 
     person("Maël", "Delem", , "mael.delem@pm.me", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0005-8518-1991"))
 Description: This package contains all the code to reproduce the analyses 
     associated with the 2025 online study on aphantasia and reasoning.
-License: MIT + file LICENSE
+License: GPL (>= 3) + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
@@ -19,22 +19,35 @@ Imports:
     rlang,
     dplyr,
     stringr,
-    tidyr
+    tidyr,
+    forcats,
+    tidyselect,
+    grDevices,
+    stats
 Suggests: 
+    coda.plot,
+    cropcircles,
     diceR,
     emmeans,
+    ggpath,
     ggplot2,
     glmmTMB,
     here,
+    knitr,
     mgcv,
     openxlsx,
     ordinal,
     osfr,
     parameters,
+    patchwork,
     performance,
     readxl,
+    rmarkdown,
+    scales,
     showtext,
     sysfonts,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 LazyData: true
+VignetteBuilder: knitr
+URL: https://m-delem.github.io/aphantasiaReasoningViie/, https://github.com/m-delem/aphantasiaReasoningViie

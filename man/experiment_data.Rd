@@ -5,7 +5,7 @@
 \alias{experiment_data}
 \title{Reasoning experiment data}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3564 rows and 15 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3672 rows and 15 columns.
 }
 \source{
 Data collected through an online experiment
@@ -17,10 +17,10 @@ experiment_data
 This dataset contains the results of the main reasoning experiment. It
 contains the following columns:
 \itemize{
-\item An encrypted unique participant \code{id} (that also allow to join the data with
-the survey data)
+\item An encrypted unique participant \code{id} (that also allows to join the data
+with the survey data)
 \item \code{language} (the language the experiment was conducted in, FR or EN)
-\item \code{Group} (aphantasia, hypophantasia, typical, hyperphantasia or no_vviq)
+\item \code{group} (aphantasia, hypophantasia, typical, hyperphantasia or no_vviq)
 \item \code{expe_phase} (the phase of the experiment)
 \item \code{trial_number} (the presentation order of the problems)
 \item \code{problem} (the problem presented to the participant)

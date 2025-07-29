@@ -87,7 +87,7 @@ get_params <- function(model, ...) {
     dplyr::select(!c(
       tidyselect::contains("SE"),
       tidyselect::contains("df"),
-      tidyselect::contains("z"),
+      tidyselect::contains("z")
     ))
 }
 
@@ -120,14 +120,16 @@ get_contrast <- function(model, formula, at = NULL, ...) {
 #'
 #' @returns A data frame with the confidence interval formatted as a string.
 #' @export
+#'
+#' @keywords internal
 extract_emm_confint <- function(emm_object) {
   ci <-
     confint(emm_object) |>
     as.data.frame() |>
     dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~round(., 2))) |>
-    tidyr::unite("CI", asymp.LCL, asymp.UCL, sep = ", ") |>
-    dplyr::mutate(CI = paste0("[", CI, "]")) |>
-    dplyr::select(CI)
+    tidyr::unite("CI", .data$asymp.LCL, .data$asymp.UCL, sep = ", ") |>
+    dplyr::mutate(CI = paste0("[", .data$CI, "]")) |>
+    dplyr::select("CI")
   return(ci)
 }
 
@@ -165,7 +167,7 @@ report_contrast <- function(model, formula, ...) {
       ),
       `95% CI` = extract_emm_confint(emm_contrast)
     ) |>
-    dplyr::relocate(`95% CI`, .before = p.value) |>
+    dplyr::relocate(.data$`95% CI`, .before = "p.value") |>
     dplyr::rename(tidyselect::any_of(c(
       Contrast            = "contrast",
       Group               = "group",
@@ -176,7 +178,7 @@ report_contrast <- function(model, formula, ...) {
       `Cluster contrast`  = "cluster_pairwise",
       `Cluster`           = "cluster",
       `Odds ratio`        = "odds.ratio",
-      `RT difference`     = "estimate"
+      `Difference`        = "estimate"
     )))
 }
 

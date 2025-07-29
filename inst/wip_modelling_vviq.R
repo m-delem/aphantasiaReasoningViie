@@ -1,6 +1,6 @@
 devtools::load_all()
 
-df_expe    <- get_clean_data(n_groups = 3)$df_expe
+df_expe    <- get_clean_data(n_groups = 2)$df_expe
 df_rt      <- filter_trials_on_rt(df_expe)
 df_rt_long <- pivot_terms_longer(df_rt)
 
@@ -10,7 +10,7 @@ m_acc_vviq <-
     data    = df_expe,
     formula = build_formula("accuracy", "group"),
     family  = binomial(link = "logit"),
-    prior   = set_ranef_prior()
+    prior   = set_ranef_prior(70)
   )
 
 cat("\014")
@@ -27,7 +27,7 @@ m_rt_vviq <-
     data    = df_rt,
     formula = build_formula("rt_total", "group"),
     family  = Gamma(link = "identity"),
-    prior   = set_ranef_prior()
+    prior   = set_ranef_prior(70)
   )
 
 cat("\014")
@@ -56,11 +56,12 @@ m_nl_vviq |>
   get_contrast(
     ~ group_category | term,
     at = list(term = c(1, 2, 3, 4)),
-    interaction = TRUE
+    interaction = FALSE,
+    adjust = "none"
   ) |>
   as.data.frame() |>
   tidyr::separate_wider_delim(
-    group_category_pairwise, " - ", names = c("group_cat_1", "group_cat_2")
+    contrast, " - ", names = c("group_cat_1", "group_cat_2")
   ) |>
   tidyr::separate_wider_delim(
     group_cat_1, ".", names = c("group_1", "category_1")
@@ -77,16 +78,16 @@ m_nl_vviq |>
   dplyr::mutate(
     term = dplyr::case_match(
       term,
-      1 ~ "Premise 1",
-      2 ~ "Premise 2",
-      3 ~ "Premise 3",
-      4 ~ "Conclusion"
+      "1" ~ "Premise 1",
+      "2" ~ "Premise 2",
+      "3" ~ "Premise 3",
+      "4" ~ "Conclusion"
     ),
   ) |>
   knitr::kable(digits = 3)
 
 # Strategies ---------------------------------------
-df_survey  <- get_clean_data(n_groups = 3)$df_survey
+df_survey  <- get_clean_data(n_groups = 2)$df_survey
 df_strats_long <- pivot_strategies_longer(df_survey)
 
 m_strats_vviq <- fit_clm(score ~ group * strategy, df_strats_long)

@@ -58,10 +58,10 @@
 #'
 #' This dataset contains the results of the main reasoning experiment. It
 #' contains the following columns:
-#' - An encrypted unique participant `id` (that also allow to join the data with
-#'   the survey data)
+#' - An encrypted unique participant `id` (that also allows to join the data
+#'   with the survey data)
 #' - `language` (the language the experiment was conducted in, FR or EN)
-#' - `Group` (aphantasia, hypophantasia, typical, hyperphantasia or no_vviq)
+#' - `group` (aphantasia, hypophantasia, typical, hyperphantasia or no_vviq)
 #' - `expe_phase` (the phase of the experiment)
 #' - `trial_number` (the presentation order of the problems)
 #' - `problem` (the problem presented to the participant)

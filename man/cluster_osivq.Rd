@@ -25,6 +25,11 @@ details.}
 \code{c("CSPA")}. See \code{?diceR::dice()} for more details.}
 
 \item{seed}{An integer seed for reproducibility. Default is 667.}
+
+\item{progress}{Logical value indicating whether to show a progress bar.}
+
+\item{verbose}{Logical value indicating whether to print detailed messages
+during the clustering process.}
 }
 \value{
 A list with the clustering results from \code{\link[diceR:dice]{diceR::dice()}}.

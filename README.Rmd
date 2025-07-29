@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# aphantasiaReasoningViie
+# aphantasiaReasoningViie <a href="https://m-delem.github.io/aphantasiaReasoningViie/"><img src="man/figures/logo.png" align="right" height="139" alt="aphantasiaReasoningViie website" /></a>
 
 <!-- badges: start -->
 [<img alt="alt_text" src="https://img.shields.io/badge/OSF-https://osf.io/hfbcp/-337AB7?logo=osf"/>](https://osf.io/hfbcp/)

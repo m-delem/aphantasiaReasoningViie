@@ -11,6 +11,15 @@
 #'
 #' @returns A ggplot object representing the OSIVQ scores in a ternary diagram.
 #' @export
+#'
+#' @examples
+#' df <- get_clean_data()$df_survey
+#'
+#' # Clustering the sample based on OSIVQ scores
+#' clustering <- cluster_osivq(df)
+#' df <- add_named_clusters(df, clustering)
+#'
+#' plot_osivq_ternary(df, base_theme = ggplot2::theme_grey)
 plot_osivq_ternary <- function(
     df,
     dot_size = 1.5,
@@ -23,9 +32,9 @@ plot_osivq_ternary <- function(
   p <-
     df |>
     dplyr::select(
-      Object  = osivq_object,
-      Spatial = osivq_spatial,
-      Verbal  = osivq_verbal
+      Object  = .data$osivq_object,
+      Spatial = .data$osivq_spatial,
+      Verbal  = .data$osivq_verbal
     ) |>
     coda.plot::ternary_diagram(
       group  = df$cluster,

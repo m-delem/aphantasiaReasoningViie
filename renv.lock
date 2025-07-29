@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.5.1",
+    "Version": "4.5.0",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -27,12 +27,11 @@
       "License": "GPL (>= 2)",
       "Author": "Eduardo L. T. Conceicao [aut, cre], Martin Maechler [ctb] (<https://orcid.org/0000-0002-8685-9910>)",
       "Maintainer": "Eduardo L. T. Conceicao <mail@eduardoconceicao.org>",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Repository/R-Forge/Project": "robustbase",
       "Repository/R-Forge/Revision": "1008",
       "Repository/R-Forge/DateTimeStamp": "2024-11-23 19:13:45",
-      "NeedsCompilation": "no",
-      "Encoding": "UTF-8"
+      "NeedsCompilation": "no"
     },
     "KernSmooth": {
       "Package": "KernSmooth",
@@ -190,8 +189,7 @@
       "URL": "https://github.com/HenrikBengtsson/R.methodsS3",
       "BugReports": "https://github.com/HenrikBengtsson/R.methodsS3/issues",
       "NeedsCompilation": "no",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "R.oo": {
       "Package": "R.oo",
@@ -218,8 +216,7 @@
       "URL": "https://henrikbengtsson.github.io/R.oo/, https://github.com/HenrikBengtsson/R.oo",
       "BugReports": "https://github.com/HenrikBengtsson/R.oo/issues",
       "NeedsCompilation": "no",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "R.utils": {
       "Package": "R.utils",
@@ -249,8 +246,7 @@
       "URL": "https://henrikbengtsson.github.io/R.utils/, https://github.com/HenrikBengtsson/R.utils",
       "BugReports": "https://github.com/HenrikBengtsson/R.utils/issues",
       "NeedsCompilation": "no",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "R6": {
       "Package": "R6",
@@ -320,8 +316,7 @@
       "Description": "Performs aggregation of ordered lists based on the ranks using several different algorithms: Cross-Entropy Monte Carlo algorithm, Genetic algorithm, and a brute force algorithm (for small problems).",
       "License": "LGPL",
       "NeedsCompilation": "yes",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "Rcpp": {
       "Package": "Rcpp",
@@ -426,8 +421,7 @@
       "NeedsCompilation": "yes",
       "Author": "Doug Bates [aut] (<https://orcid.org/0000-0001-8316-9503>), Dirk Eddelbuettel [aut, cre] (<https://orcid.org/0000-0001-6419-907X>), Romain Francois [aut] (<https://orcid.org/0000-0002-2444-4226>), Yixuan Qiu [aut] (<https://orcid.org/0000-0003-0109-6692>), Authors of Eigen [cph] (Authorship and copyright in included Eigen library as detailed in inst/COPYRIGHTS)",
       "Maintainer": "Dirk Eddelbuettel <edd@debian.org>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "Rdpack": {
       "Package": "Rdpack",
@@ -461,8 +455,7 @@
       "NeedsCompilation": "no",
       "Author": "Georgi N. Boshnakov [aut, cre] (<https://orcid.org/0000-0003-2839-346X>), Duncan Murdoch [ctb]",
       "Maintainer": "Georgi N. Boshnakov <georgi.boshnakov@manchester.ac.uk>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "TMB": {
       "Package": "TMB",
@@ -499,8 +492,7 @@
       ],
       "RoxygenNote": "7.2.3",
       "NeedsCompilation": "yes",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "abind": {
       "Package": "abind",
@@ -521,8 +513,7 @@
       "License": "MIT + file LICENSE",
       "NeedsCompilation": "no",
       "Author": "Tony Plate [aut, cre], Richard Heiberger [aut]",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "askpass": {
       "Package": "askpass",
@@ -569,8 +560,29 @@
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [aut, cre]",
       "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
+    },
+    "backports": {
+      "Package": "backports",
+      "Version": "1.5.0",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Reimplementations of Functions Introduced Since R-3.0.0",
+      "Authors@R": "c( person(\"Michel\", \"Lang\", NULL, \"michellang@gmail.com\", role = c(\"cre\", \"aut\"), comment = c(ORCID = \"0000-0001-9754-0393\")), person(\"Duncan\", \"Murdoch\", NULL, \"murdoch.duncan@gmail.com\", role = c(\"aut\")), person(\"R Core Team\", role = \"aut\"))",
+      "Maintainer": "Michel Lang <michellang@gmail.com>",
+      "Description": "Functions introduced or changed since R v3.0.0 are re-implemented in this package. The backports are conditionally exported in order to let R resolve the function name to either the implemented backport, or the respective base version, if available. Package developers can make use of new functions or arguments by selectively importing specific backports to support older installations.",
+      "URL": "https://github.com/r-lib/backports",
+      "BugReports": "https://github.com/r-lib/backports/issues",
+      "License": "GPL-2 | GPL-3",
+      "NeedsCompilation": "yes",
+      "ByteCompile": "yes",
+      "Depends": [
+        "R (>= 3.0.0)"
+      ],
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.1",
+      "Author": "Michel Lang [cre, aut] (<https://orcid.org/0000-0001-9754-0393>), Duncan Murdoch [aut], R Core Team [aut]",
+      "Repository": "RSPM"
     },
     "base64enc": {
       "Package": "base64enc",
@@ -589,8 +601,7 @@
       "License": "GPL-2 | GPL-3",
       "URL": "http://www.rforge.net/base64enc",
       "NeedsCompilation": "yes",
-      "Repository": "CRAN",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "bayesm": {
       "Package": "bayesm",
@@ -624,12 +635,11 @@
       "Description": "Covers many important models used in marketing and micro-econometrics applications.  The package includes: Bayes Regression (univariate or multivariate dep var), Bayes Seemingly Unrelated Regression (SUR), Binary and Ordinal Probit, Multinomial Logit (MNL) and Multinomial Probit (MNP), Multivariate Probit, Negative Binomial (Poisson) Regression, Multivariate Mixtures of Normals (including clustering), Dirichlet Process Prior Density Estimation with normal base, Hierarchical Linear Models with normal prior and covariates, Hierarchical Linear Models with a mixture of normals prior and covariates, Hierarchical Multinomial Logits with a mixture of normals prior and covariates, Hierarchical Multinomial Logits with a Dirichlet Process prior and covariates, Hierarchical Negative Binomial Regression Models, Bayesian analysis of choice-based conjoint data, Bayesian treatment of linear instrumental variables models, Analysis of Multivariate Ordinal survey data with scale usage heterogeneity (as in Rossi et al, JASA (01)), Bayesian Analysis of Aggregate Random Coefficient Logit Models as in BLP (see Jiang, Manchanda, Rossi 2009) For further reference, consult our book, Bayesian Statistics and Marketing by Rossi, Allenby and McCulloch (Wiley first edition 2005 and second forthcoming) and Bayesian Non- and Semi-Parametric Methods and Applications (Princeton U Press 2014).",
       "RoxygenNote": "6.0.1",
       "NeedsCompilation": "yes",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "bayestestR": {
       "Package": "bayestestR",
-      "Version": "0.16.0",
+      "Version": "0.16.1",
       "Source": "Repository",
       "Type": "Package",
       "Title": "Understand and Describe Bayesian Models and Posterior Distributions",
@@ -640,8 +650,8 @@
         "R (>= 3.6)"
       ],
       "Imports": [
-        "insight (>= 1.3.0)",
-        "datawizard (>= 1.0.2)",
+        "insight (>= 1.3.1)",
+        "datawizard (>= 1.1.0)",
         "graphics",
         "methods",
         "stats",
@@ -704,7 +714,29 @@
       "Config/Needs/check": "stan-dev/cmdstanr",
       "NeedsCompilation": "no",
       "Author": "Dominique Makowski [aut, cre] (ORCID: <https://orcid.org/0000-0001-5375-9967>), Daniel Lüdecke [aut] (ORCID: <https://orcid.org/0000-0002-8895-3206>), Mattan S. Ben-Shachar [aut] (ORCID: <https://orcid.org/0000-0002-4287-4801>), Indrajeet Patil [aut] (ORCID: <https://orcid.org/0000-0003-1995-6531>), Micah K. Wilson [aut] (ORCID: <https://orcid.org/0000-0003-4143-7308>), Brenton M. Wiernik [aut] (ORCID: <https://orcid.org/0000-0001-9560-6336>), Paul-Christian Bürkner [rev], Tristan Mahr [rev] (ORCID: <https://orcid.org/0000-0002-8890-5116>), Henrik Singmann [ctb] (ORCID: <https://orcid.org/0000-0002-4842-3657>), Quentin F. Gronau [ctb] (ORCID: <https://orcid.org/0000-0001-5510-6943>), Sam Crawley [ctb] (ORCID: <https://orcid.org/0000-0002-7847-0411>)",
-      "Repository": "RSPM"
+      "Repository": "CRAN"
+    },
+    "beeswarm": {
+      "Package": "beeswarm",
+      "Version": "0.4.0",
+      "Source": "Repository",
+      "Title": "The Bee Swarm Plot, an Alternative to Stripchart",
+      "Description": "The bee swarm plot is a one-dimensional scatter plot like \"stripchart\", but with closely-packed, non-overlapping points.",
+      "Date": "2021-05-07",
+      "Authors@R": "c( person(\"Aron\", \"Eklund\", , \"aroneklund@gmail.com\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0003-0861-1001\")), person(\"James\", \"Trimble\", role = \"aut\", comment = c(ORCID = \"0000-0001-7282-8745\")) )",
+      "Imports": [
+        "stats",
+        "graphics",
+        "grDevices",
+        "utils"
+      ],
+      "NeedsCompilation": "yes",
+      "License": "Artistic-2.0",
+      "URL": "https://github.com/aroneklund/beeswarm",
+      "BugReports": "https://github.com/aroneklund/beeswarm/issues",
+      "Author": "Aron Eklund [aut, cre] (<https://orcid.org/0000-0003-0861-1001>), James Trimble [aut] (<https://orcid.org/0000-0001-7282-8745>)",
+      "Maintainer": "Aron Eklund <aroneklund@gmail.com>",
+      "Repository": "CRAN"
     },
     "bit": {
       "Package": "bit",
@@ -999,8 +1031,7 @@
       "License": "LGPL-3",
       "Collate": "clValid-Classes.R clValid-Methods.R clValid-internal.R clValid-functions.R",
       "NeedsCompilation": "no",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "class": {
       "Package": "class",
@@ -1321,8 +1352,7 @@
       "Maintainer": "Vince Carey <stvjc@channing.harvard.edu>",
       "Description": "routines for combinatorics",
       "License": "GPL-2",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "commonmark": {
       "Package": "commonmark",
@@ -1383,8 +1413,65 @@
       "VignetteBuilder": "knitr",
       "RoxygenNote": "7.1.1",
       "NeedsCompilation": "yes",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
+    },
+    "correlation": {
+      "Package": "correlation",
+      "Version": "0.8.8",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Methods for Correlation Analysis",
+      "Authors@R": "c(person(given = \"Dominique\", family = \"Makowski\", role = c(\"aut\", \"inv\"), email = \"dom.makowski@gmail.com\", comment = c(ORCID = \"0000-0001-5375-9967\")), person(given = \"Brenton M.\", family = \"Wiernik\", role = c(\"aut\", \"cre\"), email = \"brenton@wiernik.org\", comment = c(ORCID = \"0000-0001-9560-6336\")), person(given = \"Indrajeet\", family = \"Patil\", role = \"aut\", email = \"patilindrajeet.science@gmail.com\", comment = c(ORCID = \"0000-0003-1995-6531\")), person(given = \"Daniel\", family = \"Lüdecke\", role = \"aut\", email = \"d.luedecke@uke.de\", comment = c(ORCID = \"0000-0002-8895-3206\")), person(given = \"Mattan S.\", family = \"Ben-Shachar\", role = \"aut\", email = \"matanshm@post.bgu.ac.il\", comment = c(ORCID = \"0000-0002-4287-4801\")), person(given = \"Rémi\", family = \"Thériault\", role = c(\"aut\"), email = \"remi.theriault@mail.mcgill.ca\", comment = c(ORCID = \"0000-0003-4315-6788\")), person(given = \"Mark\", family = \"White\", email = \"markhwhiteii@gmail.com\", role = \"rev\"), person(given = \"Maximilian M.\", family = \"Rabe\", email = \"maximilian.rabe@uni-potsdam.de\", role = \"rev\", comment = c(ORCID = \"0000-0002-2556-5644\")))",
+      "Maintainer": "Brenton M. Wiernik <brenton@wiernik.org>",
+      "Description": "Lightweight package for computing different kinds of correlations, such as partial correlations, Bayesian correlations, multilevel correlations, polychoric correlations, biweight correlations, distance correlations and more. Part of the 'easystats' ecosystem. References: Makowski et al. (2020) <doi:10.21105/joss.02306>.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://easystats.github.io/correlation/",
+      "BugReports": "https://github.com/easystats/correlation/issues",
+      "Depends": [
+        "R (>= 4.1)"
+      ],
+      "Imports": [
+        "bayestestR (>= 0.16.0)",
+        "datasets",
+        "datawizard (>= 1.1.0)",
+        "insight (>= 1.3.1)",
+        "parameters (>= 0.26.0)",
+        "stats"
+      ],
+      "Suggests": [
+        "BayesFactor",
+        "energy",
+        "ggplot2",
+        "ggraph",
+        "gt",
+        "Hmisc",
+        "knitr",
+        "lme4",
+        "MASS",
+        "mbend",
+        "polycor",
+        "poorman",
+        "ppcor",
+        "psych",
+        "rmarkdown",
+        "rmcorr",
+        "rstanarm",
+        "see (>= 0.8.1)",
+        "testthat (>= 3.2.1)",
+        "tidygraph",
+        "wdm",
+        "WRS2",
+        "openxlsx2 (>= 1.0)"
+      ],
+      "VignetteBuilder": "knitr",
+      "Encoding": "UTF-8",
+      "Language": "en-US",
+      "RoxygenNote": "7.3.2",
+      "Config/testthat/edition": "3",
+      "Config/Needs/website": "rstudio/bslib, r-lib/pkgdown, easystats/easystatstemplate",
+      "NeedsCompilation": "no",
+      "Author": "Dominique Makowski [aut, inv] (ORCID: <https://orcid.org/0000-0001-5375-9967>), Brenton M. Wiernik [aut, cre] (ORCID: <https://orcid.org/0000-0001-9560-6336>), Indrajeet Patil [aut] (ORCID: <https://orcid.org/0000-0003-1995-6531>), Daniel Lüdecke [aut] (ORCID: <https://orcid.org/0000-0002-8895-3206>), Mattan S. Ben-Shachar [aut] (ORCID: <https://orcid.org/0000-0002-4287-4801>), Rémi Thériault [aut] (ORCID: <https://orcid.org/0000-0003-4315-6788>), Mark White [rev], Maximilian M. Rabe [rev] (ORCID: <https://orcid.org/0000-0002-2556-5644>)",
+      "Repository": "CRAN"
     },
     "cpp11": {
       "Package": "cpp11",
@@ -1495,6 +1582,32 @@
       "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>)",
       "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
       "Repository": "CRAN"
+    },
+    "cropcircles": {
+      "Package": "cropcircles",
+      "Version": "0.2.4",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Crops an Image to a Circle",
+      "Authors@R": "person( given = \"Daniel\", family = \"Oehm\", role = c(\"aut\", \"cre\"), email = \"danieloehm@gmail.com\" )",
+      "URL": "https://github.com/doehm/cropcircles",
+      "BugReports": "https://github.com/doehm/cropcircles/issues",
+      "Description": "Images are cropped to a circle with a transparent background. The function takes a vector of images, either local or from a link, and circle crops the image. Paths to the cropped image are returned for plotting with 'ggplot2'. Also includes cropping to a hexagon, heart, parallelogram, and square.",
+      "Depends": [
+        "R (>= 3.5.0)"
+      ],
+      "Imports": [
+        "glue",
+        "magick",
+        "purrr"
+      ],
+      "License": "MIT + file LICENSE",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.2.3",
+      "NeedsCompilation": "no",
+      "Author": "Daniel Oehm [aut, cre]",
+      "Maintainer": "Daniel Oehm <danieloehm@gmail.com>",
+      "Repository": "RSPM"
     },
     "crul": {
       "Package": "crul",
@@ -2015,8 +2128,65 @@
       "NeedsCompilation": "yes",
       "Author": "David Meyer [aut, cre] (<https://orcid.org/0000-0002-5196-3048>), Evgenia Dimitriadou [aut, cph], Kurt Hornik [aut] (<https://orcid.org/0000-0003-4198-9911>), Andreas Weingessel [aut], Friedrich Leisch [aut], Chih-Chung Chang [ctb, cph] (libsvm C++-code), Chih-Chen Lin [ctb, cph] (libsvm C++-code)",
       "Maintainer": "David Meyer <David.Meyer@R-project.org>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
+    },
+    "effectsize": {
+      "Package": "effectsize",
+      "Version": "1.0.1",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Indices of Effect Size",
+      "Authors@R": "c(person(given = \"Mattan S.\", family = \"Ben-Shachar\", role = c(\"aut\", \"cre\"), email = \"mattansb@msbstats.info\", comment = c(ORCID = \"0000-0002-4287-4801\")), person(given = \"Dominique\", family = \"Makowski\", role = \"aut\", email = \"dom.makowski@gmail.com\", comment = c(ORCID = \"0000-0001-5375-9967\")), person(given = \"Daniel\", family = \"Lüdecke\", role = \"aut\", email = \"d.luedecke@uke.de\", comment = c(ORCID = \"0000-0002-8895-3206\")), person(given = \"Indrajeet\", family = \"Patil\", role = \"aut\", email = \"patilindrajeet.science@gmail.com\", comment = c(ORCID = \"0000-0003-1995-6531\")), person(given = \"Brenton M.\", family = \"Wiernik\", role = \"aut\", email = \"brenton@wiernik.org\", comment = c(ORCID = \"0000-0001-9560-6336\")), person(given = \"Rémi\", family = \"Thériault\", role = \"aut\", email = \"remi.theriault@mail.mcgill.ca\", comment = c(ORCID = \"0000-0003-4315-6788\")), person(given = \"Ken\", family = \"Kelley\", role = \"ctb\"), person(given = \"David\", family = \"Stanley\", role = \"ctb\"), person(given = \"Aaron\", family = \"Caldwell\", role = \"ctb\", email = \"arcaldwell49@gmail.com\", comment = c(ORCID = \"0000-0002-4541-6283\")), person(given = \"Jessica\", family = \"Burnett\", role = \"rev\", email = \"jburnett@usgs.gov\", comment = c(ORCID = \"0000-0002-0896-5099\")), person(given = \"Johannes\", family = \"Karreth\", role = \"rev\", email = \"jkarreth@ursinus.edu\", comment = c(ORCID = \"0000-0003-4586-7153\")), person(given = \"Philip\", family = \"Waggoner\", role = c(\"aut\", \"ctb\"), email = \"philip.waggoner@gmail.com\", comment = c(ORCID = \"0000-0002-7825-7573\")))",
+      "Maintainer": "Mattan S. Ben-Shachar <mattansb@msbstats.info>",
+      "Description": "Provide utilities to work with indices of effect size for a wide variety of models and hypothesis tests (see list of supported models using the function 'insight::supported_models()'), allowing computation of and conversion between indices such as Cohen's d, r, odds, etc. References: Ben-Shachar et al. (2020) <doi:10.21105/joss.02815>.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://easystats.github.io/effectsize/",
+      "BugReports": "https://github.com/easystats/effectsize/issues/",
+      "Depends": [
+        "R (>= 4.0)"
+      ],
+      "Imports": [
+        "bayestestR (>= 0.16.0)",
+        "insight (>= 1.3.0)",
+        "parameters (>= 0.26.0)",
+        "performance (>= 0.14.0)",
+        "datawizard (>= 1.1.0)",
+        "stats",
+        "utils"
+      ],
+      "Suggests": [
+        "correlation (>= 0.8.7)",
+        "see (>= 0.11.0)",
+        "afex",
+        "BayesFactor",
+        "boot",
+        "brms",
+        "car",
+        "emmeans",
+        "gt",
+        "knitr",
+        "lavaan",
+        "lme4",
+        "lmerTest",
+        "mgcv",
+        "parsnip",
+        "pwr",
+        "rmarkdown",
+        "rms",
+        "rstanarm",
+        "rstantools",
+        "testthat (>= 3.1.0)"
+      ],
+      "VignetteBuilder": "knitr",
+      "Encoding": "UTF-8",
+      "Language": "en-US",
+      "RoxygenNote": "7.3.2",
+      "Config/testthat/edition": "3",
+      "Config/testthat/parallel": "true",
+      "Config/Needs/website": "rstudio/bslib, r-lib/pkgdown, easystats/easystatstemplate",
+      "NeedsCompilation": "no",
+      "Author": "Mattan S. Ben-Shachar [aut, cre] (ORCID: <https://orcid.org/0000-0002-4287-4801>), Dominique Makowski [aut] (ORCID: <https://orcid.org/0000-0001-5375-9967>), Daniel Lüdecke [aut] (ORCID: <https://orcid.org/0000-0002-8895-3206>), Indrajeet Patil [aut] (ORCID: <https://orcid.org/0000-0003-1995-6531>), Brenton M. Wiernik [aut] (ORCID: <https://orcid.org/0000-0001-9560-6336>), Rémi Thériault [aut] (ORCID: <https://orcid.org/0000-0003-4315-6788>), Ken Kelley [ctb], David Stanley [ctb], Aaron Caldwell [ctb] (ORCID: <https://orcid.org/0000-0002-4541-6283>), Jessica Burnett [rev] (ORCID: <https://orcid.org/0000-0002-0896-5099>), Johannes Karreth [rev] (ORCID: <https://orcid.org/0000-0003-4586-7153>), Philip Waggoner [aut, ctb] (ORCID: <https://orcid.org/0000-0002-7825-7573>)",
+      "Repository": "CRAN"
     },
     "ellipsis": {
       "Package": "ellipsis",
@@ -2150,8 +2320,7 @@
       "NeedsCompilation": "no",
       "Author": "Russell Lenth [aut, cre, cph]",
       "Maintainer": "Russell Lenth <russell-lenth@uiowa.edu>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "evaluate": {
       "Package": "evaluate",
@@ -2448,6 +2617,75 @@
       "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>), Jennifer Bryan [ctb] (<https://orcid.org/0000-0002-6983-2759>)",
       "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
       "Repository": "CRAN"
+    },
+    "ggbeeswarm": {
+      "Package": "ggbeeswarm",
+      "Version": "0.7.2",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Categorical Scatter (Violin Point) Plots",
+      "Date": "2023-04-28",
+      "Authors@R": "c( person(given=\"Erik\", family=\"Clarke\", role=c(\"aut\", \"cre\"), email=\"erikclarke@gmail.com\"), person(given=\"Scott\", family=\"Sherrill-Mix\", role=c(\"aut\"), email=\"sherrillmix@gmail.com\"), person(given=\"Charlotte\", family=\"Dawson\", role=c(\"aut\"), email=\"csdaw@outlook.com\"))",
+      "Description": "Provides two methods of plotting categorical scatter plots such that the arrangement of points within a category reflects the density of data at that region, and avoids over-plotting.",
+      "URL": "https://github.com/eclarke/ggbeeswarm",
+      "BugReports": "https://github.com/eclarke/ggbeeswarm/issues",
+      "Encoding": "UTF-8",
+      "License": "GPL (>= 3)",
+      "Depends": [
+        "R (>= 3.5.0)",
+        "ggplot2 (>= 3.3.0)"
+      ],
+      "Imports": [
+        "beeswarm",
+        "lifecycle",
+        "vipor",
+        "cli"
+      ],
+      "Suggests": [
+        "gridExtra"
+      ],
+      "RoxygenNote": "7.2.2",
+      "NeedsCompilation": "no",
+      "Author": "Erik Clarke [aut, cre], Scott Sherrill-Mix [aut], Charlotte Dawson [aut]",
+      "Maintainer": "Erik Clarke <erikclarke@gmail.com>",
+      "Repository": "CRAN"
+    },
+    "ggpath": {
+      "Package": "ggpath",
+      "Version": "1.0.2",
+      "Source": "Repository",
+      "Title": "Robust Image Rendering Support for 'ggplot2'",
+      "Authors@R": "person(\"Sebastian\", \"Carl\", , \"mrcaseb@gmail.com\", role = c(\"aut\", \"cre\", \"cph\"))",
+      "Description": "A 'ggplot2' extension that enables robust image grobs in panels and theme elements.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://github.com/mrcaseb/ggpath, https://mrcaseb.github.io/ggpath/",
+      "BugReports": "https://github.com/mrcaseb/ggpath/issues",
+      "Depends": [
+        "R (>= 3.5.0)"
+      ],
+      "Imports": [
+        "backports (>= 1.1.6)",
+        "cachem (>= 1.0.0)",
+        "cli (>= 3.0.0)",
+        "ggplot2 (>= 3.3.0)",
+        "grid",
+        "magick (>= 2.7.3)",
+        "memoise (>= 2.0.0)",
+        "rlang (>= 0.4.11)"
+      ],
+      "Suggests": [
+        "covr (>= 3.5.1)",
+        "rsvg (>= 2.0)",
+        "testthat (>= 3.0.0)",
+        "vdiffr (>= 1.0.2)"
+      ],
+      "Config/testthat/edition": "3",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.2",
+      "NeedsCompilation": "no",
+      "Author": "Sebastian Carl [aut, cre, cph]",
+      "Maintainer": "Sebastian Carl <mrcaseb@gmail.com>",
+      "Repository": "RSPM"
     },
     "ggplot2": {
       "Package": "ggplot2",
@@ -2781,8 +3019,7 @@
       "NeedsCompilation": "no",
       "Author": "Baptiste Auguie [aut, cre], Anton Antonov [ctb]",
       "Maintainer": "Baptiste Auguie <baptiste.auguie@gmail.com>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "gtable": {
       "Package": "gtable",
@@ -3021,8 +3258,7 @@
       "URL": "https://github.com/edzer/hexbin",
       "Author": "Dan Carr [aut], Nicholas Lewin-Koh [aut], Martin Maechler [aut], Deepayan Sarkar [aut], Edzer Pebesma [cre] (<https://orcid.org/0000-0001-8049-7069>)",
       "Maintainer": "Edzer Pebesma <edzer.pebesma@uni-muenster.de>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "highr": {
       "Package": "highr",
@@ -3336,9 +3572,8 @@
       "Maintainer": "Patrick E. Meyer <software@meyerp.com>",
       "License": "GPL (>= 3)",
       "URL": "http://homepage.meyerp.com/software",
-      "Repository": "RSPM",
-      "NeedsCompilation": "yes",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN",
+      "NeedsCompilation": "yes"
     },
     "ini": {
       "Package": "ini",
@@ -3359,12 +3594,11 @@
         "testthat"
       ],
       "NeedsCompilation": "no",
-      "Repository": "CRAN",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "insight": {
       "Package": "insight",
-      "Version": "1.3.0",
+      "Version": "1.3.1",
       "Source": "Repository",
       "Type": "Package",
       "Title": "Easy Access to Model Information for Various Model Objects",
@@ -3495,6 +3729,7 @@
         "rstudioapi",
         "RWiener",
         "sandwich",
+        "sdmTMB",
         "serp",
         "speedglm",
         "splines",
@@ -3522,7 +3757,7 @@
       "Config/Needs/check": "stan-dev/cmdstanr",
       "NeedsCompilation": "no",
       "Author": "Daniel Lüdecke [aut, cre] (ORCID: <https://orcid.org/0000-0002-8895-3206>), Dominique Makowski [aut, ctb] (ORCID: <https://orcid.org/0000-0001-5375-9967>), Indrajeet Patil [aut, ctb] (ORCID: <https://orcid.org/0000-0003-1995-6531>), Philip Waggoner [aut, ctb] (ORCID: <https://orcid.org/0000-0002-7825-7573>), Mattan S. Ben-Shachar [aut, ctb] (ORCID: <https://orcid.org/0000-0002-4287-4801>), Brenton M. Wiernik [aut, ctb] (ORCID: <https://orcid.org/0000-0001-9560-6336>), Vincent Arel-Bundock [aut, ctb] (ORCID: <https://orcid.org/0000-0003-2042-7063>), Etienne Bacher [aut, ctb] (ORCID: <https://orcid.org/0000-0002-9271-5075>), Alex Hayes [rev] (ORCID: <https://orcid.org/0000-0002-4985-5160>), Grant McDermott [ctb] (ORCID: <https://orcid.org/0000-0001-7883-8573>), Rémi Thériault [ctb] (ORCID: <https://orcid.org/0000-0003-4315-6788>), Alex Reinhart [ctb] (ORCID: <https://orcid.org/0000-0002-6658-514X>)",
-      "Repository": "RSPM"
+      "Repository": "CRAN"
     },
     "isoband": {
       "Package": "isoband",
@@ -3649,8 +3884,7 @@
       "License": "GPL-2 | GPL-3",
       "URL": "https://statistik.tu-dortmund.de",
       "NeedsCompilation": "no",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "knitr": {
       "Package": "knitr",
@@ -3893,7 +4127,8 @@
       "NeedsCompilation": "yes",
       "Author": "Deepayan Sarkar [aut, cre] (<https://orcid.org/0000-0003-4107-1553>), Felix Andrews [ctb], Kevin Wright [ctb] (documentation), Neil Klepeis [ctb], Johan Larsson [ctb] (miscellaneous improvements), Zhijian (Jason) Wen [cph] (filled contour code), Paul Murrell [ctb], Stefan Eng [ctb] (violin plot improvements), Achim Zeileis [ctb] (modern colors), Alexandre Courtiol [ctb] (generics for larrows, lpolygon, lrect and lsegments)",
       "Maintainer": "Deepayan Sarkar <deepayan.sarkar@r-project.org>",
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "lifecycle": {
       "Package": "lifecycle",
@@ -3998,6 +4233,54 @@
       "NeedsCompilation": "yes",
       "Author": "Douglas Bates [aut] (<https://orcid.org/0000-0001-8316-9503>), Martin Maechler [aut] (<https://orcid.org/0000-0002-8685-9910>), Ben Bolker [aut, cre] (<https://orcid.org/0000-0002-2127-0443>), Steven Walker [aut] (<https://orcid.org/0000-0002-4394-9078>), Rune Haubo Bojesen Christensen [ctb] (<https://orcid.org/0000-0002-4494-3399>), Henrik Singmann [ctb] (<https://orcid.org/0000-0002-4842-3657>), Bin Dai [ctb], Fabian Scheipl [ctb] (<https://orcid.org/0000-0001-8172-3603>), Gabor Grothendieck [ctb], Peter Green [ctb] (<https://orcid.org/0000-0002-0238-9852>), John Fox [ctb], Alexander Bauer [ctb], Pavel N. Krivitsky [ctb, cph] (<https://orcid.org/0000-0002-9101-3362>, shared copyright on simulate.formula), Emi Tanaka [ctb] (<https://orcid.org/0000-0002-1455-259X>), Mikael Jagan [ctb] (<https://orcid.org/0000-0002-3542-2938>), Ross D. Boylan [ctb] (<https://orcid.org/0009-0003-4123-8090>)",
       "Maintainer": "Ben Bolker <bbolker+lme4@gmail.com>",
+      "Repository": "RSPM"
+    },
+    "magick": {
+      "Package": "magick",
+      "Version": "2.8.7",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Advanced Graphics and Image-Processing in R",
+      "Authors@R": "person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), email = \"jeroenooms@gmail.com\", comment = c(ORCID = \"0000-0002-4035-0289\"))",
+      "Description": "Bindings to 'ImageMagick': the most comprehensive open-source image processing library available. Supports many common formats (png, jpeg, tiff, pdf, etc) and manipulations (rotate, scale, crop, trim, flip, blur, etc). All operations are vectorized via the Magick++ STL meaning they operate either on a single frame or a series of frames for working with layers, collages, or animation. In RStudio images are automatically previewed when printed to the console, resulting in an interactive editing environment. The latest  version of the package includes a native graphics device for creating  in-memory graphics or drawing onto images using pixel coordinates.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://docs.ropensci.org/magick/ https://ropensci.r-universe.dev/magick",
+      "BugReports": "https://github.com/ropensci/magick/issues",
+      "SystemRequirements": "ImageMagick++: ImageMagick-c++-devel (rpm) or libmagick++-dev (deb)",
+      "VignetteBuilder": "knitr",
+      "Depends": [
+        "R (>= 4.1.0)"
+      ],
+      "Imports": [
+        "Rcpp (>= 0.12.12)",
+        "magrittr",
+        "curl"
+      ],
+      "LinkingTo": [
+        "Rcpp"
+      ],
+      "Suggests": [
+        "av (>= 0.3)",
+        "spelling",
+        "jsonlite",
+        "methods",
+        "knitr",
+        "rmarkdown",
+        "rsvg",
+        "webp",
+        "pdftools",
+        "ggplot2",
+        "gapminder",
+        "IRdisplay",
+        "tesseract (>= 2.0)",
+        "gifski"
+      ],
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.2",
+      "Language": "en-US",
+      "NeedsCompilation": "yes",
+      "Author": "Jeroen Ooms [aut, cre] (ORCID: <https://orcid.org/0000-0002-4035-0289>)",
+      "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
       "Repository": "RSPM"
     },
     "magrittr": {
@@ -4192,9 +4475,100 @@
       ],
       "SystemRequirements": "GNU make",
       "NeedsCompilation": "yes",
-      "Repository": "RSPM",
-      "Author": "Douglas Bates [aut], Katharine M. Mullen [aut, cre], John C. Nash [aut], Ravi Varadhan [aut]",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN",
+      "Author": "Douglas Bates [aut], Katharine M. Mullen [aut, cre], John C. Nash [aut], Ravi Varadhan [aut]"
+    },
+    "modelbased": {
+      "Package": "modelbased",
+      "Version": "0.12.0",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Estimation of Model-Based Predictions, Contrasts and Means",
+      "Authors@R": "c(person(given = \"Dominique\", family = \"Makowski\", role = c(\"aut\", \"cre\"), email = \"officialeasystats@gmail.com\", comment = c(ORCID = \"0000-0001-5375-9967\")), person(given = \"Daniel\", family = \"Lüdecke\", role = \"aut\", email = \"d.luedecke@uke.de\", comment = c(ORCID = \"0000-0002-8895-3206\")), person(given = \"Mattan S.\", family = \"Ben-Shachar\", role = \"aut\", email = \"matanshm@post.bgu.ac.il\", comment = c(ORCID = \"0000-0002-4287-4801\")), person(given = \"Indrajeet\", family = \"Patil\", role = \"aut\", email = \"patilindrajeet.science@gmail.com\", comment = c(ORCID = \"0000-0003-1995-6531\")), person(given = \"Rémi\", family = \"Thériault\", role = \"aut\", email = \"remi.theriault@mail.mcgill.ca\", comment = c(ORCID = \"0000-0003-4315-6788\")))",
+      "Maintainer": "Dominique Makowski <officialeasystats@gmail.com>",
+      "Description": "Implements a general interface for model-based estimations for a wide variety of models, used in the computation of marginal means, contrast analysis and predictions. For a list of supported models, see 'insight::supported_models()'.",
+      "License": "GPL-3",
+      "URL": "https://easystats.github.io/modelbased/",
+      "BugReports": "https://github.com/easystats/modelbased/issues",
+      "Depends": [
+        "R (>= 3.6)"
+      ],
+      "Imports": [
+        "bayestestR (>= 0.16.1)",
+        "datawizard (>= 1.1.0)",
+        "insight (>= 1.3.1)",
+        "parameters (>= 0.27.0)",
+        "graphics",
+        "stats",
+        "tools",
+        "utils"
+      ],
+      "Suggests": [
+        "afex",
+        "BH",
+        "betareg",
+        "boot",
+        "bootES",
+        "brglm2",
+        "brms",
+        "coda",
+        "collapse",
+        "correlation",
+        "curl",
+        "discovr",
+        "easystats",
+        "effectsize (>= 1.0.0)",
+        "emmeans (>= 1.10.2)",
+        "Formula",
+        "gamm4",
+        "gganimate",
+        "ggplot2",
+        "glmmTMB",
+        "httr2",
+        "knitr",
+        "lme4",
+        "lmerTest",
+        "logspline",
+        "MASS",
+        "Matrix",
+        "marginaleffects (>= 0.26.0)",
+        "mice",
+        "mgcv",
+        "mvtnorm",
+        "nanoparquet",
+        "nnet",
+        "ordinal",
+        "palmerpenguins",
+        "performance (>= 0.14.0)",
+        "patchwork",
+        "pbkrtest",
+        "poorman",
+        "pscl",
+        "RcppEigen",
+        "report",
+        "rmarkdown",
+        "rstanarm",
+        "rtdists",
+        "RWiener",
+        "sandwich",
+        "see (>= 0.11.0)",
+        "survival",
+        "testthat (>= 3.2.1)",
+        "vdiffr",
+        "withr"
+      ],
+      "VignetteBuilder": "knitr",
+      "Encoding": "UTF-8",
+      "Language": "en-US",
+      "RoxygenNote": "7.3.2",
+      "Config/testthat/edition": "3",
+      "Config/testthat/parallel": "true",
+      "Config/Needs/check": "stan-dev/cmdstanr",
+      "Config/Needs/website": "easystats/easystatstemplate",
+      "LazyData": "true",
+      "NeedsCompilation": "no",
+      "Author": "Dominique Makowski [aut, cre] (ORCID: <https://orcid.org/0000-0001-5375-9967>), Daniel Lüdecke [aut] (ORCID: <https://orcid.org/0000-0002-8895-3206>), Mattan S. Ben-Shachar [aut] (ORCID: <https://orcid.org/0000-0002-4287-4801>), Indrajeet Patil [aut] (ORCID: <https://orcid.org/0000-0003-1995-6531>), Rémi Thériault [aut] (ORCID: <https://orcid.org/0000-0003-4315-6788>)",
+      "Repository": "CRAN"
     },
     "mvtnorm": {
       "Package": "mvtnorm",
@@ -4219,8 +4593,7 @@
       "NeedsCompilation": "yes",
       "Author": "Alan Genz [aut], Frank Bretz [aut], Tetsuhisa Miwa [aut], Xuefei Mi [aut], Friedrich Leisch [ctb], Fabian Scheipl [ctb], Bjoern Bornkamp [ctb] (<https://orcid.org/0000-0002-6294-8185>), Martin Maechler [ctb] (<https://orcid.org/0000-0002-8685-9910>), Torsten Hothorn [aut, cre] (<https://orcid.org/0000-0001-8301-0471>)",
       "Maintainer": "Torsten Hothorn <Torsten.Hothorn@R-project.org>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "nlme": {
       "Package": "nlme",
@@ -4300,8 +4673,7 @@
       "Maintainer": "Paul Gilbert <pgilbert.ttv9z@ncf.ca>",
       "URL": "http://optimizer.r-forge.r-project.org/",
       "NeedsCompilation": "no",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "openssl": {
       "Package": "openssl",
@@ -4417,8 +4789,7 @@
       "BugReports": "https://github.com/runehaubo/ordinal/issues",
       "Author": "Rune Haubo Bojesen Christensen [aut, cre]",
       "Maintainer": "Rune Haubo Bojesen Christensen <rune.haubo@gmail.com>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "osfr": {
       "Package": "osfr",
@@ -4468,7 +4839,7 @@
     },
     "parameters": {
       "Package": "parameters",
-      "Version": "0.26.0",
+      "Version": "0.27.0",
       "Source": "Repository",
       "Type": "Package",
       "Title": "Processing of Model Parameters",
@@ -4482,9 +4853,9 @@
         "R (>= 3.6)"
       ],
       "Imports": [
-        "bayestestR (>= 0.16.0)",
-        "datawizard (>= 1.0.2)",
-        "insight (>= 1.3.0)",
+        "bayestestR (>= 0.16.1)",
+        "datawizard (>= 1.1.0)",
+        "insight (>= 1.3.1)",
         "graphics",
         "methods",
         "stats",
@@ -4515,11 +4886,13 @@
         "cluster",
         "cobalt",
         "coda",
+        "correlation (>= 0.8.8)",
         "coxme",
         "cplm",
         "curl",
         "dbscan",
         "did",
+        "discovr",
         "distributional",
         "domir (>= 0.2.0)",
         "drc",
@@ -4578,6 +4951,7 @@
         "mmrm",
         "multcomp",
         "MuMIn",
+        "mvtnorm",
         "NbClust",
         "nFactors",
         "nestedLogit",
@@ -4588,7 +4962,7 @@
         "panelr",
         "pbkrtest",
         "PCDimension",
-        "performance (>= 0.12.0)",
+        "performance (>= 0.14.0)",
         "plm",
         "PMCMRplus",
         "poorman",
@@ -4633,6 +5007,50 @@
       "Config/rcmdcheck/ignore-inconsequential-notes": "true",
       "NeedsCompilation": "no",
       "Author": "Daniel Lüdecke [aut, cre] (ORCID: <https://orcid.org/0000-0002-8895-3206>), Dominique Makowski [aut] (ORCID: <https://orcid.org/0000-0001-5375-9967>), Mattan S. Ben-Shachar [aut] (ORCID: <https://orcid.org/0000-0002-4287-4801>), Indrajeet Patil [aut] (ORCID: <https://orcid.org/0000-0003-1995-6531>), Søren Højsgaard [aut], Brenton M. Wiernik [aut] (ORCID: <https://orcid.org/0000-0001-9560-6336>), Zen J. Lau [ctb], Vincent Arel-Bundock [ctb] (ORCID: <https://orcid.org/0000-0003-2042-7063>), Jeffrey Girard [ctb] (ORCID: <https://orcid.org/0000-0002-7359-3746>), Christina Maimone [rev], Niels Ohlsen [rev], Douglas Ezra Morrison [ctb] (ORCID: <https://orcid.org/0000-0002-7195-830X>), Joseph Luchman [ctb] (ORCID: <https://orcid.org/0000-0002-8886-9717>)",
+      "Repository": "CRAN"
+    },
+    "patchwork": {
+      "Package": "patchwork",
+      "Version": "1.3.1",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "The Composer of Plots",
+      "Authors@R": "person(given = \"Thomas Lin\", family = \"Pedersen\", role = c(\"cre\", \"aut\"), email = \"thomasp85@gmail.com\", comment = c(ORCID = \"0000-0002-5147-4711\"))",
+      "Maintainer": "Thomas Lin Pedersen <thomasp85@gmail.com>",
+      "Description": "The 'ggplot2' package provides a strong API for sequentially  building up a plot, but does not concern itself with composition of multiple plots. 'patchwork' is a package that expands the API to allow for  arbitrarily complex composition of plots by, among others, providing  mathematical operators for combining multiple plots. Other packages that try  to address this need (but with a different approach) are 'gridExtra' and  'cowplot'.",
+      "License": "MIT + file LICENSE",
+      "Encoding": "UTF-8",
+      "Imports": [
+        "ggplot2 (>= 3.0.0)",
+        "gtable (>= 0.3.6)",
+        "grid",
+        "stats",
+        "grDevices",
+        "utils",
+        "graphics",
+        "rlang (>= 1.0.0)",
+        "cli",
+        "farver"
+      ],
+      "RoxygenNote": "7.3.2",
+      "URL": "https://patchwork.data-imaginist.com, https://github.com/thomasp85/patchwork",
+      "BugReports": "https://github.com/thomasp85/patchwork/issues",
+      "Suggests": [
+        "knitr",
+        "rmarkdown",
+        "gridGraphics",
+        "gridExtra",
+        "ragg",
+        "testthat (>= 2.1.0)",
+        "vdiffr",
+        "covr",
+        "png",
+        "gt (>= 0.11.0)"
+      ],
+      "VignetteBuilder": "knitr",
+      "Config/Needs/website": "gifski",
+      "NeedsCompilation": "no",
+      "Author": "Thomas Lin Pedersen [cre, aut] (ORCID: <https://orcid.org/0000-0002-5147-4711>)",
       "Repository": "RSPM"
     },
     "performance": {
@@ -5067,8 +5485,7 @@
       ],
       "Collate": "'adjective.R' 'adverb.R' 'exclamation.R' 'verb.R' 'rpackage.R' 'package.R'",
       "NeedsCompilation": "no",
-      "Repository": "CRAN",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "prettyunits": {
       "Package": "prettyunits",
@@ -5266,8 +5683,7 @@
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [cre], Gabor Grothendieck [aut], Louis Kates [aut], Thomas Petzoldt [aut]",
       "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "proxy": {
       "Package": "proxy",
@@ -5292,8 +5708,7 @@
       "NeedsCompilation": "yes",
       "Author": "David Meyer [aut, cre], Christian Buchta [aut]",
       "Maintainer": "David Meyer <David.Meyer@R-project.org>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "ps": {
       "Package": "ps",
@@ -5914,8 +6329,7 @@
       "License": "GPL (>= 2)",
       "Author": "Martin Maechler [aut, cre] (<https://orcid.org/0000-0002-8685-9910>), Peter Rousseeuw [ctb] (Qn and Sn), Christophe Croux [ctb] (Qn and Sn), Valentin Todorov [aut] (most robust Cov), Andreas Ruckstuhl [aut] (nlrob, anova, glmrob), Matias Salibian-Barrera [aut] (lmrob orig.), Tobias Verbeke [ctb, fnd] (mc, adjbox), Manuel Koller [aut] (mc, lmrob, psi-func.), Eduardo L. T. Conceicao [aut] (MM-, tau-, CM-, and MTL- nlrob), Maria Anna di Palma [ctb] (initial version of Comedian)",
       "Maintainer": "Martin Maechler <maechler@stat.math.ethz.ch>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "roxygen2": {
       "Package": "roxygen2",
@@ -6134,6 +6548,90 @@
       "Author": "Hadley Wickham [aut], Thomas Lin Pedersen [cre, aut] (<https://orcid.org/0000-0002-5147-4711>), Dana Seidel [aut], Posit Software, PBC [cph, fnd] (03wc8by49)",
       "Maintainer": "Thomas Lin Pedersen <thomas.pedersen@posit.co>",
       "Repository": "RSPM"
+    },
+    "see": {
+      "Package": "see",
+      "Version": "0.11.0",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Model Visualisation Toolbox for 'easystats' and 'ggplot2'",
+      "Authors@R": "c(person(given = \"Daniel\", family = \"Lüdecke\", role = c(\"aut\", \"ctb\"), email = \"d.luedecke@uke.de\", comment = c(ORCID = \"0000-0002-8895-3206\")), person(given = \"Dominique\", family = \"Makowski\", role = c(\"aut\", \"inv\"), email = \"dom.makowski@gmail.com\", comment = c(ORCID = \"0000-0001-5375-9967\")), person(given = \"Indrajeet\", family = \"Patil\", role = c(\"aut\", \"cre\"), email = \"patilindrajeet.science@gmail.com\", comment = c(ORCID = \"0000-0003-1995-6531\")), person(given = \"Mattan S.\", family = \"Ben-Shachar\", role = c(\"aut\", \"ctb\"), email = \"matanshm@post.bgu.ac.il\", comment = c(ORCID = \"0000-0002-4287-4801\")), person(given = \"Brenton M.\", family = \"Wiernik\", role = c(\"aut\", \"ctb\"), email = \"brenton@wiernik.org\", comment = c(ORCID = \"0000-0001-9560-6336\")), person(given = \"Philip\", family = \"Waggoner\", role = c(\"aut\", \"ctb\"), email = \"philip.waggoner@gmail.com\", comment = c(ORCID = \"0000-0002-7825-7573\")), person(given = \"Jeffrey R.\", family = \"Stevens\", role = \"ctb\", email = \"jeffrey.r.stevens@gmail.com\", comment = c(ORCID = \"0000-0003-2375-1360\")), person(given = \"Matthew\", family = \"Smith\", role = \"rev\", email = \"M.Smith3@napier.ac.uk\"), person(given = \"Jakob\", family = \"Bossek\", role = \"rev\", email = \"bossek@wi.uni-muenster.de\"))",
+      "Maintainer": "Indrajeet Patil <patilindrajeet.science@gmail.com>",
+      "Description": "Provides plotting utilities supporting packages in the 'easystats' ecosystem (<https://github.com/easystats/easystats>) and some extra themes, geoms, and scales for 'ggplot2'. Color scales are based on <https://materialui.co/>. References: Lüdecke et al. (2021) <doi:10.21105/joss.03393>.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://easystats.github.io/see/",
+      "BugReports": "https://github.com/easystats/see/issues",
+      "Depends": [
+        "graphics",
+        "grDevices",
+        "R (>= 4.0)",
+        "stats"
+      ],
+      "Imports": [
+        "bayestestR (>= 0.15.2)",
+        "correlation (>= 0.8.7)",
+        "datawizard (>= 1.0.1)",
+        "effectsize (>= 1.0.0)",
+        "ggplot2 (>= 3.5.1)",
+        "insight (>= 1.1.0)",
+        "modelbased (>= 0.10.0)",
+        "patchwork (>= 1.3.0)",
+        "parameters (>= 0.24.2)",
+        "performance (>= 0.13.0)"
+      ],
+      "Suggests": [
+        "BH",
+        "brms",
+        "collapse",
+        "curl",
+        "DHARMa",
+        "emmeans",
+        "factoextra",
+        "Formula",
+        "ggdag",
+        "ggdist",
+        "ggraph",
+        "ggrepel",
+        "ggridges",
+        "ggside",
+        "glmmTMB",
+        "grid",
+        "httr2",
+        "lavaan",
+        "lme4",
+        "logspline",
+        "marginaleffects",
+        "MASS",
+        "mclogit",
+        "mclust",
+        "merDeriv",
+        "mgcv",
+        "metafor",
+        "NbClust",
+        "nFactors",
+        "psych",
+        "qqplotr (>= 0.0.6)",
+        "randomForest",
+        "RcppEigen",
+        "rlang",
+        "rmarkdown",
+        "rstanarm",
+        "scales (>= 1.3.0)",
+        "splines",
+        "testthat (>= 3.2.1)",
+        "tidygraph",
+        "vdiffr (>= 1.0.8)"
+      ],
+      "Encoding": "UTF-8",
+      "Language": "en-US",
+      "RoxygenNote": "7.3.2",
+      "Config/testthat/edition": "3",
+      "Config/testthat/parallel": "true",
+      "Config/Needs/website": "easystats/easystatstemplate",
+      "Config/rcmdcheck/ignore-inconsequential-notes": "true",
+      "NeedsCompilation": "no",
+      "Author": "Daniel Lüdecke [aut, ctb] (<https://orcid.org/0000-0002-8895-3206>), Dominique Makowski [aut, inv] (<https://orcid.org/0000-0001-5375-9967>), Indrajeet Patil [aut, cre] (<https://orcid.org/0000-0003-1995-6531>), Mattan S. Ben-Shachar [aut, ctb] (<https://orcid.org/0000-0002-4287-4801>), Brenton M. Wiernik [aut, ctb] (<https://orcid.org/0000-0001-9560-6336>), Philip Waggoner [aut, ctb] (<https://orcid.org/0000-0002-7825-7573>), Jeffrey R. Stevens [ctb] (<https://orcid.org/0000-0003-2375-1360>), Matthew Smith [rev], Jakob Bossek [rev]",
+      "Repository": "CRAN"
     },
     "sessioninfo": {
       "Package": "sessioninfo",
@@ -6591,8 +7089,7 @@
       "License": "GPL (>= 2)",
       "URL": "http://www.stat.boogaart.de/tensorA/",
       "NeedsCompilation": "yes",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "testthat": {
       "Package": "testthat",
@@ -7165,6 +7662,38 @@
       "Maintainer": "Davis Vaughan <davis@posit.co>",
       "Repository": "CRAN"
     },
+    "vipor": {
+      "Package": "vipor",
+      "Version": "0.4.7",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Plot Categorical Data Using Quasirandom Noise and Density Estimates",
+      "Date": "2023-12-15",
+      "Author": "Scott Sherrill-Mix, Erik Clarke",
+      "Maintainer": "Scott Sherrill-Mix <ssm@msu.edu>",
+      "Description": "Generate a violin point plot, a combination of a violin/histogram plot and a scatter plot by offsetting points within a category based on their density using quasirandom noise.",
+      "License": "GPL (>= 2)",
+      "LazyData": "True",
+      "Depends": [
+        "R (>= 3.5.0)"
+      ],
+      "Imports": [
+        "stats",
+        "graphics"
+      ],
+      "Suggests": [
+        "testthat",
+        "beeswarm",
+        "lattice",
+        "ggplot2",
+        "beanplot",
+        "vioplot",
+        "ggbeeswarm"
+      ],
+      "RoxygenNote": "7.2.3",
+      "NeedsCompilation": "no",
+      "Repository": "CRAN"
+    },
     "viridisLite": {
       "Package": "viridisLite",
       "Version": "0.4.2",
@@ -7317,8 +7846,7 @@
       ],
       "RoxygenNote": "6.1.1",
       "NeedsCompilation": "no",
-      "Repository": "CRAN",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "withr": {
       "Package": "withr",
@@ -7502,8 +8030,7 @@
       "License": "GPL (>= 2)",
       "Repository": "CRAN",
       "NeedsCompilation": "no",
-      "Author": "David B. Dahl [aut], David Scott [aut, cre], Charles Roosen [aut], Arni Magnusson [aut], Jonathan Swinton [aut], Ajay Shah [ctb], Arne Henningsen [ctb], Benno Puetz [ctb], Bernhard Pfaff [ctb], Claudio Agostinelli [ctb], Claudius Loehnert [ctb], David Mitchell [ctb], David Whiting [ctb], Fernando da Rosa [ctb], Guido Gay [ctb], Guido Schulz [ctb], Ian Fellows [ctb], Jeff Laake [ctb], John Walker [ctb], Jun Yan [ctb], Liviu Andronic [ctb], Markus Loecher [ctb], Martin Gubri [ctb], Matthieu Stigler [ctb], Robert Castelo [ctb], Seth Falcon [ctb], Stefan Edwards [ctb], Sven Garbade [ctb], Uwe Ligges [ctb]",
-      "Encoding": "UTF-8"
+      "Author": "David B. Dahl [aut], David Scott [aut, cre], Charles Roosen [aut], Arni Magnusson [aut], Jonathan Swinton [aut], Ajay Shah [ctb], Arne Henningsen [ctb], Benno Puetz [ctb], Bernhard Pfaff [ctb], Claudio Agostinelli [ctb], Claudius Loehnert [ctb], David Mitchell [ctb], David Whiting [ctb], Fernando da Rosa [ctb], Guido Gay [ctb], Guido Schulz [ctb], Ian Fellows [ctb], Jeff Laake [ctb], John Walker [ctb], Jun Yan [ctb], Liviu Andronic [ctb], Markus Loecher [ctb], Martin Gubri [ctb], Matthieu Stigler [ctb], Robert Castelo [ctb], Seth Falcon [ctb], Stefan Edwards [ctb], Sven Garbade [ctb], Uwe Ligges [ctb]"
     },
     "yaml": {
       "Package": "yaml",
@@ -7522,8 +8049,7 @@
       "URL": "https://github.com/vubiostat/r-yaml/",
       "BugReports": "https://github.com/vubiostat/r-yaml/issues",
       "NeedsCompilation": "yes",
-      "Repository": "CRAN",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "yardstick": {
       "Package": "yardstick",

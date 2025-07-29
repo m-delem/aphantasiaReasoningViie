@@ -1,0 +1,48 @@
+url: https://m-delem.github.io/aphantasiaReasoningViie/
+template:
+  bootstrap: 5
+  light-switch: true
+  bslib:
+    base_font: {google: "Montserrat"}
+    heading_font: {google: "DM Sans"}
+reference:
+- title: "Raw data"
+  contents:
+  - survey_data
+  - experiment_data
+- title: "Data preparation"
+  contents:
+  - get_clean_data
+  - filter_random_accuracy_ids
+  - filter_manually_identified_ids
+  - filter_suspicious_rt_ids
+  - filter_trials_on_rt
+  - factor_categories
+  - factor_groups
+  - factor_strategies
+  - factor_chr_vars
+  - compute_nieq_scores
+  - pivot_strategies_longer
+  - pivot_terms_longer
+- title: "Clustering"
+  contents:
+  - cluster_osivq
+  - add_named_clusters
+  - summarise_clustering
+- title: "Modelling"
+  contents:
+  - build_formula
+  - set_ranef_prior
+  - fit_clm
+  - get_contrast
+  - get_params
+  - get_performance
+  - get_singularity
+  - report_contrast
+- title: "Visualisation"
+  contents:
+  - plot_median_rt_distribution
+  - plot_osivq_ternary
+  - plot_strategies_barplot
+  - plot_strategies_scores
+  - theme_pdf

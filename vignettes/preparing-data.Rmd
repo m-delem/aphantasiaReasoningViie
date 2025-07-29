@@ -1,0 +1,212 @@
+---
+title: "Preparing data for analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Preparing data for analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This vignette details all the processing steps designed to transform the source
+data collected into the raw data used in the package, followed by the rationale
+behind the detection and removal of outlier participants from the raw data to
+get the clean data sets used for the analyses.
+
+# From source data to raw data
+
+The data for this study were collected online among several other studies on
+mental imagery through the [Inner Experience
+Lab](https://innerexperiencelab.com) website. This multi-study online project
+was designed so that people could participate in various studies seamlessly
+without having to fill in the same information or questionnaires multiple times.
+As such, survey data for any given participant (demographics, questionnaires,
+feedbacks, etc.) could come from different studies. A central data extraction
+pipeline had to be designed to extract and merge the survey data from different
+studies while isolating specific experiment data from each study. The code for
+this central pipeline is in a separate private repository, and the data from all
+the studies is in a private OSF repository (for obvious privacy and ownership
+reasons).
+
+The **source data** for the present study is retrieved from this OSF repository
+using a private token (not available in the public GitHub repository). The code
+for these operations, however, is publicly available in the package files in the
+`data-raw/` folder:
+
+-   In `01_import_osf_data.R`, the common survey data set (with all collected
+    survey data for each participant, some irrelevant) and the source experiment
+    data specific to this study (with questionably clean variable names and some
+    irrelevant variables) are imported from the private OSF repository into the
+    `inst/extdata/` folder of the package.
+
+-   In `02_create_package_data.R`, these two source data sets undergo basic
+    cleaning steps to select, organise and rename relevant variables. Another
+    crucial step here is the creation of various logical variables to flag
+    participants with specific characteristics based on the information they
+    typed manually in the demographic or feedback questionnaires. Their IDs were
+    identified manually and hard coded in this script. These variables are:
+
+    -   `has_adhd`: whether the participant has ADHD
+    -   `has_asd`: whether the participant has ASD
+    -   `has_dyslexia`: whether the participant has dyslexia
+    -   `has_other_neuro_trouble`: whether the participant has other
+        neurological troubles (rare or unique cases in the sample)
+    -   `has_treatment`: whether the participant is under treatment for a
+        neurological trouble
+    -   `has_been_distracted`: whether the participant has been distracted
+        during the experiment, lacked focus, gave up, etc.
+    -   `has_cheated`: whether the participant has used external help to answer
+        the questions (e.g. paper, calculator, etc.)
+
+    All of these are self-reports, but we observed that participants seemed
+    usually honest about these (e.g., three admitted to have used external help
+    or tools), and we did not observe any systematic bias in the data based on
+    these variables[^1].
+
+    Finally, native package data is created in the `data/` folder using
+    `usethis::use_data()`, which saves the data in a format tailored for use in
+    R packages. These two data sets, `experiment_data` and `survey_data`,
+    constitute our proper **raw data** (not necessarily *good* data, but
+    *understandable* and *usable* data).
+
+[^1]: *Note that this "honesty" in participants' feedback after online
+    experiments is known and well documented, see for instance publications
+    related to the [LabintheWild](https://www.labinthewild.org/) project.*
+
+<!-- -->
+
+-   In `03_export_to_osf.R`, a `raw_data.xlsx` Excel file is created for easier
+    sharing. The three raw data files (`experiment_data.rda`, `survey_data.rda`,
+    and `raw_data.xlsx`) are then uploaded to the public OSF repository
+    dedicated to this study. This is the data that is available natively in the
+    package in the `experiment_data` and `survey_data` objects.
+
+The raw data sets are directly available upon loading the package:
+
+```{r setup}
+library(aphantasiaReasoningViie)
+```
+
+```{r raw-data}
+dplyr::glimpse(experiment_data)
+
+dplyr::glimpse(survey_data)
+```
+
+Further details about the variables and data sets can be found in the help
+files, accessible with `?experiment_data` and `?survey_data`.
+
+# From raw data to clean data
+
+We haven't shared "processed" or "clean" filtered data in the OSF repository
+because we wanted to make the outlier detection and removal steps transparent
+and explicit in the code, so that anyone can reproduce the analyses as-is or
+adapt them to explore alternatives (including, for instance, choosing to analyse
+participants that we excluded, or exclude different participants).
+
+This is also motivated by the fact that creating this clean data set can be done
+in a few lines of code with an appropriate function. The function designed to do
+this is `get_clean_data()`, which is a wrapper around a pipeline that will be
+described below. Jumping directly to the final product, this is the code that
+creates the clean data:
+
+```{r clean-data}
+clean_data <- get_clean_data(verbose = TRUE)
+
+df_expe   <- clean_data$df_expe
+df_survey <- clean_data$df_survey
+```
+
+These data frames have the same columns as the raw ones, albeit with different
+variable types or formats (string variables are converted to factors with
+appropriate levels and contrasts, response times are converted to seconds,
+etc.), but less participants (rows) as outliers have been removed from the data.
+The verbose output in the chunk above spoils the process, but let's explain it a
+bit more in detail.
+
+The `get_clean_data()` function is a wrapper around a pipeline made of several
+functions that filter and format the data. The main steps are:
+
+-   `filter_random_accuracy_ids()`: This function filters out participants who
+    answered randomly or with very low accuracy. It uses a threshold of 0.5 for
+    the accuracy, meaning that participants who answered less than 50% of the
+    questions correctly are removed.
+
+-   `filter_manually_identified_ids()`: This function filters out participants
+    based on various characteristics, including some manually retrieved from
+    survey data (as described in the previous part). The option to include or
+    exclude for each criterion is controlled by the function arguments (see the
+    function documentation for details). By default, we chose to exclude
+    participants who did not complete all the mandatory questionnaires and tests
+    (VVIQ, OSIVQ and Raven), those who reported cheating or distractions during
+    the experiment, but we chose to keep participants with neurological or
+    psychiatric conditions. This decision was based on the fact that several
+    studies suspect a link between aphantasia and other forms of
+    neurodivergences or psychiatric conditions. If this is indeed the case, it
+    would prove nonsensical to exclude participants with these conditions, as
+    they may actually be the ones we are most interested in studying.
+
+-   `filter_suspicious_rt_ids()`: This function filters out participants with
+    suspiciously fast response times. It calculates the median response time for
+    each participant and compares it to the sample mean of median response
+    times. Participants with median response times more than 2.25 standard
+    deviations below the mean are considered suspiciously fast and are removed
+    from the data.
+
+    This specific threshold was chosen based on visual examination of the
+    distributions and manually checking the data. The two participants excluded
+    in this step had clearly spammed the end of the experiment. A participant
+    close to them (below 2 SDs, but above 2.25 SDs) had fast response times, but
+    remained stable across the experiment, with a decent accuracy overall. This
+    participant motivated the shift from 2 to 2.25 SDs.
+
+    A plotting function was designed to wrap the ggplot for this visual
+    examination:
+
+```{r visual-exam}
+#| fig-width: 7
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Distribution of median response times per participant, with a threshold
+#|  of 2.25 standard deviations below the mean to flag suspicious participants.
+
+# Get clean data without filtering based on median RTs (for demonstration)
+df <- get_clean_data(sd_mult = 99)$df_expe
+
+plot_median_rt_distribution(df, sd_mult = 2.25)
+```
+
+-   `factor_categories()`: This function factors the `category` variable in the
+    experiment data, which indicates the type of problem presented to the
+    participant (visual, spatial, or control).
+
+-   `factor_groups()`: This function factors the `Group` variable in the
+    experiment data, which indicates the group to which the participant belongs
+    (Aphants, Hypophants, Typical imagers, or Hyperphants). The `n_groups`
+    argument allows for different groupings based on the VVIQ scores, with
+    options for 2, 3, or 4 groups.
+
+-   `factor_strategies()`: This function factors the strategy variables in the
+    survey data, optionally as ordered factors.
+
+-   `factor_chr_vars()`: This function factors all other character variables in
+    the experiment data, converting them to factors with appropriate levels.
+
+-   `compute_nieq_scores()`: This function computes the NIEQ scores for the
+    survey data, which are used to assess the participants' inner experience
+    characteristics. This questionnaire was part of another online experiment
+    and was not central to the present study, but it is included here for
+    exploratory purposes.
+
+-   Finally, the cleaned data is returned as a list containing two data frames:
+    `df_expe` and `df_survey`. The `df_expe` data frame contains the cleaned
+    experiment data, while the `df_survey` data frame contains the cleaned
+    survey data.
+
+Data all set for analyses!

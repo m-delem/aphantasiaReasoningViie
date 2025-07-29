@@ -7,7 +7,7 @@
 get_trial_count(df)
 }
 \arguments{
-\item{df}{A data frame containing trial data with columns for id, Group, and
+\item{df}{A data frame containing trial data with columns for id, group, and
 category.}
 }
 \value{
@@ -17,3 +17,13 @@ category, including total trials and a flag for low trial counts.
 \description{
 Get the count of trials per participant and category
 }
+\examples{
+df <- get_clean_data()$df_expe
+get_trial_count(df) |> head()
+
+df_rt <- filter_trials_on_rt(df)
+# Allows to identify and examine the participants that lost a lot of trials
+get_trial_count(df_rt) |> head()
+
+}
+\keyword{internal}

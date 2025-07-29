@@ -2,22 +2,43 @@
 % Please edit documentation in R/filtering_participants.R
 \name{filter_suspicious_rt_ids}
 \alias{filter_suspicious_rt_ids}
-\title{Filter participants with suspicious median RTs}
+\alias{mark_suspicious_rt_ids}
+\title{Filter (or mark) participants with suspicious median RTs}
 \usage{
 filter_suspicious_rt_ids(df, sd_mult = 2, verbose = TRUE)
+
+mark_suspicious_rt_ids(df, sd_mult = 2, verbose = TRUE)
 }
 \arguments{
-\item{df}{A data frame containing participant responses and median RTs.}
+\item{df}{A data frame containing participants' total response times for each
+trial in a \code{rt_total} column.}
 
 \item{sd_mult}{A numeric value indicating how many standard deviations to use
 for identifying suspicious median RTs. The default is 2, which means that
 median RTs that are more than 2 standard deviations away from the mean
 will be considered suspicious.}
+
+\item{verbose}{Logical, whether to print the number of participants excluded
+or marked based on median RTs.}
 }
 \value{
-A filtered data frame with participants who have median RTs within
-the specified range.
+A data frame with suspicious participants removed (or marked).
 }
 \description{
-Filter participants with suspicious median RTs
+These two functions identify participants with suspiciously fast RTs overall
+using their median RTs and comparing them to the sample mean of median RTs.
+
+\code{filter_suspicious_rt_ids} removes these participants from the data frame,
+while \code{mark_suspicious_rt_ids} adds a column to flag them without removing
+their data (e.g., for manual examination after identifying them).
+}
+\examples{
+df <- mark_suspicious_rt_ids(experiment_data)
+df |>
+  dplyr::filter(is_suspicious == TRUE) |>
+  dplyr::select(id, median_rt) |>
+  dplyr::distinct()
+
+df <- filter_suspicious_rt_ids(experiment_data)
+length(unique(df$id))
 }
