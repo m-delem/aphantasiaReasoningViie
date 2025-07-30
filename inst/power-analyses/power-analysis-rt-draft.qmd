@@ -1,0 +1,510 @@
+---
+date: 2025-03-27
+include: false
+---
+
+# DLC study - RT modelling power analysis by simulation - Lab notebook
+
+--------------------------------------------------------------------------------
+
+The lab notebook is the main place to design the code, try things iteratively 
+and not worry too much about the final output. It will not be rendered upon 
+running `quarto render` in the terminal, because the file name begins with an
+underscore.
+
+*Workflow:*
+- Write code and explore the data in the lab notebook.
+- When something is functional, reproducible and ready to be included in the
+  main pipeline, remodel it into a function.
+- Transfer said function inside a standalone R script in the R/ folder.
+- These functions will be run successively in the final analysis and reports.
+
+--------------------------------------------------------------------------------
+
+This notebook is dedicated to the power analysis by simulation of the RT models
+for the DLC study. 
+
+```{r}
+#| label: setup
+
+# pacman::p_load(
+#   brms, 
+#   cmdstanr, 
+#   dplyr,
+#   here,
+#   lme4, 
+#   parameters, 
+#   patchwork, 
+#   performance,
+#   rstan,
+#   stringr,
+#   tidyr
+# )
+
+source(here("R/03_analysis/dlc/simulate_rt_power.R"))
+source(here("R/04_plot/dlc/plot_rt_simulations.R"))
+source(here("R/04_plot/dlc/plot_rt_power.R"))
+source(here("R/04_plot/plot_model_checks.R"))
+source(here("R/04_plot/save_plots.R"))
+```
+
+## Literature reference: Tse et al. (2017)
+
+We are going to simulate data based on the statistics observed in 
+**Tse et al. (2017)**. Our study uses 4 terms semi-continuous problems, so I 
+averaged the values of the continuous and discontinuous problems from their 
+study. The statistics are:
+
+- Control category mean RT: 14.641 seconds
+
+- Visual category mean RT:  16.388 seconds
+
+- Spatial category mean RT: 14.197 seconds
+
+Their Generalized Estimating Equations also showed:
+
+- An intercept of 12.051 seconds, 95% CI = [10.739, 13.363]
+
+To which we can add the $\beta$ coefficient of the 4/5-terms (they are the 
+same):
+
+- $\beta$ 4T: 2.482 seconds, 95% CI = [1.607, 3.356]
+
+- Finally, the visual category $\beta$: 2.633 seconds, 95% CI = [1.121, 4.146]
+
+*Thus, for our simulations, we can aim for the following parameters:*
+
+- A global mean $\beta_0$ around 14.5 seconds.
+
+- Variations between 12.5 and 16.5 seconds, which I translated as varying
+  intercepts per subject $\tau_0$ ranging between -2 and 2 seconds.
+  
+- A fixed effect of the visual category $\beta_{vis}$ around 2.6 seconds.
+
+- Variations in this fixed effect between 1.1 and 4.1 seconds, which I
+  translated as varying slopes per subject $\tau_{vis}$ ranging between 
+  -1.5 and 1.5 seconds.
+
+## Finding the parameters for the simulation
+  
+Additionally, we hypothesised that the aphantasia group would not show a visual 
+effect. I will simulate our hypothesised effect as an interaction between the 
+visual category and the aphantasia group. The interaction coefficient 
+$\beta_{aph-vis}$ must nullify the visual effect in the aphantasia group only.
+
+I chose to simulate the response times with a shifted log-normal distribution
+(generated with the package `brms`). I searched manually for the parameters of 
+this distribution and our model coefficients that allowed to reach the desired statistics. The data simulation is wrapped in the function `simulate_data()`,
+and I tested the parameters below.
+
+```{r}
+#| label: searching-correct-parameters
+
+df_test <- 
+  simulate_rt_data(
+    n_subj_per_group = 100, 
+    # Parameters of the shifted log-normal distribution
+    meanlog = 2.1,
+    sdlog   = 0.55, 
+    shift   = 5,
+    # Varying intercept by-subject
+    tau_0 = 0.9,
+    # Visual category effect
+    beta_vis = 2.35,
+    # Varying visual effect by-subject
+    tau_vis  = 0.75,
+    # Aphantasia group x visual interaction
+    beta_aph_vis = -2.35
+  )
+
+df_test |> 
+  group_by(category, group) |>  
+  reframe(
+    mean   = mean(rt),     
+    median = median(rt),  
+    min    = min(rt), # To test the shift     
+    max    = max(rt)  # To test the sdlog dispersion effect
+  ) 
+```
+
+I found that:
+
+- A mean of 2.1, SD of 0.55 seconds and a shift (non-decision time) of 
+  5 seconds on the shifted log-normal distribution allowed to reach the desired 
+  $\beta_0$ of 14.5 seconds reliably (testing with no other source of variation, 
+  i.e., all other parameters at 0).
+  
+- A varying intercept $\tau_0$ with a SD of 0.9 allowed to obtain distributions
+  of the varying RTs ranging between -2 and 2 seconds on average, as expected.
+  
+- A visual effect $\beta_{vis}$ of 2.35 allowed to reproduce the visual
+  category means observed in the study reliably.
+  
+- A varying visual effect $tau_{vis}$ with a SD of 0.75 allowed to obtain
+  distributions of the varying visual RTs ranging between -1.5 and 1.5 seconds
+  on average, as expected.
+
+- An interaction parameter $\beta_{aph-vis}$ set as minus the visual effect
+  allowed to nullify the visual effect in the aphantasia group. If the effect
+  size gets small, a slight multiplier (e.g., 1.5) might be necessary to
+  nullify the effect.
+
+The distributions of the RTs can be visualised below.
+
+```{r}
+#| label: distribs-with-selected-params
+#| fig-width: 10
+#| fig-height: 6
+
+p_category <- plot_simu_distribs(df_test) + 
+  ggtitle("RTs per category")
+p_subject <- plot_simu_distribs(df_test, type = "subjects", n = 20) + 
+  ggtitle("RTs per subject")
+p_violins  <- plot_simu_violins(df_test)
+
+design <- "
+  AAAAACCC
+  AAAAACCC
+  BBBBBCCC
+  BBBBB###
+"
+
+p_category + p_subject + p_violins + plot_layout(design = design)
+```
+
+## Power analysis rationale 
+
+The power analysis will consist in testing various values of the $\beta_{vis}$
+visual effect parameter and the $\beta_{aph-vis}$ interaction parameter. On the
+basis of this analysis, I set the other parameters values I found (`meanlog`, 
+`sdlog`, `shift`, `tau_0`, `tau_vis`) as the default arguments of the 
+`simulate_data()` function.
+
+```{r}
+#| label: testing-various-betas
+#| fig-width: 12
+#| fig-height: 12
+
+p_000 <- 
+  simulate_rt_data(
+    n_subj_per_group = 100, 
+    beta_vis = 0,
+    beta_aph_vis = 0
+  ) |> 
+  plot_simu_violins() + 
+  ggtitle("Visual effect: 0, Visual-Aph interaction: 0")
+
+p_235 <- 
+  simulate_rt_data(
+    n_subj_per_group = 100, 
+    beta_vis = 2.35,
+    beta_aph_vis = -2.35
+  ) |> 
+  plot_simu_violins() + 
+  theme(plot.title = element_text(color = "red")) +
+  ggtitle("Visual effect: 2.35, Visual-Aph interaction: -2.35 (Tse et al.)")
+
+p_315 <-
+  simulate_rt_data(
+    n_subj_per_group = 100, 
+    beta_vis = 3.15,
+    beta_aph_vis = -3.15
+  ) |> 
+  plot_simu_violins() + 
+  ggtitle("Visual effect: 3.15, Visual-Aph interaction: -3.15")
+
+p_400 <- 
+  simulate_rt_data(
+    n_subj_per_group = 100, 
+    beta_vis = 4,
+    beta_aph_vis = -4
+  ) |> 
+  plot_simu_violins() + 
+  ggtitle("Visual effect: 4, Visual-Aph interaction: -4")
+
+(p_000 + p_235) / (p_315 + p_400)
+```
+
+As we can see, the larger the visual effect and the nullifying interaction,
+the slower the control group becomes, while the aphantasia group remains stable
+on the average RT. The average RT values are as expected, the distributions have
+a good skew and the majority of RTs are below 30s, which is reasonable.
+
+Perfect!
+
+## Model testing
+
+Let's see how models perform on these simulated data. 
+
+### Frequentist models
+
+I compared the performance of three models below: a simple linear model, a 
+linear mixed model (LMM), and a generalised linear mixed model (GLMM). 
+
+The latter is an extension of a linear mixed model with a different 
+distribution. After testing all available distributions that are appropriate for 
+modelling RTs, the best compromise appeared to be the Gamma family with an 
+identity link. It fits with no singularity or convergence issues, and has a good 
+predictive power. The inverse Gaussian family with an identity link often 
+returns better performance indices, but also convergence and singularity issues,
+sometimes returning aberrant estimates. Gamma seems to be way more stable.
+
+```{r}
+#| label: testing-frequentist-models
+
+df_simu <- simulate_rt_data(
+  n_subj_per_group = 30,
+  beta_vis = 2.35,
+  beta_aph_vis = -2.35,
+)
+
+# Linear model
+m_lm <- lm(rt ~ group * category, data = df_simu)
+
+# Linear mixed model
+m_lmer <- 
+  lmer(
+    formula = rt ~ group * category + (category | id),
+    data = df_simu
+  )
+
+# Generalised linear mixed model, Gamma distribution
+m_glmer <- 
+  glmer(
+    formula = rt ~ group * category + (category | id),
+    data = df_simu,
+    family = Gamma(link = "identity"),
+    control = glmerControl(optimizer = "bobyqa")
+    )
+
+plot_predictive_check(m_lm)
+plot_predictive_check(m_lmer)
+plot_predictive_check(m_glmer)
+
+compare_performance(
+  m_lm, 
+  m_lmer, 
+  m_glmer, 
+  rank = TRUE
+)
+```
+
+The GLMM largely outperforms the two other models. This will be our model of
+choice for frequentist modelling. Let's build a Bayesian version of that.
+
+### Bayesian models
+
+For the Bayesian models, I searched for proper priors based on the distribution 
+I found above, which reflects prior literature.
+
+```{r}
+#| label: proper-priors
+#| eval: false
+
+df_simu <- simulate_rt_data(
+  n_subj_per_group = 30,
+  beta_vis = 4,
+  beta_aph_vis = -4,
+)
+
+formula <- bf(rt ~ group * category + (category | id))
+# Default priors
+get_prior(formula, data = df_simu, family = shifted_lognormal())
+# Proper priors
+prior <- c(
+  prior(normal(2.7, 0.3), class = 'Intercept'), # exp(2.7) = 14.9 seconds
+  prior(normal(0, 10),   class = 'b')
+)
+# Parallel processing setup
+n_cores <- parallel::detectCores()
+n_iter <- ceiling(40000 / n_cores) + 1000
+# Drawing from the prior only
+prior_model <- 
+  brm(
+    formula = formula,
+    data    = df_simu,
+    family  = shifted_lognormal(),
+    prior   = prior,
+    sample_prior = "only",
+    chains  = n_cores,
+    cores   = n_cores,
+    iter    = n_iter,
+    warmup  = 1000,
+    refresh = 500,
+    backend = "cmdstanr",
+    save_pars = save_pars(all = TRUE),
+    stan_model_args = list(stanc_options = list("O1")),
+    file = here("outputs/models/dlc/brm_prior_model.rds"),
+    file_refit = "on_change",
+    file_compress = "xz"
+  )
+
+plot_predictive_check(prior_model)
+```
+
+We can then fit a first model on synthetic data, which we'll save in an RDS
+file. After that, all subsequent fits can use this initial model to "update" it
+with new data without having to recompile the model.
+
+```{r}
+#| label: initial-bayesian-model
+#| eval: false
+
+m_brm <- 
+  brm(
+    formula = rt ~ group * category + (category | id),
+    data    = df_simu,
+    family  = shifted_lognormal(),
+    prior   = prior,
+    sample_prior = TRUE,
+    chains  = n_cores,
+    cores   = n_cores,
+    iter    = n_iter,
+    warmup  = 1000,
+    refresh = 50,
+    backend = "cmdstanr",
+    save_pars = save_pars(all = TRUE),
+    stan_model_args = list(stanc_options = list("O1")),
+    file = here("outputs/models/dlc/brm_initial_model.rds"),
+    file_refit = "on_change",
+    file_compress = "xz"
+  )
+
+estimates <- conditional_effects(m_brm, "group:category")
+estimates$`group:category` |> 
+  select(!c(rt:effect2__)) |> 
+  mutate(across(where(is.numeric), ~round(., 2))) |> 
+  rename_with(~str_replace(., "__", ""), everything())
+plot(estimates)
+
+plot_predictive_check(m_brm)
+```
+
+Here's the "updating" procedure, and the hypothesis testing after it using a
+Bayes Factor.
+
+```{r}
+#| label: testing-bayesian-model-updating
+#| eval: false
+
+df_new <- simulate_rt_data(
+  n_subj_per_group = 30,
+  beta_vis = 2.35,
+  beta_aph_vis = -2.35,
+)
+
+m_new <- 
+  update(
+    m_brm, 
+    newdata = df_new,
+    chains  = n_cores,
+    cores   = n_cores,
+    iter    = n_iter,
+    warmup  = 1000,
+    refresh = 50,
+  )
+conditional_effects(m_brm, "group:category") |> plot()
+
+hyp <- hypothesis(m_new, "groupaphantasia:categoryvisual = 0")
+cat("BF_10 interaction: ", round(1 / hyp$hypothesis$Evid.Ratio, 2))
+```
+
+As we can see with `plot_predictive_check()`, the Bayesian models fit the data
+exceptionally well. However, they take around 50 seconds for each fit. This
+makes them completely unusable for a power analysis by simulation, where we need 
+to fit thousands of models.
+
+We'll stick to a frequentist GLMM, which is the second best option we have, and 
+keep the Bayesian model for the actual study.
+
+## Power analysis
+
+I wrapped the power analysis procedure in three nested functions. We already
+saw the first one `simulate_rt_data`, which simulates the data. The second one,
+`simulate_rt_tests`, uses the first to simulate data, then fits a model of our 
+choosing on it, and tests the visual category effect and the interaction between 
+the aphantasia group and the visual category. The third one, `simulate_rt_power`,
+takes a range of sample sizes, a range of effect sizes ($\beta_{vis}$), and a
+number of simulations per sample/effect size combination. It then runs the
+`simulate_rt_tests` function on all these combinations, and returns the results of
+the power analysis!
+
+You can try out the `simulate_rt_tests` function below. Instead of taking both 
+$\beta_{vis}$ and $\beta_{aph-vis}$ as arguments, it takes an `interaction_mult`
+multiplier to set the interaction parameter as minus the visual effect times the
+multiplier. By default, the multiplier is 1.2, to help nullify the visual effect
+in the aphantasia group with small effect sizes.
+
+```{r}
+#| label: simulate-tests
+
+simulate_rt_tests(
+  n_subj_per_group = 50,
+  beta_vis = 1,
+  method = "glmer"
+)
+```
+
+Now time for power!
+
+The results of the `simulate_rt_power` function can be saved by using the 
+`filename` argument (or by hand, ofc). I already saved our big generalised 
+linear model power analysis. I tested effect sizes from 1 to 2 seconds (i.e., 
+pessimist predictions compared to Tse et al., 2017), and sample sizes from 30 to 
+130, with 300 simulation for each combination. Let's look at it.
+
+```{r}
+#| label: load-power-analysis
+#| fig-width: 8
+#| fig-height: 5
+
+power_example <- readRDS(here(
+  "outputs/tables/dlc/power_glmer_420comb_350sims_16h44min.rds"
+  ))
+
+ggsave_double_col(
+  here(paste0("outputs/figures/dlc/power_example_results.pdf")),
+  plot_power(power_example, plot_size = "pdf"),
+  height = 100
+  )
+```
+
+Now you can try whatever you want!
+
+```{r}
+#| label: free-power-analyses
+#| eval: false
+
+name <- "latest_power_analysis" # Rename the file after it's done
+
+simulation_results <- 
+  simulate_rt_power(
+    n_min = 30,
+    n_max = 100,
+    n_step = 10,
+    beta_vis_min = 1.5,
+    beta_vis_max = 2,
+    beta_step = 0.1,
+    n_simulations = 300,
+    method = "glmer",
+    filename = paste0(name, ".rds")
+  )
+```
+
+Don't forget to take a cool photo of your analysis.
+
+```{r}
+#| label: plot-power-analyses
+#| fig-width: 6
+#| fig-height: 5
+#| eval: false
+
+name <- "power_glmer_420comb_350sims_16h44min" 
+
+ggsave_double_col(
+  here(paste0("figures/dlc/", name, ".pdf")),
+  plot_power(example_results, plot_size = "pdf"),
+  height = 100
+  )
+```
+

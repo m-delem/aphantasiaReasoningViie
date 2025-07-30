@@ -25,10 +25,12 @@ Imports:
     grDevices,
     stats
 Suggests: 
+    brms,
     coda.plot,
     cropcircles,
     diceR,
     emmeans,
+    faux,
     ggpath,
     ggplot2,
     glmmTMB,

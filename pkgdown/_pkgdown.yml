@@ -46,3 +46,7 @@ reference:
   - plot_strategies_barplot
   - plot_strategies_scores
   - theme_pdf
+- title: "Simulation"
+  contents:
+  - simulate_rt_data
+  - simulate_acc_data

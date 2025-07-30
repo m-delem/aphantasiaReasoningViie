@@ -1,0 +1,244 @@
+---
+title: "Power analysis by simulation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Power analysis by simulation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: "references.bib"
+csl: "apa.csl"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Rationale
+
+We analysed sample and effect sizes *a priori* using a simulation approach,
+where power is defined as the proportion of simulations where a model detects an
+existing effect that we simulated. Instead of choosing a fixed sample size, this
+approach allowed us to have a full picture of the power of our model across a
+range of sample sizes and effect sizes. It replaced the question "*What sample
+size do we need to detect an effect of a given (arbitrary) size?*" with "*Given
+the sample we managed to recruit, what is the smallest effect size we could
+detect with good power?*" which allows much more flexibility in data collection.
+This was especially useful for us because aphantasia and hyperphantasia are rare
+phenomena [see @wrightInternationalEstimatePrevalence2024], and we had no way of
+knowing beforehand how many participants we would be able to recruit in each
+group.
+
+# Building the generative model
+
+## Structure
+
+We designed our model *a priori* based on our hypotheses and variables. This is
+the model that will be used as the data-generating process for the simulations.
+The model we used is a generalised linear mixed-effects model with the following
+structure, in R syntax:
+
+``` r
+dependent_variable ~ grouping * category + (category | id) + (grouping | problem) 
+```
+
+Where the dependent variable can be accuracy or response times (RTs).
+
+-   The `grouping` can be our basic VVIQ groups (of varying precision depending
+    on the definition, with 2, 3 or 4 groups), or OSIVQ cognitive style groups
+    as proposed by @delem2025uncovering (in aphantasia literature) or
+    @gazzoIndividualDifferencesImagery2013 (in reasoning literature).
+
+-   The `category` is the problem category (visual, spatial or control).
+
+-   The interaction between grouping and category is a third fixed factor
+    (implied by the `*`).
+
+-   The random effects are the intercepts and slopes by category for each
+    participant (`category | id`) and each problem by group
+    (`grouping | problem`).
+
+The parameters for each variable can be made explicit by writing the model
+formally as such:
+
+\begin{align*}
+DV = \ & \beta_0 + \tau_0 + \\
+  & (\beta_{grouping} + \tau_{problem}) \times grouping \ + \\
+  & (\beta_{category} + \tau_{category}) \times category \ + \\
+  & (\beta_{grouping:category} + \tau_{grouping:category}) \times grouping \times category \ + \\
+  & \epsilon
+\end{align*}
+
+Where:
+
+-   $DV$ is the dependent variable (RTs or accuracy).
+-   $\beta_0$ is the global intercept (the mean of the dependent variable).
+-   $\tau_0$ is the random intercept for each participant (the variation of the
+    global intercept per participant).
+-   $\beta_{grouping}$ is the fixed effect of the grouping variable (the
+    difference in the dependent variable between the groups).
+-   $\tau_{problem}$ is the random effect of the problem (the variation of the
+    grouping effect per problem).
+-   $\beta_{category}$ is the fixed effect of the category variable (the
+    difference in the dependent variable between the categories).
+-   $\tau_{category}$ is the random effect of the category (the variation of the
+    category effect per participant).
+-   $\beta_{grouping:category}$ is the fixed effect of the interaction between
+    the grouping and category variables (the difference in the dependent
+    variable between the groups for each category).
+-   $\tau_{grouping:category}$ is the random effect of the interaction between
+    the grouping and category variables (the variation of the interaction effect
+    per participant).
+-   $\epsilon$ is the residual error (the variation of the dependent variable
+    that is not explained by the model).
+
+There are actually two $\beta_{category}$, one for each category (minus one, for
+the reference level), and as many $\beta_{grouping:category}$ as there are
+combinations of categories and groups. In practice, for our purposes, we are
+only interested in the difference between the visual category and the others,
+that we called the $\beta_{vis}$ coefficient, and the difference in this
+difference (the interaction) for a specific group (aphantasia), that we called
+the $\beta_{aph-vis}$ coefficient. Thus, for our simulations, we set
+$\beta_{grouping}$, $\tau_{problem}$, $\beta_{spatial}$ (the effect of the
+spatial category) and $\tau_{spatial}$ (the associated slope) and all other
+interaction coefficients to 0, respectively because we had no hypothesis or
+previous data on the group effect, the difference between the problems, the
+spatial effect, or the variation in spatial performance.
+
+Given this theoretical model and our assumptions, we tried to choose constant
+values for the remaining parameters that were not analysed ($\beta_{0}$,
+$\tau_{0}$ and $\tau_{vis}$) and ranges of values for the parameters of interest
+in our power analysis ($\beta_{vis}$ and $\beta_{aph-vis}$) based on previous
+literature.
+
+## Literature reference for parameter values
+
+We based the power analysis on the Visual Imagery Impedance Effect (VIIE) on
+RTs, which were the most robust and well-documented we could find. More
+precisely, we used the very well-described data and model from
+@tseVisualImpedanceEffect2017. They had a study and paradigm very similar to
+ours, so their statistics were fairly simple to adapt to determine good
+simulation parameters. The main difference is that they used continuous and
+discontinuous problems, while we used only semi-continuous problems, so we chose
+to average the values of the two types of problems from their study.
+
+Their statistics were:
+
+-   Control category mean RT: 14.641 seconds
+
+-   Visual category mean RT: 16.388 seconds
+
+-   Spatial category mean RT: 14.197 seconds
+
+Their Generalized Estimating Equations also showed:
+
+-   An intercept of 12.051 seconds, 95% CI = [10.739, 13.363]
+
+To which we can add the $\beta$ coefficient of the 4/5-terms (they are the
+same):
+
+-   $\beta$ 4T: 2.482 seconds, 95% CI = [1.607, 3.356]
+
+-   Finally, the visual category $\beta$: 2.633 seconds, 95% CI = [1.121, 4.146]
+
+Thus, for our simulations, **we aimed for the following parameters:**
+
+-   A global mean $\beta_0$ around 14.5 seconds.
+
+-   Variations between 12.5 and 16.5 seconds, which we translated as varying
+    intercepts per subject $\tau_0$ ranging between -2 and 2 seconds.
+
+-   A fixed effect of the visual category $\beta_{vis}$ around 2.6 seconds.
+
+-   Variations in this fixed effect between 1.1 and 4.1 seconds, which we
+    translated as varying slopes per subject $\tau_{vis}$ ranging between -1.5
+    and 1.5 seconds.
+
+## Finding the simulation parameters
+
+We hypothesised that the aphantasia group would not show a visual effect while
+the typical group would, a pattern that would result in an interaction between
+the visual category and the aphantasia group. The visual effect in the typical
+group would result in a positive $\beta_{vis}$ coefficient, while the
+aforementioned interaction would result in a negative $\beta_{aph-vis}$
+interaction coefficient that nullifies the visual effect for the aphantasia
+group only.
+
+We chose to simulate the response times with a shifted log-normal distribution
+(generated with the package `brms`). We searched manually for the parameters of
+this distribution and our model coefficients that allowed to reach the desired
+statistics. The data simulation using the generative model is wrapped in the
+`simulate_rt_data()` function. The function has arguments to fine-tune all the
+distributional parameters and model coefficients discussed above. We searched
+for the appropriate values by trial-and-error using the simple code below:
+
+```{r setup}
+library(aphantasiaReasoningViie)
+```
+
+```{r}
+#| label: searching-correct-parameters
+
+df_test <- 
+  simulate_rt_data(
+    n_subj_per_group = 100, 
+    # Parameters of the shifted log-normal distribution (from brms)
+    meanlog = 2.1,
+    sdlog   = 0.55, 
+    shift   = 5,
+    # Varying intercept by-subject
+    tau_0 = 0.9,
+    # Visual category effect
+    beta_vis = 2.35,
+    # Varying visual effect by-subject
+    tau_vis  = 0.75,
+    # Aphantasia group x visual interaction
+    beta_aph_vis = -2.35
+  )
+
+df_test |> 
+  dplyr::group_by(category, group) |>  
+  dplyr::reframe(
+    mean   = mean(rt_total),     
+    median = median(rt_total),  
+    min    = min(rt_total), # To test the shift     
+    max    = max(rt_total)  # To test the sdlog dispersion effect
+  ) 
+```
+
+Using the argument values above, we see that we managed to reach statistics
+close to the ones we wanted, while simulating an interaction effect between the
+groups in the visual category. We found that:
+
+-   A mean of 2.1, SD of 0.55 seconds and a shift (non-decision time) of 5
+    seconds on the shifted log-normal distribution allowed to reach the desired
+    $\beta_0$ of 14.5 seconds reliably (testing with no other source of
+    variation, i.e., all other parameters at 0).
+
+-   A varying intercept $\tau_0$ with a SD of 0.9 allowed to obtain
+    distributions of the varying RTs ranging between -2 and 2 seconds on
+    average, as expected.
+
+-   A visual effect $\beta_{vis}$ of 2.35 allowed to reproduce the visual
+    category means observed in the study reliably.
+
+-   A varying visual effect $\tau_{vis}$ with a SD of 0.75 allowed to obtain
+    distributions of the varying visual RTs ranging between -1.5 and 1.5 seconds
+    on average, as expected.
+
+-   An interaction parameter $\beta_{aph-vis}$ set as minus the visual effect
+    allowed to nullify the visual effect in the aphantasia group. If the effect
+    size gets small, a slight multiplier (e.g., 1.5) might be necessary to
+    nullify the effect.
+
+------
+
+```{r session_info}
+#| echo: false
+
+sessioninfo::session_info()
+```
+
+## References

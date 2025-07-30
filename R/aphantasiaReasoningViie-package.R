@@ -10,6 +10,7 @@
 #' @importFrom stats contrasts<-
 #' @importFrom stats formula
 #' @importFrom stats median
+#' @importFrom stats rbinom
 #' @importFrom stats sd
 ## usethis namespace: end
 NULL
