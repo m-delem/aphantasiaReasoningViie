@@ -1,6 +1,6 @@
 devtools::load_all()
 
-df_survey  <- get_clean_data(n_groups = 2)$df_survey
+df_survey  <- get_clean_data(n_groups = 4, verbose = TRUE)$df_survey
 
 # Clustering OSIVQ data
 clustering <- cluster_osivq(df_survey)

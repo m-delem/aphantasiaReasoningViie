@@ -1,6 +1,6 @@
 devtools::load_all()
 
-df_expe    <- get_clean_data(n_groups = 2)$df_expe
+df_expe    <- get_clean_data(n_groups = 3)$df_expe
 df_rt      <- filter_trials_on_rt(df_expe)
 df_rt_long <- pivot_terms_longer(df_rt)
 
