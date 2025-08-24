@@ -89,14 +89,16 @@ get_clean_data <- function(
     ) |>
     filter_suspicious_rt_ids(sd_mult = sd_mult, verbose = verbose) |>
     factor_categories() |>
-    factor_groups(n_groups = n_groups) |>
+    # factor_groups(n_groups = n_groups) |>
+    create_all_groups() |>
     factor_chr_vars()
 
   df_survey <-
     aphantasiaReasoningViie::survey_data |>
     dplyr::filter(.data$id %in% df_expe$id) |>
     factor_strategies() |>
-    factor_groups(n_groups = n_groups) |>
+    # factor_groups(n_groups = n_groups) |>
+    create_all_groups() |>
     factor_chr_vars() |>
     compute_nieq_scores()
 

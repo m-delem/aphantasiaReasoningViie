@@ -8,7 +8,7 @@ group of individuals with self-reported intact visual imagery.
 All completed an online version of the French Vividness of Visual Imagery Questionnaire
 (VVIQ-F, \cite{santarpiaEvaluerVivaciteImages2008}; Santarpia et al., 2008;
 adapted from \cite{marksVisualImageryDifferences1973}).
-
+²
 Furthermore, in line with the methodology employed in a study that administered
 the OSIVQ to an aphantasic population \citep{delemcognitiveprofilesinaphantasia2025},
 unsupervised clustering analysis was employed, whose methodology is detailed below.

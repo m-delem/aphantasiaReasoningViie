@@ -56,25 +56,37 @@ compute_nieq_scores <- function(df) {
 #'  describe_survey_data()
 #'
 #' @keywords internal
-describe_survey_data <- function(df) {
+describe_survey_data <- function(df, grouping = NULL) {
+  mean_sd <- function(x) {
+    glue::glue(
+      "{mean(x, na.rm = TRUE) |> round(2)} ({sd(x, na.rm = TRUE) |> round(2)})"
+    ) |> as.character()
+  }
+
   df_summary <-
     df |>
-    dplyr::group_by(.data$group) |>
+    # dplyr::group_by(.data$group) |>
     dplyr::reframe(
-      n = dplyr::n(),
-      female = sum(.data$gender == "f"),
-      other  = sum(!(.data$gender %in% c("m", "f"))),
-      vviq   = mean(.data$vviq_total_score, na.rm = TRUE) |> round(2),
-      object   = mean(.data$osivq_object, na.rm = TRUE) |> round(2),
-      spatial  = mean(.data$osivq_spatial, na.rm = TRUE) |> round(2),
-      verbal   = mean(.data$osivq_verbal, na.rm = TRUE) |> round(2),
-      raven    = mean(.data$raven_score, na.rm = TRUE) |> round(2),
+      # N = dplyr::n(),
+      # Female = sum(.data$gender == "f"),
+      # Other  = sum(!(.data$gender %in% c("m", "f"))),
+      N = glue::glue(
+        "{dplyr::n()} ({sum(.data$gender == 'f')} F, ",
+        "{sum(!(.data$gender %in% c('m', 'f')))} O)"
+      ),
+      Age    = mean_sd(.data$age),
+      VVIQ   = mean_sd(.data$vviq_total_score),
+      `OSIVQ-Object`   = mean_sd(.data$osivq_object),
+      `OSIVQ-Spatial`  = mean_sd(.data$osivq_spatial),
+      `OSIVQ-Verbal`   = mean_sd(.data$osivq_verbal),
+      `RSPM-18`    = mean_sd(.data$raven_score),
       nieq_completed = sum(.data$nieq_is_complete == TRUE),
-      voice    = mean(.data$nieq_voice, na.rm = TRUE) |> round(2),
-      visual   = mean(.data$nieq_visual, na.rm = TRUE) |> round(2),
-      emotions = mean(.data$nieq_emotions, na.rm = TRUE) |> round(2),
-      sensory  = mean(.data$nieq_sensory, na.rm = TRUE) |> round(2),
-      abstract = mean(.data$nieq_abstract, na.rm = TRUE) |> round(2)
+      voice    = mean_sd(.data$nieq_voice),
+      visual   = mean_sd(.data$nieq_visual),
+      emotions = mean_sd(.data$nieq_emotions),
+      sensory  = mean_sd(.data$nieq_sensory),
+      abstract = mean_sd(.data$nieq_abstract),
+      .by = grouping
     )
   return(df_summary)
 }

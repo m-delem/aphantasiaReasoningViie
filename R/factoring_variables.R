@@ -249,3 +249,61 @@ factor_groups <- function(
     )
   return(df_factored)
 }
+
+create_all_groups <- function(df, ...) {
+  df_all_groups <-
+    df |>
+    dplyr::mutate(
+      group_2 = dplyr::case_when(
+          .data$group == "hypophantasia" ~ "aphantasia",
+          .data$group == "hyperphantasia" ~ "typical",
+          TRUE ~ .data$group
+        ) |>
+        stringr::str_to_title() |>
+        factor(levels = c("Aphantasia", "Typical")) |>
+        add_factor_contrasts(
+          n = c(
+            "_aphantasia",
+            "_typical"
+          ),
+          base = 2,
+          ...
+        ),
+      group_3 = dplyr::case_when(
+          .data$group == "hyperphantasia" ~ "typical",
+          TRUE ~ .data$group
+        ) |>
+        stringr::str_to_title() |>
+        factor(levels = c("Aphantasia", "Hypophantasia", "Typical")) |>
+        add_factor_contrasts(
+          n = c(
+            "_aphantasia",
+            "_hypophantasia",
+            "_typical"
+          ),
+          base = 3,
+          ...
+        ),
+      group = .data$group |>
+        stringr::str_to_title() |>
+        factor(
+          levels = c("Aphantasia", "Hypophantasia", "Typical","Hyperphantasia")
+        ) |>
+        add_factor_contrasts(
+          n = c(
+            "_aphantasia",
+            "_hypophantasia",
+            "_typical",
+            "_hyperphantasia"
+          ),
+          base = 3,
+          ...
+        )
+    ) |>
+    dplyr::relocate(
+      "group_2",
+      "group_3",
+      .after = "group"
+    )
+  return(df_all_groups)
+}

@@ -5,7 +5,7 @@
 \alias{experiment_data}
 \title{Reasoning experiment data}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3672 rows and 15 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3699 rows and 15 columns.
 }
 \source{
 Data collected through an online experiment

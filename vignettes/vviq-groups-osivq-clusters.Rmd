@@ -1,0 +1,19 @@
+---
+title: "VVIQ groups and OSIVQ clusters"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{VVIQ groups and OSIVQ clusters}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(aphantasiaReasoningViie)
+```

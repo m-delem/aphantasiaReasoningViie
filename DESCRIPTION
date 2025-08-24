@@ -35,6 +35,7 @@ Suggests:
     ggplot2,
     glmmTMB,
     here,
+    Hmisc,
     knitr,
     mgcv,
     openxlsx,

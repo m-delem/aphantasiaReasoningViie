@@ -1,6 +1,6 @@
 devtools::load_all()
 
-df_survey  <- get_clean_data(n_groups = 4, verbose = TRUE)$df_survey
+df_survey  <- get_clean_data(verbose = TRUE)$df_survey
 
 # Clustering OSIVQ data
 clustering <- cluster_osivq(df_survey)
@@ -29,3 +29,20 @@ plot_osivq_ternary(
   colours = palette.colors()[c(3, 2, 4)],
   base_theme = ggplot2::theme_grey
 )
+
+df_expe <-
+  dplyr::left_join(
+    get_clean_data()$df_expe,
+    df_survey |> dplyr::select(id, cluster),
+    by = dplyr::join_by("id")
+  ) |>
+  dplyr::relocate(cluster, .after = "group")
+
+df_rt      <- filter_trials_on_rt(df_expe, verbose = TRUE)
+df_rt_long <-
+  pivot_terms_longer(df_rt) |>
+  dplyr::mutate(
+    group_2_category = interaction(group_2, category),
+    group_3_category = interaction(group_3, category),
+    cluster_category = interaction(cluster, category)
+  )

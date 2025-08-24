@@ -22,8 +22,6 @@ pivot_terms_longer <- function(df) {
       values_to = "rt"
     ) |>
     dplyr::mutate(
-      group_category   = interaction(.data$group, .data$category),
-      # cluster_category = interaction(cluster, category),
       term = dplyr::case_match(
         .data$term_name,
         "premise_1_rt"  ~ 1,
@@ -71,7 +69,8 @@ pivot_strategies_longer <- function(df, base = 1, ...) {
     df |>
     factor_strategies(ordered = FALSE) |>
     dplyr::select(
-      "id":"group",
+      "id":"gender",
+      tidyselect::contains("group"),
       tidyselect::contains("cluster"),
       "visual_strat":"sensorimotor_strat"
     ) |>
