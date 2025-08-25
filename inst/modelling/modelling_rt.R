@@ -1,5 +1,3 @@
-devtools::load_all()
-
 # Run "cluster_and_create_data first
 
 m_rt_vviq_2 <-

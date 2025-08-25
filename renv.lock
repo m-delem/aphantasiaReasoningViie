@@ -90,8 +90,7 @@
       "NeedsCompilation": "no",
       "Author": "Achim Zeileis [aut, cre] (<https://orcid.org/0000-0003-0918-3766>), Yves Croissant [aut]",
       "Maintainer": "Achim Zeileis <Achim.Zeileis@R-project.org>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "Hmisc": {
       "Package": "Hmisc",
@@ -478,8 +477,7 @@
       "Description": "Provides color schemes for maps (and other graphics) designed by Cynthia Brewer as described at http://colorbrewer2.org.",
       "License": "Apache License 2.0",
       "NeedsCompilation": "no",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "RankAggreg": {
       "Package": "RankAggreg",
@@ -4979,8 +4977,7 @@
         "stats",
         "graphics"
       ],
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "labelled": {
       "Package": "labelled",
@@ -5175,8 +5172,7 @@
       "NeedsCompilation": "yes",
       "Author": "Deepayan Sarkar [aut, cre] (<https://orcid.org/0000-0003-4107-1553>), Felix Andrews [ctb], Kevin Wright [ctb] (documentation), Neil Klepeis [ctb], Johan Larsson [ctb] (miscellaneous improvements), Zhijian (Jason) Wen [cph] (filled contour code), Paul Murrell [ctb], Stefan Eng [ctb] (violin plot improvements), Achim Zeileis [ctb] (modern colors), Alexandre Courtiol [ctb] (generics for larrows, lpolygon, lrect and lsegments)",
       "Maintainer": "Deepayan Sarkar <deepayan.sarkar@r-project.org>",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "lifecycle": {
       "Package": "lifecycle",
@@ -5353,6 +5349,34 @@
       "NeedsCompilation": "no",
       "Author": "Aki Vehtari [aut], Jonah Gabry [cre, aut], Måns Magnusson [aut], Yuling Yao [aut], Paul-Christian Bürkner [aut], Topi Paananen [aut], Andrew Gelman [aut], Ben Goodrich [ctb], Juho Piironen [ctb], Bruno Nicenboim [ctb], Leevi Lindgren [ctb]",
       "Repository": "CRAN"
+    },
+    "lsr": {
+      "Package": "lsr",
+      "Version": "0.5.2",
+      "Source": "Repository",
+      "Title": "Companion to \"Learning Statistics with R\"",
+      "Authors@R": "person(given = \"Danielle\", family = \"Navarro\", role = c(\"aut\", \"cre\"), email = \"djnavarro@protonmail.com\", comment = c(ORCID = \"0000-0001-7648-6578\"))",
+      "Description": "A collection of tools intended to make introductory  statistics easier to teach, including wrappers for common  hypothesis tests and basic data manipulation. It accompanies  Navarro, D. J. (2015). Learning Statistics with R: A Tutorial  for Psychology Students and Other Beginners, Version 0.6.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://github.com/djnavarro/lsr",
+      "BugReports": "https://github.com/djnavarro/lsr/issues",
+      "Encoding": "UTF-8",
+      "LazyLoad": "yes",
+      "Imports": [
+        "graphics",
+        "grDevices",
+        "methods",
+        "stats"
+      ],
+      "RoxygenNote": "7.1.1",
+      "Suggests": [
+        "testthat (>= 3.0.0)"
+      ],
+      "Config/testthat/edition": "3",
+      "NeedsCompilation": "no",
+      "Author": "Danielle Navarro [aut, cre] (<https://orcid.org/0000-0001-7648-6578>)",
+      "Maintainer": "Danielle Navarro <djnavarro@protonmail.com>",
+      "Repository": "RSPM"
     },
     "lubridate": {
       "Package": "lubridate",
@@ -6830,9 +6854,6 @@
       "RoxygenNote": "7.3.2",
       "VignetteBuilder": "knitr",
       "Repository": "https://stan-dev.r-universe.dev",
-      "RemoteUrl": "https://github.com/stan-dev/posterior",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "f17844fbb7e445109c2403b668ea78f39d0ae695",
       "NeedsCompilation": "no",
       "Author": "Paul-Christian Bürkner [aut, cre], Jonah Gabry [aut], Matthew Kay [aut], Aki Vehtari [aut], Måns Magnusson [ctb], Rok Češnovar [ctb], Ben Lambert [ctb], Ozan Adıgüzel [ctb], Jacob Socolar [ctb], Noa Kallioinen [ctb], Teemu Säilynoja [ctb]",
       "Maintainer": "Paul-Christian Bürkner <paul.buerkner@gmail.com>"
@@ -7932,6 +7953,29 @@
       "Maintainer": "Kirill Müller <kirill@cynkra.com>",
       "Repository": "CRAN"
     },
+    "rrapply": {
+      "Package": "rrapply",
+      "Version": "1.2.7",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Revisiting Base Rapply",
+      "Date": "2024-06-24",
+      "Authors@R": "person(\"Joris\", \"Chau\", email = \"joris.chau@openanalytics.eu\", role = c(\"aut\", \"cre\"))",
+      "Description": "The minimal 'rrapply'-package contains a single function rrapply(), providing an extended implementation of 'R'-base rapply() by allowing to recursively apply a function to elements of a nested list based on a general condition function and including the possibility to prune or aggregate nested list elements from the result. In addition, special arguments can be supplied to access the name, location, parents and siblings in the nested list of the element under evaluation. The rrapply() function builds upon rapply()'s native 'C' implementation and requires no other package dependencies.",
+      "BugReports": "https://github.com/JorisChau/rrapply/issues",
+      "URL": "https://jorischau.github.io/rrapply/, https://github.com/JorisChau/rrapply",
+      "Depends": [
+        "R (>= 3.5)"
+      ],
+      "Encoding": "UTF-8",
+      "License": "LGPL-3",
+      "LazyData": "true",
+      "RoxygenNote": "7.3.1",
+      "NeedsCompilation": "yes",
+      "Author": "Joris Chau [aut, cre]",
+      "Maintainer": "Joris Chau <joris.chau@openanalytics.eu>",
+      "Repository": "RSPM"
+    },
     "rstan": {
       "Package": "rstan",
       "Version": "2.32.7",
@@ -8351,6 +8395,27 @@
       "Maintainer": "Winston Chang <winston@posit.co>",
       "Repository": "CRAN"
     },
+    "shinyBS": {
+      "Package": "shinyBS",
+      "Version": "0.61.1",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Twitter Bootstrap Components for Shiny",
+      "Date": "2015-03-30",
+      "Author": "Eric Bailey",
+      "Maintainer": "Eric Bailey <ebailey@idem.in.gov>",
+      "Description": "Adds additional Twitter Bootstrap components to Shiny.",
+      "Imports": [
+        "shiny (>= 0.11)",
+        "htmltools"
+      ],
+      "URL": "https://ebailey78.github.io/shinyBS",
+      "BugReports": "https://github.com/ebailey78/shinyBS/issues",
+      "License": "GPL-3",
+      "NeedsCompilation": "no",
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
+    },
     "showtext": {
       "Package": "showtext",
       "Version": "0.9-7",
@@ -8407,8 +8472,7 @@
       "Copyright": "see file COPYRIGHTS",
       "RoxygenNote": "7.1.0",
       "NeedsCompilation": "no",
-      "Repository": "CRAN",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "sn": {
       "Package": "sn",
@@ -8621,6 +8685,67 @@
       "NeedsCompilation": "no",
       "Author": "Kirill Müller [aut] (<https://orcid.org/0000-0002-1416-3412>), Lorenz Walthert [cre, aut], Indrajeet Patil [ctb] (<https://orcid.org/0000-0003-1995-6531>, @patilindrajeets)",
       "Maintainer": "Lorenz Walthert <lorenz.walthert@icloud.com>",
+      "Repository": "RSPM"
+    },
+    "superb": {
+      "Package": "superb",
+      "Version": "1.0.0",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Summary Plots with Adjusted Error Bars",
+      "Date": "2025-08-18",
+      "Authors@R": "c( person(\"Denis\", \"Cousineau\", email = \"denis.cousineau@uottawa.ca\", role = c(\"aut\", \"cre\")), person(\"Bradley\", \"Harding\", email = \"bradley.harding@umoncton.ca\", role = c(\"ctb\")), person(\"Marc-Andre\", \"Goulet\", email = \"magoulet101@gmail.com\", role = c(\"ctb\")), person(\"Jesika\", \"Walker\", email = \"jwalk050@uottawa.ca\", role = c(\"art\",\"pre\")) )",
+      "Author": "Denis Cousineau [aut, cre], Bradley Harding [ctb], Marc-Andre Goulet [ctb], Jesika Walker [art, pre]",
+      "Maintainer": "Denis Cousineau <denis.cousineau@uottawa.ca>",
+      "BugReports": "https://github.com/dcousin3/superb/issues/",
+      "URL": "https://github.com/dcousin3/superb/, https://CRAN.R-project.org/package=superb, https://dcousin3.github.io/superb/",
+      "Description": "Computes standard error and confidence interval of various descriptive statistics under  various designs and sampling schemes. The main function, superb(), return a plot. It can  also be used to obtain a dataframe with the statistics and their precision intervals  so that other plotting environments (e.g., Excel) can be used. See Cousineau and colleagues (2021) <doi:10.1177/25152459211035109>  or Cousineau (2017) <doi:10.5709/acp-0214-z> for a review as well as Cousineau (2005) <doi:10.20982/tqmp.01.1.p042>, Morey (2008) <doi:10.20982/tqmp.04.2.p061>, Baguley (2012) <doi:10.3758/s13428-011-0123-7>, Cousineau & Laurencelle (2016) <doi:10.1037/met0000055>, Cousineau & O'Brien (2014) <doi:10.3758/s13428-013-0441-z>, Calderini & Harding  <doi:10.20982/tqmp.15.1.p001> for specific references. The documentation is available at <https://dcousin3.github.io/superb/> .",
+      "License": "GPL-3",
+      "Encoding": "UTF-8",
+      "VignetteBuilder": "knitr",
+      "LazyData": "true",
+      "RoxygenNote": "7.3.2",
+      "Depends": [
+        "R (>= 4.1.0)"
+      ],
+      "Imports": [
+        "Rdpack (>= 0.7)",
+        "methods",
+        "utils",
+        "stats",
+        "MASS",
+        "lsr (>= 0.5)",
+        "plyr (>= 1.8.4)",
+        "ggplot2 (>= 3.5.0)",
+        "stringr",
+        "foreign",
+        "reshape2",
+        "shiny",
+        "shinyBS",
+        "rrapply"
+      ],
+      "Suggests": [
+        "psych",
+        "rlang",
+        "dplyr",
+        "gridExtra",
+        "emojifont",
+        "fMultivar",
+        "grid",
+        "knitr",
+        "lattice",
+        "lawstat",
+        "boot",
+        "png",
+        "rmarkdown",
+        "RColorBrewer",
+        "sadists",
+        "scales",
+        "testthat",
+        "tibble"
+      ],
+      "RdMacros": "Rdpack",
+      "NeedsCompilation": "no",
       "Repository": "RSPM"
     },
     "survival": {

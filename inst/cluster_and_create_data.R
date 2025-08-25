@@ -23,13 +23,6 @@ df_survey <- add_named_clusters(
 contrasts(df_survey$cluster)
 summarise_clustering(df_survey)
 
-# Plotting
-plot_osivq_ternary(
-  df_survey,
-  colours = palette.colors()[c(3, 2, 4)],
-  base_theme = ggplot2::theme_grey
-)
-
 df_expe <-
   dplyr::left_join(
     get_clean_data()$df_expe,
@@ -46,3 +39,5 @@ df_rt_long <-
     group_3_category = interaction(group_3, category),
     cluster_category = interaction(cluster, category)
   )
+
+df_strats_long <- pivot_strategies_longer(df_survey)

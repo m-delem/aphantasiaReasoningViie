@@ -4,6 +4,7 @@
 #' with columns for grouping, strategy, and score.
 #' @param grouping A variable to group the data by, typically group or cluster.
 #' Can be unquoted.
+#' @param title Optional title for the plot.
 #' @param ... Additional arguments passed to the [theme_pdf()] function for
 #' customizing the plot theme.
 #'
@@ -17,7 +18,12 @@
 #'   pivot_strategies_longer()
 #'
 #' plot_strategies_barplot(df_long, grouping = group)
-plot_strategies_barplot <- function(df_long, grouping = "group", ...) {
+plot_strategies_barplot <- function(
+    df_long,
+    grouping = "group",
+    title = NULL,
+    ...
+) {
   df_plot <-
     df_long |>
     dplyr::mutate(
@@ -25,7 +31,15 @@ plot_strategies_barplot <- function(df_long, grouping = "group", ...) {
         {{ grouping }},
         rev(levels(dplyr::pull(df_long, {{ grouping }})))
       ),
-      score = as.numeric(.data$score)
+      score = as.numeric(.data$score),
+      # ad-hoc trick to cancel the reverse coding for the clusters only
+      dplyr::across(
+        tidyselect::contains("cluster"),
+        ~forcats::fct_relevel(
+          .,
+          levels(dplyr::pull(df_long, tidyselect::contains("cluster")))
+        )
+      )
     ) |>
     dplyr::select({{ grouping }}, "strategy", "score") |>
     dplyr::group_by({{ grouping }}, .data$strategy) |>
@@ -63,17 +77,17 @@ plot_strategies_barplot <- function(df_long, grouping = "group", ...) {
       ggplot2::aes(label = .data$label_black),
       color = "black",
       position = ggplot2::position_fill(vjust = 0.5),
-      size = 1.5,
+      size = 1.4,
     ) +
     ggplot2::geom_text(
       ggplot2::aes(label = .data$label_white),
       color = "white",
       position = ggplot2::position_fill(vjust = 0.5),
-      size = 1.5,
+      size = 1.4,
     ) +
     ggplot2::scale_colour_viridis_d(labels = scale_labels) +
     ggplot2::scale_fill_viridis_d(labels = scale_labels) +
-    ggplot2::scale_x_discrete(position = "top") +
+    ggplot2::scale_x_discrete(position = "bottom") +
     ggplot2::scale_y_reverse(expand = c(0, 0)) +
     ggplot2::coord_flip() +
     ggplot2::facet_wrap(
@@ -82,19 +96,24 @@ plot_strategies_barplot <- function(df_long, grouping = "group", ...) {
       strip.position = "top",
       labeller = ggplot2::label_wrap_gen(width = 10)
     ) +
-    ggplot2::labs(x = NULL, y = NULL) +
+    ggplot2::labs(title = title, x = NULL, y = NULL) +
     theme_pdf(
       base_theme = ggplot2::theme_minimal,
+      axis_relative_size = 0.75,
+      # Custom ggplot2 theme adjustments
       legend.text.position = "top",
       legend.justification = "center",
       legend.key.height = grid::unit(2, "mm"),
       legend.margin = ggplot2::margin(3, 3, 3, 3),
       legend.title = ggplot2::element_blank(),
       axis.ticks.y = ggplot2::element_blank(),
-      axis.text.y  = ggplot2::element_text(margin = ggplot2::margin(r = 4)),
+      axis.text.y  = ggplot2::element_text(margin = ggplot2::margin(r = 1)),
       axis.ticks.x = ggplot2::element_blank(),
       axis.text.x  = ggplot2::element_blank(),
       panel.grid.major.y = ggplot2::element_blank(),
+      panel.grid.minor.y = ggplot2::element_blank(),
+      panel.grid.major.x = ggplot2::element_blank(),
+      panel.grid.minor.x = ggplot2::element_blank(),
       ...
     )
 
@@ -107,6 +126,7 @@ plot_strategies_barplot <- function(df_long, grouping = "group", ...) {
 #' with columns for grouping, strategy, and score.
 #' @param grouping A variable to group the data by, typically group or cluster.
 #' Can be unquoted.
+#' @param title Optional title for the plot.
 #' @param x_labels Optional labels for the x-axis, if different from the
 #' grouping variable.
 #' @param ... Additional arguments passed to the [theme_pdf()] function for
@@ -126,6 +146,7 @@ plot_strategies_barplot <- function(df_long, grouping = "group", ...) {
 plot_strategies_scores <- function(
     df_long,
     grouping = "group",
+    title = NULL,
     x_labels = NULL,
     ...
 ) {
@@ -138,7 +159,17 @@ plot_strategies_scores <- function(
       sd   = sd(.data$score) |> round(2),
       se   = .data$sd / 1.5 |> round(2)
     ) |>
-    dplyr::ungroup()
+    dplyr::ungroup() |>
+    dplyr::mutate(
+      # reverse coding for clusters only
+      dplyr::across(
+        tidyselect::contains("cluster"),
+        ~forcats::fct_relevel(
+          .,
+          rev(levels(dplyr::pull(df_long, tidyselect::contains("cluster"))))
+        )
+      )
+    )
 
   df_mean <-
     df_plot |>
@@ -165,7 +196,7 @@ plot_strategies_scores <- function(
     ) +
     ggplot2::geom_point(
       size  = 1,
-      alpha = 0.5,
+      alpha = 0.3,
       position = ggplot2::position_jitterdodge(
         jitter.width  = 0.1,
         jitter.height = 0.1,
@@ -197,7 +228,7 @@ plot_strategies_scores <- function(
         ymax = .data$mean + .data$se,
       ),
       position = ggplot2::position_dodge(width = 0.5),
-      size = 0.4,
+      size = 0.2,
       linewidth = 0.2,
       na.rm = TRUE
     ) +
@@ -219,8 +250,15 @@ plot_strategies_scores <- function(
       ),
       limits = c("Visual", "Spatial", "Verbal", "Semantic", "Sensorimotor")
     ) +
-    ggplot2::labs(x = NULL, y = NULL) +
-    theme_pdf(axis_relative_size = 1, ...)
+    ggplot2::labs(title = title, x = NULL, y = NULL) +
+    theme_pdf(
+      base_theme = ggplot2::theme_minimal,
+      axis_relative_size = 0.85,
+      # Custom theme arguments
+      panel.grid.major.x = ggplot2::element_blank(),
+      panel.border = ggplot2::element_rect(color = "grey80", fill = NA),
+      ...
+    )
 
   if (!is.null(x_labels)) {
     p <- p + ggplot2::scale_x_discrete(labels = x_labels)

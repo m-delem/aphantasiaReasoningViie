@@ -1,6 +1,0 @@
-
-- cluster_osivq_data & add_cluster_column: I need a more robust way of deciding
-  which clustering to use and how to name the resulting clusters
-  -> function to plot the clusters + describe again? Decide based on that
-  -> function where I specify explicitly which names I want for clusters 1/2/3
-     etc.

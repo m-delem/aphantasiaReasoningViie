@@ -1,8 +1,4 @@
-devtools::load_all()
-
 # Run "cluster_and_create_data first
-
-df_strats_long <- pivot_strategies_longer(df_survey)
 
 m_strats_vviq_2 <- fit_clm(score ~ group_2 * strategy, df_strats_long)
 m_strats_vviq_3 <- fit_clm(score ~ group_3 * strategy, df_strats_long)
