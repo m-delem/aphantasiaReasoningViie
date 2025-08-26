@@ -38,6 +38,7 @@ Suggests:
     Hmisc,
     knitr,
     mgcv,
+    modelbased,
     openxlsx,
     ordinal,
     osfr,

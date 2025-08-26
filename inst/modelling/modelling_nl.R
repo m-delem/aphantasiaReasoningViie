@@ -55,9 +55,14 @@ contrasts_2 |>
   tidyr::separate_wider_delim(
     group_cat_2, ".", names = c("group_2", "category_2")
   ) |>
-  dplyr::filter(group_1 == group_2 & p.value < 0.1) |>
-  dplyr::select(!c(group_2, SE, df, t.ratio)) |>
-  dplyr::mutate(across(c(estimate, p.value), ~round(., 3))) |>
+  dplyr::filter(group_1 == group_2 & p.value < 1) |>
+  dplyr::select(!c(
+    tidyselect::contains("group_2"),
+    tidyselect::contains("cluster_2"),
+    tidyselect::contains("SE"),
+    tidyselect::contains("df")
+  )) |>
+  dplyr::mutate(across(c(estimate:p.value), ~round(., 3))) |>
   tidyr::unite(`Category contrast`, category_1, category_2, sep = " - ") |>
   dplyr::rename(group = group_1, `RT difference` = estimate) |>
   dplyr::arrange(term, group) |>
@@ -94,9 +99,14 @@ contrasts_3 |>
   tidyr::separate_wider_delim(
     group_cat_2, ".", names = c("group_2", "category_2")
   ) |>
-  dplyr::filter(group_1 == group_2 & p.value < 0.1) |>
-  dplyr::select(!c(group_2, SE, df, t.ratio)) |>
-  dplyr::mutate(across(c(estimate, p.value), ~round(., 3))) |>
+  dplyr::filter(group_1 == group_2 & p.value < 1) |>
+  dplyr::select(!c(
+    tidyselect::contains("group_2"),
+    tidyselect::contains("cluster_2"),
+    tidyselect::contains("SE"),
+    tidyselect::contains("df")
+  )) |>
+  dplyr::mutate(across(c(estimate:p.value), ~round(., 3))) |>
   tidyr::unite(`Category contrast`, category_1, category_2, sep = " - ") |>
   dplyr::rename(group = group_1, `RT difference` = estimate) |>
   dplyr::arrange(term, group) |>
@@ -132,9 +142,14 @@ contrasts_osivq |>
   tidyr::separate_wider_delim(
     cluster_cat_2, ".", names = c("cluster_2", "category_2")
   ) |>
-  dplyr::filter(cluster_1 == cluster_2 & p.value < 0.05) |>
-  dplyr::select(!c(cluster_2, SE, df, t.ratio)) |>
-  dplyr::mutate(across(c(estimate, p.value), ~round(., 3))) |>
+  dplyr::filter(cluster_1 == cluster_2 & p.value < 1) |>
+  dplyr::select(!c(
+    tidyselect::contains("group_2"),
+    tidyselect::contains("cluster_2"),
+    tidyselect::contains("SE"),
+    tidyselect::contains("df")
+  )) |>
+  dplyr::mutate(across(c(estimate:p.value), ~round(., 3))) |>
   tidyr::unite(`Category contrast`, category_1, category_2, sep = " - ") |>
   dplyr::rename(cluster = cluster_1, `RT difference` = estimate) |>
   dplyr::arrange(term, cluster) |>
