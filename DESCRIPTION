@@ -15,7 +15,6 @@ Depends:
 Imports: 
     crayon,
     glue,
-    sessioninfo (== 1.2.2),
     rlang,
     dplyr,
     stringr,
@@ -48,6 +47,7 @@ Suggests:
     readxl,
     rmarkdown,
     scales,
+    sessioninfo (>= 1.2.2),
     showtext,
     superb,
     sysfonts,
