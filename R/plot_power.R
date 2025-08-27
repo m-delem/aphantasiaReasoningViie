@@ -1,14 +1,14 @@
 plot_power <- function(power_results, threshold = 0.05) {
   p <-
     power_results |>
-    dplyr::mutate(beta_vis = as.factor(beta_vis)) |>
-    dplyr::group_by(n_subj_per_group, beta_vis) |>
-    dplyr::reframe(power = sum(p_aph_vis <= threshold) / dplyr::n()) |>
+    dplyr::mutate(beta_vis = as.factor(.data$beta_vis)) |>
+    dplyr::group_by(.data$n_subj_per_group, .data$beta_vis) |>
+    dplyr::reframe(power = sum(.data$p_aph_vis <= threshold) / dplyr::n()) |>
     ggplot2::ggplot(ggplot2::aes(
-      x = n_subj_per_group,
-      y = power,
-      color = beta_vis,
-      group = beta_vis
+      x = .data$n_subj_per_group,
+      y = .data$power,
+      color = .data$beta_vis,
+      group = .data$beta_vis
     )) +
     ggplot2::geom_line(
       linewidth = 0.3,

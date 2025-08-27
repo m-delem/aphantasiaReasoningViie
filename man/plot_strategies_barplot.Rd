@@ -4,7 +4,7 @@
 \alias{plot_strategies_barplot}
 \title{Plot proportions of strategy use for groups as barplots}
 \usage{
-plot_strategies_barplot(df_long, grouping = "group", ...)
+plot_strategies_barplot(df_long, grouping = "group", title = NULL, ...)
 }
 \arguments{
 \item{df_long}{A data frame containing the strategies data in a long format
@@ -12,6 +12,8 @@ with columns for grouping, strategy, and score.}
 
 \item{grouping}{A variable to group the data by, typically group or cluster.
 Can be unquoted.}
+
+\item{title}{Optional title for the plot.}
 
 \item{...}{Additional arguments passed to the \code{\link[=theme_pdf]{theme_pdf()}} function for
 customizing the plot theme.}

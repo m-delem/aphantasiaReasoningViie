@@ -114,6 +114,8 @@ describe_survey_data <- function(df, grouping = NULL) {
 #'                 FALSE.
 #' @param verbose  Logical. Whether to print a message in the console. Default
 #'                 is TRUE.
+#' @param units    The units for the width and height. Default is "mm".
+#' @param dpi      The resolution of the plot. Default is 600.
 #' @param ...      Additional arguments passed to `ggsave()`.
 #'
 #' @returns Nothing. The function saves the plot to the specified path.

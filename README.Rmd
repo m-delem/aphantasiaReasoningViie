@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 aphantasiaReasoningViie is a data analysis project disguised as an R
-package. It contains the code and data to reproduce the analyses presented in the paper "*The Impact of Mental Images on Reasoning: A Study on Aphantasia*".
+package. It contains the code and data to reproduce the analyses presented in the paper "*The Impact of Mental Images on Reasoning: A Study on Aphantasia*" (preprint coming soon).
 
 The R package structure was chosen to facilitate the sharing of the code and 
 data with the scientific community, and to make it easy to reproduce the 
@@ -41,9 +41,7 @@ following:
 pak::pak("m-delem/aphantasiaReasoningViie")
 ```
 
-Note that the current WIP version of the package is private, so this might be
-unstable. Cloning the repository to work on it is the way to go for now. Once
-you have cloned the repository, launch the R project in RStudio by opening the
+Alternatively, you can clone the repository, launch the R project in RStudio by opening the
 `aphantasiaReasoningViie.Rproj` file and run the following command:
 
 ```{r}
@@ -52,3 +50,19 @@ devtools::load_all()
 
 ... Which will load the package and make all its functions and data available in
 your R session.
+
+The [online documentation of the package](https://m-delem.github.io/aphantasiaReasoningViie/) contains detailed articles describing:
+
+- The power analyses by simulation
+
+- The data processing steps
+
+- The creation of the groups and clusters used in the analyses
+
+- The accuracy analyses (WIP)
+
+- The response time analyses (WIP)
+
+- The strategies analyses (WIP)
+
+- The exploratory non-linear RT models (WIP)

@@ -4,7 +4,13 @@
 \alias{plot_strategies_scores}
 \title{Plot mean strategy scores for groups}
 \usage{
-plot_strategies_scores(df_long, grouping = "group", x_labels = NULL, ...)
+plot_strategies_scores(
+  df_long,
+  grouping = "group",
+  title = NULL,
+  x_labels = NULL,
+  ...
+)
 }
 \arguments{
 \item{df_long}{A data frame containing the strategies data in a long format
@@ -12,6 +18,8 @@ with columns for grouping, strategy, and score.}
 
 \item{grouping}{A variable to group the data by, typically group or cluster.
 Can be unquoted.}
+
+\item{title}{Optional title for the plot.}
 
 \item{x_labels}{Optional labels for the x-axis, if different from the
 grouping variable.}

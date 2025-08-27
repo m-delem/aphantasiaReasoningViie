@@ -3,10 +3,10 @@ plot_nl <- function(df, title = NULL, ...) {
     df |>
     ggplot2::ggplot(
       ggplot2::aes(
-        x = factor(term),
-        y = Predicted,
-        color = category,
-        group = category
+        x = factor(.data$term),
+        y = .data$Predicted,
+        color = .data$category,
+        group = .data$category
       )) +
     ggplot2::geom_smooth(
       position = ggplot2::position_dodge(width = 0.3),
@@ -14,7 +14,7 @@ plot_nl <- function(df, title = NULL, ...) {
       linewidth = 0.2
     ) +
     ggplot2::geom_pointrange(
-      ggplot2::aes(ymin = CI_low, ymax = CI_high),
+      ggplot2::aes(ymin = .data$CI_low, ymax = .data$CI_high),
       size = 0.1,
       linewidth = 0.2,
       position = ggplot2::position_dodge(width = 0.3)

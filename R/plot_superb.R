@@ -11,12 +11,12 @@ plot_superb_raincloud <- function(
     leg_name = "Problem category: ",
     ...
 ) {
-  library(superb)
+  requireNamespace("superb")
 
   df_plot <-
     df |>
     dplyr::group_by(
-      id, category,
+      .data$id, .data$category,
       dplyr::across(c(
         tidyselect::contains("group"),
         tidyselect::contains("cluster")
@@ -120,14 +120,15 @@ plot_superb_jitter <- function(
     dvar,
     grouping,
     title = NULL,
-    y_title = NULL
+    y_title = NULL,
+    ...
 ) {
-  library(superb)
+  requireNamespace("superb")
 
   df_plot <-
     df |>
     dplyr::group_by(
-      id, category,
+      .data$id, .data$category,
       dplyr::across(c(
         tidyselect::contains("group"),
         tidyselect::contains("cluster")
@@ -217,12 +218,12 @@ plot_superb_categories <- function(
     y_title = NULL,
     ...
 ) {
-  library(superb)
+  requireNamespace("superb")
 
   df_plot <-
     df |>
     dplyr::group_by(
-      id, category,
+      .data$id, .data$category,
       dplyr::across(c(
         tidyselect::contains("group"),
         tidyselect::contains("cluster")
