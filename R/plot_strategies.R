@@ -253,7 +253,6 @@ plot_strategies_scores <- function(
     ggplot2::labs(title = title, x = NULL, y = NULL) +
     theme_pdf(
       base_theme = ggplot2::theme_minimal,
-      axis_relative_size = 0.85,
       # Custom theme arguments
       panel.grid.major.x = ggplot2::element_blank(),
       panel.border = ggplot2::element_rect(color = "grey80", fill = NA),

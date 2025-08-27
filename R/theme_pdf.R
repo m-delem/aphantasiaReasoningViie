@@ -156,6 +156,8 @@ theme_pdf <- function(
       ),
 
       # Legends
+      legend.title =
+        ggplot2::element_text(size = ggplot2::rel(legend_relative)),
       legend.text = ggplot2::element_text(size = ggplot2::rel(legend_relative)),
       legend.position = "top",
       # Removing the margin of individual legends in favour of overall

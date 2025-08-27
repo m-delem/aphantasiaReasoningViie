@@ -126,6 +126,8 @@ save_plot <- function(
     width    = NULL,
     print_it = FALSE,
     verbose  = TRUE,
+    units    = "mm",
+    dpi      = 600,
     ...
 ) {
   if (!is.null(width)) {
@@ -149,8 +151,8 @@ save_plot <- function(
     plot     = plot,
     width    = width,
     height   = height,
-    units    = "mm",
-    dpi      = 600,
+    units    = units,
+    dpi      = dpi,
     ...
   )
   if (verbose) {
