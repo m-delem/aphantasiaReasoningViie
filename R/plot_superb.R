@@ -159,12 +159,12 @@ plot_superb_jitter <- function(
       data = df_plot,
       plotLayout = "pointjitter",
       pointParams = list(
-        size = 2.25,
+        size = 1.5,
         alpha = 1
         # position = ggplot2::position_dodge(width = 0.5)
       ),
       jitterParams = list(
-        size = 1.5,
+        size = 0.75,
         alpha = 0.1,
         position = ggplot2::position_jitterdodge(
           jitter.width  = 0.1,

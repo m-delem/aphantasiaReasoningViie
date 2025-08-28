@@ -195,8 +195,8 @@ plot_strategies_scores <- function(
       )
     ) +
     ggplot2::geom_point(
-      size  = 1,
-      alpha = 0.3,
+      size  = 0.5,
+      alpha = 0.1,
       position = ggplot2::position_jitterdodge(
         jitter.width  = 0.1,
         jitter.height = 0.1,
@@ -228,7 +228,7 @@ plot_strategies_scores <- function(
         ymax = .data$mean + .data$se,
       ),
       position = ggplot2::position_dodge(width = 0.5),
-      size = 0.2,
+      size = 0.1,
       linewidth = 0.2,
       na.rm = TRUE
     ) +

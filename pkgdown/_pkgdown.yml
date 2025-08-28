@@ -45,6 +45,7 @@ reference:
   - plot_osivq_ternary
   - plot_strategies_barplot
   - plot_strategies_scores
+  - add_significance
   - theme_pdf
   - save_plot
 - title: "Simulation"

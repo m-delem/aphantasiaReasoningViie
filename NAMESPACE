@@ -2,6 +2,7 @@
 
 export(add_factor_contrasts)
 export(add_named_clusters)
+export(add_significance)
 export(build_formula)
 export(cluster_osivq)
 export(compute_nieq_scores)
