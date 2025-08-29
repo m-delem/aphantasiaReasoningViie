@@ -1,0 +1,75 @@
+---
+title: "The Impact of Mental Images on Reasoning: A Study on Aphantasia"
+abstract: "There is a long-standing debate about the role of visual mental 
+  images in reasoning. Knauff and Johnson-Laird's (2002) Visual Imagery 
+  Impedance Hypothesis (VIIH) suggests visual imagery can hinder abstract 
+  reasoning, as evidenced by slower responses to visual compared to spatial 
+  and control problems. Aphantasia — reduced or absent visual imagery— offers 
+  a unique opportunity to test this hypothesis. In an online version of the 
+  reasoning paradigm used in VIIH studies, aphantasic and control participants 
+  completed three problem types (visual, spatial, control), while reaction time 
+  and accuracy scores were measured. In addition, a second classification, based 
+  on the Object-Spatial Imagery and Verbal Questionnaire (OSIVQ), was employed 
+  to differentiate participants according to their cognitive style and explore 
+  possible performance differences between the visualiser, spatialiser and 
+  verbaliser clusters. Our study replicated the findings of Knauff and 
+  Johnson-Laird (2002), as a slowdown for visual problems in comparison to 
+  spatial and control ones was demonstrated in typical imagers. In aphantasics, 
+  this effect was less marked, but the difference between the groups is not
+  substantial enough to be conclusively established. More in-depth analyses 
+  distinguishing “complete aphantasia” and hypophantasia revealed a more 
+  significant slowdown within the latter group, suggesting that visual imagery, 
+  even in its weakest form, influences performance on such tasks. Finally, our 
+  OSIVQ classification-based analyses showed that participants in the visualiser 
+  cluster are the most impaired in this task. Overall, our results demonstrated 
+  the importance of considering the influence of mental images and cognitive 
+  styles in theories of reasoning."
+authors: 
+  - name: Damien Le Clézio
+    email: damien.le-clezio@univ-lyon2.fr
+    affiliations:
+      - id: emc
+        name: "Laboratoire d’Étude des Mécanismes Cognitifs (EMC), 
+          Université Lumière Lyon 2"
+        city: Lyon
+        country: France
+        url: https://emc.univ-lyon2.fr
+    attributes:
+      corresponding: true
+      equal-contributor: true
+  - name: Maël Delem
+    orcid: 0009-0005-8518-1991
+    email: mael.delem@univ-lyon2.fr
+    affiliations:
+      - ref: emc
+    attributes:
+      equal-contributor: true
+  - name: Merlin Monzel
+    orcid: 0000-0001-7012-9350
+    affiliations:
+      - id: ub
+        name: "Department of Psychology, University of Bonn"
+        city: Bonn
+        country: Germany
+  - name: Gaën Plancher
+    orcid: 0000-0002-0178-6207
+    affiliations:
+    - ref: emc
+    - id: iuf
+      name: Institut Universitaire de France (IUF)
+      city: Paris
+      country: France
+      url: https://www.iufrance.fr
+toc: false
+echo: false
+format: docx
+reference-doc: "custom-reference-doc.docx"
+bibliography: "references.bib" 
+csl: "apa.csl"
+filters:
+  - authors-block
+---
+
+**Keywords**: aphantasia, mental imagery, reasoning, cognitive style, strategy
+
+
