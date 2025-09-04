@@ -11,7 +11,8 @@
 aphantasiaReasoningViie is a data analysis project disguised as an R
 package. It contains the code and data to reproduce the analyses
 presented in the paper “*The Impact of Mental Images on Reasoning: A
-Study on Aphantasia*” (preprint coming soon).
+Study on Aphantasia*”. You can read the preprint
+[here](http://dx.doi.org/10.13140/RG.2.2.14125.55526).
 
 The R package structure was chosen to facilitate the sharing of the code
 and data with the scientific community, and to make it easy to reproduce
