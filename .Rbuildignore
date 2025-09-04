@@ -9,4 +9,4 @@
 ^docs$
 ^pkgdown$
 ^\.github$
-^inst\manuscript$
+^inst$
