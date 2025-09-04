@@ -80,9 +80,119 @@
 
     
     
+<p>This short vignette details how the OSIVQ clusters were created and
+named, and how they relate to the VVIQ-based groups.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://m-delem.github.io/aphantasiaReasoningViie/">aphantasiaReasoningViie</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">Welcome to </span><span style="color: #00BBBB;">aphantasiaReasoningViie</span><span style="color: #0000BB;">.</span></span></span></code></pre></div>
+<p>First, let’s get the cleaned, analysis-ready data (see
+<code><a href="../articles/preparing-data.html">vignette("preparing-data")</a></code> for details).</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df_survey</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_clean_data.html">get_clean_data</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">df_survey</span></span></code></pre></div>
+<p>The OSIVQ clusters were created using a consensus of three clustering
+algorithms (GMM, PAM and C-Means) applied to the three OSIVQ sub-scales
+(Object, Spatial and Verbal). A function was created for this specific
+task, <code><a href="../reference/cluster_osivq.html">cluster_osivq()</a></code>, which uses the
+<code><a href="https://alinetalhouk.github.io/diceR/reference/dice.html" class="external-link">diceR::dice()</a></code> function from the <em>diceR</em> package.
+Following the methodology proposed by <span class="citation">Delem et
+al. (2025)</span>, we searched for three “visualiser”, “spatialiser” and
+“verbaliser” clusters based on their most “dominant” OSIVQ sub-scale
+score.</p>
+<p>However, the clustering algorithm does not name the clusters, so we
+needed to check their properties to assign meaningful names. The
+function <code><a href="../reference/add_named_clusters.html">add_named_clusters()</a></code> adds the cluster assignments
+to the data frame, by default with generic names.
+<code><a href="../reference/summarise_clustering.html">summarise_clustering()</a></code> then provides a summary of the
+clusters’ properties, which allowed us to choose meaningful names for
+the three clusters produced.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Clustering OSIVQ data</span></span>
+<span><span class="va">clustering</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cluster_osivq.html">cluster_osivq</a></span><span class="op">(</span><span class="va">df_survey</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Checking cluster properties to define names for each cluster</span></span>
+<span><span class="va">df_survey</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/add_named_clusters.html">add_named_clusters</a></span><span class="op">(</span><span class="va">clustering</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/summarise_clustering.html">summarise_clustering</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 8</span></span></span>
+<span><span class="co">#&gt;   group          cluster       n  vviq object spatial verbal raven</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Hypophantasia  cluster_1     3  24     1.67    3.67   2.55  15.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Typical        cluster_1    12  50.9   2.39    2.84   2.46  15.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Aphantasia     cluster_1     4  16     1.41    3.32   1.97  17  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Typical        cluster_2    38  57.3   3.71    2.87   3.09  15.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Hyperphantasia cluster_2     4  77.5   4.41    3.93   3.56  15  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Aphantasia     cluster_2     1  16     4.93    3.27   4.44  16  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Aphantasia     cluster_3    25  16.0   1.25    2.26   3.38  16.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> Hypophantasia  cluster_3    14  23.7   1.36    2.52   3.5   15.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> Typical        cluster_3     3  50.3   1.76    2.67   4.11  17.3</span></span></code></pre></div>
+<p>We saw here that cluster 1 was the spatialiser one, cluster 2 was the
+visualiser and cluster 3 the verbaliser. We can now use
+<code><a href="../reference/add_named_clusters.html">add_named_clusters()</a></code> again with its optional arguments add
+these labels, reorder them, choose factor levels and add contrasts for
+planned comparisons between the visualiser cluster and the other
+two.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Adding named clusters to the survey data</span></span>
+<span><span class="va">df_survey</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_named_clusters.html">add_named_clusters</a></span><span class="op">(</span></span>
+<span>  <span class="va">df_survey</span>, <span class="va">clustering</span>,</span>
+<span>  names  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Spatialiser"</span>, <span class="st">"Visualiser"</span>, <span class="st">"Verbaliser"</span><span class="op">)</span>,</span>
+<span>  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Visualiser"</span>, <span class="st">"Spatialiser"</span>, <span class="st">"Verbaliser"</span><span class="op">)</span>,</span>
+<span>  contrasts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"_visualiser"</span>, <span class="st">"_spatialiser"</span>, <span class="st">"_verbaliser"</span><span class="op">)</span>,</span>
+<span>  base <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Let's check the cluster properties again</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">df_survey</span><span class="op">$</span><span class="va">cluster</span><span class="op">)</span></span>
+<span><span class="co">#&gt;             _spatialiser _verbaliser</span></span>
+<span><span class="co">#&gt; Visualiser             0           0</span></span>
+<span><span class="co">#&gt; Spatialiser            1           0</span></span>
+<span><span class="co">#&gt; Verbaliser             0           1</span></span>
+<span><span class="fu"><a href="../reference/summarise_clustering.html">summarise_clustering</a></span><span class="op">(</span><span class="va">df_survey</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 8</span></span></span>
+<span><span class="co">#&gt;   group          cluster         n  vviq object spatial verbal raven</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Typical        Visualiser     38  57.3   3.71    2.87   3.09  15.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Hyperphantasia Visualiser      4  77.5   4.41    3.93   3.56  15  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Aphantasia     Visualiser      1  16     4.93    3.27   4.44  16  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Hypophantasia  Spatialiser     3  24     1.67    3.67   2.55  15.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Typical        Spatialiser    12  50.9   2.39    2.84   2.46  15.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Aphantasia     Spatialiser     4  16     1.41    3.32   1.97  17  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Aphantasia     Verbaliser     25  16.0   1.25    2.26   3.38  16.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> Hypophantasia  Verbaliser     14  23.7   1.36    2.52   3.5   15.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> Typical        Verbaliser      3  50.3   1.76    2.67   4.11  17.3</span></span>
+<span></span>
+<span><span class="va">df_expe</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/get_clean_data.html">get_clean_data</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">df_expe</span>,</span>
+<span>    <span class="va">df_survey</span> <span class="op">|&gt;</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">cluster</span><span class="op">)</span>,</span>
+<span>    by <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html" class="external-link">join_by</a></span><span class="op">(</span><span class="st">"id"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html" class="external-link">relocate</a></span><span class="op">(</span><span class="va">cluster</span>, .after <span class="op">=</span> <span class="st">"group"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df_rt</span>      <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter_trials_on_rt.html">filter_trials_on_rt</a></span><span class="op">(</span><span class="va">df_expe</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Outlier trials filtration summary</span></span>
+<span><span class="co">#&gt; 2808 trials before filtering</span></span>
+<span><span class="co">#&gt; 587 incorrect trials removed (20.9%)</span></span>
+<span><span class="co">#&gt; 317 trials filtered based on mean + 2 * SD</span></span>
+<span><span class="co">#&gt; (14.27% of remaining trials)</span></span>
+<span><span class="co">#&gt; 1904 trials remaining after filtering</span></span>
+<span><span class="va">df_rt_long</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="../reference/pivot_terms_longer.html">pivot_terms_longer</a></span><span class="op">(</span><span class="va">df_rt</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    group_2_category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction</a></span><span class="op">(</span><span class="va">group_2</span>, <span class="va">category</span><span class="op">)</span>,</span>
+<span>    group_3_category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction</a></span><span class="op">(</span><span class="va">group_3</span>, <span class="va">category</span><span class="op">)</span>,</span>
+<span>    cluster_category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction</a></span><span class="op">(</span><span class="va">cluster</span>, <span class="va">category</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">df_strats_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pivot_strategies_longer.html">pivot_strategies_longer</a></span><span class="op">(</span><span class="va">df_survey</span><span class="op">)</span></span></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-delem2025uncovering" class="csl-entry">
+Delem, M., Turkben, S., Cousineau, D., Cavalli, E., &amp; Plancher, G.
+(2025). <em>Unsupervised clustering reveals spatial and verbal cognitive
+profiles in aphantasia and typical imagery</em>.
+</div>
+</div>
   </main>
 </div>
 
