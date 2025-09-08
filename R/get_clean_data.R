@@ -69,7 +69,7 @@ get_clean_data <- function(
       filter_random_accuracy_ids(
         aphantasiaReasoningViie::experiment_data,
         verbose = verbose
-        ),
+      ),
       filter_manually_identified_ids(
         aphantasiaReasoningViie::survey_data,
         exclude_no_vviq = exclude_no_vviq,
@@ -83,12 +83,13 @@ get_clean_data <- function(
         exclude_dyslexia = exclude_dyslexia,
         exclude_other = exclude_other,
         verbose = verbose
-        ) |>
-        dplyr::select(.data$id),
+      ) |>
+        dplyr::select(.data$id, tidyselect::starts_with("strats_dlc_")),
       by = "id"
     ) |>
     filter_suspicious_rt_ids(sd_mult = sd_mult, verbose = verbose) |>
     factor_categories() |>
+    factor_strategies() |>
     # factor_groups(n_groups = n_groups) |>
     create_all_groups() |>
     factor_chr_vars()

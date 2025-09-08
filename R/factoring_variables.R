@@ -135,8 +135,8 @@ factor_strategies <- function(df, ordered = TRUE) {
           ordered = ordered
         )
       )
-    ) |>
-    dplyr::relocate("other_strat", .after = "sensorimotor_strat")
+    )
+    # dplyr::relocate("other_strat", .after = "sensorimotor_strat")
   return(df_factored)
 }
 
@@ -255,10 +255,10 @@ create_all_groups <- function(df, ...) {
     df |>
     dplyr::mutate(
       group_2 = dplyr::case_when(
-          .data$group == "hypophantasia" ~ "aphantasia",
-          .data$group == "hyperphantasia" ~ "typical",
-          TRUE ~ .data$group
-        ) |>
+        .data$group == "hypophantasia" ~ "aphantasia",
+        .data$group == "hyperphantasia" ~ "typical",
+        TRUE ~ .data$group
+      ) |>
         stringr::str_to_title() |>
         factor(levels = c("Aphantasia", "Typical")) |>
         add_factor_contrasts(
@@ -270,9 +270,9 @@ create_all_groups <- function(df, ...) {
           ...
         ),
       group_3 = dplyr::case_when(
-          .data$group == "hyperphantasia" ~ "typical",
-          TRUE ~ .data$group
-        ) |>
+        .data$group == "hyperphantasia" ~ "typical",
+        TRUE ~ .data$group
+      ) |>
         stringr::str_to_title() |>
         factor(levels = c("Aphantasia", "Hypophantasia", "Typical")) |>
         add_factor_contrasts(
@@ -298,11 +298,21 @@ create_all_groups <- function(df, ...) {
           ),
           base = 3,
           ...
+        ),
+      strategy_group = ifelse(
+        .data$visual_strat == "no_use",
+        "No visual strategy",
+        "Visual strategy user"
+        ) |>
+        factor(levels = c("Visual strategy user", "No visual strategy")) |>
+        add_factor_contrasts(
+          n = c("_visual_strat_user", "_no_visual_strat")
         )
     ) |>
     dplyr::relocate(
       "group_2",
       "group_3",
+      "strategy_group",
       .after = "group"
     )
   return(df_all_groups)

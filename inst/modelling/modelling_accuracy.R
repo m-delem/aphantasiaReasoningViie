@@ -21,6 +21,13 @@ m_acc_osivq <-
     family  = binomial(link = "logit"),
     prior   = set_ranef_prior(20)
   )
+m_acc_strat <-
+  glmmTMB::glmmTMB(
+    data    = df_expe,
+    formula = build_formula("accuracy", "strategy_group"),
+    family  = binomial(link = "logit"),
+    prior   = set_ranef_prior(20)
+  )
 
 cat("\014")
 # Singularity
@@ -49,4 +56,12 @@ m_acc_osivq  |> get_performance() |> knitr::kable(align = "c")
 m_acc_osivq  |> report_contrast(~ cluster) |> knitr::kable()
 m_acc_osivq  |> report_contrast(~ category | cluster) |> knitr::kable()
 m_acc_osivq  |> report_contrast(~ category * cluster, interaction = TRUE) |>
+  knitr::kable()
+
+cat("\014")
+m_acc_strat |> get_singularity()
+m_acc_strat |> get_performance() |> knitr::kable(align = "c")
+m_acc_strat |> report_contrast(~ strategy_group) |> knitr::kable()
+m_acc_strat |> report_contrast(~ category | strategy_group) |> knitr::kable()
+m_acc_strat |> report_contrast(~ category * strategy_group, interaction = TRUE) |>
   knitr::kable()

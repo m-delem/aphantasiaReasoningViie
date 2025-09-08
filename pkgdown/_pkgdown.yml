@@ -52,3 +52,17 @@ reference:
   contents:
   - simulate_rt_data
   - simulate_acc_data
+
+articles:
+- title: "Power analysis by simulation"
+  navbar: ~
+  contents:
+  - power_analysis
+- title: "Preparing data for analysist"
+  navbar: ~
+  contents:
+  - preparing_data
+- title: "Creating OSIVQ cognitive style clusters"
+  navbar: ~
+  contents:
+  - osivq_clusters

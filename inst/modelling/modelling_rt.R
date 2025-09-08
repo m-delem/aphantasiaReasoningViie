@@ -21,6 +21,13 @@ m_rt_osivq <-
     family  = Gamma(link = "identity"),
     prior   = set_ranef_prior(70)
   )
+m_rt_strat <-
+  glmmTMB::glmmTMB(
+    data    = df_rt,
+    formula = build_formula("rt_total", "strategy_group"),
+    family  = Gamma(link = "identity"),
+    prior   = set_ranef_prior(70)
+  )
 
 cat("\014")
 m_rt_vviq_2 |> get_singularity()
@@ -44,4 +51,12 @@ m_rt_osivq |> get_performance() |> knitr::kable(align = "c")
 m_rt_osivq |> report_contrast(~ cluster) |> knitr::kable()
 m_rt_osivq |> report_contrast(~ category | cluster) |> knitr::kable()
 m_rt_osivq |> report_contrast(~ cluster * category, interaction = TRUE) |>
+  knitr::kable()
+
+cat("\014")
+m_rt_strat |> get_singularity()
+m_rt_strat |> get_performance() |> knitr::kable(align = "c")
+m_rt_strat |> report_contrast(~ strategy_group) |> knitr::kable()
+m_rt_strat |> report_contrast(~ category | strategy_group) |> knitr::kable()
+m_rt_strat |> report_contrast(~ strategy_group * category, interaction = TRUE) |>
   knitr::kable()
