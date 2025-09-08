@@ -34,9 +34,9 @@ survey data."><meta property="og:image" content="https://m-delem.github.io/aphan
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power-analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing-data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/vviq-groups-osivq-clusters.html">VVIQ groups and OSIVQ clusters</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -191,35 +191,39 @@ about the filtering process. Default is <code>FALSE</code>.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Sample size before median RTs analysis: 106</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Participants with median RTs outside 2.25 SDs: 2 (1.89%)</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">clean_data</span><span class="op">$</span><span class="va">df_expe</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 19</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id     language group group_2 group_3 expe_phase trial_number problem category</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> acdn2… fr       Typi… Typical Typical expe_bloc…            1      18 Spatial </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> acdn2… fr       Typi… Typical Typical expe_bloc…            2      25 Control </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> acdn2… fr       Typi… Typical Typical expe_bloc…            3       2 Visual  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> acdn2… fr       Typi… Typical Typical expe_bloc…            4      19 Control </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> acdn2… fr       Typi… Typical Typical expe_bloc…            5       1 Visual  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> acdn2… fr       Typi… Typical Typical expe_bloc…            6      10 Spatial </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 10 more variables: premise_1_rt &lt;dbl&gt;, premise_2_rt &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   premise_3_rt &lt;dbl&gt;, conclusion_rt &lt;dbl&gt;, rt_total &lt;dbl&gt;, response &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   correct_response &lt;fct&gt;, accuracy &lt;int&gt;, acc_perc &lt;dbl&gt;, median_rt &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 29</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id       language group group_2 group_3 strategy_group expe_phase trial_number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 21 more variables: problem &lt;int&gt;, category &lt;fct&gt;, premise_1_rt &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   premise_2_rt &lt;dbl&gt;, premise_3_rt &lt;dbl&gt;, conclusion_rt &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   rt_total &lt;dbl&gt;, response &lt;fct&gt;, correct_response &lt;fct&gt;, accuracy &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   acc_perc &lt;dbl&gt;, visual_strat &lt;ord&gt;, verbal_strat &lt;ord&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   spatial_strat &lt;ord&gt;, semantic_strat &lt;ord&gt;, sensorimotor_strat &lt;ord&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   asso_strat_1 &lt;fct&gt;, other_strat &lt;fct&gt;, asso_strat_2 &lt;fct&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   asso_strat_3 &lt;fct&gt;, median_rt &lt;dbl&gt;</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">clean_data</span><span class="op">$</span><span class="va">df_survey</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 112</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id         language   age gender group group_2 group_3 country language_native</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> acdn24772… fr          24 f      Typi… Typical Typical fra     fr             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> ahos20623… fr          26 f      Apha… Aphant… Aphant… fra     fr             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> anoo20152… fr          23 m      Typi… Typical Typical fra     fr             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> arje91119… fr          26 f      Typi… Typical Typical fra     fr             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> auzb74885… fr          25 f      Typi… Typical Typical fra     fr             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> azcj31777… fr          28 m      Hypo… Aphant… Hypoph… fra     fr             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 103 more variables: language_usual &lt;fct&gt;, job &lt;fct&gt;, education &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   field &lt;fct&gt;, vviq_is_complete &lt;lgl&gt;, vviq_total_score &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_q01 &lt;int&gt;, vviq_q02 &lt;int&gt;, vviq_q03 &lt;int&gt;, vviq_q04 &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_q05 &lt;int&gt;, vviq_q06 &lt;int&gt;, vviq_q07 &lt;int&gt;, vviq_q08 &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_q09 &lt;int&gt;, vviq_q10 &lt;int&gt;, vviq_q11 &lt;int&gt;, vviq_q12 &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_q13 &lt;int&gt;, vviq_q14 &lt;int&gt;, vviq_q15 &lt;int&gt;, vviq_q16 &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   osivq_is_complete &lt;lgl&gt;, osivq_object &lt;dbl&gt;, osivq_spatial &lt;dbl&gt;, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 113</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id          language   age gender group group_2 group_3 strategy_group country</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> acdn247721… fr          24 f      Typi… Typical Typical No visual str… fra    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> ahos206230… fr          26 f      Apha… Aphant… Aphant… No visual str… fra    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> anoo201523… fr          23 m      Typi… Typical Typical Visual strate… fra    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> arje911192… fr          26 f      Typi… Typical Typical Visual strate… fra    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> auzb748856… fr          25 f      Typi… Typical Typical No visual str… fra    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> azcj317771… fr          28 m      Hypo… Aphant… Hypoph… Visual strate… fra    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 104 more variables: language_native &lt;fct&gt;, language_usual &lt;fct&gt;, job &lt;fct&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   education &lt;fct&gt;, field &lt;fct&gt;, vviq_is_complete &lt;lgl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_total_score &lt;int&gt;, vviq_q01 &lt;int&gt;, vviq_q02 &lt;int&gt;, vviq_q03 &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_q04 &lt;int&gt;, vviq_q05 &lt;int&gt;, vviq_q06 &lt;int&gt;, vviq_q07 &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_q08 &lt;int&gt;, vviq_q09 &lt;int&gt;, vviq_q10 &lt;int&gt;, vviq_q11 &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_q12 &lt;int&gt;, vviq_q13 &lt;int&gt;, vviq_q14 &lt;int&gt;, vviq_q15 &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_q16 &lt;int&gt;, osivq_is_complete &lt;lgl&gt;, osivq_object &lt;dbl&gt;, …</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
