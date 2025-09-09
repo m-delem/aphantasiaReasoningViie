@@ -115,15 +115,15 @@ the three clusters produced.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 8</span></span></span>
 <span><span class="co">#&gt;   group          cluster       n  vviq object spatial verbal raven</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Hypophantasia  cluster_1     3  24     1.67    3.67   2.55  15.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Typical        cluster_1    12  50.9   2.39    2.84   2.46  15.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Aphantasia     cluster_1     4  16     1.41    3.32   1.97  17  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Aphantasia     cluster_1     7  16     1.41    2.66   1.82  15.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Hypophantasia  cluster_1     4  23.5   1.57    3.32   2.39  14.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Typical        cluster_1     9  49.9   2.36    3.11   2.09  15.8</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Typical        cluster_2    38  57.3   3.71    2.87   3.09  15.8</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Hyperphantasia cluster_2     4  77.5   4.41    3.93   3.56  15  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Aphantasia     cluster_2     1  16     4.93    3.27   4.44  16  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Aphantasia     cluster_3    25  16.0   1.25    2.26   3.38  16.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> Hypophantasia  cluster_3    14  23.7   1.36    2.52   3.5   15.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> Typical        cluster_3     3  50.3   1.76    2.67   4.11  17.3</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Aphantasia     cluster_3    23  16.0   1.24    2.27   3.5   16.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> Hypophantasia  cluster_3    14  23.9   1.39    2.49   3.6   15.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> Typical        cluster_3     6  52.2   2.12    2.35   3.85  15.7</span></span></code></pre></div>
 <p>We saw here that cluster 1 was the spatialiser one, cluster 2 was the
 visualiser and cluster 3 the verbaliser. We can now use
 <code><a href="../reference/add_named_clusters.html">add_named_clusters()</a></code> again with its optional arguments to
@@ -153,22 +153,26 @@ two.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Typical        Visualiser     38  57.3   3.71    2.87   3.09  15.8</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Hyperphantasia Visualiser      4  77.5   4.41    3.93   3.56  15  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Aphantasia     Visualiser      1  16     4.93    3.27   4.44  16  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Hypophantasia  Spatialiser     3  24     1.67    3.67   2.55  15.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Typical        Spatialiser    12  50.9   2.39    2.84   2.46  15.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Aphantasia     Spatialiser     4  16     1.41    3.32   1.97  17  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Aphantasia     Verbaliser     25  16.0   1.25    2.26   3.38  16.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> Hypophantasia  Verbaliser     14  23.7   1.36    2.52   3.5   15.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> Typical        Verbaliser      3  50.3   1.76    2.67   4.11  17.3</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Aphantasia     Spatialiser     7  16     1.41    2.66   1.82  15.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Hypophantasia  Spatialiser     4  23.5   1.57    3.32   2.39  14.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Typical        Spatialiser     9  49.9   2.36    3.11   2.09  15.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Aphantasia     Verbaliser     23  16.0   1.24    2.27   3.5   16.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> Hypophantasia  Verbaliser     14  23.9   1.39    2.49   3.6   15.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> Typical        Verbaliser      6  52.2   2.12    2.35   3.85  15.7</span></span></code></pre></div>
 <p><code><a href="../reference/cluster_osivq.html">cluster_osivq()</a></code> uses a seed, so the resulting clusters
 will always be the same for a given seed and data set. Thus, we were
 able to use this short clustering pipeline in all subsequent analyses to
 create our “cluster” variable and add it to the experimental data set
 for modelling.</p>
+<div class="section level2 unnumbered">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-delem2025uncovering" class="csl-entry">
 Delem, M., Turkben, S., Cousineau, D., Cavalli, E., &amp; Plancher, G.
 (2025). <em>Unsupervised clustering reveals spatial and verbal cognitive
 profiles in aphantasia and typical imagery</em>.
+</div>
 </div>
 </div>
   </main>

@@ -83,7 +83,7 @@
 <div class="section level2">
 <h2 id="rationale">Rationale<a class="anchor" aria-label="anchor" href="#rationale"></a>
 </h2>
-<p>We analysed sample and effect sizes <em>a priori</em> using a
+<p>We analysed sample and effect sizes before data collection using a
 simulation approach, where power is defined as the proportion of
 simulations where a model detects an existing effect that we simulated.
 Instead of choosing a fixed sample size, this approach allowed us to
@@ -91,7 +91,7 @@ have a full picture of the power of our model across a range of sample
 sizes and effect sizes. It replaced the question “<em>What sample size
 do we need to detect an effect of a given (arbitrary) size?</em>” with
 “<em>Given the sample we managed to recruit, what is the smallest effect
-size we could detect with good power?</em>” which allows much more
+size we could detect with good power?</em>” which allowed much more
 flexibility in data collection. This was especially useful for us
 because aphantasia and hyperphantasia are rare phenomena <span class="citation">(see Wright et al., 2024)</span>, and we had no way of
 knowing beforehand how many participants we would be able to recruit in
@@ -100,13 +100,22 @@ each group.</p>
 <div class="section level2">
 <h2 id="building-the-generative-model">Building the generative model<a class="anchor" aria-label="anchor" href="#building-the-generative-model"></a>
 </h2>
+<p>The process starts with finding a way to generate synthetic data
+(said “simulations”) that “look like” the experimental data we expected
+to collect. We based our simulations on a model that we hypothesised to
+govern the effect of our variables of interest on the dependent
+variables, and distributional assumptions about these dependent
+variables. Below, we describe this model and the previous literature
+from which we derived the estimations of the effects and the
+distributions of the observed variables.</p>
 <div class="section level3">
 <h3 id="structure">Structure<a class="anchor" aria-label="anchor" href="#structure"></a>
 </h3>
-<p>We designed our model <em>a priori</em> based on our hypotheses and
-variables. This is the model that will be used as the data-generating
+<p>We designed our model before data collection based on our hypotheses
+and variables. This is the model that was be used as the data-generating
 process for the simulations. The model we used is a generalised linear
-mixed-effects model with the following structure, in R syntax:</p>
+mixed-effects model (GLMM) with the following structure, in R
+syntax:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dependent_variable</span> <span class="op">~</span> <span class="va">grouping</span> <span class="op">*</span> <span class="va">category</span> <span class="op">+</span> <span class="op">(</span><span class="va">category</span> <span class="op">|</span> <span class="va">id</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">grouping</span> <span class="op">|</span> <span class="va">problem</span><span class="op">)</span> </span></code></pre></div>
 <p>Where the dependent variable can be accuracy or response times
@@ -276,13 +285,14 @@ negative
 interaction coefficient that nullifies the visual effect for the
 aphantasia group only.</p>
 <p>We chose to simulate the response times with a shifted log-normal
-distribution (generated with the package <code>brms</code>). We searched
-manually for the parameters of this distribution and our model
-coefficients that allowed to reach the desired statistics. The data
-simulation using the generative model is wrapped in the
-<code><a href="../reference/simulate_rt_data.html">simulate_rt_data()</a></code> function. The function has arguments to
-fine-tune all the distributional parameters and model coefficients
-discussed above. We searched for the appropriate values by
+distribution (generated with the package <code>brms</code>), as these
+distributions reproduce particularly well those of RTs (see <a href="https://lindeloev.shinyapps.io/shiny-rt/" class="external-link">this amazing interactive
+illustration</a>). We searched manually for the parameters of this
+distribution and our model coefficients that allowed to reach the
+desired statistics. The data simulation using the generative model is
+wrapped in the <code><a href="../reference/simulate_rt_data.html">simulate_rt_data()</a></code> function. The function
+has arguments to fine-tune all the distributional parameters and model
+coefficients discussed above. We searched for the appropriate values by
 trial-and-error using the simple code below:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://m-delem.github.io/aphantasiaReasoningViie/">aphantasiaReasoningViie</a></span><span class="op">)</span></span>
@@ -351,6 +361,260 @@ set as minus the visual effect allowed to nullify the visual effect in
 the aphantasia group. If the effect size gets small, a slight multiplier
 (e.g., 1.5) might be necessary to nullify the effect.</p></li>
 </ul>
+<p>We can visualise the distribution of these RTs using the
+<code><a href="../reference/plot_superb_raincloud.html">plot_superb_raincloud()</a></code> function from the package:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dcousin3/superb/" class="external-link">superb</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_superb_raincloud.html">plot_superb_raincloud</a></span><span class="op">(</span></span>
+<span>  <span class="va">df_test</span>, <span class="va">rt_total</span>, <span class="va">group</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Simulated response times per group and category"</span>,</span>
+<span>  y_title <span class="op">=</span> <span class="st">"Mean total RT (s)"</span>,</span>
+<span>  base_size <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  plot.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>,</span>
+<span>  axis_rel_x <span class="op">=</span> <span class="fl">1.2</span>,</span>
+<span>  exp_add_right <span class="op">=</span> <span class="fl">0.7</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="power_analysis_files/figure-html/plot-distribution-simulated-rt-1.png" alt="Raincloud plot showing the distribution of simulated response times across the visual, spatial and control categories and the aphantasia and typical groups." width="576"></p>
+<p>The slowdown in the visual category for the typical group appears
+very clearly. Now the whole purpose of the power analyses will be to
+play around with this RT difference to see how well and how often our
+model is able to detect it.</p>
+<p>All set! Now we can move on to the actual power analysis.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="fitting-models-on-a-lot-of-simulations">Fitting models on a lot of simulations<a class="anchor" aria-label="anchor" href="#fitting-models-on-a-lot-of-simulations"></a>
+</h2>
+<div class="section level3">
+<h3 id="modelling-and-testing-the-contrast-of-interest">Modelling and testing the contrast of interest<a class="anchor" aria-label="anchor" href="#modelling-and-testing-the-contrast-of-interest"></a>
+</h3>
+<p>For our final analyses, we fitted frequentist GLMMs with Gamma
+distributions using the <code>glmmTMB</code> package. For the sake of
+computation speed, and because we did not simulate any variance tied to
+the problem types, we simplified the formula for the power analyses by
+removing the second random term. <em>Note the use of the
+<code><a href="../reference/set_ranef_prior.html">set_ranef_prior()</a></code> helper function, which helps setting
+regularizing priors on the random effects’ SD to alleviate convergence
+issues</em>.</p>
+<p>Let’s see how this model performs on our test data. We’ll use the
+<code><a href="../reference/report_contrast.html">report_contrast()</a></code> function from the package to get the
+contrasts of interest easily.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">glmmTMB</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/glmmTMB/man/glmmTMB.html" class="external-link">glmmTMB</a></span><span class="op">(</span></span>
+<span>    <span class="va">rt_total</span> <span class="op">~</span> <span class="va">group</span> <span class="op">*</span> <span class="va">category</span> <span class="op">+</span> <span class="op">(</span><span class="va">category</span> <span class="op">|</span> <span class="va">id</span><span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">df_test</span>,</span>
+<span>    family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">Gamma</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span>,</span>
+<span>    prior   <span class="op">=</span> <span class="fu"><a href="../reference/set_ranef_prior.html">set_ranef_prior</a></span><span class="op">(</span><span class="fl">70</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="va">model</span>, <span class="op">~</span> <span class="va">category</span> <span class="op">|</span> <span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Contrast</th>
+<th align="left">Group</th>
+<th align="right">Difference</th>
+<th align="left">95% CI</th>
+<th align="right">p.value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Control - Spatial</td>
+<td align="left">Aphantasia</td>
+<td align="right">0.034</td>
+<td align="left">[-0.56, 0.63]</td>
+<td align="right">0.990</td>
+</tr>
+<tr class="even">
+<td align="left">Control - Visual</td>
+<td align="left">Aphantasia</td>
+<td align="right">-0.352</td>
+<td align="left">[-0.89, 0.19]</td>
+<td align="right">0.278</td>
+</tr>
+<tr class="odd">
+<td align="left">Spatial - Visual</td>
+<td align="left">Aphantasia</td>
+<td align="right">-0.386</td>
+<td align="left">[-0.98, 0.21]</td>
+<td align="right">0.277</td>
+</tr>
+<tr class="even">
+<td align="left">Control - Spatial</td>
+<td align="left">Typical</td>
+<td align="right">0.241</td>
+<td align="left">[-0.36, 0.84]</td>
+<td align="right">0.618</td>
+</tr>
+<tr class="odd">
+<td align="left">Control - Visual</td>
+<td align="left">Typical</td>
+<td align="right">-2.311</td>
+<td align="left">[-2.9, -1.72]</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">Spatial - Visual</td>
+<td align="left">Typical</td>
+<td align="right">-2.552</td>
+<td align="left">[-3.19, -1.91]</td>
+<td align="right">0.000</td>
+</tr>
+</tbody>
+</table>
+<p>We see that the model managed to detect the visual effect in the
+typical group, and also does a pretty decent estimation of its value (we
+simulated a 2.35s effect, with some random variance added). How about
+the interaction contrasts?</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="va">model</span>, <span class="op">~</span> <span class="va">group</span> <span class="op">*</span> <span class="va">category</span>, interaction <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="25%">
+<col width="15%">
+<col width="18%">
+<col width="11%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Group contrast</th>
+<th align="left">Category contrast</th>
+<th align="right">Difference</th>
+<th align="left">95% CI</th>
+<th align="right">p.value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Aphantasia - Typical</td>
+<td align="left">Control - Spatial</td>
+<td align="right">-0.207</td>
+<td align="left">[-0.91, 0.5]</td>
+<td align="right">0.566</td>
+</tr>
+<tr class="even">
+<td align="left">Aphantasia - Typical</td>
+<td align="left">Control - Visual</td>
+<td align="right">1.960</td>
+<td align="left">[1.29, 2.63]</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">Aphantasia - Typical</td>
+<td align="left">Spatial - Visual</td>
+<td align="right">2.166</td>
+<td align="left">[1.44, 2.89]</td>
+<td align="right">0.000</td>
+</tr>
+</tbody>
+</table>
+<p>As expected, the interaction is also detected, and its value reflects
+the difference in the visual effect between the groups.</p>
+<p>We used the <em>p</em>-value of the Control-Visual interaction
+contrast as the criterion to determine whether the model was successful
+or not in detecting the effect. Thus, a single loop of the power
+analysis looks like this:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Choose sample and effect sizes to test</span></span>
+<span><span class="va">n_subj_per_group</span> <span class="op">&lt;-</span> <span class="fl">40</span></span>
+<span><span class="va">beta_vis</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span></span>
+<span><span class="co"># Simulate data</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="../reference/simulate_rt_data.html">simulate_rt_data</a></span><span class="op">(</span></span>
+<span>    n_subj_per_group <span class="op">=</span> <span class="va">n_subj_per_group</span>, </span>
+<span>    beta_vis <span class="op">=</span> <span class="va">beta_vis</span>,          <span class="co"># Visual category effect</span></span>
+<span>    beta_aph_vis <span class="op">=</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">beta_vis</span>, <span class="co"># group x visual interaction</span></span>
+<span>    seed <span class="op">=</span> <span class="fl">1234</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fit the model on the simulated data</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">glmmTMB</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/glmmTMB/man/glmmTMB.html" class="external-link">glmmTMB</a></span><span class="op">(</span></span>
+<span>    <span class="va">rt_total</span> <span class="op">~</span> <span class="va">group</span> <span class="op">*</span> <span class="va">category</span> <span class="op">+</span> <span class="op">(</span><span class="va">category</span> <span class="op">|</span> <span class="va">id</span><span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">df</span>,</span>
+<span>    family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">Gamma</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span>,</span>
+<span>    prior   <span class="op">=</span> <span class="fu"><a href="../reference/set_ranef_prior.html">set_ranef_prior</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Get the p-value of the control-visual interaction contrast</span></span>
+<span><span class="va">contrasts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="va">model</span>, <span class="op">~</span> <span class="va">group</span> <span class="op">*</span> <span class="va">category</span>, interaction <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="va">contrasts</span><span class="op">$</span><span class="va">p.value</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.017</span></span></code></pre></div>
+<p>We wrapped this loop in the <code><a href="../reference/simulate_rt_test.html">simulate_rt_test()</a></code>
+function:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/simulate_rt_test.html">simulate_rt_test</a></span><span class="op">(</span>n_subj_per_group <span class="op">=</span> <span class="fl">40</span>, beta_vis <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="fl">1234</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.017</span></span></code></pre></div>
+<p>Now time for power! <code><a href="../reference/run_power_analysis.html">run_power_analysis()</a></code> takes a range
+of sample sizes, a range of effect sizes
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>v</mi><mi>i</mi><mi>s</mi></mrow></msub><annotation encoding="application/x-tex">\beta_{vis}</annotation></semantics></math>),
+and a number of simulations per sample/effect size combination. It then
+runs the <code><a href="../reference/simulate_rt_test.html">simulate_rt_test()</a></code> function on all these
+combinations, and returns the results of the power analysis. This
+function is interactive (it gives info on what’s going to be computed
+and waits for user input) so it does not run in this notebook, but feel
+free to try it out!</p>
+<p>This is the code that was used to run the power analysis that is
+presented in the manuscript:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">power_results</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="../reference/run_power_analysis.html">run_power_analysis</a></span><span class="op">(</span></span>
+<span>    n_min        <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    n_max        <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>    n_step       <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    beta_vis_min <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>    beta_vis_max <span class="op">=</span> <span class="fl">2.5</span>,</span>
+<span>    beta_step    <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>    n_simulations <span class="op">=</span> <span class="fl">350</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p>… This is a total of 147,000 models fitted! It took 16 hours and 44
+minutes (although the time can vary a lot depending on the computer), so
+of course we saved the results to a file for later use. These results
+are provided as package data in the <code>power_results</code> dataset,
+so they can be accessed easily:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">power_results</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">n_subj_per_group</span>, <span class="va">beta_vis</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/reframe.html" class="external-link">reframe</a></span><span class="op">(</span>power <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">p_value</span> <span class="op">&lt;=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="op">/</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 420 × 3</span></span></span>
+<span><span class="co">#&gt;    n_subj_per_group beta_vis  power</span></span>
+<span><span class="co">#&gt;               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>               10      0.5 0.071<span style="text-decoration: underline;">4</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>               10      0.6 0.085<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>               10      0.7 0.088<span style="text-decoration: underline;">6</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>               10      0.8 0.131 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>               10      0.9 0.131 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>               10      1   0.111 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>               10      1.1 0.16  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>               10      1.2 0.206 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>               10      1.3 0.206 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>               10      1.4 0.289 </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 410 more rows</span></span></span></code></pre></div>
+<p>The table above shows the estimated power for each combination of
+sample size and effect size. The package also provides a
+<code><a href="../reference/plot_power.html">plot_power()</a></code> function to visualise these results with nice
+curves:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_power.html">plot_power</a></span><span class="op">(</span></span>
+<span>  <span class="va">power_results</span>, </span>
+<span>  base_size <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  plot.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="power_analysis_files/figure-html/plot-power-results-1.png" alt="Line plot showing the estimated power to detect the visual effect across a range of sample sizes and effect sizes." width="768"></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
+</h2>
+<p>Mission accomplished! The power analysis by simulation allowed us to
+have a full picture of the power of our model across a range of sample
+sizes and effect sizes. It made the interpretation of the results of our
+analyses on real data much easier and gave straightforward directions on
+the way to go to gather evidence in favour or against the existence of
+the VIIE.</p>
 <hr>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -362,16 +626,17 @@ the aphantasia group. If the effect size gets small, a slight multiplier
 <span><span class="co">#&gt;  collate  C.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2025-09-08</span></span>
+<span><span class="co">#&gt;  date     2025-09-09</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt;  quarto   1.7.34 @ /usr/local/bin/quarto</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">!</span> <span style="color: #555555; font-style: italic;">package                </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version   </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
 <span><span class="co">#&gt;    abind                     1.4-8      <span style="color: #555555;">2024-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    aphantasiaReasoningViie * <span style="color: #BB00BB; font-weight: bold;">0.0.0.9000</span> <span style="color: #555555;">2025-09-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
+<span><span class="co">#&gt;    aphantasiaReasoningViie * <span style="color: #BB00BB; font-weight: bold;">0.0.0.9000</span> <span style="color: #555555;">2025-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
 <span><span class="co">#&gt;    backports                 1.5.0      <span style="color: #555555;">2024-05-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    bayesplot                 1.14.0     <span style="color: #555555;">2025-08-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> boot                      1.3-31     <span style="color: #555555;">2024-08-28</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.1)</span></span></span>
 <span><span class="co">#&gt;    bridgesampling            1.1-2      <span style="color: #555555;">2021-04-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    brms                      2.22.0     <span style="color: #555555;">2024-09-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    Brobdingnag               1.2-9      <span style="color: #555555;">2022-10-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -381,6 +646,7 @@ the aphantasia group. If the effect size gets small, a slight multiplier
 <span><span class="co">#&gt;    cli                       3.6.5      <span style="color: #555555;">2025-04-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    coda                      0.19-4.1   <span style="color: #555555;">2024-01-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    crayon                    1.5.3      <span style="color: #555555;">2024-06-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    curl                      7.0.0      <span style="color: #555555;">2025-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    desc                      1.4.3      <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> devtools                * 2.4.5      <span style="color: #555555;">2022-10-11</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    digest                    0.6.37     <span style="color: #555555;">2024-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -393,9 +659,11 @@ the aphantasia group. If the effect size gets small, a slight multiplier
 <span><span class="co">#&gt;    farver                    2.1.2      <span style="color: #555555;">2024-05-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    fastmap                   1.2.0      <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    faux                      1.2.2      <span style="color: #555555;">2025-01-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> foreign                   0.8-90     <span style="color: #555555;">2025-03-31</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.1)</span></span></span>
 <span><span class="co">#&gt;    fs                        1.6.6      <span style="color: #555555;">2025-04-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    generics                  0.1.4      <span style="color: #555555;">2025-05-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    ggplot2                   3.5.2      <span style="color: #555555;">2025-04-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    glmmTMB                   1.1.12     <span style="color: #555555;">2025-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    glue                      1.8.0      <span style="color: #555555;">2024-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    gtable                    0.3.6      <span style="color: #555555;">2024-10-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    htmltools                 0.5.8.1    <span style="color: #555555;">2024-04-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -407,54 +675,77 @@ the aphantasia group. If the effect size gets small, a slight multiplier
 <span><span class="co">#&gt;    later                     1.4.4      <span style="color: #555555;">2025-08-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> lattice                   0.22-7     <span style="color: #555555;">2025-04-02</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.1)</span></span></span>
 <span><span class="co">#&gt;    lifecycle                 1.0.4      <span style="color: #555555;">2023-11-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    lme4                      1.1-37     <span style="color: #555555;">2025-03-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    loo                       2.8.0      <span style="color: #555555;">2024-07-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    lsr                       0.5.2      <span style="color: #555555;">2021-12-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    magrittr                  2.0.3      <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> MASS                      7.3-65     <span style="color: #555555;">2025-02-28</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.1)</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> Matrix                    1.7-3      <span style="color: #555555;">2025-03-11</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.1)</span></span></span>
 <span><span class="co">#&gt;    matrixStats               1.5.0      <span style="color: #555555;">2025-01-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    memoise                   2.0.1      <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> mgcv                      1.9-3      <span style="color: #555555;">2025-04-04</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.1)</span></span></span>
 <span><span class="co">#&gt;    mime                      0.13       <span style="color: #555555;">2025-03-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    miniUI                    0.1.2      <span style="color: #555555;">2025-04-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    minqa                     1.2.8      <span style="color: #555555;">2024-08-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    mvtnorm                   1.3-3      <span style="color: #555555;">2025-01-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> nlme                      3.1-168    <span style="color: #555555;">2025-03-31</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.1)</span></span></span>
+<span><span class="co">#&gt;    nloptr                    2.2.1      <span style="color: #555555;">2025-03-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    numDeriv                  <span style="color: #BB00BB; font-weight: bold;">2016.8-1.1</span> <span style="color: #555555;">2019-06-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    pillar                    1.11.0     <span style="color: #555555;">2025-07-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    pkgbuild                  1.4.8      <span style="color: #555555;">2025-05-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    pkgconfig                 2.0.3      <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    pkgdown                   2.1.3      <span style="color: #555555;">2025-05-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">any (@2.1.3)</span></span></span>
 <span><span class="co">#&gt;    pkgload                   1.4.0      <span style="color: #555555;">2024-06-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    plyr                      1.8.9      <span style="color: #555555;">2023-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    posterior                 1.6.1      <span style="color: #555555;">2025-02-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> profvis                   0.4.0      <span style="color: #555555;">2024-09-20</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    progressr                 0.15.1     <span style="color: #555555;">2024-11-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    promises                  1.3.3      <span style="color: #555555;">2025-05-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    purrr                     1.1.0      <span style="color: #555555;">2025-07-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    R6                        2.6.1      <span style="color: #555555;">2025-02-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    ragg                      1.5.0      <span style="color: #555555;">2025-09-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    rbibutils                 2.3        <span style="color: #555555;">2024-10-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    RColorBrewer              1.1-3      <span style="color: #555555;">2022-04-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    Rcpp                      1.1.0      <span style="color: #555555;">2025-07-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    RcppParallel              5.1.11-1   <span style="color: #555555;">2025-08-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    Rdpack                    2.6.4      <span style="color: #555555;">2025-04-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    reformulas                0.4.1      <span style="color: #555555;">2025-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> remotes                   2.5.0      <span style="color: #555555;">2024-03-17</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    renv                      1.1.4      <span style="color: #555555;">2025-03-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.5.0)</span></span></span>
+<span><span class="co">#&gt;    reshape2                  1.4.4      <span style="color: #555555;">2020-04-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    rlang                     1.1.6      <span style="color: #555555;">2025-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    rmarkdown                 2.29       <span style="color: #555555;">2024-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    rrapply                   1.2.7      <span style="color: #555555;">2024-06-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    rstantools                2.5.0      <span style="color: #555555;">2025-09-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    sandwich                  3.1-1      <span style="color: #555555;">2024-09-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    sass                      0.4.10     <span style="color: #555555;">2025-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    scales                    1.4.0      <span style="color: #555555;">2025-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    sessioninfo               1.2.3      <span style="color: #555555;">2025-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    shiny                     1.11.1     <span style="color: #555555;">2025-07-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    shinyBS                   0.61.1     <span style="color: #555555;">2022-04-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    showtext                  0.9-7      <span style="color: #555555;">2024-03-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    showtextdb                3.0        <span style="color: #555555;">2020-06-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    stringi                   1.8.7      <span style="color: #555555;">2025-03-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    stringr                   1.5.1      <span style="color: #555555;">2023-11-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    stringr                   1.5.2      <span style="color: #555555;">2025-09-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    superb                  * 1.0.0      <span style="color: #555555;">2025-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    sysfonts                  0.8.9      <span style="color: #555555;">2024-03-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    systemfonts               1.2.3      <span style="color: #555555;">2025-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    tensorA                   0.36.2.1   <span style="color: #555555;">2023-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    textshaping               1.0.3      <span style="color: #555555;">2025-09-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    tibble                    3.3.0      <span style="color: #555555;">2025-06-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    tidyr                     1.3.1      <span style="color: #555555;">2024-01-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    tidyselect                1.2.1      <span style="color: #555555;">2024-03-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    TMB                       1.9.17     <span style="color: #555555;">2025-03-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> urlchecker                1.0.1      <span style="color: #555555;">2021-11-30</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> usethis                 * 3.2.1      <span style="color: #555555;">2025-09-06</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    utf8                      1.2.6      <span style="color: #555555;">2025-06-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    vctrs                     0.6.5      <span style="color: #555555;">2023-12-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    viridisLite               0.4.2      <span style="color: #555555;">2023-05-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    withr                     3.0.2      <span style="color: #555555;">2024-10-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    xfun                      0.53       <span style="color: #555555;">2025-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    xtable                    1.8-4      <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    yaml                      2.3.10     <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    zoo                       1.8-14     <span style="color: #555555;">2025-04-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu/179fe56a</span></span></span>
@@ -463,7 +754,6 @@ the aphantasia group. If the effect size gets small, a slight multiplier
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> ── Loaded and on-disk path mismatch.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">──────────────────────────────────────────────────────────────────────────────</span></span></span></code></pre>
-</div>
 <div class="section level3">
 <h3 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h3>

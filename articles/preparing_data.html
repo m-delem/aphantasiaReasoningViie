@@ -336,7 +336,7 @@ data:</p>
 <span><span class="co">#&gt; Participants to exclude: 24 (17.52%)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Sample size before median RTs analysis: 106</span></span>
-<span><span class="co">#&gt; Participants with median RTs outside 2.25 SDs: 2 (1.89%)</span></span>
+<span><span class="co">#&gt; Participants with median RTs outside 2.25 SDs: 0 (0%)</span></span>
 <span></span>
 <span><span class="va">df_expe</span>   <span class="op">&lt;-</span> <span class="va">clean_data</span><span class="op">$</span><span class="va">df_expe</span></span>
 <span><span class="va">df_survey</span> <span class="op">&lt;-</span> <span class="va">clean_data</span><span class="op">$</span><span class="va">df_survey</span></span></code></pre></div>
@@ -390,7 +390,7 @@ examination:</p>
 <code class="sourceCode R"><span><span class="co"># Get clean data without filtering based on median RTs (for demonstration)</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_clean_data.html">get_clean_data</a></span><span class="op">(</span>sd_mult <span class="op">=</span> <span class="fl">99</span><span class="op">)</span><span class="op">$</span><span class="va">df_expe</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/plot_median_rt_distribution.html">plot_median_rt_distribution</a></span><span class="op">(</span><span class="va">df</span>, sd_mult <span class="op">=</span> <span class="fl">2.25</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/plot_median_rt_distribution.html">plot_median_rt_distribution</a></span><span class="op">(</span><span class="va">df</span>, sd_mult <span class="op">=</span> <span class="fl">2.25</span>, base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <p><img src="preparing_data_files/figure-html/visual-exam-1.png" alt="Distribution of median response times per participant, with a threshold of 2.25 standard deviations below the mean to flag suspicious participants." width="672"></p>
 <ul>
 <li><p><code><a href="../reference/factor_categories.html">factor_categories()</a></code>: This function factors the

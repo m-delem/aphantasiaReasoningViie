@@ -43,7 +43,7 @@ Inspired by Chris Jungerius."><meta property="og:image" content="https://m-delem
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Simulate skewed RT data for the factorial design</h1>
-      <small class="dont-index">Source: <a href="https://github.com/m-delem/aphantasiaReasoningViie/blob/master/R/simulation_functions.R" class="external-link"><code>R/simulation_functions.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/m-delem/aphantasiaReasoningViie/blob/master/R/simulating_data_analyses.R" class="external-link"><code>R/simulating_data_analyses.R</code></a></small>
       <div class="d-none name"><code>simulate_rt_data.Rd</code></div>
     </div>
 
@@ -152,12 +152,12 @@ and the spatial category on the RTs.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 12</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   id    group    category rt_total trial tau_0 tau_vis tau_spa beta_0 aphantasia</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> id001 Aphanta… Visual       36.5     1 0.919   0.898       0  34.7           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> id001 Aphanta… Visual       11.6     2 0.919   0.898       0   9.77          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> id001 Aphanta… Visual       20.2     3 0.919   0.898       0  18.4           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> id001 Aphanta… Visual       14.6     4 0.919   0.898       0  12.8           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> id001 Aphanta… Visual       13.7     5 0.919   0.898       0  11.9           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> id001 Aphanta… Visual       10.6     6 0.919   0.898       0   8.78          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> id001 Aphanta… Visual      10.1      1 -<span style="color: #BB0000;">1.68</span>  -<span style="color: #BB0000;">0.332</span>       0  12.1           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> id001 Aphanta… Visual      22.0      2 -<span style="color: #BB0000;">1.68</span>  -<span style="color: #BB0000;">0.332</span>       0  24.0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> id001 Aphanta… Visual       6.09     3 -<span style="color: #BB0000;">1.68</span>  -<span style="color: #BB0000;">0.332</span>       0   8.11          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> id001 Aphanta… Visual       7.85     4 -<span style="color: #BB0000;">1.68</span>  -<span style="color: #BB0000;">0.332</span>       0   9.87          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> id001 Aphanta… Visual      10.3      5 -<span style="color: #BB0000;">1.68</span>  -<span style="color: #BB0000;">0.332</span>       0  12.3           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> id001 Aphanta… Visual      15.4      6 -<span style="color: #BB0000;">1.68</span>  -<span style="color: #BB0000;">0.332</span>       0  17.4           1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 more variables: visual &lt;dbl&gt;, spatial &lt;dbl&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">df</span> <span class="op">|&gt;</span></span></span>
@@ -172,12 +172,12 @@ and the spatial category on the RTs.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   group      category mean_rt median_rt sd_rt min_rt max_rt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Aphantasia Control     14.2      13.1  5.68   5.78   64.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Aphantasia Spatial     14.9      13.5  5.91   5.70   57.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Aphantasia Visual      14.5      13.0  5.97   4.90   41.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Typical    Control     14.5      13.2  5.47   4.94   45.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Typical    Spatial     14.4      13.2  5.28   5.96   45.7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Typical    Visual      14.1      13.0  5.47   5.39   46.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Aphantasia Control     14.6      13.1  5.75   5.28   51.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Aphantasia Spatial     14.8      13.6  6.15   5.18   64.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Aphantasia Visual      14.5      13.4  5.79   4.06   47.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Typical    Control     14.4      13.2  5.63   6.11   58.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Typical    Spatial     14.4      13.2  5.42   5.55   40.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Typical    Visual      14.5      13.5  5.48   4.44   44.0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Visual category effect around 2.5s</span></span></span>
 <span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">simulate_rt_data</span><span class="op">(</span><span class="fl">100</span>, beta_vis <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span></span>
@@ -193,12 +193,12 @@ and the spatial category on the RTs.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   group      category mean_rt median_rt sd_rt min_rt max_rt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Aphantasia Control     14.2      12.7  5.28   5.76   45.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Aphantasia Spatial     14.5      13.3  5.79   4.65   67.7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Aphantasia Visual      17.0      15.6  5.87   7.42   65.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Typical    Control     14.4      13.0  5.76   5.19   52.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Typical    Spatial     14.2      13.0  5.54   5.93   60.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Typical    Visual      16.8      15.6  5.41   8.55   52.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Aphantasia Control     14.7      13.5  5.69   4.78   45.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Aphantasia Spatial     14.2      13.1  5.68   5.57   52.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Aphantasia Visual      17.3      15.9  5.83   7.38   48.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Typical    Control     14.8      13.4  6.11   5.53   55.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Typical    Spatial     14.5      13.2  5.44   5.67   47.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Typical    Visual      17.0      15.6  5.81   7.64   54.9</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
