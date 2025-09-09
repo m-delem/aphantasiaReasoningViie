@@ -64,7 +64,10 @@
 #'  ) +
 #'  ggplot2::scale_size_continuous(range = c(1, 2.5))
 #'
-#'  p + ggplot2::facet_wrap(~ Species) + theme_pdf(ggplot2::theme_bw)
+#'  p +
+#'   ggplot2::facet_wrap(~ Species) +
+#'   theme_pdf(ggplot2::theme_bw, base_size = 12)
+#'
 #'  p + theme_pdf(
 #'   family = "Roboto Slab",
 #'   base_size = 12,

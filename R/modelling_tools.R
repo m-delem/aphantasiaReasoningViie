@@ -5,6 +5,9 @@
 #'
 #' @returns A formula object for the model.
 #' @export
+#'
+#' @examples
+#' build_formula("accuracy", "group")
 build_formula <- function(vd, grouping) {
   model_formula <- glue::glue(
     "{vd} ~ {grouping} * category + (category | id) + ({grouping} | problem)"
@@ -20,6 +23,9 @@ build_formula <- function(vd, grouping) {
 #'
 #' @returns A data frame with the prior and class for the random effects.
 #' @export
+#'
+#' @examples
+#' set_ranef_prior(100)
 set_ranef_prior <- function(gamma_mean = 100) {
   return(
     data.frame(
@@ -36,15 +42,29 @@ set_ranef_prior <- function(gamma_mean = 100) {
 #' @returns Nothing. Prints a message indicating whether the model is singular
 #' or not.
 #' @export
+#'
+#' @examples
+#' df_expe <- get_clean_data()$df_expe
+#'
+#' if (require("glmmTMB", quietly = TRUE)) {
+#'  model <- glmmTMB::glmmTMB(
+#'   formula = accuracy ~ group_2 * category + (1 | id),
+#'   data = df_expe,
+#'   family = binomial(link = "logit"),
+#'   prior = set_ranef_prior(20)
+#'  )
+#'
+#'  get_singularity(model)
+#' }
 get_singularity <- function(model) {
   rlang::check_installed("performance")
 
   if (performance::check_singularity(model)) {
-    cat(
+    message(
       "The model is singular, estimates should be interpreted with caution.\n"
     )
   } else {
-    cat("The model is not singular, parameter estimates are trustworthy.\n")
+    message("The model is not singular, parameter estimates are trustworthy.\n")
   }
 }
 
@@ -55,6 +75,20 @@ get_singularity <- function(model) {
 #'
 #' @returns A formatted data frame with the performance indices of the model.
 #' @export
+#'
+#' @examples
+#' df_expe <- get_clean_data()$df_expe
+#'
+#' if (require("glmmTMB", quietly = TRUE)) {
+#'  model <- glmmTMB::glmmTMB(
+#'   formula = accuracy ~ group_2 * category + (1 | id),
+#'   data = df_expe,
+#'   family = binomial(link = "logit"),
+#'   prior = set_ranef_prior(20)
+#'  )
+#'
+#'  get_performance(model)
+#' }
 get_performance <- function(model, ...) {
   rlang::check_installed("performance")
 
@@ -74,6 +108,20 @@ get_performance <- function(model, ...) {
 #'
 #' @returns A formatted data frame with the fixed parameters of the model.
 #' @export
+#'
+#' @examples
+#' df_expe <- get_clean_data()$df_expe
+#'
+#' if (require("glmmTMB", quietly = TRUE)) {
+#'  model <- glmmTMB::glmmTMB(
+#'   formula = accuracy ~ group_2 * category + (1 | id),
+#'   data = df_expe,
+#'   family = binomial(link = "logit"),
+#'   prior = set_ranef_prior(65)
+#'  )
+#'
+#'  get_params(model)
+#' }
 get_params <- function(model, ...) {
   rlang::check_installed("parameters")
 
@@ -102,6 +150,20 @@ get_params <- function(model, ...) {
 #' @returns An emm_grid object with the pairwise contrasts of the specified
 #' variables.
 #' @export
+#'
+#' @examples
+#' df_expe <- get_clean_data()$df_expe
+#'
+#' if (require("glmmTMB", quietly = TRUE)) {
+#'  model <- glmmTMB::glmmTMB(
+#'   formula = accuracy ~ group_2 * category + (1 | id),
+#'   data = df_expe,
+#'   family = binomial(link = "logit"),
+#'   prior = set_ranef_prior(65)
+#'  )
+#'
+#'  get_contrast(model, ~ category | group_2)
+#' }
 get_contrast <- function(model, formula, at = NULL, ...) {
   rlang::check_installed("emmeans")
 
@@ -127,7 +189,7 @@ extract_emm_confint <- function(emm_object) {
     confint(emm_object) |>
     as.data.frame() |>
     dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~round(., 2))) |>
-    tidyr::unite("CI", .data$asymp.LCL, .data$asymp.UCL, sep = ", ") |>
+    tidyr::unite("CI", "asymp.LCL", "asymp.UCL", sep = ", ") |>
     dplyr::mutate(CI = paste0("[", .data$CI, "]")) |>
     dplyr::select("CI")
   return(ci)
@@ -143,6 +205,20 @@ extract_emm_confint <- function(emm_object) {
 #' @returns A data frame with the pairwise contrasts of the specified variables
 #' formatted for reporting.
 #' @export
+#'
+#' @examples
+#' df_expe <- get_clean_data()$df_expe
+#'
+#' if (require("glmmTMB", quietly = TRUE)) {
+#'  model <- glmmTMB::glmmTMB(
+#'   formula = accuracy ~ group_2 * category + (1 | id),
+#'   data = df_expe,
+#'   family = binomial(link = "logit"),
+#'   prior = set_ranef_prior(20)
+#'  )
+#'
+#'  report_contrast(model, ~ category | group_2)
+#' }
 report_contrast <- function(model, formula, ...) {
   emm_contrast <- get_contrast(model, formula, ...)
 
@@ -167,7 +243,7 @@ report_contrast <- function(model, formula, ...) {
       ),
       `95% CI` = extract_emm_confint(emm_contrast)
     ) |>
-    dplyr::relocate(.data$`95% CI`, .before = "p.value") |>
+    dplyr::relocate("95% CI", .before = "p.value") |>
     dplyr::rename(tidyselect::any_of(c(
       Contrast            = "contrast",
       Group               = "group",
@@ -191,6 +267,12 @@ report_contrast <- function(model, formula, ...) {
 #'
 #' @returns A fitted clm object from the ordinal package.
 #' @export
+#'
+#' @examples
+#' df_strats <- get_clean_data()$df_survey |> pivot_strategies_longer()
+#'
+#' model <- fit_clm(score ~ group_2 * strategy, df_strats)
+#' report_contrast(model, ~ group_2 | strategy)
 fit_clm <- function(formula, data, link = "probit") {
   rlang::check_installed("ordinal")
 

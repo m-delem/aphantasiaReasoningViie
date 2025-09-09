@@ -19,7 +19,7 @@
 #' clustering <- cluster_osivq(df)
 #' df <- add_named_clusters(df, clustering)
 #'
-#' plot_osivq_ternary(df, base_theme = ggplot2::theme_grey)
+#' plot_osivq_ternary(df, base_theme = ggplot2::theme_grey, base_size = 12)
 plot_osivq_ternary <- function(
     df,
     dot_size = 1.5,

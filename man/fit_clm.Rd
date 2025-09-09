@@ -20,3 +20,9 @@ A fitted clm object from the ordinal package.
 \description{
 Fit a cumulative link model (CLM) using the ordinal package
 }
+\examples{
+df_strats <- get_clean_data()$df_survey |> pivot_strategies_longer()
+
+model <- fit_clm(score ~ group_2 * strategy, df_strats)
+report_contrast(model, ~ group_2 | strategy)
+}

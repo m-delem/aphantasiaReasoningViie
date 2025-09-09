@@ -27,5 +27,5 @@ Plot the distribution of the median RT across participants
 }
 \examples{
 df <- get_clean_data(sd_mult = 10)$df_expe
-plot_median_rt_distribution(df)
+plot_median_rt_distribution(df, base_size = 12)
 }

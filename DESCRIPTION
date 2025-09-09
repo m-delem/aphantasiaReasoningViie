@@ -22,7 +22,8 @@ Imports:
     forcats,
     tidyselect,
     grDevices,
-    stats
+    stats,
+    tibble
 Suggests: 
     brms,
     coda.plot,
@@ -30,12 +31,16 @@ Suggests:
     diceR,
     emmeans,
     faux,
+    furrr,
+    future,
     ggpath,
     ggplot2,
     glmmTMB,
     here,
     Hmisc,
     knitr,
+    latent2likert,
+    lubridate,
     mgcv,
     modelbased,
     openxlsx,
@@ -44,6 +49,7 @@ Suggests:
     parameters,
     patchwork,
     performance,
+    progressr,
     readxl,
     rmarkdown,
     scales,
@@ -51,7 +57,8 @@ Suggests:
     showtext,
     superb,
     sysfonts,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr
 Config/testthat/edition: 3
 LazyData: true
 VignetteBuilder: knitr

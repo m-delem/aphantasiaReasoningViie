@@ -17,3 +17,17 @@ A formatted data frame with the fixed parameters of the model.
 \description{
 Get the fixed parameters of a model in a clean format
 }
+\examples{
+df_expe <- get_clean_data()$df_expe
+
+if (require("glmmTMB", quietly = TRUE)) {
+ model <- glmmTMB::glmmTMB(
+  formula = accuracy ~ group_2 * category + (1 | id),
+  data = df_expe,
+  family = binomial(link = "logit"),
+  prior = set_ranef_prior(65)
+ )
+
+ get_params(model)
+}
+}

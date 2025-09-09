@@ -9,4 +9,5 @@
 ^docs$
 ^pkgdown$
 ^\.github$
-^inst$
+^inst/manuscript$
+^inst/modelling

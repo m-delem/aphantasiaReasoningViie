@@ -40,5 +40,5 @@ df_long <-
   get_clean_data()$df_survey |>
   pivot_strategies_longer()
 
-plot_strategies_scores(df_long, grouping = group)
+plot_strategies_scores(df_long, grouping = group, base_size = 12)
 }

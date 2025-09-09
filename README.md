@@ -46,15 +46,17 @@ devtools::load_all()
 … Which will load the package and make all its functions and data
 available in your R session.
 
-The [online documentation of the
-package](https://m-delem.github.io/aphantasiaReasoningViie/) contains
-detailed articles describing:
+The online documentation of the package contains detailed articles
+describing:
 
-- The power analyses by simulation
+- [The power analyses by
+  simulation](https://m-delem.github.io/aphantasiaReasoningViie/articles/power_analysis.html)
 
-- The data processing steps
+- [The data processing
+  steps](https://m-delem.github.io/aphantasiaReasoningViie/articles/preparing_data.html)
 
-- The creation of the groups and clusters used in the analyses
+- [The creation of the cognitive style clusters used in the
+  analyses](https://m-delem.github.io/aphantasiaReasoningViie/articles/osivq_clusters.html)
 
 - The accuracy analyses (WIP)
 

@@ -10,6 +10,7 @@ reference:
   contents:
   - survey_data
   - experiment_data
+  - power_results
 - title: "Data preparation"
   contents:
   - get_clean_data
@@ -43,15 +44,20 @@ reference:
   contents:
   - plot_median_rt_distribution
   - plot_osivq_ternary
+  - plot_superb_raincloud
+  - plot_superb_jitter
+  - plot_superb_categories
   - plot_strategies_barplot
   - plot_strategies_scores
   - add_significance
   - theme_pdf
-  - save_plot
+  - save_ggplot
 - title: "Simulation"
   contents:
   - simulate_rt_data
-  - simulate_acc_data
+  - simulate_rt_test
+  - run_power_analysis
+  - plot_power
 
 articles:
 - title: "Power analysis by simulation"

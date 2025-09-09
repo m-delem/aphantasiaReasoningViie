@@ -238,7 +238,7 @@ filter_suspicious_rt_ids <- function(df, sd_mult = 2, verbose = TRUE) {
 
   filtered_df <-
     df |>
-    dplyr::group_by(.data$id) |>
+    dplyr::group_by("id") |>
     dplyr::mutate(
       dplyr::across(tidyselect::contains("rt"), ~ . / 1000),
       median_rt = median(.data$rt_total)
@@ -273,7 +273,7 @@ filter_suspicious_rt_ids <- function(df, sd_mult = 2, verbose = TRUE) {
 mark_suspicious_rt_ids <- function(df, sd_mult = 2, verbose = TRUE) {
   marked_df <-
     df |>
-    dplyr::group_by(.data$id) |>
+    dplyr::group_by("id") |>
     dplyr::mutate(
       dplyr::across(tidyselect::contains("rt"), ~ . / 1000),
       median_rt = median(.data$rt_total)

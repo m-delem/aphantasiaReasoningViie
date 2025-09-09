@@ -17,3 +17,6 @@ A formula object for the model.
 \description{
 Build a formula based on the common model for accuracy and RT modelling
 }
+\examples{
+build_formula("accuracy", "group")
+}

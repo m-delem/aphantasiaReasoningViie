@@ -18,27 +18,35 @@ knitr::opts_chunk$set(
 
 # Rationale
 
-We analysed sample and effect sizes *a priori* using a simulation approach,
-where power is defined as the proportion of simulations where a model detects an
-existing effect that we simulated. Instead of choosing a fixed sample size, this
-approach allowed us to have a full picture of the power of our model across a
-range of sample sizes and effect sizes. It replaced the question "*What sample
-size do we need to detect an effect of a given (arbitrary) size?*" with "*Given
-the sample we managed to recruit, what is the smallest effect size we could
-detect with good power?*" which allows much more flexibility in data collection.
-This was especially useful for us because aphantasia and hyperphantasia are rare
-phenomena [see @wrightInternationalEstimatePrevalence2024], and we had no way of
-knowing beforehand how many participants we would be able to recruit in each
-group.
+We analysed sample and effect sizes before data collection using a simulation
+approach, where power is defined as the proportion of simulations where a model
+detects an existing effect that we simulated. Instead of choosing a fixed sample
+size, this approach allowed us to have a full picture of the power of our model
+across a range of sample sizes and effect sizes. It replaced the question "*What
+sample size do we need to detect an effect of a given (arbitrary) size?*" with
+"*Given the sample we managed to recruit, what is the smallest effect size we
+could detect with good power?*" which allowed much more flexibility in data
+collection. This was especially useful for us because aphantasia and
+hyperphantasia are rare phenomena [see
+@wrightInternationalEstimatePrevalence2024], and we had no way of knowing
+beforehand how many participants we would be able to recruit in each group.
 
 # Building the generative model
 
+The process starts with finding a way to generate synthetic data (said
+"simulations") that "look like" the experimental data we expected to collect. We
+based our simulations on a model that we hypothesised to govern the effect of
+our variables of interest on the dependent variables, and distributional
+assumptions about these dependent variables. Below, we describe this model and
+the previous literature from which we derived the estimations of the effects and
+the distributions of the observed variables.
+
 ## Structure
 
-We designed our model *a priori* based on our hypotheses and variables. This is
-the model that will be used as the data-generating process for the simulations.
-The model we used is a generalised linear mixed-effects model with the following
-structure, in R syntax:
+We designed our model before data collection based on our hypotheses and
+variables. This is the model that was be used as the data-generating process for
+the simulations. The model we used is a generalised linear mixed-effects model
+(GLMM) with the following structure, in R syntax:
 
 ``` r
 dependent_variable ~ grouping * category + (category | id) + (grouping | problem) 
@@ -167,12 +175,15 @@ interaction coefficient that nullifies the visual effect for the aphantasia
 group only.
 
 We chose to simulate the response times with a shifted log-normal distribution
-(generated with the package `brms`). We searched manually for the parameters of
-this distribution and our model coefficients that allowed to reach the desired
-statistics. The data simulation using the generative model is wrapped in the
-`simulate_rt_data()` function. The function has arguments to fine-tune all the
-distributional parameters and model coefficients discussed above. We searched
-for the appropriate values by trial-and-error using the simple code below:
+(generated with the package `brms`), as these distributions reproduce
+particularly well those of RTs (see [this amazing interactive
+illustration](https://lindeloev.shinyapps.io/shiny-rt/)). We searched manually
+for the parameters of this distribution and our model coefficients that allowed
+to reach the desired statistics. The data simulation using the generative model
+is wrapped in the `simulate_rt_data()` function. The function has arguments to
+fine-tune all the distributional parameters and model coefficients discussed
+above. We searched for the appropriate values by trial-and-error using the
+simple code below:
 
 ```{r setup}
 library(aphantasiaReasoningViie)
@@ -233,7 +244,191 @@ groups in the visual category. We found that:
     size gets small, a slight multiplier (e.g., 1.5) might be necessary to
     nullify the effect.
 
-------
+We can visualise the distribution of these RTs using the
+`plot_superb_raincloud()` function from the package:
+
+```{r}
+#| label: plot-distribution-simulated-rt
+#| fig.width: 6
+#| fig.height: 4
+#| fig.alt: >
+#|  Raincloud plot showing the distribution of simulated response times
+#|  across the visual, spatial and control categories and the
+#|  aphantasia and typical groups.
+
+library(superb)
+
+plot_superb_raincloud(
+  df_test, rt_total, group,
+  title = "Simulated response times per group and category",
+  y_title = "Mean total RT (s)",
+  base_size = 12,
+  plot.background = ggplot2::element_rect(fill = "white"),
+  axis_rel_x = 1.2,
+  exp_add_right = 0.7
+  )
+```
+
+The slowdown in the visual category for the typical group appears very clearly.
+Now the whole purpose of the power analyses will be to play around with this RT
+difference to see how well and how often our model is able to detect it.
+
+All set! Now we can move on to the actual power analysis.
+
+# Fitting models on a lot of simulations
+
+## Modelling and testing the contrast of interest
+
+For our final analyses, we fitted frequentist GLMMs with Gamma distributions
+using the `glmmTMB` package. For the sake of computation speed, and because we
+did not simulate any variance tied to the problem types, we simplified the
+formula for the power analyses by removing the second random term. *Note the use
+of the `set_ranef_prior()` helper function, which helps setting regularizing
+priors on the random effects' SD to alleviate convergence issues*.
+
+Let's see how this model performs on our test data. We'll use the
+`report_contrast()` function from the package to get the contrasts of interest
+easily.
+
+```{r}
+#| label: fitting-model-test-data
+
+model <- 
+  glmmTMB::glmmTMB(
+    rt_total ~ group * category + (category | id),
+    data = df_test,
+    family = Gamma(link = "identity"),
+    prior   = set_ranef_prior(70)
+  )
+
+report_contrast(model, ~ category | group) |> knitr::kable()
+```
+
+We see that the model managed to detect the visual effect in the typical group,
+and also does a pretty decent estimation of its value (we simulated a 2.35s
+effect, with some random variance added). How about the interaction contrasts?
+
+```{r}
+#| label: interaction-contrast-test-data
+
+report_contrast(model, ~ group * category, interaction = TRUE) |> knitr::kable()
+```
+
+As expected, the interaction is also detected, and its value reflects the
+difference in the visual effect between the groups.
+
+We used the *p*-value of the Control-Visual interaction contrast as the
+criterion to determine whether the model was successful or not in detecting the
+effect. Thus, a single loop of the power analysis looks like this:
+
+```{r}
+#| label: single-simulation-loop
+
+# Choose sample and effect sizes to test
+n_subj_per_group <- 40
+beta_vis <- 1
+
+# Simulate data
+df <- 
+  simulate_rt_data(
+    n_subj_per_group = n_subj_per_group, 
+    beta_vis = beta_vis,          # Visual category effect
+    beta_aph_vis = -1 * beta_vis, # group x visual interaction
+    seed = 1234
+  )
+
+# Fit the model on the simulated data
+model <-
+  glmmTMB::glmmTMB(
+    rt_total ~ group * category + (category | id),
+    data = df,
+    family = Gamma(link = "identity"),
+    prior   = set_ranef_prior()
+  ) |> suppressMessages() |> suppressWarnings()
+
+# Get the p-value of the control-visual interaction contrast
+contrasts <- report_contrast(model, ~ group * category, interaction = TRUE)
+p <- contrasts$p.value[2]
+
+print(p)
+```
+
+We wrapped this loop in the `simulate_rt_test()` function:
+
+```{r}
+#| label: simulate-rt-test-function
+
+simulate_rt_test(n_subj_per_group = 40, beta_vis = 1, seed = 1234)
+```
+
+Now time for power! `run_power_analysis()` takes a range of sample sizes, a
+range of effect sizes ($\beta_{vis}$), and a number of simulations per
+sample/effect size combination. It then runs the `simulate_rt_test()` function
+on all these combinations, and returns the results of the power analysis. This
+function is interactive (it gives info on what's going to be computed and waits
+for user input) so it does not run in this notebook, but feel free to try it
+out!
+
+This is the code that was used to run the power analysis that is presented in
+the manuscript:
+
+```{r}
+#| label: run-power-analyses-example
+#| eval: false
+
+power_results <- 
+  run_power_analysis(
+    n_min        = 10,
+    n_max        = 200,
+    n_step       = 10,
+    beta_vis_min = 0.5,
+    beta_vis_max = 2.5,
+    beta_step    = 0.1,
+    n_simulations = 350
+  )
+```
+
+... This is a total of 147,000 models fitted! It took 16 hours and 44 minutes
+(although the time can vary a lot depending on the computer), so of course we
+saved the results to a file for later use. These results are provided as package
+data in the `power_results` dataset, so they can be accessed easily:
+
+```{r}
+#| label: check-power-results
+
+power_results |>
+    dplyr::group_by(n_subj_per_group, beta_vis) |>
+    dplyr::reframe(power = sum(p_value <= 0.05) / dplyr::n()) 
+```
+
+The table above shows the estimated power for each combination of sample size
+and effect size. The package also provides a `plot_power()` function to
+visualise these results with nice curves:
+
+```{r}
+#| label: plot-power-results
+#| fig.width: 8
+#| fig.height: 5
+#| fig.alt: >
+#|  Line plot showing the estimated power to detect the visual effect
+#|  across a range of sample sizes and effect sizes.
+
+plot_power(
+  power_results, 
+  base_size = 12,
+  plot.background = ggplot2::element_rect(fill = "white")
+)
+```
+
+# Conclusion
+
+Mission accomplished! The power analysis by simulation allowed us to have a full
+picture of the power of our model across a range of sample sizes and effect
+sizes. It made the interpretation of the results of our analyses on real data
+much easier and gave straightforward directions on the way to go to gather
+evidence in favour or against the existence of the VIIE.
+
+--------------------------------------------------------------------------------
 
 ```{r session_info}
 #| echo: false

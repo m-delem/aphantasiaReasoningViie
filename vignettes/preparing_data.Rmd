@@ -179,7 +179,7 @@ functions that filter and format the data. The main steps are:
 # Get clean data without filtering based on median RTs (for demonstration)
 df <- get_clean_data(sd_mult = 99)$df_expe
 
-plot_median_rt_distribution(df, sd_mult = 2.25)
+plot_median_rt_distribution(df, sd_mult = 2.25, base_size = 12)
 ```
 
 -   `factor_categories()`: This function factors the `category` variable in the

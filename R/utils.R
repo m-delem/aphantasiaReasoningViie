@@ -91,7 +91,7 @@ describe_survey_data <- function(df, grouping = NULL) {
   return(df_summary)
 }
 
-#' Custom ggsave wrapper set with Nature's formatting guidelines
+#' Custom ggsave wrapper set with Nature's formatting guidelines (width-locked)
 #'
 #' @description
 #' See:
@@ -103,35 +103,37 @@ describe_survey_data <- function(df, grouping = NULL) {
 #' guidelines, I use them for all figures, even if they are not for Nature...
 #' Because it looks nice and I like it.
 #'
-#' @param plot     The plot to save.
-#' @param path     The path to save the plot.
+#' @param plot     The ggplot object to save.
+#' @param path     A character string with the path to save the plot.
 #' @param ncol     The number of columns for the plot. Either 1 (default) or 2.
-#' @param height   The height of the plot in mm. Default is 90 mm.
 #' @param width    Optional. The width of the plot in mm. If NULL (default), it
 #'                 will be set to 88 mm for one-column figures and 180 mm for
 #'                 two-column figures.
-#' @param print_it Logical. Whether to print the plot in the console. Default is
-#'                 FALSE.
-#' @param verbose  Logical. Whether to print a message in the console. Default
-#'                 is TRUE.
+#' @param height   The height of the plot in mm. Default is 90 mm.
+#' @param show     Logical. Whether to return the plot visibly or not. Default
+#' is FALSE, the plot is returned invisibly.
+#' @param verbose  Logical. Whether to print a message in the console when the
+#' saving is done. Default is TRUE.
 #' @param units    The units for the width and height. Default is "mm".
 #' @param dpi      The resolution of the plot. Default is 600.
 #' @param ...      Additional arguments passed to `ggsave()`.
 #'
-#' @returns Nothing. The function saves the plot to the specified path.
+#' @returns Nothing. The function saves the ggplot to the specified path.
 #' @export
-save_plot <- function(
+save_ggplot <- function(
     plot,
     path,
     ncol     = 1,
-    height   = 90,
     width    = NULL,
-    print_it = FALSE,
+    height   = 90,
+    show     = FALSE,
     verbose  = TRUE,
     units    = "mm",
     dpi      = 600,
     ...
 ) {
+  rlang::check_installed("here")
+
   if (!is.null(width)) {
     width <- width
     colour <- "blue"
@@ -158,9 +160,10 @@ save_plot <- function(
     ...
   )
   if (verbose) {
-    print(glue::glue_col(
+    message(glue::glue_col(
       "{magenta |-> {", colour, " {shape}} figure saved in {yellow {path}}.}"
     ))
   }
-  if (print_it) print(plot) |> suppressMessages() |> suppressWarnings()
+  if (show) return(plot)
+  invisible(plot)
 }

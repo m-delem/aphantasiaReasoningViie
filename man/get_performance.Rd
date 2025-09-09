@@ -17,3 +17,17 @@ A formatted data frame with the performance indices of the model.
 \description{
 Get performance indices for a model in a clean format
 }
+\examples{
+df_expe <- get_clean_data()$df_expe
+
+if (require("glmmTMB", quietly = TRUE)) {
+ model <- glmmTMB::glmmTMB(
+  formula = accuracy ~ group_2 * category + (1 | id),
+  data = df_expe,
+  family = binomial(link = "logit"),
+  prior = set_ranef_prior(20)
+ )
+
+ get_performance(model)
+}
+}

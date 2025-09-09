@@ -84,7 +84,7 @@ get_clean_data <- function(
         exclude_other = exclude_other,
         verbose = verbose
       ) |>
-        dplyr::select(.data$id, tidyselect::starts_with("strats_dlc_")),
+        dplyr::select("id", tidyselect::starts_with("strats_dlc_")),
       by = "id"
     ) |>
     filter_suspicious_rt_ids(sd_mult = sd_mult, verbose = verbose) |>

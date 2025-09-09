@@ -17,3 +17,6 @@ A data frame with the prior and class for the random effects.
 \description{
 Create a weakly informative regularizing Gamma prior for the random effects
 }
+\examples{
+set_ranef_prior(100)
+}

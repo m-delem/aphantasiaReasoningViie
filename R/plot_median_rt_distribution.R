@@ -15,7 +15,7 @@
 #'
 #' @examples
 #' df <- get_clean_data(sd_mult = 10)$df_expe
-#' plot_median_rt_distribution(df)
+#' plot_median_rt_distribution(df, base_size = 12)
 plot_median_rt_distribution <- function(df, sd_mult = 2, ...) {
   p <-
     df |>
