@@ -21,6 +21,10 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
     <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
     <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
+    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -39,7 +43,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Add significance label and line to a plot</h1>
-      <small class="dont-index">Source: <a href="https://github.com/m-delem/aphantasiaReasoningViie/blob/master/R/add_significance.R" class="external-link"><code>R/add_significance.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/m-delem/aphantasiaReasoningViie/blob/master/R/utils.R" class="external-link"><code>R/utils.R</code></a></small>
       <div class="d-none name"><code>add_significance.Rd</code></div>
     </div>
 
@@ -94,6 +98,26 @@ desired aesthetics (x, y, colour, etc.) and the following columns:</p><ul><li><p
     <p>A list of ggplot2 layers that can be added to a ggplot object.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">group_effect</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    x_star     <span class="op">=</span> <span class="fl">1.5</span>,</span></span>
+<span class="r-in"><span>    y_star     <span class="op">=</span> <span class="fl">1.08</span>,</span></span>
+<span class="r-in"><span>    stars      <span class="op">=</span> <span class="st">"**"</span>,</span></span>
+<span class="r-in"><span>    x_line     <span class="op">=</span> <span class="va">x_star</span> <span class="op">-</span> <span class="fl">0.5</span>,</span></span>
+<span class="r-in"><span>    x_line_end <span class="op">=</span> <span class="va">x_star</span> <span class="op">+</span> <span class="fl">0.5</span>,</span></span>
+<span class="r-in"><span>    y_line     <span class="op">=</span> <span class="fl">1.05</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">add_significance</span><span class="op">(</span><span class="va">group_effect</span>, size_star <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="add_significance-1.png" alt="" width="700" height="433"></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

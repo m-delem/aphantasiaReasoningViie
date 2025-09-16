@@ -21,6 +21,10 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
     <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
     <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
+    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -83,7 +87,7 @@ strategy and <code>score</code> is a factor indicating the level of strategy use
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="get_clean_data.html">get_clean_data</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">df_survey</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">pivot_strategies_longer</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">group</span>, <span class="va">strategy</span>, <span class="va">score</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 530 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 520 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    id                      group      strategy     score            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> acdn247721443631359lzxb Typical    Visual       no_use           </span>
@@ -96,7 +100,7 @@ strategy and <code>score</code> is a factor indicating the level of strategy use
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> ahos206230340719944kiwl Aphantasia Spatial      secondary_strat  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> ahos206230340719944kiwl Aphantasia Semantic     no_use           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ahos206230340719944kiwl Aphantasia Sensorimotor secondary_strat  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 520 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 510 more rows</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

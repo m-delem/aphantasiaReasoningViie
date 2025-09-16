@@ -37,6 +37,10 @@ survey data."><meta property="og:image" content="https://m-delem.github.io/aphan
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
     <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
     <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
+    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -189,9 +193,9 @@ about the filtering process. Default is <code>FALSE</code>.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Participants to exclude: 24 (17.52%)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Sample size before median RTs analysis: 106</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Participants with median RTs outside 2.25 SDs: 0 (0%)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Participants with median RTs outside 2.25 SDs: 2 (1.89%)</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">clean_data</span><span class="op">$</span><span class="va">df_expe</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 30</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 29</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   id       language group group_2 group_3 strategy_group expe_phase trial_number</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            1</span>
@@ -200,13 +204,13 @@ about the filtering process. Default is <code>FALSE</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 22 more variables: problem &lt;int&gt;, category &lt;fct&gt;, premise_1_rt &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 21 more variables: problem &lt;int&gt;, category &lt;fct&gt;, premise_1_rt &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   premise_2_rt &lt;dbl&gt;, premise_3_rt &lt;dbl&gt;, conclusion_rt &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   rt_total &lt;dbl&gt;, response &lt;fct&gt;, correct_response &lt;fct&gt;, accuracy &lt;int&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   acc_perc &lt;dbl&gt;, visual_strat &lt;ord&gt;, verbal_strat &lt;ord&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   spatial_strat &lt;ord&gt;, semantic_strat &lt;ord&gt;, sensorimotor_strat &lt;ord&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   asso_strat_1 &lt;fct&gt;, other_strat &lt;fct&gt;, asso_strat_2 &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   asso_strat_3 &lt;fct&gt;, `"id"` &lt;fct&gt;, median_rt &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   asso_strat_3 &lt;fct&gt;, median_rt &lt;dbl&gt;</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">clean_data</span><span class="op">$</span><span class="va">df_survey</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 113</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   id          language   age gender group group_2 group_3 strategy_group country</span>
