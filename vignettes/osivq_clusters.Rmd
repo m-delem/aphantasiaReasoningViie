@@ -81,4 +81,12 @@ same for a given seed and data set. Thus, we were able to use this short
 clustering pipeline in all subsequent analyses to create our "cluster" 
 variable and add it to the experimental data set for modelling.
 
+--------------------------------------------------------------------------------
+
+```{r session_info}
+#| echo: false
+
+sessioninfo::session_info()
+```
+
 ## References

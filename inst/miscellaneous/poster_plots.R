@@ -1,4 +1,4 @@
-# Run "cluster_and_create_data first
+# Run all_data_preparation.R first
 
 pa <- plot_superb_categories(
   df_expe, accuracy, group_2,

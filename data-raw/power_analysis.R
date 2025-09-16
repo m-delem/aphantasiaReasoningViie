@@ -1,6 +1,8 @@
 # This is the code that was used to produce the power analysis presented in the
 # manuscript. The 147,000 simulations took 16 hours to run so the results were
 # saved as package data.
+devtools::load_all()
+
 power_results <-
   run_power_analysis(
     n_min        = 10,

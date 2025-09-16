@@ -238,10 +238,10 @@ filter_suspicious_rt_ids <- function(df, sd_mult = 2, verbose = TRUE) {
 
   filtered_df <-
     df |>
-    dplyr::group_by("id") |>
     dplyr::mutate(
       dplyr::across(tidyselect::contains("rt"), ~ . / 1000),
-      median_rt = median(.data$rt_total)
+      median_rt = median(.data$rt_total),
+      .by = "id"
     ) |>
     dplyr::ungroup() |>
     dplyr::filter(

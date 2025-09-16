@@ -57,7 +57,7 @@ pa <- pa1 + pa2 + pa3 +
   patchwork::plot_layout(axes = "collect", guides = "collect") &
   ggplot2::theme(legend.position = "bottom")
 
-save_plot(
+save_ggplot(
   pa,
   "inst/figures/accuracy_plots.pdf",
   ncol = 2,

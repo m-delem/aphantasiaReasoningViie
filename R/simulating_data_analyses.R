@@ -206,8 +206,6 @@ simulate_rt_test <- function(
 #' @param time_estimate Estimated time (in seconds) to fit a single model on a
 #' single dataset. This is used to estimate the total time the power analysis
 #' will take.
-#' @param filename File to save the results in. If `NULL`, the results are not
-#' saved.
 #' @param test_skip Optional argument for testing purposes. See
 #' [this Stack thread](https://stackoverflow.com/questions/65740390/how-to-test-a-function-that-depends-on-a-menu-user-input) about testing functions with
 #' [utils::menu()] inputs.

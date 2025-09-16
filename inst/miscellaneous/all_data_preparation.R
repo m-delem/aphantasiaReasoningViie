@@ -31,7 +31,7 @@ df_expe <-
   ) |>
   dplyr::relocate(cluster, .after = "group")
 
-df_rt      <- filter_trials_on_rt(df_expe, verbose = TRUE)
+df_rt <- filter_trials_on_rt(df_expe, verbose = TRUE)
 df_rt_long <-
   pivot_terms_longer(df_rt) |>
   dplyr::mutate(

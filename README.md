@@ -12,7 +12,7 @@ aphantasiaReasoningViie is a data analysis project disguised as an R
 package. It contains the code and data to reproduce the analyses
 presented in the paper “*The Impact of Mental Images on Reasoning: A
 Study on Aphantasia*”. You can read the preprint
-[here](http://dx.doi.org/10.13140/RG.2.2.14125.55526).
+[here](https://doi.org/10.31234/osf.io/vsjtb_v1).
 
 The R package structure was chosen to facilitate the sharing of the code
 and data with the scientific community, and to make it easy to reproduce
@@ -58,10 +58,14 @@ describing:
 - [The creation of the cognitive style clusters used in the
   analyses](https://m-delem.github.io/aphantasiaReasoningViie/articles/osivq_clusters.html)
 
-- The accuracy analyses (WIP)
+- [The accuracy
+  analyses](https://m-delem.github.io/aphantasiaReasoningViie/articles/analysing_accuracy.html)
 
-- The response time analyses (WIP)
+- [The response time
+  analyses](https://m-delem.github.io/aphantasiaReasoningViie/articles/analysing_rt.html)
 
-- The strategies analyses (WIP)
+- [The strategies
+  analyses](https://m-delem.github.io/aphantasiaReasoningViie/articles/analysing_strategies.html)
 
-- The exploratory non-linear RT models (WIP)
+- [The exploratory non-linear RT
+  models](https://m-delem.github.io/aphantasiaReasoningViie/articles/nl_modelling.html)

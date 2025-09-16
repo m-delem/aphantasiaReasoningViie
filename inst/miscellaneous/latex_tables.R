@@ -1,3 +1,5 @@
+# Run all_data_preparation.R first
+
 describe_survey_data(df_survey, "cluster") |>
   dplyr::select(cluster:`RSPM-18`) |>
   dplyr::mutate(dplyr::across(tidyselect::everything(), as.character)) |>

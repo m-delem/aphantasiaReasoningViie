@@ -41,9 +41,6 @@ will take.}
 \item{test_skip}{Optional argument for testing purposes. See
 \href{https://stackoverflow.com/questions/65740390/how-to-test-a-function-that-depends-on-a-menu-user-input}{this Stack thread} about testing functions with
 \code{\link[utils:menu]{utils::menu()}} inputs.}
-
-\item{filename}{File to save the results in. If \code{NULL}, the results are not
-saved.}
 }
 \value{
 A data frame with the results of the power analysis, including

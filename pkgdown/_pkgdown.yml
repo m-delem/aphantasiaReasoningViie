@@ -11,6 +11,8 @@ reference:
   - survey_data
   - experiment_data
   - power_results
+  - nl_contrasts
+  - nl_predictions
 - title: "Data preparation"
   contents:
   - get_clean_data
@@ -43,12 +45,12 @@ reference:
 - title: "Visualisation"
   contents:
   - plot_median_rt_distribution
-  - plot_osivq_ternary
   - plot_superb_raincloud
   - plot_superb_jitter
   - plot_superb_categories
   - plot_strategies_barplot
   - plot_strategies_scores
+  - plot_nl
   - add_significance
   - theme_pdf
   - save_ggplot
@@ -64,7 +66,7 @@ articles:
   navbar: ~
   contents:
   - power_analysis
-- title: "Preparing data for analysist"
+- title: "Preparing data for analysis"
   navbar: ~
   contents:
   - preparing_data
@@ -72,3 +74,19 @@ articles:
   navbar: ~
   contents:
   - osivq_clusters
+- title: "Accuracy analyses"
+  navbar: ~
+  contents:
+  - analysing_accuracy
+- title: "Response time analyses"
+  navbar: ~
+  contents:
+  - analysing_rt
+- title: "Strategy use analyses"
+  navbar: ~
+  contents:
+  - analysing_strategies
+- title: "Exploring RTs per phase"
+  navbar: ~
+  contents:
+  - nl_modelling

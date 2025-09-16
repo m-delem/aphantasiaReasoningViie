@@ -16,6 +16,12 @@ knitr::opts_chunk$set(
 )
 ```
 
+This vignette dives into the details of the power analysis by simulation that 
+is briefly presented in the manuscript (preprint [here](https://doi.org/10.31234/osf.io/vsjtb_v1)). We describe the rationale behind
+this approach, how we built the generative model used to simulate data, how we
+fitted models on these simulations, and how we estimated the power of our model
+to detect the effect of interest.
+
 # Rationale
 
 We analysed sample and effect sizes before data collection using a simulation
@@ -245,7 +251,8 @@ groups in the visual category. We found that:
     nullify the effect.
 
 We can visualise the distribution of these RTs using the
-`plot_superb_raincloud()` function from the package:
+`plot_superb_raincloud()` function from the package, which wraps functions from
+the *ggplot2* and *superb* packages to create nice visualisations easily:
 
 ```{r}
 #| label: plot-distribution-simulated-rt

@@ -31,6 +31,7 @@ pr1 <-
       y_line = 27.5
     )
   )
+
 pr2 <-
   plot_superb_raincloud(
     df_rt, rt_total, group_3,
@@ -58,6 +59,7 @@ pr2 <-
       y_line = 27.5
     )
   )
+
 pr3 <-
   plot_superb_raincloud(
     df_rt, rt_total, cluster,

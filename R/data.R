@@ -92,3 +92,19 @@
 #' of simulations per combination, here 350)
 #' - `p_value` (the p-value of the effect of interest in the fitted model)
 "power_results"
+
+#' Results of the contrast analyses performed on the `mgcv` non-linear models
+#'
+#' These analyses were saved as package data to compensate for the fact that
+#' the non-linear model fits themselves were too heavy to be saved in the
+#' package. They are used to display the statistics in the
+#' `vignette("nl_modelling")`.
+"nl_contrasts"
+
+#' Model predictions computed with the `mgcv` non-linear model fits
+#'
+#' These predictions were saved as package data to compensate for the fact that
+#' the non-linear model fits themselves were too heavy to be saved in the
+#' package. They are used to visualise the non-linear dynamics in the
+#' `vignette("nl_modelling")`.
+"nl_predictions"

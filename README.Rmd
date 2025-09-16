@@ -59,10 +59,10 @@ The online documentation of the package contains detailed articles describing:
 
 - [The creation of the cognitive style clusters used in the analyses](https://m-delem.github.io/aphantasiaReasoningViie/articles/osivq_clusters.html)
 
-- The accuracy analyses (WIP)
+- [The accuracy analyses](https://m-delem.github.io/aphantasiaReasoningViie/articles/analysing_accuracy.html)
 
-- The response time analyses (WIP)
+- [The response time analyses](https://m-delem.github.io/aphantasiaReasoningViie/articles/analysing_rt.html)
 
-- The strategies analyses (WIP)
+- [The strategies analyses](https://m-delem.github.io/aphantasiaReasoningViie/articles/analysing_strategies.html)
 
-- The exploratory non-linear RT models (WIP)
+- [The exploratory non-linear RT models](https://m-delem.github.io/aphantasiaReasoningViie/articles/nl_modelling.html)

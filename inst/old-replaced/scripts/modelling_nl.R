@@ -36,6 +36,9 @@ m_nl_osivq <-
 
 cat("\014")
 m_nl_vviq_2 |> get_singularity()
+m_nl_vviq_3 |> get_singularity()
+m_nl_osivq |> get_singularity()
+
 contrasts_2 <-
   m_nl_vviq_2 |>
   get_contrast(
@@ -44,6 +47,31 @@ contrasts_2 <-
     interaction = FALSE,
     adjust = "none"
   )
+
+contrasts_3 <-
+  m_nl_vviq_3 |>
+  get_contrast(
+    ~ group_3_category | term,
+    at = list(term = c(1, 2, 3, 4)),
+    interaction = FALSE,
+    adjust = "none"
+  )
+
+contrasts_osivq <-
+  m_nl_osivq |>
+  get_contrast(
+    ~ cluster_category | term,
+    at = list(term = c(1, 2, 3, 4)),
+    interaction = TRUE
+  )
+
+nl_contrasts <- list(
+  vviq_2 = contrasts_2,
+  vviq_3 = contrasts_3,
+  osivq  = contrasts_osivq
+)
+saveRDS(nl_contrasts, here::here("inst/nl_contrasts.rds"))
+
 contrasts_2 |>
   as.data.frame() |>
   tidyr::separate_wider_delim(
@@ -79,15 +107,6 @@ contrasts_2 |>
   knitr::kable(digits = 3)
 
 cat("\014")
-m_nl_vviq_3 |> get_singularity()
-contrasts_3 <-
-  m_nl_vviq_3 |>
-  get_contrast(
-    ~ group_3_category | term,
-    at = list(term = c(1, 2, 3, 4)),
-    interaction = FALSE,
-    adjust = "none"
-  )
 contrasts_3 |>
   as.data.frame() |>
   tidyr::separate_wider_delim(
@@ -123,14 +142,6 @@ contrasts_3 |>
   knitr::kable(digits = 3)
 
 cat("\014")
-m_nl_osivq |> get_singularity()
-contrasts_osivq <-
-  m_nl_osivq |>
-  get_contrast(
-    ~ cluster_category | term,
-    at = list(term = c(1, 2, 3, 4)),
-    interaction = TRUE
-  )
 contrasts_osivq |>
   as.data.frame() |>
   tidyr::separate_wider_delim(

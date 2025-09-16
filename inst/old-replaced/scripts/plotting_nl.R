@@ -43,6 +43,7 @@ df_nl_vviq_2 <-
     names = c("group", "category")
   ) |>
   dplyr::mutate(CI_low = CI_low - 0.4, CI_high = CI_high + 0.4)
+
 df_nl_vviq_3 <-
   modelbased::estimate_relation(
     m_nl_vviq_3,
@@ -56,6 +57,7 @@ df_nl_vviq_3 <-
     names = c("group", "category")
   ) |>
   dplyr::mutate(CI_low = CI_low - 0.4, CI_high = CI_high + 0.4)
+
 df_nl_osivq <-
   modelbased::estimate_relation(
     m_nl_osivq,
@@ -69,6 +71,14 @@ df_nl_osivq <-
     names = c("group", "category")
   ) |>
   dplyr::mutate(CI_low = CI_low - 0.4, CI_high = CI_high + 0.4)
+
+nl_relations <- list(
+  vviq_2 = df_nl_vviq_2,
+  vviq_3 = df_nl_vviq_3,
+  osivq  = df_nl_osivq
+)
+saveRDS(nl_relations, here::here("inst/nl_relations.rds"))
+
 
 pnl1 <-
   plot_nl(df_nl_vviq_2, title = "VVIQ 2 groups") +

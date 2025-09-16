@@ -1,4 +1,4 @@
-# Run "cluster_and_create_data first
+# Run all_data_preparation.R first
 
 # Raven ---------
 m_raven_vviq_2 <- lm(raven_score ~ group_2, data = df_survey)

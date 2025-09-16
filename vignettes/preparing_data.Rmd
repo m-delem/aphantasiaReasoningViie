@@ -210,3 +210,11 @@ plot_median_rt_distribution(df, sd_mult = 2.25, base_size = 12)
     survey data.
 
 Data all set for analyses!
+
+--------------------------------------------------------------------------------
+
+```{r session_info}
+#| echo: false
+
+sessioninfo::session_info()
+```

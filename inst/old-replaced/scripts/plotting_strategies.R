@@ -3,23 +3,23 @@
 library(patchwork)
 
 # Plotting proportions -----------------------
-# pb1 <- plot_strategies_barplot(df_strats_long, group_2, title = "VVIQ 2 groups")
-# pb2 <- plot_strategies_barplot(df_strats_long, group_3, title = "VVIQ 3 groups")
-# pb3 <- plot_strategies_barplot(df_strats_long, cluster, title = "OSIVQ clusters")
-#
-# pb <-
-#   pb1 + pb2 + pb3 +
-#   patchwork::plot_layout(guides = "collect") &
-#   ggplot2::theme(legend.position = "bottom")
-#
-# save_plot(
-#   pb,
-#   "inst/figures/strategy_proportions.pdf",
-#   ncol = 2,
-#   height = 140,
-#   print_it = TRUE,
-#   verbose = TRUE
-# )
+pb1 <- plot_strategies_barplot(df_strats_long, group_2, title = "VVIQ 2 groups")
+pb2 <- plot_strategies_barplot(df_strats_long, group_3, title = "VVIQ 3 groups")
+pb3 <- plot_strategies_barplot(df_strats_long, cluster, title = "OSIVQ clusters")
+
+pb <-
+  pb1 + pb2 + pb3 +
+  patchwork::plot_layout(guides = "collect") &
+  ggplot2::theme(legend.position = "bottom")
+
+save_plot(
+  pb,
+  "inst/figures/strategy_proportions.pdf",
+  ncol = 2,
+  height = 140,
+  print_it = TRUE,
+  verbose = TRUE
+)
 
 # Plotting scores -----------------------------
 # n_aph_2 <- nrow(dplyr::filter(df_survey, group_2 == "Aphantasia"))
