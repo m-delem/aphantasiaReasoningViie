@@ -698,3 +698,13 @@ pnl <- pnl1 / pnl2 / pnl3 +
 
 plot(pnl)
 ```
+
+All done!
+
+--------------------------------------------------------------------------------
+
+```{r session_info}
+#| echo: false
+
+sessioninfo::session_info()
+```
