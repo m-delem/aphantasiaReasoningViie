@@ -98,11 +98,11 @@ These can include parameters like <code>meanlog</code>, <code>sdlog</code>, <cod
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">simulate_rt_test</span><span class="op">(</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">)</span>   <span class="co"># Low power, unlikely to detect the effect</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.038</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.733</span>
 <span class="r-in"><span><span class="fu">simulate_rt_test</span><span class="op">(</span><span class="fl">40</span>, <span class="fl">1.5</span><span class="op">)</span> <span class="co"># Better power, more likely</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05</span>
 <span class="r-in"><span><span class="fu">simulate_rt_test</span><span class="op">(</span><span class="fl">150</span>, <span class="fl">1</span><span class="op">)</span>  <span class="co"># High power, highly likely even for a small effect</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

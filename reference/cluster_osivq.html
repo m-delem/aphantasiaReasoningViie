@@ -101,6 +101,120 @@ during the clustering process.</p></dd>
     <p>A list with the clustering results from <code><a href="https://alinetalhouk.github.io/diceR/reference/dice.html" class="external-link">diceR::dice()</a></code>.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">clustering</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="get_clean_data.html">get_clean_data</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">df_survey</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span> <span class="fu">cluster_osivq</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">clustering</span><span class="op">$</span><span class="va">clusters</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     kmodes majority CSPA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9        2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19       3        3    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64       2        2    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91       2        2    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97       3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98       2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99       1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100      2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101      2        2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102      3        3    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103      1        1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104      3        3    3</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
