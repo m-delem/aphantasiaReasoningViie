@@ -196,12 +196,12 @@ times:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/build_formula.html">build_formula</a></span><span class="op">(</span><span class="st">"accuracy"</span>, <span class="st">"group_2"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; accuracy ~ group_2 * category + (category | id) + (group_2 | </span></span>
 <span><span class="co">#&gt;     problem)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x555e60c0b210&gt;</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x561266533b20&gt;</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/build_formula.html">build_formula</a></span><span class="op">(</span><span class="st">"accuracy"</span>, <span class="st">"cluster"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; accuracy ~ cluster * category + (category | id) + (cluster | </span></span>
 <span><span class="co">#&gt;     problem)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x555e61736930&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x5612681377e0&gt;</span></span></code></pre></div>
 <p>The models were fitted using the <code><a href="https://rdrr.io/pkg/glmmTMB/man/glmmTMB.html" class="external-link">glmmTMB::glmmTMB()</a></code>
 function (and a little <code><a href="../reference/set_ranef_prior.html">set_ranef_prior()</a></code> helper function to
 set a weakly informative prior on the random effects, which helps with
