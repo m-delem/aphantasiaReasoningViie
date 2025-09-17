@@ -1,6 +1,6 @@
 Package: aphantasiaReasoningViie
 Title: Data Analysis for "The Impact of Mental Images on Reasoning: A Study on Aphantasia"
-Version: 0.0.0.9000
+Version: 1.0
 Authors@R: 
     person("Maël", "Delem", , "mael.delem@pm.me", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0005-8518-1991"))
