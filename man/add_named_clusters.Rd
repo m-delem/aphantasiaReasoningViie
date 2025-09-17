@@ -47,3 +47,9 @@ the clustering procedure with \code{\link[=summarise_clustering]{summarise_clust
 examination, we can choose names for the three clusters manually and input
 them into this function to get a meaningful variable to analyse.
 }
+\examples{
+df <- get_clean_data()$df_survey
+clustering <- cluster_osivq(df)
+
+df |> add_named_clusters(clustering) |> dplyr::select(id, group, cluster)
+}

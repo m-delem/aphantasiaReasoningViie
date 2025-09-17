@@ -126,8 +126,8 @@ get_trial_count <- function(df) {
     dplyr::ungroup() |>
     dplyr::mutate(dplyr::across("group":"category", stringr::str_to_title)) |>
     tidyr::pivot_wider(
-      names_from = .data$category,
-      values_from = .data$n,
+      names_from = "category",
+      values_from = "n",
       values_fill = 0
     ) |>
     dplyr::rowwise() |>

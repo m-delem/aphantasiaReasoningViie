@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [<img alt="alt_text" src="https://img.shields.io/badge/OSF-https://osf.io/hfbcp/-337AB7?logo=osf"/>](https://osf.io/hfbcp/)
+[![Codecov test
+coverage](https://codecov.io/gh/m-delem/aphantasiaReasoningViie/graph/badge.svg)](https://app.codecov.io/gh/m-delem/aphantasiaReasoningViie)
 <!-- badges: end -->
 
 aphantasiaReasoningViie is a data analysis project disguised as an R

@@ -19,3 +19,6 @@ A filtered data frame with participants who have an accuracy above
 \description{
 Filter participants with below random accuracy
 }
+\examples{
+df <- filter_random_accuracy_ids(experiment_data)
+}

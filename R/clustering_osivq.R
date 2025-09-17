@@ -14,6 +14,13 @@
 #'
 #' @returns A list with the clustering results from [diceR::dice()].
 #' @export
+#'
+#' @examples
+#' clustering <-
+#'  get_clean_data()$df_survey |>
+#'  cluster_osivq()
+#'
+#' clustering$clusters
 cluster_osivq <- function(
     df,
     algorithms = c("gmm", "pam", "cmeans"),
@@ -30,9 +37,9 @@ cluster_osivq <- function(
     diceR::dice(
       dplyr::select(
         df,
-        .data$osivq_object,
-        .data$osivq_spatial,
-        .data$osivq_verbal
+        "osivq_object",
+        "osivq_spatial",
+        "osivq_verbal"
       ),
       nk     = 3,
       p.item = 1,
@@ -69,6 +76,12 @@ cluster_osivq <- function(
 #' @returns A data frame with an additional column `cluster` that contains the
 #' named cluster assignments.
 #' @export
+#'
+#' @examples
+#' df <- get_clean_data()$df_survey
+#' clustering <- cluster_osivq(df)
+#'
+#' df |> add_named_clusters(clustering) |> dplyr::select(id, group, cluster)
 add_named_clusters <- function(
     df,
     clustering,
@@ -92,7 +105,7 @@ add_named_clusters <- function(
         factor(levels = levels) |>
         add_factor_contrasts(n = contrasts, base = base, ...)
     ) |>
-    dplyr::relocate(.data$cluster, .after = "group")
+    dplyr::relocate("cluster", .after = "group")
   return(df_with_cluster)
 }
 
@@ -105,6 +118,14 @@ add_named_clusters <- function(
 #' participants in each cluster and the mean scores for VVIQ, OSIVQ object,
 #' OSIVQ spatial, OSIVQ verbal, and Raven scores.
 #' @export
+#'
+#' @examples
+#' df <- get_clean_data()$df_survey
+#' clustering <- cluster_osivq(df)
+#'
+#' df |>
+#'  add_named_clusters(clustering) |>
+#'  summarise_clustering()
 summarise_clustering <- function(df) {
   df_summary <-
     df |>
@@ -120,4 +141,67 @@ summarise_clustering <- function(df) {
     dplyr::arrange(.data$cluster)
 
   return(df_summary)
+}
+
+#' Plot the OSIVQ scores of clusters in a ternary diagram
+#'
+#' @param df A dataframe containing `osivq_object`, `osivq_spatial`,
+#'`osivq_verbal` and `cluster` columns.
+#' @param dot_size Size of the dots in the plot.
+#' @param plot_it Logical. If TRUE, the plot will be printed immediately.
+#' @param colours A vector of colours to use for the clusters in the plot passed
+#' to the [ggplot2::scale_discrete_manual()] function. Default is
+#' [palette.colors()].
+#' @param ... Additional arguments passed to the [theme_pdf()] function.
+#'
+#' @returns A ggplot object representing the OSIVQ scores in a ternary diagram.
+#' @export
+#'
+#' @examples
+#' df <- get_clean_data()$df_survey
+#'
+#' # Clustering the sample based on OSIVQ scores
+#' clustering <- cluster_osivq(df)
+#' df <- add_named_clusters(df, clustering)
+#'
+#' if (require("coda.plot", quietly = TRUE)) {
+#'  plot_osivq_ternary(df, base_theme = ggplot2::theme_grey, base_size = 12)
+#' }
+#'
+#' @keywords internal
+plot_osivq_ternary <- function(
+    df,
+    dot_size = 1.5,
+    plot_it  = FALSE,
+    colours = palette.colors(),
+    ...
+) {
+  rlang::check_installed("coda.plot")
+
+  p <-
+    df |>
+    dplyr::select(
+      Object  = "osivq_object",
+      Spatial = "osivq_spatial",
+      Verbal  = "osivq_verbal"
+    ) |>
+    coda.plot::ternary_diagram(
+      group  = df$cluster,
+      center = TRUE,
+      scale  = TRUE
+    ) +
+    ggplot2::scale_discrete_manual(
+      name = NULL,
+      aesthetics = c("color", "fill"),
+      values = colours
+    ) +
+    theme_pdf(...) +
+    ggplot2::theme(legend.margin = ggplot2::margin(b = -15))
+
+  p$layers[[2]]$geom$default_aes$size   <- dot_size
+  p$layers[[2]]$geom$default_aes$alpha  <- 0.6
+  p$layers[[2]]$geom$default_aes$stroke <- 0.2
+
+  if (plot_it) plot(p)
+  return(p)
 }

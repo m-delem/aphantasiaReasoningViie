@@ -181,6 +181,9 @@ filter_manually_identified_ids <- function(
 #' @returns A filtered data frame with participants who have an accuracy above
 #' 50% across all trials.
 #' @export
+#'
+#' @examples
+#' df <- filter_random_accuracy_ids(experiment_data)
 filter_random_accuracy_ids <- function(df, verbose = TRUE) {
   n_before <- length(unique(df$id))
 

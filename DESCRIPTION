@@ -21,6 +21,7 @@ Imports:
     tidyr,
     forcats,
     tidyselect,
+    ggplot2,
     grDevices,
     stats,
     tibble
@@ -34,7 +35,6 @@ Suggests:
     furrr,
     future,
     ggpath,
-    ggplot2,
     glmmTMB,
     here,
     Hmisc,

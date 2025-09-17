@@ -18,3 +18,11 @@ OSIVQ spatial, OSIVQ verbal, and Raven scores.
 \description{
 Get the size and questionnaire means of clusters
 }
+\examples{
+df <- get_clean_data()$df_survey
+clustering <- cluster_osivq(df)
+
+df |>
+ add_named_clusters(clustering) |>
+ summarise_clustering()
+}

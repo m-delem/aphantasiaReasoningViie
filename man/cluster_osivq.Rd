@@ -37,3 +37,10 @@ A list with the clustering results from \code{\link[diceR:dice]{diceR::dice()}}.
 \description{
 Cluster the OSIVQ data using consensus between various algorithms
 }
+\examples{
+clustering <-
+ get_clean_data()$df_survey |>
+ cluster_osivq()
+
+clustering$clusters
+}
