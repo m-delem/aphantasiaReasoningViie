@@ -1,0 +1,377 @@
+---
+title: "Response time analyses"
+output: pdf_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This vignette contains a full breakdown of the analyses of participants' total
+response times on the reasoning problems. The most interesting results are
+synthetically presented in the main manuscript (preprint
+[here](https://doi.org/10.31234/osf.io/vsjtb_v1)). The present document aims to
+provide a full account of the steps taken to reach these results, and to provide
+additional analyses that were not included in the manuscript for brevity.
+
+```{r setup}
+library(aphantasiaReasoningViie)
+```
+
+# Data preparation
+
+First, let's get the clean, analysis-ready data, create cognitive style clusters
+using OSIVQ scores (see `vignette("preparing_data")` and
+`vignette("osivq_clusters")` for details), and add this classification to the
+dataset containing response times (RT) data.
+
+```{r}
+#| label: get-data
+
+df_survey  <- get_clean_data()$df_survey
+# Clustering OSIVQ data
+clustering <- cluster_osivq(df_survey)
+# Adding named clusters to the survey data
+df_survey <- add_named_clusters(
+  df_survey, clustering,
+  names  = c("Spatialiser", "Visualiser", "Verbaliser"),
+  levels = c("Visualiser", "Spatialiser", "Verbaliser"),
+  contrasts = c("_visualiser", "_spatialiser", "_verbaliser"),
+  base = 1
+)
+# Merging with experiment data
+df_expe <-
+  dplyr::left_join(
+    get_clean_data()$df_expe,
+    df_survey |> dplyr::select(id, cluster),
+    by = dplyr::join_by("id")
+  ) |>
+  dplyr::relocate(cluster, .after = "group")
+```
+
+For RT analyses, we removed incorrect trials and trials with suspicious RT
+patterns. These filtering steps were gathered in the `filter_trials_on_rt()`
+function, which also provides a short summary of the process.
+
+```{r}
+#| label: filter-rt
+
+df_rt <- 
+  filter_trials_on_rt(df_expe, verbose = TRUE) |> 
+  dplyr::select(id, group:strategy_group, problem, category, rt_total)
+
+dplyr::glimpse(df_rt)
+```
+
+# Method
+
+As described in the manuscript:
+
+> We fitted GLMMs with Gamma distributions and identity links to account for the
+> skewed distributions of RTs, using the glmmTMB package (McGillycuddy et al.,
+> 2025). The models included a grouping variable (VVIQ groups, OSIVQ clusters),
+> Category (visual, spatial, or control) along with their two-way interactions
+> as fixed categorical predictors. Varying slopes and intercepts (“random
+> effects”) have been added for each participant by category and for each
+> problem by grouping variable.
+
+Let's break this down.
+
+## The grouping variables
+
+We used several grouping variables to classify participants, all of which are in
+the `df_rt` data frame:
+
+-   `group` is the 4-group VVIQ classification with an "aphantasia" group (VVIQ
+    = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group (VVIQ
+    $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It was
+    not used in the analyses because the hyperphantasia group was too small (N =
+    4).
+
+-   `group_3` is the same as `group`, but with the hyperphantasia group merged
+    with the typical group. It is referred to as "VVIQ 3 groups" in the
+    manuscript results.
+
+-   `group_2` is the binary classification often used in aphantasia literature
+    that additionally merges the hypophantasia group with the aphantasia group.
+    It is refereed to as "VVIQ 2 groups" in the manuscript results.
+
+-   `cluster` is the cognitive style classification obtained from clustering
+    OSIVQ scores. It contains three groups: "Visualiser", "Spatialiser", and
+    "Verbaliser". It is referred to as "OSIVQ 3 clusters" in the manuscript
+    results.
+
+-   `strategy_group` is a classification based on the self-reported strategies
+    used by the participants to solve the problems. It focuses on whether
+    participants used a visual mental imagery strategy and contains two groups:
+    "Visual strategy user" and "No visual strategy". It is not reported in the
+    manuscript because it was suggested to us after submission by colleagues at
+    a conference.
+
+The same modelling pipeline was therefore applied four times, once for each of
+the last four grouping variables.
+
+## The modelling pipeline
+
+We created a small `build_formula()` helper function to write the formula
+easily, as we used the same model structure a lot of times:
+
+```{r}
+#| label: build-formula
+
+build_formula("rt_total", "group_2")
+
+build_formula("rt_total", "cluster")
+```
+
+The models were fitted using the `glmmTMB::glmmTMB()` function (and a little
+`set_ranef_prior()` helper function to set a weakly informative prior on the
+random effects, which helps with convergence and singularity issues). After
+model fit, we checked for potential singularity issues and model performance
+using the `get_singularity()` and `get_performance()` functions created for the
+occasion (which are convenient wrappers around the *performance* package).
+
+Finally, we tested our hypotheses with marginal contrasts. As stated in the
+manuscript:
+
+> Due to the way that variance is partitioned in GLMMs (Rights & Sterba, 2019),
+> there does not exist an agreed-upon way to calculate standard effect sizes for
+> individual terms such as main effects or interactions in these models. Thus,
+> in line with general recommendations on how to report effect sizes (e.g., Pek
+> & Flora, 2018), we report and analyse unstandardised effect sizes for post-hoc
+> tests in the form of estimated marginal contrasts (i.e. differences in
+> model-estimated marginal means, hereinafter denoted $\Delta$), in seconds for RTs or
+> as odds ratios for accuracies. To answer our hypotheses, we planned to analyse
+> contrasts between groups, contrasts between categories for each group
+> separately, and interaction contrasts testing the differences in category
+> contrasts between the groups.
+
+This task was performed with the `report_contrast()` function, which is a
+wrapper around several functions from the *emmeans* package. We used it to
+compute response time contrasts between groups, contrasts between categories
+within each group, and interaction contrasts (differences in category contrasts
+between groups).
+
+Here we go!
+
+# Results
+
+## VVIQ 2 groups
+
+```{r}
+#| label: vviq-2-groups
+
+m_rt_vviq_2 <-
+  glmmTMB::glmmTMB(
+    data    = df_rt,
+    formula = build_formula("rt_total", "group_2"),
+    family  = Gamma(link = "identity"),
+    prior   = set_ranef_prior(70)
+  )
+
+# Singularity
+m_rt_vviq_2 |> get_singularity()
+
+# Performance
+m_rt_vviq_2 |> get_performance() |> knitr::kable(align = "c")
+# Group contrasts
+m_rt_vviq_2 |> report_contrast(~ group_2) |> knitr::kable()
+# Category contrasts within groups
+m_rt_vviq_2 |> report_contrast(~ category | group_2) |> knitr::kable()
+# Interaction contrasts
+m_rt_vviq_2 |> report_contrast(~ category * group_2, interaction = TRUE) |>
+  knitr::kable()
+```
+
+## VVIQ 3 groups
+
+```{r}
+#| label: vviq-3-groups
+
+m_rt_vviq_3 <-
+  glmmTMB::glmmTMB(
+    data    = df_rt,
+    formula = build_formula("rt_total", "group_3"),
+    family  = Gamma(link = "identity"),
+    prior   = set_ranef_prior(70)
+  )
+
+m_rt_vviq_3 |> get_singularity()
+
+m_rt_vviq_3 |> get_performance() |> knitr::kable(align = "c")
+m_rt_vviq_3 |> report_contrast(~ group_3) |> knitr::kable()
+m_rt_vviq_3 |> report_contrast(~ category | group_3) |> knitr::kable()
+m_rt_vviq_3 |> report_contrast(~ category * group_3, interaction = TRUE) |>
+  knitr::kable()
+```
+
+## OSIVQ 3 clusters
+
+```{r}
+#| label: osivq-3-clusters
+
+m_rt_osivq <-
+  glmmTMB::glmmTMB(
+    data    = df_rt,
+    formula = build_formula("rt_total", "cluster"),
+    family  = Gamma(link = "identity"),
+    prior   = set_ranef_prior(70)
+  )
+
+m_rt_osivq  |> get_singularity()
+
+m_rt_osivq  |> get_performance() |> knitr::kable(align = "c")
+m_rt_osivq  |> report_contrast(~ cluster) |> knitr::kable()
+m_rt_osivq  |> report_contrast(~ category | cluster) |> knitr::kable()
+m_rt_osivq  |> report_contrast(~ category * cluster, interaction = TRUE) |>
+  knitr::kable()
+```
+
+## Strategy groups
+
+```{r}
+#| label: strategy-groups
+
+m_rt_strat <-
+  glmmTMB::glmmTMB(
+    data    = df_rt,
+    formula = build_formula("rt_total", "strategy_group"),
+    family  = Gamma(link = "identity"),
+    prior   = set_ranef_prior(70)
+  )
+
+m_rt_strat |> get_singularity()
+
+m_rt_strat |> get_performance() |> knitr::kable(align = "c")
+m_rt_strat |> report_contrast(~ strategy_group) |> knitr::kable()
+m_rt_strat |> report_contrast(~ category | strategy_group) |> knitr::kable()
+m_rt_strat |> report_contrast(~ category * strategy_group, interaction = TRUE) |>
+  knitr::kable()
+```
+
+# Visualisation
+
+The figures showing the distribution of response times displayed in the
+manuscript were created with the `plot_superb_raincloud()` function from the
+package, which wraps functions from the *ggplot2* and *superb* packages to
+create nice visualisations easily. A little `add_significance()` helper function
+was also created to add significance stars to the plots.
+
+```{r}
+#| label: plot-rt
+#| fig.width: 7
+#| fig.height: 4
+#| fig.align: center
+#| fig.alt: >
+#|  A jitter plot showing the mean RTs in each category for several
+#|  different grouping variables.
+
+library(patchwork)
+library(superb)
+
+pr1 <-
+  plot_superb_raincloud(
+    df_rt, rt_total, group_2,
+    title = "VVIQ 2 groups", y_title = "Mean total RT (s)",
+    plot.background = ggplot2::element_rect(fill = "white", colour = NA)
+  ) +
+  add_significance(
+    size_star = 4,
+    tibble::tibble(
+      x_star = 2,
+      y_star = 30,
+      stars  = "**",
+      x_line = .data$x_star - 0.14,
+      x_line_end = .data$x_star + 0.14,
+      y_line = 29.5
+    )
+  ) +
+  add_significance(
+    size_star = 4,
+    tibble::tibble(
+      x_star = 2.07,
+      y_star = 28,
+      stars  = "*",
+      x_line = .data$x_star - 0.07,
+      x_line_end = .data$x_star + 0.07,
+      y_line = 27.5
+    )
+  )
+
+pr2 <-
+  plot_superb_raincloud(
+    df_rt, rt_total, group_3,
+    title = "VVIQ 3 groups", y_title = "Mean total RT (s)",
+    plot.background = ggplot2::element_rect(fill = "white", colour = NA)
+  ) +
+  add_significance(
+    size_star = 4,
+    tibble::tibble(
+      x_star = 3,
+      y_star = 30,
+      stars  = "**",
+      x_line = .data$x_star - 0.14,
+      x_line_end = .data$x_star + 0.14,
+      y_line = 29.5
+    )
+  ) +
+  add_significance(
+    size_star = 4,
+    tibble::tibble(
+      x_star = 3.07,
+      y_star = 28,
+      stars  = "*",
+      x_line = .data$x_star - 0.07,
+      x_line_end = .data$x_star + 0.07,
+      y_line = 27.5
+    )
+  )
+
+pr3 <-
+  plot_superb_raincloud(
+    df_rt, rt_total, cluster,
+    title = "OSIVQ clusters", y_title = "Mean total RT (s)",
+    plot.background = ggplot2::element_rect(fill = "white", colour = NA)
+  ) +
+  add_significance(
+    size_star = 4,
+    tibble::tibble(
+      x_star = 3,
+      y_star = 30,
+      stars  = "***",
+      x_line = .data$x_star - 0.14,
+      x_line_end = .data$x_star + 0.14,
+      y_line = 29.5
+    )
+  ) +
+  add_significance(
+    size_star = 4,
+    tibble::tibble(
+      x_star = 3.07,
+      y_star = 28,
+      stars  = "*",
+      x_line = .data$x_star - 0.07,
+      x_line_end = .data$x_star + 0.07,
+      y_line = 27.5
+    )
+  )
+
+pr <- pr1 + pr2 + pr3 +
+  patchwork::plot_layout(axes = "collect", guides = "collect") &
+  ggplot2::theme(legend.position = "bottom")
+
+plot(pr)
+```
+
+All done!
+
+\newpage
+
+```{r session_info}
+#| echo: false
+
+sessioninfo::session_info()
+```
