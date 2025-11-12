@@ -19,6 +19,7 @@ NULL
   packageStartupMessage(glue::glue_col(
     "{blue
     Welcome to {cyan aphantasiaReasoningViie}.
+    See {magenta https://osf.io/hfbcp/} for the associated study.
     }
     ",
     .literal = TRUE))
