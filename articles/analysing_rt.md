@@ -138,12 +138,12 @@ structure a lot of times:
 build_formula("rt_total", "group_2")
 #> rt_total ~ group_2 * category + (category | id) + (group_2 | 
 #>     problem)
-#> <environment: 0x56269e8f8998>
+#> <environment: 0x562fb17bed40>
 
 build_formula("rt_total", "cluster")
 #> rt_total ~ cluster * category + (category | id) + (cluster | 
 #>     problem)
-#> <environment: 0x56269e989208>
+#> <environment: 0x562fb083c098>
 ```
 
 The models were fitted using the
@@ -565,14 +565,14 @@ All done!
     #>  collate  C.UTF-8
     #>  ctype    C.UTF-8
     #>  tz       UTC
-    #>  date     2025-11-12
+    #>  date     2025-11-14
     #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
     #>  quarto   1.8.26 @ /usr/local/bin/quarto
     #> 
     #> ─ Packages ───────────────────────────────────────────────────────────────────
     #>  ! package                 * version    date (UTC) lib source
     #>    abind                     1.4-8      2024-09-12 [1] RSPM
-    #>    aphantasiaReasoningViie * 1.0        2025-11-12 [1] local
+    #>    aphantasiaReasoningViie * 1.0        2025-11-14 [1] local
     #>    assertthat                0.2.1      2019-03-21 [1] RSPM
     #>  P boot                      1.3-32     2025-08-29 [?] CRAN (R 4.5.2)
     #>    bslib                     0.9.0      2025-01-30 [1] RSPM
@@ -590,7 +590,7 @@ All done!
     #>    desc                      1.4.3      2023-12-10 [1] RSPM
     #>  P devtools                * 2.4.6      2025-10-03 [?] RSPM
     #>    diceR                     3.1.0      2025-06-19 [1] RSPM
-    #>    digest                    0.6.37     2024-08-19 [1] RSPM
+    #>    digest                    0.6.38     2025-11-12 [1] RSPM
     #>    dplyr                     1.1.4      2023-11-17 [1] RSPM
     #>    e1071                     1.7-16     2024-09-16 [1] RSPM
     #>  P ellipsis                  0.3.2      2021-04-29 [?] RSPM
@@ -659,7 +659,7 @@ All done!
     #>    reformulas                0.4.2      2025-10-28 [1] RSPM
     #>  P remotes                   2.5.0      2024-03-17 [?] RSPM
     #>    renv                      1.1.4      2025-03-20 [1] RSPM (R 4.5.0)
-    #>    reshape2                  1.4.4      2020-04-09 [1] RSPM
+    #>    reshape2                  1.4.5      2025-11-12 [1] RSPM
     #>    rlang                     1.1.6      2025-04-11 [1] RSPM
     #>    rmarkdown                 2.30       2025-09-28 [1] RSPM
     #>    rrapply                   1.2.7      2024-06-26 [1] RSPM

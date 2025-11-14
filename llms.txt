@@ -6,7 +6,7 @@ reproduce the analyses presented in the article “*The Impact of Mental
 Images on Reasoning: A Study on Aphantasia*”. You can read the preprint
 [here](https://doi.org/10.31234/osf.io/vsjtb_v1). All study materials
 are available on the Open Science Framework
-[here](https://osf.io/hfbcp/).
+[here](https://doi.org/10.17605/OSF.IO/HFBCP).
 
 The online documentation contains detailed articles describing how to
 use the package to reproduce the analyses, including:

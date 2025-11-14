@@ -629,14 +629,14 @@ All done!
     #>  collate  C.UTF-8
     #>  ctype    C.UTF-8
     #>  tz       UTC
-    #>  date     2025-11-12
+    #>  date     2025-11-14
     #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
     #>  quarto   1.8.26 @ /usr/local/bin/quarto
     #> 
     #> ─ Packages ───────────────────────────────────────────────────────────────────
     #>  ! package                 * version     date (UTC) lib source
     #>    abind                     1.4-8       2024-09-12 [1] RSPM
-    #>    aphantasiaReasoningViie * 1.0         2025-11-12 [1] local
+    #>    aphantasiaReasoningViie * 1.0         2025-11-14 [1] local
     #>    assertthat                0.2.1       2019-03-21 [1] RSPM
     #>    bslib                     0.9.0       2025-01-30 [1] RSPM
     #>    cachem                    1.1.0       2024-05-16 [1] RSPM
@@ -653,7 +653,7 @@ All done!
     #>    desc                      1.4.3       2023-12-10 [1] RSPM
     #>  P devtools                * 2.4.6       2025-10-03 [?] RSPM
     #>    diceR                     3.1.0       2025-06-19 [1] RSPM
-    #>    digest                    0.6.37      2024-08-19 [1] RSPM
+    #>    digest                    0.6.38      2025-11-12 [1] RSPM
     #>    dplyr                     1.1.4       2023-11-17 [1] RSPM
     #>    e1071                     1.7-16      2024-09-16 [1] RSPM
     #>  P ellipsis                  0.3.2       2021-04-29 [?] RSPM

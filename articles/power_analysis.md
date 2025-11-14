@@ -477,14 +477,14 @@ the VIIE.
     #>  collate  C.UTF-8
     #>  ctype    C.UTF-8
     #>  tz       UTC
-    #>  date     2025-11-12
+    #>  date     2025-11-14
     #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
     #>  quarto   1.8.26 @ /usr/local/bin/quarto
     #> 
     #> ─ Packages ───────────────────────────────────────────────────────────────────
     #>  ! package                 * version    date (UTC) lib source
     #>    abind                     1.4-8      2024-09-12 [1] RSPM
-    #>    aphantasiaReasoningViie * 1.0        2025-11-12 [1] local
+    #>    aphantasiaReasoningViie * 1.0        2025-11-14 [1] local
     #>    backports                 1.5.0      2024-05-23 [1] RSPM
     #>    bayesplot                 1.14.0     2025-08-31 [1] RSPM
     #>  P boot                      1.3-32     2025-08-29 [?] CRAN (R 4.5.2)
@@ -500,7 +500,7 @@ the VIIE.
     #>    curl                      7.0.0      2025-08-19 [1] RSPM
     #>    desc                      1.4.3      2023-12-10 [1] RSPM
     #>  P devtools                * 2.4.6      2025-10-03 [?] RSPM
-    #>    digest                    0.6.37     2024-08-19 [1] RSPM
+    #>    digest                    0.6.38     2025-11-12 [1] RSPM
     #>    distributional            0.5.0      2024-09-17 [1] RSPM
     #>    dplyr                     1.1.4      2023-11-17 [1] RSPM
     #>  P ellipsis                  0.3.2      2021-04-29 [?] RSPM
@@ -562,7 +562,7 @@ the VIIE.
     #>    reformulas                0.4.2      2025-10-28 [1] RSPM
     #>  P remotes                   2.5.0      2024-03-17 [?] RSPM
     #>    renv                      1.1.4      2025-03-20 [1] RSPM (R 4.5.0)
-    #>    reshape2                  1.4.4      2020-04-09 [1] RSPM
+    #>    reshape2                  1.4.5      2025-11-12 [1] RSPM
     #>    rlang                     1.1.6      2025-04-11 [1] RSPM
     #>    rmarkdown                 2.30       2025-09-28 [1] RSPM
     #>    rrapply                   1.2.7      2024-06-26 [1] RSPM
