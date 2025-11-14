@@ -5,19 +5,19 @@
 
 <!-- badges: start -->
 
-[<img alt="alt_text" src="https://img.shields.io/badge/OSF-https://osf.io/hfbcp/-337AB7?logo=osf"/>](https://osf.io/hfbcp/)
-[![Codecov test
-coverage](https://codecov.io/gh/m-delem/aphantasiaReasoningViie/graph/badge.svg)](https://app.codecov.io/gh/m-delem/aphantasiaReasoningViie)
-[![R-CMD-check](https://github.com/m-delem/aphantasiaReasoningViie/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/m-delem/aphantasiaReasoningViie/actions/workflows/R-CMD-check.yaml)
+<a href="https://doi.org/10.17605/OSF.IO/HFBCP" target="_blank"><img alt="OSF badge" src="https://img.shields.io/badge/OSF-https://osf.io/hfbcp/-337AB7?logo=osf"/></a>
+<a href="https://m-delem.github.io/aphantasiaReasoningViie/" target="_blank"><img alt="Docs badge" src="https://img.shields.io/badge/Documentation-website-009e73?style=flat&logo=Google%20Docs&logoColor=009e73&logoSize=auto"/></a>
+<a href="https://app.codecov.io/gh/m-delem/aphantasiaReasoningViie" target="_blank"><img alt="Codecov test coverage" src="https://codecov.io/gh/m-delem/aphantasiaReasoningViie/graph/badge.svg" /></a>
+<a href="https://doi.org/10.31234/osf.io/vsjtb_v1" target="_blank"><img alt="DOI badge" src="https://img.shields.io/badge/Preprint-white?style=flat&logo=osf&logoColor=337AB7&logoSize=auto"/></a>
 <!-- badges: end -->
 
 aphantasiaReasoningViie is a data analysis project wrapped in an R
 package for reproducibility[^1]. It contains the code and data to
 reproduce the analyses presented in the article “*The Impact of Mental
 Images on Reasoning: A Study on Aphantasia*”. You can read the preprint
-[here](https://doi.org/10.31234/osf.io/vsjtb_v1). All study materials
-are available on the Open Science Framework
-[here](https://osf.io/hfbcp/).
+<a href="https://doi.org/10.31234/osf.io/vsjtb_v1" target="_blank">here</a>.
+All study materials are available on the Open Science Framework
+<a href="https://doi.org/10.17605/OSF.IO/HFBCP" target="_blank">here</a>.
 
 The online documentation contains detailed articles describing how to
 use the package to reproduce the analyses, including:
@@ -72,7 +72,8 @@ available in your R session.
     to reproduce the analyses. It is not intended to be a
     general-purpose package, but rather a collection of functions and
     data specific to this study (although many functions are reusable in
-    their own right). The package development workflow (see [this
-    reference book](https://r-pkgs.org/)) is also a good way to ensure
-    that the code is well-documented and tested, which is important for
-    reproducibility in scientific research.
+    their own right). The package development workflow (see
+    <a href="https://r-pkgs.org/" target="_blank">this reference
+    book</a>) is also a good way to ensure that the code is
+    well-documented and tested, which is important for reproducibility
+    in scientific research.
