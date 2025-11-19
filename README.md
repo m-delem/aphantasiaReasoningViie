@@ -11,6 +11,8 @@
 <a href="https://doi.org/10.31234/osf.io/vsjtb_v1" target="_blank"><img alt="DOI badge" src="https://img.shields.io/badge/Preprint-white?style=flat&logo=osf&logoColor=337AB7&logoSize=auto"/></a>
 <!-- badges: end -->
 
+## Overview
+
 aphantasiaReasoningViie is a data analysis project wrapped in an R
 package for reproducibility[^1]. It contains the code and data to
 reproduce the analyses presented in the article “*The Impact of Mental
@@ -43,6 +45,9 @@ use the package to reproduce the analyses, including:
 - [The exploratory non-linear RT
   models](https://m-delem.github.io/aphantasiaReasoningViie/articles/nl_modelling.html)
 
+The notebooks with the source code of each analysis are also available
+in the `vignettes/` folder of the package repository.
+
 ## Installation
 
 The code to install the development version of aphantasiaReasoningViie
@@ -66,6 +71,33 @@ devtools::load_all()
 
 … Which will load the package and make all its functions and data
 available in your R session.
+
+## Citation
+
+This GitHub repository is archived in
+<a href="https://doi.org/10.17605/OSF.IO/HFBCP" target="_blank"> the OSF
+project</a>, which allowed to assign a permanent DOI to the code and
+data. Thus, if you use this code or data in your research, please cite
+the OSF project with one of the following:
+
+**APA**
+
+> Delem, M., Le Clézio, D., Monzel, M., & Plancher, G. (2025, November
+> 19). Supplementary materials for ‘The Impact of Mental Images on
+> Reasoning: A Study on Aphantasia’.
+> <https://doi.org/10.17605/OSF.IO/HFBCP>
+
+**MLA**
+
+> Delem, Maël, et al. “Supplementary Materials for ‘the Impact of Mental
+> Images on Reasoning: A Study on Aphantasia’.” OSF, 19 Nov. 2025. Web.
+
+**Chicago**
+
+> Delem, Maël, Damien Le Clézio, Merlin Monzel, and Gaën Plancher. 2025.
+> “Supplementary Materials for ‘the Impact of Mental Images on
+> Reasoning: A Study on Aphantasia’.” OSF. November 19.
+> <doi:10.17605/OSF.IO/HFBCP>.
 
 [^1]: The R package structure was chosen to facilitate the sharing of
     the code and data with the scientific community, and to make it easy
