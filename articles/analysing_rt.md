@@ -138,12 +138,12 @@ structure a lot of times:
 build_formula("rt_total", "group_2")
 #> rt_total ~ group_2 * category + (category | id) + (group_2 | 
 #>     problem)
-#> <environment: 0x55da4fa14f40>
+#> <environment: 0x55ac01205940>
 
 build_formula("rt_total", "cluster")
 #> rt_total ~ cluster * category + (category | id) + (cluster | 
 #>     problem)
-#> <environment: 0x55da4faa57b0>
+#> <environment: 0x55ac012961b0>
 ```
 
 The models were fitted using the

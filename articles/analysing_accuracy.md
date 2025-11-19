@@ -121,12 +121,12 @@ structure a lot of times:
 build_formula("accuracy", "group_2")
 #> accuracy ~ group_2 * category + (category | id) + (group_2 | 
 #>     problem)
-#> <environment: 0x5633f45941e0>
+#> <environment: 0x55edc7628b88>
 
 build_formula("accuracy", "cluster")
 #> accuracy ~ cluster * category + (category | id) + (cluster | 
 #>     problem)
-#> <environment: 0x5633f48dc738>
+#> <environment: 0x55edc7970ee8>
 ```
 
 The models were fitted using the

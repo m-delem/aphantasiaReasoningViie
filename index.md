@@ -63,7 +63,7 @@ available in your R session.
 
 ## Citation
 
-This GitHub repository is archived in [the OSF
+This GitHub repository is archived in [the associated OSF
 project](https://doi.org/10.17605/OSF.IO/HFBCP), which allowed to assign
 a permanent DOI to the code and data. Thus, if you use this code or data
 in your research, please cite the OSF project with one of the following:
@@ -77,13 +77,13 @@ in your research, please cite the OSF project with one of the following:
 
 **MLA**
 
-> Delem, Maël, et al. “Supplementary Materials for ‘the Impact of Mental
+> Delem, Maël, et al. “Supplementary Materials for ‘The Impact of Mental
 > Images on Reasoning: A Study on Aphantasia’.” OSF, 19 Nov. 2025. Web.
 
 **Chicago**
 
 > Delem, Maël, Damien Le Clézio, Merlin Monzel, and Gaën Plancher. 2025.
-> “Supplementary Materials for ‘the Impact of Mental Images on
+> “Supplementary Materials for ‘The Impact of Mental Images on
 > Reasoning: A Study on Aphantasia’.” OSF. November 19.
 > <doi:10.17605/OSF.IO/HFBCP>.
 
