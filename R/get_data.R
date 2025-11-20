@@ -109,3 +109,41 @@ get_clean_data <- function(
   )
   return(clean_data)
 }
+
+get_clustered_data <- function(
+    names     = c("Spatialiser", "Visualiser", "Verbaliser"),
+    levels    = c("Visualiser", "Spatialiser", "Verbaliser"),
+    contrasts = c("_visualiser", "_spatialiser", "_verbaliser"),
+    base = 1
+) {
+  df_survey  <- get_clean_data()$df_survey
+
+  # Clustering OSIVQ data
+  clustering <- cluster_osivq(df_survey)
+
+  # Adding named clusters to the survey data
+  df_survey <- add_named_clusters(
+    df_survey, clustering,
+    names  = names,
+    levels = levels,
+    contrasts = contrasts,
+    base = base
+  )
+
+  # Merging with experiment data
+  df_expe <-
+    dplyr::left_join(
+      get_clean_data()$df_expe,
+      df_survey |> dplyr::select(id, cluster),
+      by = dplyr::join_by("id")
+    ) |>
+    dplyr::relocate(cluster, .after = "group")
+
+  clustered_data <- list(
+    df_expe   = df_expe,
+    df_survey = df_survey,
+    clustering = clustering
+  )
+
+  return(clustered_data)
+}

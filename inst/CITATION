@@ -1,0 +1,13 @@
+bibentry(
+  bibtype  = "Misc",
+  title    = "Supplementary materials for 'The Impact of Mental Images on Reasoning: A Study on Aphantasia'",
+  author   = c(
+      person("Maël", "Delem", , "mael.delem@pm.me", role = c("aut", "cre"),
+             comment = c(ORCID = "0009-0005-8518-1991")),
+      person("Damien"", "Le Clézio", role = c("ctb")),
+      person("Merlin", "Monzel", role = c("ctb")),
+      person("Gaën", "Plancher", role = c("ctb"))
+     ),
+  year     = 2025,
+  doi      = "https://doi.org/10.17605/OSF.IO/HFBCP"
+)
