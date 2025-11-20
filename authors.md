@@ -8,16 +8,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/m-delem/aphantasiaReasoningViie/blob/master/DESCRIPTION)
+[`inst/CITATION`](https://github.com/m-delem/aphantasiaReasoningViie/blob/master/inst/CITATION)
 
-Delem M (2025). *aphantasiaReasoningViie: Data Analysis for "The Impact
-of Mental Images on Reasoning: A Study on Aphantasia"*. R package
-version 1.0, <https://m-delem.github.io/aphantasiaReasoningViie/>.
+Delem M, Le Clézio D, Monzel M, Plancher G (2025). “Supplementary
+materials for 'The Impact of Mental Images on Reasoning: A Study on
+Aphantasia'.”
+[doi:10.17605/OSF.IO/HFBCP](https://doi.org/10.17605/OSF.IO/HFBCP).
 
-    @Manual{,
-      title = {aphantasiaReasoningViie: Data Analysis for "The Impact of Mental Images on Reasoning: A Study on Aphantasia"},
-      author = {Maël Delem},
+    @Misc{,
+      title = {Supplementary materials for 'The Impact of Mental Images on Reasoning: A Study on Aphantasia'},
+      author = {Maël Delem and Damien {Le Clézio} and Merlin Monzel and Gaën Plancher},
       year = {2025},
-      note = {R package version 1.0},
-      url = {https://m-delem.github.io/aphantasiaReasoningViie/},
+      doi = {https://doi.org/10.17605/OSF.IO/HFBCP},
     }

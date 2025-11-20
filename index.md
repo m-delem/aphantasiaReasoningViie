@@ -1,7 +1,5 @@
 # aphantasiaReasoningViie
 
-## Overview
-
 aphantasiaReasoningViie is a data analysis project wrapped in an R
 package for reproducibility[¹](#fn1). It contains the code and data to
 reproduce the analyses presented in the article “*The Impact of Mental
@@ -10,8 +8,16 @@ Images on Reasoning: A Study on Aphantasia*”. You can read the preprint
 are available on the Open Science Framework
 [here](https://doi.org/10.17605/OSF.IO/HFBCP).
 
-The online documentation contains detailed articles describing how to
-use the package to reproduce the analyses, including:
+## What exactly is in this R package?
+
+The package includes the raw study data in a tidy format in the form of
+built-in datasets called `survey_data` and `experiment_data` to make
+them easily accessible and reusable. The package comes with a set of
+functions for manipulating the data and reliably reproducing the
+analyses presented in the article. The data and the functions are
+documented in detail in the package website, which also contains
+in-depth articles describing how to use the package to reproduce the
+analyses, including:
 
 - [The power analyses by
   simulation](https://m-delem.github.io/aphantasiaReasoningViie/articles/power_analysis.html)
@@ -34,8 +40,8 @@ use the package to reproduce the analyses, including:
 - [The exploratory non-linear RT
   models](https://m-delem.github.io/aphantasiaReasoningViie/articles/nl_modelling.html)
 
-The notebooks with the source code of each analysis are also available
-in the `vignettes/` folder of the package repository.
+The source code for these notebooks is available in the `vignettes/`
+folder of the package repository.
 
 ## Installation
 
@@ -63,29 +69,15 @@ available in your R session.
 
 ## Citation
 
-This GitHub repository is archived in [the associated OSF
-project](https://doi.org/10.17605/OSF.IO/HFBCP), which allowed to assign
-a permanent DOI to the code and data. Thus, if you use this code or data
-in your research, please cite the OSF project with one of the following:
-
-**APA**
+This GitHub repository is archived in [the OSF project dedicated to this
+study](https://doi.org/10.17605/OSF.IO/HFBCP), which allowed to assign a
+permanent DOI to the code and data. Thus, if you use this code or data
+in your research, please cite the OSF project with the following:
 
 > Delem, M., Le Clézio, D., Monzel, M., & Plancher, G. (2025, November
 > 19). Supplementary materials for ‘The Impact of Mental Images on
 > Reasoning: A Study on Aphantasia’.
 > <https://doi.org/10.17605/OSF.IO/HFBCP>
-
-**MLA**
-
-> Delem, Maël, et al. “Supplementary Materials for ‘The Impact of Mental
-> Images on Reasoning: A Study on Aphantasia’.” OSF, 19 Nov. 2025. Web.
-
-**Chicago**
-
-> Delem, Maël, Damien Le Clézio, Merlin Monzel, and Gaën Plancher. 2025.
-> “Supplementary Materials for ‘The Impact of Mental Images on
-> Reasoning: A Study on Aphantasia’.” OSF. November 19.
-> <doi:10.17605/OSF.IO/HFBCP>.
 
 ------------------------------------------------------------------------
 
