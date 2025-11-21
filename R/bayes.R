@@ -16,7 +16,7 @@ fit_brms_model <- function(..., iterations = 4000, file_refit = "never") {
     cores   = n_cores,
     iter    = n_iter,
     warmup  = 2000,
-    refresh = 0,
+    refresh = 500,
     backend = "cmdstanr",
     file_refit    = file_refit,
     file_compress = "xz",
@@ -77,7 +77,7 @@ fit_brms_model <- function(..., iterations = 4000, file_refit = "never") {
 #'
 #' Schielzeth, H. (2010), Simple means to improve the interpretability of regression coefficients. Methods in Ecology and Evolution, 1: 103-113. https://doi.org/10.1111/j.2041-210X.2010.00012.x
 #' }
-brms_contrasts <-
+brms_contrasts  <-
   function(fit = NULL,
            predictor,
            level.sep = " - ",
@@ -135,7 +135,7 @@ brms_contrasts <-
 
     # fix  baseline level
     original_levels <-
-      unlist(sapply("category", function(w) gsub(" |&", "", paste0(w, "_", stringr::str_to_lower(unique(model$data[, w]))))))
+      unlist(sapply(predictor, function(w) gsub(" |&", "", paste0(w, unique(fit$data[, w])))))
 
     base_levels <- setdiff(original_levels, fit_levels)
     base_level <- paste(base_levels, collapse = ":")
@@ -144,14 +144,14 @@ brms_contrasts <-
       stop2("The predictor must have at least 3 levels")
 
     # get levels
-    pred_levels <- unlist(sapply(predictor, function(w) stringr::str_to_lower(unique(fit$data[, w]))))
+    pred_levels <- unlist(sapply(predictor, function(w) as.character(unique(fit$data[, w]))))
 
     # add predictor name
-    pred_levels_list <- lapply(predictor, function(w) stringr::str_to_lower(unique(fit$data[, w])))
+    pred_levels_list <- lapply(predictor, function(w) as.character(unique(fit$data[, w])))
 
     names(pred_levels_list) <- predictor
 
-    pred_levels <- lapply(seq_len(length(pred_levels_list)), function(x) paste0(names(pred_levels_list)[x], "_", pred_levels_list[[x]]))
+    pred_levels <- lapply(seq_len(length(pred_levels_list)), function(x) paste0(names(pred_levels_list)[x], pred_levels_list[[x]]))
 
     # if (length(pred_levels) > 1)
     pred_levels <- apply(expand.grid(pred_levels), 1, paste, collapse = ":")
