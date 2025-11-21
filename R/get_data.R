@@ -50,6 +50,7 @@
 #' head(clean_data$df_expe)
 #' head(clean_data$df_survey)
 get_clean_data <- function(
+    type = "all",
     n_groups = 2,
     exclude_no_vviq = TRUE,
     exclude_no_osivq = TRUE,
@@ -103,20 +104,34 @@ get_clean_data <- function(
     factor_chr_vars() |>
     compute_nieq_scores()
 
-  clean_data <- list(
-    df_expe   = df_expe,
-    df_survey = df_survey
-  )
-  return(clean_data)
+  if (type == "experiment") {
+    return(df_expe)
+  } else if (type == "survey") {
+    return(df_survey)
+  } else if (type == "all") {
+    # Return all data
+    clean_data <- list(
+      df_expe   = df_expe,
+      df_survey = df_survey
+    )
+    return(clean_data)
+  } else {
+    stop(glue::glue_col(
+      "Invalid value for 'data'. Must be '{cyan experiment}', ",
+      "'{yellow survey}', or {green all}'."
+      )
+    )
+  }
 }
 
 get_clustered_data <- function(
+    type = "all",
     names     = c("Spatialiser", "Visualiser", "Verbaliser"),
     levels    = c("Visualiser", "Spatialiser", "Verbaliser"),
     contrasts = c("_visualiser", "_spatialiser", "_verbaliser"),
     base = 1
 ) {
-  df_survey  <- get_clean_data()$df_survey
+  df_survey  <- get_clean_data("survey")
 
   # Clustering OSIVQ data
   clustering <- cluster_osivq(df_survey)
@@ -133,17 +148,31 @@ get_clustered_data <- function(
   # Merging with experiment data
   df_expe <-
     dplyr::left_join(
-      get_clean_data()$df_expe,
+      get_clean_data("experiment"),
       df_survey |> dplyr::select(id, cluster),
       by = dplyr::join_by("id")
     ) |>
     dplyr::relocate(cluster, .after = "group")
 
-  clustered_data <- list(
-    df_expe   = df_expe,
-    df_survey = df_survey,
-    clustering = clustering
-  )
-
-  return(clustered_data)
+  if (type == "experiment") {
+    return(df_expe)
+  } else if (type == "survey") {
+    return(df_survey)
+  } else if (type == "clustering") {
+    return(clustering)
+  } else if (type == "all") {
+    # Return all data
+    clustered_data <- list(
+      df_expe   = df_expe,
+      df_survey = df_survey,
+      clustering = clustering
+    )
+    return(clustered_data)
+  } else {
+    stop(glue::glue_col(
+      "Invalid value for 'data'. Must be '{cyan experiment}', ",
+      "'{yellow survey}', '{magenta clustering}', or {green all}'."
+      )
+    )
+  }
 }

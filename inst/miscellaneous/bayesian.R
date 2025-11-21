@@ -7,7 +7,7 @@ if(!requireNamespace("cmdstanr", quietly = TRUE)) {
 devtools::load_all()
 pacman::p_load(brms, dplyr, marginaleffects, modelbased, performance)
 
-df_expe <- get_clustered_data()$df_expe
+df_expe <- get_clustered_data("experiment")
 df_rt   <-
   filter_trials_on_rt(df_expe, verbose = TRUE) |>
   rename("group_4" = "group")

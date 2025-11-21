@@ -16,7 +16,7 @@ fit_brms_model <- function(..., iterations = 4000, file_refit = "never") {
     cores   = n_cores,
     iter    = n_iter,
     warmup  = 2000,
-    refresh = floor(n_iter / 20),
+    refresh = 0,
     backend = "cmdstanr",
     file_refit    = file_refit,
     file_compress = "xz",
