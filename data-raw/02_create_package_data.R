@@ -33,6 +33,7 @@ survey_data <-
   # These are IDs that have been manually identified by examining the
   # self-reports in demographics or feedback questionnaires.
   dplyr::mutate(
+    vviq_total_score = ifelse(vviq_total_score < 16, 16, vviq_total_score),
     has_adhd = ifelse(
       id %in% c(
         "aacu64091390979054fksk",
