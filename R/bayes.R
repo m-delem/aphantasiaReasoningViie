@@ -130,12 +130,21 @@ brms_contrasts  <-
 
     variables <- variables[grepl(incl_regex, variables)]
 
-    fit_levels <- grep(paste0("^Intercept$|", paste(predictor, collapse = "|")), gsub("^b_", "", variables)
-                       , value = TRUE)
+    fit_levels <-
+      grep(
+        paste0(
+          "^Intercept$|",
+          paste(predictor, collapse = "|")),
+        gsub("^b_", "", variables),
+        value = TRUE
+      )
 
     # fix  baseline level
     original_levels <-
-      unlist(sapply(predictor, function(w) gsub(" |&", "", paste0(w, unique(fit$data[, w])))))
+      unlist(
+        sapply(
+          predictor,
+          function(w) gsub(" |&", "", paste0(w, unique(fit$data[, w])))))
 
     base_levels <- setdiff(original_levels, fit_levels)
     base_level <- paste(base_levels, collapse = ":")
@@ -144,36 +153,54 @@ brms_contrasts  <-
       stop2("The predictor must have at least 3 levels")
 
     # get levels
-    pred_levels <- unlist(sapply(predictor, function(w) as.character(unique(fit$data[, w]))))
+    pred_levels <-
+      unlist(
+        sapply(
+          predictor,
+          function(w) as.character(unique(fit$data[, w]))))
 
     # add predictor name
-    pred_levels_list <- lapply(predictor, function(w) as.character(unique(fit$data[, w])))
+    pred_levels_list <-
+      lapply(
+        predictor,
+        function(w) as.character(unique(fit$data[, w])))
 
     names(pred_levels_list) <- predictor
 
-    pred_levels <- lapply(seq_len(length(pred_levels_list)), function(x) paste0(names(pred_levels_list)[x], pred_levels_list[[x]]))
+    pred_levels <-
+      lapply(
+        seq_len(length(pred_levels_list)),
+        function(x) paste0(names(pred_levels_list)[x], pred_levels_list[[x]]))
 
     # if (length(pred_levels) > 1)
     pred_levels <- apply(expand.grid(pred_levels), 1, paste, collapse = ":")
 
     # sort
     if (!is.null(sort.levels)){
-      if (length(predictor) == 1)
-        sort.levels <- paste0(predictor, sort.levels)
+      if (length(predictor) == 1) sort.levels <- paste0(predictor, sort.levels)
       pred_levels <- pred_levels[match(sort.levels, pred_levels)]
     }
 
     # create data frame with level pairs
-    if (!non.zero)
-      levels_df <- as.data.frame(t(utils::combn(pred_levels, 2))) else
-        levels_df <- data.frame(V1 = pred_levels, V2 = "")
+    if (!non.zero) {
+      levels_df <- as.data.frame(t(utils::combn(pred_levels, 2)))
+    } else {
+      levels_df <- data.frame(V1 = pred_levels, V2 = "")
+    }
 
     # remove spaces and &
     levels_df$V1.nospace <- gsub(" |&", "", levels_df$V1)
     levels_df$V2.nospace <- gsub(" |&", "", levels_df$V2)
 
     # create contrasts in brms syntax
-    contrsts <- paste(apply(levels_df[, c("V1.nospace", "V2.nospace")], 1, paste, collapse = " - "), "= 0")
+    contrsts <-
+      paste(
+        apply(
+          levels_df[, c("V1.nospace", "V2.nospace")],
+          1, paste, collapse = " - "
+        ),
+        "= 0"
+      )
 
     # convert magnitude for those compare against baseline
     levels_df$sign <- 1
@@ -187,24 +214,32 @@ brms_contrasts  <-
     contrsts <- gsub(paste0(" - ", base_level), "", contrsts)
 
     if (length(predictor) > 1) {
-      contrsts <- gsub(paste(paste0(base_levels, ":"), collapse = "|"), "", contrsts)
-      contrsts <- gsub(paste(paste0(":", base_levels), collapse = "|"), "", contrsts)
-      contrsts <- gsub(paste(paste0(base_levels, " - "), collapse = "|"), "", contrsts)
-      contrsts <- gsub(paste(paste0(" - ", base_levels), collapse = "|"), "", contrsts)
-      contrsts <- gsub(paste(paste0(base_levels, " "), collapse = "|"), "", contrsts)
-      contrsts <- gsub(paste(paste0(" ", base_levels), collapse = "|"), "", contrsts)
+      contrsts <-
+        gsub(paste(paste0(base_levels, ":"), collapse = "|"), "", contrsts)
+      contrsts <-
+        gsub(paste(paste0(":", base_levels), collapse = "|"), "", contrsts)
+      contrsts <-
+        gsub(paste(paste0(base_levels, " - "), collapse = "|"), "", contrsts)
+      contrsts <-
+        gsub(paste(paste0(" - ", base_levels), collapse = "|"), "", contrsts)
+      contrsts <-
+        gsub(paste(paste0(base_levels, " "), collapse = "|"), "", contrsts)
+      contrsts <-
+        gsub(paste(paste0(" ", base_levels), collapse = "|"), "", contrsts)
 
       contrsts <-  gsub(":=", " =", contrsts)
       contrsts <-  gsub(": ", " ", contrsts)
     }
 
-    names(contrsts) <- gsub(paste(predictor, collapse = "|"), "", names(contrsts))
+    names(contrsts) <-
+      gsub(
+        paste(predictor, collapse = "|"),
+        "",
+        names(contrsts))
 
     if (non.zero) {# compare all against 0
       contrsts <- paste(pred_levels , "+ Intercept = 0")
-
       names(contrsts) <-  paste(pred_levels , "= 0")
-
       contrsts[grep(base_level, contrsts)] <- "Intercept = 0"
     }
 
@@ -219,55 +254,74 @@ brms_contrasts  <-
           gsub(gsub.pattern[i], gsub.replacement[i], names(contrsts))
     }
 
-
     # evaluate hypothesis
     # hyps <- brms::hypothesis(fit, contrsts[c(1, 2, 4)])$hypothesis
-    hyps <- lapply(seq_len(length(contrsts)), function(x) {
+    hyps <-
+      lapply(
+        seq_len(length(contrsts)),
+        function(x) {
+          hyp <- try(brms::hypothesis(fit, contrsts[x]), silent = TRUE)
 
-      hyp <- try(brms::hypothesis(fit, contrsts[x]), silent = TRUE)
+          if (is(hyp, "try-error")){
+            hyp_tab <-
+              data.frame(
+                Hypothesis = contrsts[x],
+                Estimate = NA, Est.Error = NA,
+                CI.Lower = NA, CI.Upper = NA,
+                Evid.Ratio = NA, Post.Prob = NA,
+                Star = NA
+              )
 
-      if (is(hyp, "try-error")){
-        hyp_tab <- data.frame(Hypothesis = contrsts[x], Estimate = NA, Est.Error = NA, CI.Lower = NA, CI.Upper = NA, Evid.Ratio = NA, Post.Prob = NA, Star = NA)
-        draws <- NULL
-      } else {
-        hyp_tab <- hyp$hypothesis
-        draws <- hyp$samples
-        colnames(draws) <- names(contrsts)[x]
-      }
+            draws <- NULL
+          } else {
+            hyp_tab <- hyp$hypothesis
+            draws <- hyp$samples
+            colnames(draws) <- names(contrsts)[x]
+          }
 
-      return(list(hyp_tab = hyp_tab, draws = draws))
-    })
+          return(list(hyp_tab = hyp_tab, draws = draws))
+        }
+      )
 
     hyp_table <- do.call(rbind, lapply(hyps, "[[", 1))
     draws <- do.call(cbind, lapply(hyps, "[[", 2))
 
     hyp_table <-
-      hyp_table[, c("Hypothesis",
-                    "Estimate",
-                    "Est.Error",
-                    "CI.Lower",
-                    "CI.Upper", "Evid.Ratio")]
+      hyp_table[, c(
+        "Hypothesis",
+        "Estimate",
+        "Est.Error",
+        "CI.Lower",
+        "CI.Upper",
+        "Evid.Ratio")]
 
-    hyp_table$Estimate <- hyp_table$Estimate * levels_df$sign
+    hyp_table$Estimate   <- hyp_table$Estimate * levels_df$sign
     hyp_table$`l-95% CI` <- hyp_table$CI.Lower * levels_df$sign
     hyp_table$`u-95% CI` <- hyp_table$CI.Upper * levels_df$sign
-    hyp_table$CI.Lower <- hyp_table$CI.Upper <- NULL
+    hyp_table$BF_01      <- hyp_table$Evid.Ratio
+    # Delete redundant columns
+    hyp_table$CI.Lower <- hyp_table$CI.Upper <- hyp_table$Evid.Ratio <- NULL
 
     # duplicate table to modify columns for output
     temp_table <- hyp_table
 
-    if (non.zero)
-      temp_table$Hypothesis <- gsub(predictor, "", temp_table$Hypothesis) else {
-
-        temp_table$Contrasts <- temp_table$Hypothesis
-        temp_table$Hypothesis <- NULL
-        temp_table <- temp_table[, c("Contrasts", "Estimate", "Est.Error", "l-95% CI", "u-95% CI", "Evid.Ratio")]
-      }
+    if (non.zero) {
+      temp_table$Hypothesis <- gsub(predictor, "", temp_table$Hypothesis)
+    } else {
+      temp_table$Contrasts <- temp_table$Hypothesis
+      temp_table$Hypothesis <- NULL
+      temp_table <- temp_table[, c(
+        "Contrasts", "Estimate", "Est.Error", "l-95% CI", "u-95% CI",
+        "BF_01")]
+    }
 
     if (html.table){
 
       # print estimates
-      html_table <- html_format_coef_table(temp_table, fill = fill,  highlight = highlight)
+      html_table <-
+        html_format_coef_table(
+          temp_table, fill = fill,  highlight = highlight
+        )
 
       # print fit result table
       print(html_table)
@@ -285,7 +339,10 @@ brms_contrasts  <-
 
       if (round(length(xdrws[[1]][[1]]) / n.posterior, 0) >= 2)
         xdrws <-
-        posterior::thin_draws(xdrws, round(length(xdrws[[1]][[1]]) / n.posterior, 0))
+          posterior::thin_draws(
+            xdrws,
+            round(length(xdrws[[1]][[1]]) / n.posterior, 0)
+          )
 
       merged_xdrws <- posterior::merge_chains(xdrws)
       sub_posts <- as.data.frame(merged_xdrws)[, names(contrsts)]
@@ -299,7 +356,10 @@ brms_contrasts  <-
         lapply(names(contrsts), function(y)
           data.frame(
             variable = y,
-            value = sort(sub_posts[, colnames(sub_posts) == y], decreasing = FALSE)
+            value = sort(
+              sub_posts[, colnames(sub_posts) == y],
+              decreasing = FALSE
+            )
           ))
 
       posteriors <- do.call(rbind, out)
@@ -313,7 +373,9 @@ brms_contrasts  <-
         factor(hyp_table$significance, levels = c("non-sig", "sig"))
 
       if (highlight)
-        col_pointrange <- ifelse(hyp_table$significance == "non-sig", "gray", "black")  else col_pointrange <- rep("black", nrow(hyp_table))
+        col_pointrange <-
+        ifelse(hyp_table$significance == "non-sig", "gray", "black")  else
+          col_pointrange <- rep("black", nrow(hyp_table))
 
       fill_values <-
         if (!highlight)
@@ -337,20 +399,29 @@ brms_contrasts  <-
 
       posteriors$value <- posteriors$value * posteriors$sign
 
-      posteriors$Hypothesis <- factor(posteriors$Hypothesis, levels = hyp_table$Hypothesis[nrow(hyp_table):1])
+      posteriors$Hypothesis <-
+        factor(
+          posteriors$Hypothesis,
+          levels = hyp_table$Hypothesis[nrow(hyp_table):1])
 
       # fix level labels for plot
       if (non.zero) {
-        levels(posteriors$Hypothesis) <- gsub(predictor, "", as.character(levels(posteriors$Hypothesis)))
-        hyp_table$Hypothesis <- gsub(predictor, "", as.character(hyp_table$Hypothesis))
+        levels(posteriors$Hypothesis) <-
+          gsub(predictor, "", as.character(levels(posteriors$Hypothesis)))
+        hyp_table$Hypothesis <-
+          gsub(predictor, "", as.character(hyp_table$Hypothesis))
       }
 
       gg_distribution <-
-        ggplot2::ggplot(data = posteriors,
-                        ggplot2::aes(y = Hypothesis, x = value, fill = significance)) +
-        ggplot2::geom_vline(xintercept = 0,
-                            col = "black",
-                            lty = 2) +
+        ggplot2::ggplot(
+          data = posteriors,
+          ggplot2::aes(y = Hypothesis, x = value, fill = significance)
+        ) +
+        ggplot2::geom_vline(
+          xintercept = 0,
+          col = "black",
+          lty = 2
+        ) +
         ggdist::stat_halfeye(
           ggplot2::aes(x = value),
           .width = c(.95),
@@ -359,9 +430,10 @@ brms_contrasts  <-
         ) +
         ggplot2::scale_fill_manual(values = fill_values, guide = 'none')  +
         ggplot2::geom_point(data = hyp_table, col = col_pointrange) +
-        ggplot2::geom_errorbar(data = hyp_table,
-                               ggplot2::aes(xmin = CI_low, xmax = CI_high),
-                               width = 0, col = col_pointrange) +
+        ggplot2::geom_errorbar(
+          data = hyp_table,
+          ggplot2::aes(xmin = CI_low, xmax = CI_high),
+          width = 0, col = col_pointrange) +
         ggplot2::theme_classic() +
         ggplot2::theme(
           axis.ticks.length = ggplot2::unit(0, "pt"),
@@ -370,7 +442,10 @@ brms_contrasts  <-
           strip.background = ggplot2::element_blank(),
           strip.text.y = ggplot2::element_blank()
         ) +
-        ggplot2::labs(x = xlab, y = if(non.zero) "Hypothesis" else "Contrasts") +
+        ggplot2::labs(
+          x = xlab,
+          y = if(non.zero) "Hypothesis" else "Contrasts"
+        ) +
         ggplot2::xlim(range(c(posteriors$value, 0)) * plot.area.prop)
 
 

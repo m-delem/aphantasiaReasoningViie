@@ -176,3 +176,70 @@ get_clustered_data <- function(
     )
   }
 }
+
+get_viie_data <- function(...) {
+  df_viie <-
+    dplyr::left_join(
+      get_clean_data("survey") |>
+        dplyr::select(
+          "id", "vviq_total_score",
+          "osivq_object", "osivq_spatial", "osivq_verbal"
+        ),
+      get_clustered_data("experiment", ...),
+      by = dplyr::join_by("id")
+    ) |>
+    filter_trials_on_rt(verbose = FALSE) |>
+    dplyr::rename("group_4" = "group") |>
+    dplyr::mutate(
+      category_2 = ifelse(
+        .data$category == "Visual",
+        "Visual", "Non_visual")
+    ) |>
+    dplyr::mutate(
+      mean_rt_1 = mean(.data$rt_total), .by = c("id", "category")) |>
+    dplyr::mutate(
+      mean_rt_2 = mean(.data$rt_total), .by = c("id", "category_2")) |>
+    dplyr::select(
+      "id":"osivq_verbal",
+      "group_4":"strategy_group",
+      "category_1" = "category", "category_2",
+      "mean_rt_1", "mean_rt_2"
+    ) |>
+    dplyr::distinct() |>
+    tidyr::nest(
+      data_1 = c("category_1", "mean_rt_1"),
+      data_2 = c("category_2", "mean_rt_2")
+    ) |>
+    dplyr::rowwise() |>
+    dplyr::mutate(dplyr::across(
+      tidyselect::starts_with("data_"),
+      ~ list(
+        .x |>
+          dplyr::distinct() |>
+          dplyr::rename(
+            category = 1,
+            rt       = 2
+          ) |>
+          tidyr::pivot_wider(
+            names_from = "category",
+            values_from = "rt"
+          )
+    ))) |>
+    tidyr::unnest("data_1") |>
+    tidyr::hoist("data_2", "Non_visual") |>
+    dplyr::select(
+      "id":"strategy_group",
+      "control_rt" = "Control",
+      "spatial_rt" = "Spatial",
+      "visual_rt"  = "Visual",
+      "non_vis_rt" = "Non_visual"
+    ) |>
+    dplyr::mutate(
+      viie_total   = .data$visual_rt - .data$non_vis_rt,
+      viie_spatial = .data$visual_rt - .data$spatial_rt,
+      viie_control = .data$visual_rt - .data$control_rt
+    ) |>
+    dplyr::relocate(tidyselect::starts_with("viie"), .after = "cluster")
+
+  return(df_viie)
+}

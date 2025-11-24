@@ -1,38 +1,10 @@
 devtools::load_all()
 pacman::p_load(
-  brms, dplyr, emmeans, ggplot2, marginaleffects,
+  brms, dplyr, emmeans, ggplot2, ggpubr, marginaleffects,
   modelbased, parameters, performance, tidyr
   )
 
-df_viie <-
-  left_join(
-    get_clean_data("survey") |>
-      select(
-        "id", "vviq_total_score",
-        "osivq_object", "osivq_spatial", "osivq_verbal"
-      ),
-    get_clustered_data("experiment"),
-    by = join_by("id")
-  ) |>
-  filter_trials_on_rt(verbose = FALSE) |>
-  rename("group_4" = "group") |>
-  mutate(
-    category = ifelse(category == "Visual", "Visual", "Non_visual")
-  ) |>
-  group_by(across(c(id:strategy_group, category))) |>
-  reframe(
-    rt = mean(rt_total),
-    # rt = median(rt_total),
-  ) |>
-  pivot_wider(
-    names_from = category,
-    values_from = rt
-  ) |>
-  mutate(
-    viie_total = Visual - Non_visual
-    # viie_spatial = Visual - Spatial,
-    # viie_control = Visual - Control
-  )
+df_viie <- get_viie_data()
 
 # var_x <- "group_2"
 # var_x <- "group_3"
@@ -44,7 +16,7 @@ var_y <- "viie_total"
 # var_y <- "viie_control"
 
 # Continuous modelling -------------------------------
-p <-
+# p_cor <-
   ggpubr::ggscatter(
     data = df_viie,
     x = "vviq_total_score",
@@ -83,9 +55,9 @@ p <-
   ) +
   labs(
     x = "VVIQ Total Score",
-    # y = "VIIE Control (Mean visual RT - mean control RT)",
-    # y = "VIIE Spatial (Mean visual RT - mean spatial RT)",
-    y = "VIIE Average (Mean visual RT - mean non-visual RT)"
+    # y = "VIIE Control (mean visual RT - mean control RT)",
+    # y = "VIIE Spatial (mean visual RT - mean spatial RT)",
+    y = "VIIE Average (mean visual RT - mean non-visual RT)"
   ) +
   theme_pdf()
 
@@ -100,7 +72,8 @@ save_ggplot(
 )
 
 # Group comparisons ---------------------------------
-df_viie |>
+p_group <-
+  df_viie |>
   ggplot(
     aes(
       x = .data[[var_x]],
@@ -111,10 +84,11 @@ df_viie |>
   ) +
   stat_summary(
     fun.data = "mean_cl_boot",
-    size = 0.5,
+    size = 0.3,
     color = "black"
   ) +
   geom_point(
+    size = 0.2,
     alpha = 0.3,
     position = ggplot2::position_jitter(
       width = 0.125,
@@ -131,8 +105,15 @@ df_viie |>
     # limits = c(-20, 10)
   ) +
   scale_discrete_manual(
+    name = NULL,
     aesthetics = c("color", "fill"),
     values     = as.character(palette.colors())
+  ) +
+  labs(
+    x = NULL,
+    # y = "VIIE Control (mean visual RT - mean control RT)",
+    # y = "VIIE Spatial (mean visual RT - mean spatial RT)",
+    y = "VIIE Average (mean visual RT - mean non-visual RT)"
   ) +
   theme_pdf()
 
