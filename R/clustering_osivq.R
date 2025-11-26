@@ -81,7 +81,7 @@ cluster_osivq <- function(
 #' df <- get_clean_data()$df_survey
 #' clustering <- cluster_osivq(df)
 #'
-#' df |> add_named_clusters(clustering) |> dplyr::select(id, group, cluster)
+#' df |> add_named_clusters(clustering) |> dplyr::select(id, group_4, cluster)
 add_named_clusters <- function(
     df,
     clustering,
@@ -105,13 +105,13 @@ add_named_clusters <- function(
         factor(levels = levels) |>
         add_factor_contrasts(n = contrasts, base = base, ...)
     ) |>
-    dplyr::relocate("cluster", .after = "group")
+    dplyr::relocate("cluster", .after = "group_4")
   return(df_with_cluster)
 }
 
 #' Get the size and questionnaire means of clusters
 #'
-#' @param df A data frame with columns `group`, `cluster`, `vviq_total_score`,
+#' @param df A data frame with columns `group_4`, `cluster`, `vviq_total_score`,
 #' `osivq_object`, `osivq_spatial`, `osivq_verbal`, and `raven_score`.
 #'
 #' @returns A data frame summarizing the clusters, including the number of
@@ -130,7 +130,7 @@ summarise_clustering <- function(df) {
   df_summary <-
     df |>
     dplyr::reframe(
-      .by = c("group", "cluster"),
+      .by = c("group_4", "cluster"),
       n = dplyr::n(),
       vviq    = mean(.data$vviq_total_score, na.rm = TRUE) |> round(2),
       object  = mean(.data$osivq_object,  na.rm = TRUE) |> round(2),

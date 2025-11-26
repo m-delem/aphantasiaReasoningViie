@@ -255,9 +255,9 @@ create_all_groups <- function(df, ...) {
     df |>
     dplyr::mutate(
       group_2 = dplyr::case_when(
-        .data$group == "hypophantasia" ~ "aphantasia",
-        .data$group == "hyperphantasia" ~ "typical",
-        TRUE ~ .data$group
+        .data$group_4 == "hypophantasia" ~ "aphantasia",
+        .data$group_4 == "hyperphantasia" ~ "typical",
+        TRUE ~ .data$group_4
       ) |>
         stringr::str_to_title() |>
         factor(levels = c("Aphantasia", "Typical")) |>
@@ -270,8 +270,8 @@ create_all_groups <- function(df, ...) {
           ...
         ),
       group_3 = dplyr::case_when(
-        .data$group == "hyperphantasia" ~ "typical",
-        TRUE ~ .data$group
+        .data$group_4 == "hyperphantasia" ~ "typical",
+        TRUE ~ .data$group_4
       ) |>
         stringr::str_to_title() |>
         factor(levels = c("Aphantasia", "Hypophantasia", "Typical")) |>
@@ -284,7 +284,7 @@ create_all_groups <- function(df, ...) {
           base = 3,
           ...
         ),
-      group = .data$group |>
+      group_4 = .data$group_4 |>
         stringr::str_to_title() |>
         factor(
           levels = c("Aphantasia", "Hypophantasia", "Typical","Hyperphantasia")
@@ -313,7 +313,7 @@ create_all_groups <- function(df, ...) {
       "group_2",
       "group_3",
       "strategy_group",
-      .after = "group"
+      .after = "group_4"
     )
   return(df_all_groups)
 }
