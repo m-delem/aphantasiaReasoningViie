@@ -14,12 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette contains a full breakdown of the analyses of participants' total
-response times on the reasoning problems. The most interesting results are
-synthetically presented in the main manuscript (preprint
-[here](https://doi.org/10.31234/osf.io/vsjtb_v1)). The present document aims to
-provide a full account of the steps taken to reach these results, and to provide
-additional analyses that were not included in the manuscript for brevity.
+This vignette contains a full breakdown of the **frequentist** analyses of
+participants' total response times on the reasoning problems. Only **Bayesian**
+analyses were reported in the manuscript. The present document aims to provide a
+full account of alternative frequentist analyses that were not included in the
+manuscript for brevity.
 
 ```{r setup}
 library(aphantasiaReasoningViie)
@@ -27,64 +26,35 @@ library(aphantasiaReasoningViie)
 
 # Data preparation
 
-First, let's get the clean, analysis-ready data, create cognitive style clusters
-using OSIVQ scores (see `vignette("preparing_data")` and
-`vignette("osivq_clusters")` for details), and add this classification to the
-dataset containing response times (RT) data.
+First, let's get the clean, analysis-ready and clustered data (see
+`vignette("preparing_data")` and `vignette("osivq_clusters")` for details). For
+RT analyses, we removed incorrect trials and trials with suspicious RT patterns.
+These filtering steps were gathered in the `filter_trials_on_rt()` function,
+which also provides a short summary of the process.
 
 ```{r}
-#| label: get-data
+#| label: data-rt
 
-df_survey  <- get_clean_data()$df_survey
-# Clustering OSIVQ data
-clustering <- cluster_osivq(df_survey)
-# Adding named clusters to the survey data
-df_survey <- add_named_clusters(
-  df_survey, clustering,
-  names  = c("Spatialiser", "Visualiser", "Verbaliser"),
-  levels = c("Visualiser", "Spatialiser", "Verbaliser"),
-  contrasts = c("_visualiser", "_spatialiser", "_verbaliser"),
-  base = 1
-)
-# Merging with experiment data
-df_expe <-
-  dplyr::left_join(
-    get_clean_data()$df_expe,
-    df_survey |> dplyr::select(id, cluster),
-    by = dplyr::join_by("id")
-  ) |>
-  dplyr::relocate(cluster, .after = "group")
-```
-
-For RT analyses, we removed incorrect trials and trials with suspicious RT
-patterns. These filtering steps were gathered in the `filter_trials_on_rt()`
-function, which also provides a short summary of the process.
-
-```{r}
-#| label: filter-rt
-
-df_rt <- 
-  filter_trials_on_rt(df_expe, verbose = TRUE) |> 
-  dplyr::select(id, group:strategy_group, problem, category, rt_total)
+df_rt <-
+  get_clustered_data("experiment") |>
+  filter_trials_on_rt() |> 
+  dplyr::select(id, group_4:strategy_group, problem, category, rt_total)
 
 dplyr::glimpse(df_rt)
 ```
 
 # Method
 
-As described in the manuscript:
-
-> We fitted GLMMs with Gamma distributions and identity links to account for the
-> skewed distributions of RTs, using the glmmTMB package (McGillycuddy et al.,
-> 2025). The models included a grouping variable (VVIQ groups, OSIVQ clusters),
-> Category (visual, spatial, or control) along with their two-way interactions
-> as fixed categorical predictors. Varying slopes and intercepts (“random
-> effects”) have been added for each participant by category and for each
-> problem by grouping variable.
+We fitted GLMMs with Gamma distributions and identity links to account for the
+skewed distributions of RTs, using the glmmTMB package [@glmmTMB2025]. The
+models included a grouping variable (VVIQ groups, OSIVQ clusters), Category
+(visual, spatial, or control) along with their two-way interactions as fixed
+categorical predictors. Varying slopes and intercepts (“random effects”) have
+been added for each participant by category.
 
 Let's break this down.
 
-## The grouping variables
+## Grouping variables
 
 We used several grouping variables to classify participants, all of which are in
 the `df_rt` data frame:
@@ -118,7 +88,7 @@ the `df_rt` data frame:
 The same modelling pipeline was therefore applied four times, once for each of
 the last four grouping variables.
 
-## The modelling pipeline
+## Model formula
 
 We created a small `build_formula()` helper function to write the formula
 easily, as we used the same model structure a lot of times:
@@ -127,9 +97,64 @@ easily, as we used the same model structure a lot of times:
 #| label: build-formula
 
 build_formula("rt_total", "group_2")
-
+ 
 build_formula("rt_total", "cluster")
 ```
+
+## Bayesian models
+
+```{r}
+#| label: bayesian-setup
+#| message: false
+#| warning: false
+
+if(!requireNamespace("cmdstanr", quietly = TRUE)) {
+  install.packages(
+    "cmdstanr",
+    repos = c('https://stan-dev.r-universe.dev', getOption("repos"))
+  )
+}
+options(marginaleffects_safe=FALSE)
+draws <- seq(1, 4000, 2) # The draws that will be used for marginaleffects
+```
+
+```{r}
+#| label: define_rt_prior
+
+prior_rt <- c(
+  brms::prior(normal(3, 0.05), class = "Intercept"),
+  brms::prior(normal(0, 1), class = "b"),
+  brms::prior(exponential(10), class = "sd"),
+  brms::prior(exponential(10), class = "sigma")
+  )
+```
+
+```{r}
+#| label: test_rt_prior
+#| warning: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Prior predictive distributions.
+
+mb_rt_prior <-
+  fit_brms_model(
+    formula = build_formula("rt_total", "group_2"),
+    data    = df_rt,
+    family  = brms::shifted_lognormal(),
+    prior   = prior_rt,
+    sample_prior = "only",
+    iterations = 5000,
+    file = "models/m_rt_prior.rds"
+  )
+
+performance::check_predictions(mb_rt_prior) |> 
+  plot() + 
+  ggplot2::scale_x_continuous(limits = c(0, 60)) + 
+  theme_pdf()
+```
+
+## Frequentist models
 
 The models were fitted using the `glmmTMB::glmmTMB()` function (and a little
 `set_ranef_prior()` helper function to set a weakly informative prior on the
@@ -138,26 +163,11 @@ model fit, we checked for potential singularity issues and model performance
 using the `get_singularity()` and `get_performance()` functions created for the
 occasion (which are convenient wrappers around the *performance* package).
 
-Finally, we tested our hypotheses with marginal contrasts. As stated in the
-manuscript:
-
-> Due to the way that variance is partitioned in GLMMs (Rights & Sterba, 2019),
-> there does not exist an agreed-upon way to calculate standard effect sizes for
-> individual terms such as main effects or interactions in these models. Thus,
-> in line with general recommendations on how to report effect sizes (e.g., Pek
-> & Flora, 2018), we report and analyse unstandardised effect sizes for post-hoc
-> tests in the form of estimated marginal contrasts (i.e. differences in
-> model-estimated marginal means, hereinafter denoted Δ), in seconds for RTs or
-> as odds ratios for accuracies. To answer our hypotheses, we planned to analyse
-> contrasts between groups, contrasts between categories for each group
-> separately, and interaction contrasts testing the differences in category
-> contrasts between the groups.
-
-This task was performed with the `report_contrast()` function, which is a
-wrapper around several functions from the *emmeans* package. We used it to
-compute response time contrasts between groups, contrasts between categories
-within each group, and interaction contrasts (differences in category contrasts
-between groups).
+Finally, we tested our hypotheses with marginal contrasts. This task was
+performed with the `report_contrast()` function, which is a wrapper around
+several functions from the *emmeans* package. We used it to compute response
+time contrasts between groups, contrasts between categories within each group,
+and interaction contrasts (differences in category contrasts between groups).
 
 Here we go!
 
@@ -165,10 +175,56 @@ Here we go!
 
 ## VVIQ 2 groups
 
-```{r}
-#| label: vviq-2-groups
+### Bayesian
 
-m_rt_vviq_2 <-
+```{r}
+#| label: bayesian-vviq-2-groups
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_rt_vviq_2 <-
+  fit_brms_model(
+    formula = build_formula("rt_total", "group_2"),
+    data    = df_rt,
+    family  = brms::shifted_lognormal(),
+    prior   = prior_rt,
+    file    = "models/m_rt_group_2.rds"
+  )
+
+# Posterior predictive check (model performance)
+performance::check_predictions(mb_rt_vviq_2) |> plot() + theme_pdf()
+# Group contrasts
+mb_rt_vviq_2 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("group_2" = "pairwise"), draw_ids = seq(1, 4000, 2)
+  ) |>
+  report_rope(contrast) |> knitr::kable()
+# Category contrasts within groups
+mb_rt_vviq_2 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"), by = "group_2", 
+    draw_ids = draws
+  ) |>
+  report_rope(group_2, contrast) |> knitr::kable()
+# Interaction contrasts
+mb_rt_osivq |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"),
+    by = "group_2",
+    hypothesis = ~revpairwise, # for the interaction
+    draw_ids = draws
+  ) |> 
+  report_rope(hypothesis) |> knitr::kable()
+```
+
+### Frequentist
+
+```{r}
+#| label: frequentist-vviq-2-groups
+
+mf_rt_vviq_2 <-
   glmmTMB::glmmTMB(
     data    = df_rt,
     formula = build_formula("rt_total", "group_2"),
@@ -177,25 +233,73 @@ m_rt_vviq_2 <-
   )
 
 # Singularity
-m_rt_vviq_2 |> get_singularity()
+mf_rt_vviq_2 |> get_singularity()
 
 # Performance
-m_rt_vviq_2 |> get_performance() |> knitr::kable(align = "c")
+mf_rt_vviq_2 |> get_performance() |> knitr::kable(align = "c")
 # Group contrasts
-m_rt_vviq_2 |> report_contrast(~ group_2) |> knitr::kable()
+mf_rt_vviq_2 |> report_contrast(~ group_2) |> knitr::kable()
 # Category contrasts within groups
-m_rt_vviq_2 |> report_contrast(~ category | group_2) |> knitr::kable()
+mf_rt_vviq_2 |> report_contrast(~ category | group_2) |> knitr::kable()
 # Interaction contrasts
-m_rt_vviq_2 |> report_contrast(~ category * group_2, interaction = TRUE) |>
+mf_rt_vviq_2 |> report_contrast(~ category * group_2, interaction = TRUE) |>
   knitr::kable()
 ```
 
 ## VVIQ 3 groups
 
-```{r}
-#| label: vviq-3-groups
+### Bayesian
 
-m_rt_vviq_3 <-
+```{r}
+#| label: bayesian-vviq-3-groups
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_rt_vviq_3 <-
+  fit_brms_model(
+    formula = build_formula("rt_total", "group_3"),
+    data    = df_rt,
+    family  = brms::shifted_lognormal(),
+    prior   = prior_rt,
+    file    = "models/m_rt_group_3.rds"
+  )
+
+# Posterior predictive check (model performance)
+performance::check_predictions(mb_rt_vviq_3) |> plot() + theme_pdf()
+# Group contrasts
+mb_rt_vviq_3 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("group_3" = "revpairwise"),
+    draw_ids = draws
+  ) |>
+  report_rope(contrast)
+# Category contrasts within groups
+mb_rt_vviq_3 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"),
+    by = "group_3",
+    draw_ids = draws
+  ) |>
+  report_rope(group_3, contrast)
+# Interaction contrasts
+mb_rt_vviq_3 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"),
+    by = "group_3",
+    hypothesis = ~revpairwise, # for the interaction
+    draw_ids = draws
+  ) |> 
+  report_rope(hypothesis)
+```
+
+### Frequentist
+
+```{r}
+#| label: frequentist-vviq-3-groups
+
+mf_rt_vviq_3 <-
   glmmTMB::glmmTMB(
     data    = df_rt,
     formula = build_formula("rt_total", "group_3"),
@@ -203,21 +307,70 @@ m_rt_vviq_3 <-
     prior   = set_ranef_prior(70)
   )
 
-m_rt_vviq_3 |> get_singularity()
+mf_rt_vviq_3 |> get_singularity()
 
-m_rt_vviq_3 |> get_performance() |> knitr::kable(align = "c")
-m_rt_vviq_3 |> report_contrast(~ group_3) |> knitr::kable()
-m_rt_vviq_3 |> report_contrast(~ category | group_3) |> knitr::kable()
-m_rt_vviq_3 |> report_contrast(~ category * group_3, interaction = TRUE) |>
+mf_rt_vviq_3 |> get_performance() |> knitr::kable(align = "c")
+mf_rt_vviq_3 |> report_contrast(~ group_3) |> knitr::kable()
+mf_rt_vviq_3 |> report_contrast(~ category | group_3) |> knitr::kable()
+mf_rt_vviq_3 |> report_contrast(~ category * group_3, interaction = TRUE) |>
   knitr::kable()
 ```
 
 ## OSIVQ 3 clusters
 
-```{r}
-#| label: osivq-3-clusters
+### Bayesian
 
-m_rt_osivq <-
+```{r}
+#| label: bayesian-osivq-3-clusters
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_rt_osivq <-
+  fit_brms_model(
+    formula = build_formula("rt_total", "cluster"),
+    data    = df_rt,
+    family  = brms::shifted_lognormal(),
+    prior   = prior_rt,
+    file    = "models/m_rt_cluster.rds"
+  )
+
+# Posterior predictive check (model performance)
+performance::check_predictions(mb_rt_osivq) |> plot() + theme_pdf()
+# Group contrasts
+mb_rt_osivq |> 
+  marginaleffects::avg_comparisons(
+    variables = list("cluster" = "pairwise"),
+    draw_ids = draws
+  ) |>
+  report_rope(contrast)
+# Category contrasts within groups
+mb_rt_osivq |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"),
+    by = "cluster",
+    draw_ids = draws
+  ) |>
+  report_rope(cluster, contrast)
+# Interaction contrasts
+mb_rt_osivq |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"),
+    by = "cluster",
+    hypothesis = ~revpairwise, # for the interaction
+    draw_ids = draws
+  ) |> 
+  report_rope(hypothesis)
+```
+
+
+### Frequentist
+
+```{r}
+#| label: frequentist-osivq-3-clusters
+
+mf_rt_osivq <-
   glmmTMB::glmmTMB(
     data    = df_rt,
     formula = build_formula("rt_total", "cluster"),
@@ -225,21 +378,21 @@ m_rt_osivq <-
     prior   = set_ranef_prior(70)
   )
 
-m_rt_osivq  |> get_singularity()
+mf_rt_osivq  |> get_singularity()
 
-m_rt_osivq  |> get_performance() |> knitr::kable(align = "c")
-m_rt_osivq  |> report_contrast(~ cluster) |> knitr::kable()
-m_rt_osivq  |> report_contrast(~ category | cluster) |> knitr::kable()
-m_rt_osivq  |> report_contrast(~ category * cluster, interaction = TRUE) |>
+mf_rt_osivq  |> get_performance() |> knitr::kable(align = "c")
+mf_rt_osivq  |> report_contrast(~ cluster) |> knitr::kable()
+mf_rt_osivq  |> report_contrast(~ category | cluster) |> knitr::kable()
+mf_rt_osivq  |> report_contrast(~ category * cluster, interaction = TRUE) |>
   knitr::kable()
 ```
 
 ## Strategy groups
 
 ```{r}
-#| label: strategy-groups
+#| label: frequentist-strategy-groups
 
-m_rt_strat <-
+mf_rt_strat <-
   glmmTMB::glmmTMB(
     data    = df_rt,
     formula = build_formula("rt_total", "strategy_group"),
@@ -247,12 +400,12 @@ m_rt_strat <-
     prior   = set_ranef_prior(70)
   )
 
-m_rt_strat |> get_singularity()
+mf_rt_strat |> get_singularity()
 
-m_rt_strat |> get_performance() |> knitr::kable(align = "c")
-m_rt_strat |> report_contrast(~ strategy_group) |> knitr::kable()
-m_rt_strat |> report_contrast(~ category | strategy_group) |> knitr::kable()
-m_rt_strat |> report_contrast(~ category * strategy_group, interaction = TRUE) |>
+mf_rt_strat |> get_performance() |> knitr::kable(align = "c")
+mf_rt_strat |> report_contrast(~ strategy_group) |> knitr::kable()
+mf_rt_strat |> report_contrast(~ category | strategy_group) |> knitr::kable()
+mf_rt_strat |> report_contrast(~ category * strategy_group, interaction = TRUE) |>
   knitr::kable()
 ```
 
