@@ -25,7 +25,7 @@ with the experiment data)
 \item The \code{language} the experiment was conducted in (FR or EN)
 \item \code{age}
 \item \code{gender}
-\item \code{Group} (aphantasia, hypophantasia, typical, hyperphantasia or no_vviq)
+\item \code{group_4} (aphantasia, hypophantasia, typical, hyperphantasia or no_vviq)
 \item \code{country}
 \item \code{language_native} (the native language of the participant)
 \item \code{language_usual} (the language the participant usually uses)

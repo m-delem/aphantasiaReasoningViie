@@ -27,7 +27,9 @@ Imports:
     tibble
 Suggests: 
     brms,
+    cmdstanr,
     coda.plot,
+    collapse,
     cropcircles,
     diceR,
     emmeans,
@@ -63,3 +65,4 @@ Config/testthat/edition: 3
 LazyData: true
 VignetteBuilder: knitr
 URL: https://m-delem.github.io/aphantasiaReasoningViie/, https://github.com/m-delem/aphantasiaReasoningViie
+Config/Needs/website: rmarkdown

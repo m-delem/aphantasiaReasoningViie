@@ -121,3 +121,49 @@ save_ggplot(
   path = "inst/miscellaneous/viie_correlations.pdf",
   show = TRUE
 )
+
+# Group comparisons ---------------------------------
+p_group <-
+  df_viie |>
+  ggplot(
+    aes(
+      x = "group_3",
+      y = "viie_total",
+      color = "group_3",
+      fill  = "group_3"
+    )
+  ) +
+  stat_summary(
+    fun.data = "mean_cl_boot",
+    size = 0.3,
+    color = "black"
+  ) +
+  geom_point(
+    size = 0.2,
+    alpha = 0.3,
+    position = ggplot2::position_jitter(
+      width = 0.125,
+      height = 0.25
+    )
+  ) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray40") +
+  see::geom_violinhalf(
+    alpha = 0.3,
+    position = ggplot2::position_nudge(x = 0.2)
+  ) +
+  scale_y_continuous(
+    breaks = scales::pretty_breaks(10)
+    # limits = c(-20, 10)
+  ) +
+  scale_discrete_manual(
+    name = NULL,
+    aesthetics = c("color", "fill"),
+    values     = as.character(palette.colors())
+  ) +
+  labs(
+    x = NULL,
+    # y = "VIIE Control (mean visual RT - mean control RT)",
+    # y = "VIIE Spatial (mean visual RT - mean spatial RT)",
+    y = "VIIE Average (mean visual RT - mean non-visual RT)"
+  ) +
+  theme_pdf()
