@@ -54,6 +54,7 @@ Suggests:
     progressr,
     readxl,
     rmarkdown,
+    rstan,
     scales,
     sessioninfo (>= 1.2.2),
     showtext,

@@ -14,11 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette contains a full breakdown of the **frequentist** analyses of
-participants' total response times on the reasoning problems. Only **Bayesian**
-analyses were reported in the manuscript. The present document aims to provide a
-full account of alternative frequentist analyses that were not included in the
-manuscript for brevity.
+This vignette contains a full breakdown of the analyses of
+participants' total response times on the reasoning problems. Only Bayesian
+analyses were reported in the manuscript for brevity, but equivalent frequentist analyses
+were also conducted to test the convergence of the two approaches on the same
+results.
 
 ```{r setup}
 library(aphantasiaReasoningViie)
@@ -45,12 +45,14 @@ dplyr::glimpse(df_rt)
 
 # Method
 
-We fitted GLMMs with Gamma distributions and identity links to account for the
-skewed distributions of RTs, using the glmmTMB package [@glmmTMB2025]. The
+We fitted hierarchical linear models (said "Multilevel Models" in Bayesian or
+"Generalised Mixed Models in frequentist) with skewed families of distributions 
+to account for the typically skewed distributions of RTs, using the brms package for Bayesian models [@burknerBrmsPackageBayesian2017] or the glmmTMB package for frequentist models [@glmmTMB2025]. The
 models included a grouping variable (VVIQ groups, OSIVQ clusters), Category
 (visual, spatial, or control) along with their two-way interactions as fixed
 categorical predictors. Varying slopes and intercepts (“random effects”) have
-been added for each participant by category.
+been added for each participant by category along with an intercept for each
+problem.
 
 Let's break this down.
 
@@ -209,7 +211,7 @@ mb_rt_vviq_2 |>
   ) |>
   report_rope(group_2, contrast) |> knitr::kable()
 # Interaction contrasts
-mb_rt_osivq |> 
+mb_rt_vviq_2 |> 
   marginaleffects::avg_comparisons(
     variables = list("category" = "pairwise"),
     by = "group_2",
