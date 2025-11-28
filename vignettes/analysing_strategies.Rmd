@@ -35,17 +35,7 @@ clusters using OSIVQ scores (see `vignette("preparing_data")` and
 ```{r}
 #| label: get-data
 
-df_survey  <- get_clean_data()$df_survey
-# Clustering OSIVQ data
-clustering <- cluster_osivq(df_survey)
-# Adding named clusters to the survey data
-df_survey <- add_named_clusters(
-  df_survey, clustering,
-  names  = c("Spatialiser", "Visualiser", "Verbaliser"),
-  levels = c("Visualiser", "Spatialiser", "Verbaliser"),
-  contrasts = c("_visualiser", "_spatialiser", "_verbaliser"),
-  base = 1
-)
+df_survey <- get_clustered_data("survey") 
 ```
 
 By default, the `df_survey` data frame has one variable (one column) containing
@@ -83,7 +73,7 @@ Let's break this down.
 We used several grouping variables to classify participants, all of which are in
 the `df_strats_long` data frame:
 
--   `group` is the 4-group VVIQ classification with an "aphantasia" group (VVIQ
+-   `group_4` is the 4-group VVIQ classification with an "aphantasia" group (VVIQ
     = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group (VVIQ
     $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It was
     not used in the analyses because the hyperphantasia group was too small (N =

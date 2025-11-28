@@ -4,10 +4,15 @@
 \alias{get_performance}
 \title{Get performance indices for a model in a clean format}
 \usage{
-get_performance(model, ...)
+get_performance(model, metrics = "common", verbose = FALSE, ...)
 }
 \arguments{
 \item{model}{A fitted model object.}
+
+\item{metrics}{Can be "all", "common" or a character vector of metrics to be
+computed, see \code{?performance::model_performance()} for details.}
+
+\item{verbose}{Toggle warnings on or off. Default is FALSE.}
 
 \item{...}{Additional arguments passed to \code{performance::model_performance()}.}
 }

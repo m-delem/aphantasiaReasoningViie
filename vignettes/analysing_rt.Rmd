@@ -1,6 +1,9 @@
 ---
 title: "Response time analyses"
 output: rmarkdown::html_vignette
+message: false
+bibliography: "references.bib"
+csl: "apa.csl"
 vignette: >
   %\VignetteIndexEntry{Response time analyses}
   %\VignetteEngine{knitr::rmarkdown}
@@ -37,7 +40,7 @@ which also provides a short summary of the process.
 
 df_rt <-
   get_clustered_data("experiment") |>
-  filter_trials_on_rt() |> 
+  filter_trials_on_rt(verbose = TRUE) |> 
   dplyr::select(id, group_4:strategy_group, problem, category, rt_total)
 
 dplyr::glimpse(df_rt)
@@ -134,6 +137,7 @@ prior_rt <- c(
 ```{r}
 #| label: test_rt_prior
 #| warning: false
+#| message: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -153,7 +157,7 @@ mb_rt_prior <-
 performance::check_predictions(mb_rt_prior) |> 
   plot() + 
   ggplot2::scale_x_continuous(limits = c(0, 60)) + 
-  theme_pdf()
+  theme_pdf(base_size = 12)
 ```
 
 ## Frequentist models
@@ -181,6 +185,7 @@ Here we go!
 
 ```{r}
 #| label: bayesian-vviq-2-groups
+#| message: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -195,8 +200,15 @@ mb_rt_vviq_2 <-
     file    = "models/m_rt_group_2.rds"
   )
 
-# Posterior predictive check (model performance)
-performance::check_predictions(mb_rt_vviq_2) |> plot() + theme_pdf()
+# Singularity check
+mb_rt_vviq_2 |> get_singularity()
+# Model performance indices
+mb_rt_vviq_2  |> 
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+  knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mb_rt_vviq_2 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
 # Group contrasts
 mb_rt_vviq_2 |> 
   marginaleffects::avg_comparisons(
@@ -225,6 +237,10 @@ mb_rt_vviq_2 |>
 
 ```{r}
 #| label: frequentist-vviq-2-groups
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
 
 mf_rt_vviq_2 <-
   glmmTMB::glmmTMB(
@@ -234,11 +250,15 @@ mf_rt_vviq_2 <-
     prior   = set_ranef_prior(70)
   )
 
-# Singularity
+# Singularity check
 mf_rt_vviq_2 |> get_singularity()
-
-# Performance
-mf_rt_vviq_2 |> get_performance() |> knitr::kable(align = "c")
+# Model performance indices
+mf_rt_vviq_2 |> 
+  get_performance(metrics = c("AICc", "R2", "RMSE")) |> 
+  knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mf_rt_vviq_2 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
 # Group contrasts
 mf_rt_vviq_2 |> report_contrast(~ group_2) |> knitr::kable()
 # Category contrasts within groups
@@ -268,15 +288,22 @@ mb_rt_vviq_3 <-
     file    = "models/m_rt_group_3.rds"
   )
 
-# Posterior predictive check (model performance)
-performance::check_predictions(mb_rt_vviq_3) |> plot() + theme_pdf()
+# Singularity check
+mb_rt_vviq_3 |> get_singularity()
+# Model performance indices
+mb_rt_vviq_3  |> 
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+  knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mb_rt_vviq_3 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
 # Group contrasts
 mb_rt_vviq_3 |> 
   marginaleffects::avg_comparisons(
     variables = list("group_3" = "revpairwise"),
     draw_ids = draws
   ) |>
-  report_rope(contrast)
+  report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
 mb_rt_vviq_3 |> 
   marginaleffects::avg_comparisons(
@@ -284,7 +311,7 @@ mb_rt_vviq_3 |>
     by = "group_3",
     draw_ids = draws
   ) |>
-  report_rope(group_3, contrast)
+  report_rope(group_3, contrast) |> knitr::kable()
 # Interaction contrasts
 mb_rt_vviq_3 |> 
   marginaleffects::avg_comparisons(
@@ -293,13 +320,17 @@ mb_rt_vviq_3 |>
     hypothesis = ~revpairwise, # for the interaction
     draw_ids = draws
   ) |> 
-  report_rope(hypothesis)
+  report_rope(hypothesis) |> knitr::kable()
 ```
 
 ### Frequentist
 
 ```{r}
 #| label: frequentist-vviq-3-groups
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
 
 mf_rt_vviq_3 <-
   glmmTMB::glmmTMB(
@@ -309,9 +340,15 @@ mf_rt_vviq_3 <-
     prior   = set_ranef_prior(70)
   )
 
+# Singularity check
 mf_rt_vviq_3 |> get_singularity()
-
-mf_rt_vviq_3 |> get_performance() |> knitr::kable(align = "c")
+# Model performance indices
+mf_rt_vviq_3 |> 
+  get_performance(metrics = c("AICc", "R2", "RMSE")) |> 
+  knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mf_rt_vviq_3 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
 mf_rt_vviq_3 |> report_contrast(~ group_3) |> knitr::kable()
 mf_rt_vviq_3 |> report_contrast(~ category | group_3) |> knitr::kable()
 mf_rt_vviq_3 |> report_contrast(~ category * group_3, interaction = TRUE) |>
@@ -338,15 +375,22 @@ mb_rt_osivq <-
     file    = "models/m_rt_cluster.rds"
   )
 
-# Posterior predictive check (model performance)
-performance::check_predictions(mb_rt_osivq) |> plot() + theme_pdf()
+# Singularity check
+mb_rt_osivq |> get_singularity()
+# Model performance indices
+mb_rt_osivq  |> 
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+  knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mb_rt_osivq |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
 # Group contrasts
 mb_rt_osivq |> 
   marginaleffects::avg_comparisons(
     variables = list("cluster" = "pairwise"),
     draw_ids = draws
   ) |>
-  report_rope(contrast)
+  report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
 mb_rt_osivq |> 
   marginaleffects::avg_comparisons(
@@ -354,7 +398,7 @@ mb_rt_osivq |>
     by = "cluster",
     draw_ids = draws
   ) |>
-  report_rope(cluster, contrast)
+  report_rope(cluster, contrast) |> knitr::kable()
 # Interaction contrasts
 mb_rt_osivq |> 
   marginaleffects::avg_comparisons(
@@ -363,7 +407,7 @@ mb_rt_osivq |>
     hypothesis = ~revpairwise, # for the interaction
     draw_ids = draws
   ) |> 
-  report_rope(hypothesis)
+  report_rope(hypothesis) |> knitr::kable()
 ```
 
 
@@ -371,6 +415,10 @@ mb_rt_osivq |>
 
 ```{r}
 #| label: frequentist-osivq-3-clusters
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
 
 mf_rt_osivq <-
   glmmTMB::glmmTMB(
@@ -380,12 +428,18 @@ mf_rt_osivq <-
     prior   = set_ranef_prior(70)
   )
 
-mf_rt_osivq  |> get_singularity()
-
-mf_rt_osivq  |> get_performance() |> knitr::kable(align = "c")
-mf_rt_osivq  |> report_contrast(~ cluster) |> knitr::kable()
-mf_rt_osivq  |> report_contrast(~ category | cluster) |> knitr::kable()
-mf_rt_osivq  |> report_contrast(~ category * cluster, interaction = TRUE) |>
+# Singularity check
+mf_rt_osivq |> get_singularity()
+# Model performance indices
+mf_rt_osivq |>
+  get_performance(metrics = c("AICc", "R2", "RMSE")) |> 
+  knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mf_rt_osivq |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+mf_rt_osivq |> report_contrast(~ cluster) |> knitr::kable()
+mf_rt_osivq |> report_contrast(~ category | cluster) |> knitr::kable()
+mf_rt_osivq |> report_contrast(~ category * cluster, interaction = TRUE) |>
   knitr::kable()
 ```
 
@@ -393,6 +447,10 @@ mf_rt_osivq  |> report_contrast(~ category * cluster, interaction = TRUE) |>
 
 ```{r}
 #| label: frequentist-strategy-groups
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
 
 mf_rt_strat <-
   glmmTMB::glmmTMB(
@@ -402,9 +460,15 @@ mf_rt_strat <-
     prior   = set_ranef_prior(70)
   )
 
+# Singularity check
 mf_rt_strat |> get_singularity()
-
-mf_rt_strat |> get_performance() |> knitr::kable(align = "c")
+# Model performance indices
+mf_rt_strat |>
+  get_performance(metrics = c("AICc", "R2", "RMSE")) |> 
+  knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mf_rt_strat |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
 mf_rt_strat |> report_contrast(~ strategy_group) |> knitr::kable()
 mf_rt_strat |> report_contrast(~ category | strategy_group) |> knitr::kable()
 mf_rt_strat |> report_contrast(~ category * strategy_group, interaction = TRUE) |>

@@ -72,6 +72,9 @@ get_singularity <- function(model) {
 #'
 #' @param model A fitted model object.
 #' @param ... Additional arguments passed to `performance::model_performance()`.
+#' @param metrics Can be "all", "common" or a character vector of metrics to be
+#' computed, see `?performance::model_performance()` for details.
+#' @param verbose Toggle warnings on or off. Default is FALSE.
 #'
 #' @returns A formatted data frame with the performance indices of the model.
 #' @export
@@ -89,13 +92,18 @@ get_singularity <- function(model) {
 #'
 #'  get_performance(model)
 #' }
-get_performance <- function(model, ...) {
+get_performance <- function(
+    model,
+    metrics = "common",
+    verbose = FALSE,
+    ...
+) {
   rlang::check_installed("performance")
 
   performance::model_performance(
     model,
-    metrics = "common",
-    verbose = FALSE,
+    metrics = metrics,
+    verbose = verbose,
     ...
     ) |>
     format(digits = 3)

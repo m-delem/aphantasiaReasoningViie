@@ -27,49 +27,28 @@ library(aphantasiaReasoningViie)
 
 # Data preparation
 
-First, let's get the clean, analysis-ready data, create cognitive style clusters
-using OSIVQ scores (see `vignette("preparing_data")` and
-`vignette("osivq_clusters")` for details), and add this classification to the
-dataset containing accuracy data.
+First, let's get the clean, analysis-ready and clustered data (see
+`vignette("preparing_data")` and `vignette("osivq_clusters")` for details).
 
 ```{r}
 #| label: get-data
 
-df_survey  <- get_clean_data()$df_survey
-# Clustering OSIVQ data
-clustering <- cluster_osivq(df_survey)
-# Adding named clusters to the survey data
-df_survey <- add_named_clusters(
-  df_survey, clustering,
-  names  = c("Spatialiser", "Visualiser", "Verbaliser"),
-  levels = c("Visualiser", "Spatialiser", "Verbaliser"),
-  contrasts = c("_visualiser", "_spatialiser", "_verbaliser"),
-  base = 1
-)
-# Merging with experiment data
 df_expe <-
-  dplyr::left_join(
-    get_clean_data()$df_expe,
-    df_survey |> dplyr::select(id, cluster),
-    by = dplyr::join_by("id")
-  ) |>
-  dplyr::relocate(cluster, .after = "group") |> 
-  dplyr::select(id, group:strategy_group, problem, category, accuracy)
+  get_clustered_data("experiment") |> 
+  dplyr::select(id, group_4:strategy_group, problem, category, accuracy)
 
 dplyr::glimpse(df_expe)
 ```
 
 # Method
 
-As described in the manuscript:
-
-> We fitted Generalised Linear Mixed Models (GLMMs) with binomial distributions
-> and logit links using the glmmTMB package (McGillycuddy et al., 2025) to
-> predict accuracy with a grouping variable (VVIQ groups, OSIVQ clusters),
-> Category (visual, spatial, or control) along with their two-way interactions
-> as fixed categorical predictors. Varying slopes and intercepts (“random
-> effects”) have been added for each participant by category and for each
-> problem by grouping variable.
+We fitted Generalised Linear Mixed Models (GLMMs) with binomial distributions
+and logit links using the glmmTMB package (McGillycuddy et al., 2025) to
+predict accuracy with a grouping variable (VVIQ groups, OSIVQ clusters),
+Category (visual, spatial, or control) along with their two-way interactions
+as fixed categorical predictors. Varying slopes and intercepts (“random
+effects”) have been added for each participant by category and for each
+problem by grouping variable.
 
 Let's break this down.
 
@@ -78,7 +57,7 @@ Let's break this down.
 We used several grouping variables to classify participants, all of which are in
 the `df_expe` data frame:
 
--   `group` is the 4-group VVIQ classification with an "aphantasia" group (VVIQ
+-   `group_4` is the 4-group VVIQ classification with an "aphantasia" group (VVIQ
     = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group (VVIQ
     $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It was
     not used in the analyses because the hyperphantasia group was too small (N =

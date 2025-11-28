@@ -6,7 +6,7 @@
 \usage{
 plot_strategies_scores(
   df_long,
-  grouping = "group",
+  grouping = "group_4",
   title = NULL,
   x_labels = NULL,
   ...
