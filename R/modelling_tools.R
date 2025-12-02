@@ -152,7 +152,9 @@ get_params <- function(model, ...) {
 #' @param model A fitted model object.
 #' @param formula A formula specifying the variables for which to get the
 #' contrasts. See `?emmeans::emmeans` for details.
+#' @param type Type of response to be returned. Default is "response".
 #' @param at Optional. A list of values at which to evaluate the contrasts.
+#' @param method Method for computing the contrasts. Default is "revpairwise".
 #' @param ... Additional arguments passed to `emmeans::contrast()`.
 #'
 #' @returns An emm_grid object with the pairwise contrasts of the specified
@@ -172,13 +174,20 @@ get_params <- function(model, ...) {
 #'
 #'  get_contrast(model, ~ category | group_2)
 #' }
-get_contrast <- function(model, formula, at = NULL, ...) {
+get_contrast <- function(
+    model,
+    formula,
+    type = "response",
+    at = NULL,
+    method = "revpairwise",
+    ...
+) {
   rlang::check_installed("emmeans")
 
   emm_contrast <-
     model |>
-    emmeans::emmeans(formula, type = "response", at = at) |>
-    emmeans::contrast(method = "revpairwise",  ...)
+    emmeans::emmeans(formula, type = type, at = at) |>
+    emmeans::contrast(method = method,  ...)
 
   return(emm_contrast)
 }
@@ -314,7 +323,7 @@ fit_clm <- function(formula, data, link = "probit") {
 #' @export
 fit_brms_model <- function(
     ...,
-    iterations = 20000,   # 40k recommended if BFs needed
+    iterations = 24000,   # 40k recommended if BFs needed
     warmup = 2000,
     refresh = 500,
     backend = "cmdstanr",

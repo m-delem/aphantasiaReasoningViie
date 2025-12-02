@@ -4,7 +4,14 @@
 \alias{get_contrast}
 \title{Get the pairwise contrasts of variables in a model}
 \usage{
-get_contrast(model, formula, at = NULL, ...)
+get_contrast(
+  model,
+  formula,
+  type = "response",
+  at = NULL,
+  method = "revpairwise",
+  ...
+)
 }
 \arguments{
 \item{model}{A fitted model object.}
@@ -12,7 +19,11 @@ get_contrast(model, formula, at = NULL, ...)
 \item{formula}{A formula specifying the variables for which to get the
 contrasts. See \code{?emmeans::emmeans} for details.}
 
+\item{type}{Type of response to be returned. Default is "response".}
+
 \item{at}{Optional. A list of values at which to evaluate the contrasts.}
+
+\item{method}{Method for computing the contrasts. Default is "revpairwise".}
 
 \item{...}{Additional arguments passed to \code{emmeans::contrast()}.}
 }

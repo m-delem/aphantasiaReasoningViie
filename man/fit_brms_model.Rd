@@ -6,7 +6,7 @@
 \usage{
 fit_brms_model(
   ...,
-  iterations = 20000,
+  iterations = 24000,
   warmup = 2000,
   refresh = 500,
   backend = "cmdstanr",

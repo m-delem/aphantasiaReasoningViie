@@ -121,10 +121,6 @@ if(!requireNamespace("cmdstanr", quietly = TRUE)) {
 }
 options(marginaleffects_safe=FALSE)
 draws <- seq(1, 4000, 2) # The draws that will be used for marginaleffects
-```
-
-```{r}
-#| label: define_rt_prior
 
 prior_rt <- c(
   brms::prior(normal(3, 0.05), class = "Intercept"),
@@ -444,6 +440,61 @@ mf_rt_osivq |> report_contrast(~ category * cluster, interaction = TRUE) |>
 ```
 
 ## Strategy groups
+
+### Bayesian
+
+```{r}
+#| label: bayesian-strategy-groups
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_rt_strat <-
+  fit_brms_model(
+    formula = build_formula("rt_total", "strategy_group"),
+    data    = df_rt,
+    family  = brms::shifted_lognormal(),
+    prior   = prior_rt,
+    file    = "models/m_rt_strat.rds"
+  )
+
+# Singularity check
+mb_rt_strat |> get_singularity()
+# Model performance indices
+mb_rt_strat  |> 
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+  knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mb_rt_strat |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+# Group contrasts
+mb_rt_strat |> 
+  marginaleffects::avg_comparisons(
+    variables = list("strategy_group" = "pairwise"),
+    draw_ids = draws
+  ) |>
+  report_rope(contrast) |> knitr::kable()
+# Category contrasts within groups
+mb_rt_strat |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"),
+    by = "strategy_group",
+    draw_ids = draws
+  ) |>
+  report_rope(strategy_group, contrast) |> knitr::kable()
+# Interaction contrasts
+mb_rt_strat |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"),
+    by = "strategy_group",
+    hypothesis = ~revpairwise, # for the interaction
+    draw_ids = draws
+  ) |> 
+  report_rope(hypothesis) |> knitr::kable()
+```
+
+### Frequentist
 
 ```{r}
 #| label: frequentist-strategy-groups

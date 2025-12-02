@@ -301,10 +301,10 @@ create_all_groups <- function(df, ...) {
         ),
       strategy_group = ifelse(
         .data$visual_strat == "no_use",
-        "No visual strategy",
-        "Visual strategy user"
+        "No_visual_strategy",
+        "Visual_strategy_user"
         ) |>
-        factor(levels = c("Visual strategy user", "No visual strategy")) |>
+        factor(levels = c("Visual_strategy_user", "No_visual_strategy")) |>
         add_factor_contrasts(
           n = c("_visual_strat_user", "_no_visual_strat")
         )
