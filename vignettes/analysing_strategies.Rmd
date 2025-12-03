@@ -28,9 +28,8 @@ library(aphantasiaReasoningViie)
 
 # Data preparation
 
-First, let's get the clean, analysis-ready data and create cognitive style
-clusters using OSIVQ scores (see `vignette("preparing_data")` and
-`vignette("osivq_clusters")` for details).
+First, let's get the clean, analysis-ready and clustered data (see
+`vignette("preparing_data")` and `vignette("osivq_clusters")` for details).
 
 ```{r}
 #| label: get-data
@@ -50,21 +49,20 @@ increasing the number of rows). This operation is performed by the
 ```{r}
 #| label: pivot-strategies
 
-df_strats_long <- pivot_strategies_longer(df_survey)
+df_strats_long <- pivot_strategies_longer(df_survey, ordered = TRUE)
 
 dplyr::glimpse(df_strats_long)
 ```
 
 # Method
 
-As described in the manuscript:
-
-> Ordinal cumulative link regression models were fitted using the ordinal
-> package (Christensen, 2023) to predict the score (on a question about the use
-> of a given strategy) with a grouping variable (VVIQ groups, OSIVQ clusters),
-> Strategy (visual, verbal, spatial, semantic or sensorimotor) and their two-way
-> interaction as fixed categorical predictors. We planned to analyse the
-> contrasts between groups for each strategy separately.
+Ordinal cumulative link regression models were fitted, using the brms package for
+Bayesian models or the ordinal
+package (Christensen, 2023) for frequentist models, to predict the score (on a question about the use
+of a given strategy) with a grouping variable (VVIQ groups, OSIVQ clusters),
+Strategy (visual, verbal, spatial, semantic or sensorimotor) and their two-way
+interaction as fixed categorical predictors. We planned to analyse the
+contrasts between groups for each strategy separately.
 
 Let's break this down.
 
@@ -95,7 +93,25 @@ the `df_strats_long` data frame:
 The same modelling pipeline was therefore applied three times, once for each of
 the last three grouping variables.
 
-## The modelling pipeline
+## Bayesian models
+
+```{r}
+#| label: bayesian-setup
+#| message: false
+#| warning: false
+
+if(!requireNamespace("cmdstanr", quietly = TRUE)) {
+  install.packages(
+    "cmdstanr",
+    repos = c('https://stan-dev.r-universe.dev', getOption("repos"))
+  )
+}
+options("marginaleffects_safe" = FALSE)
+options("marginaleffects_posterior_interval" = "hdi")
+draws <- seq(1, 2000, 1) # To limit draws that will be used for marginaleffects
+```
+
+## Frequentist models
 
 The ordinal models were fitted using the `fit_clm()` function, which is a
 wrapper around the `ordinal::clm()` function that simply sets a probit link by
@@ -117,54 +133,225 @@ Here we go!
 
 ## VVIQ 2 groups
 
-```{r}
-#| label: vviq-2-groups
+### Bayesian
 
-m_strats_vviq_2 <- fit_clm(score ~ group_2 * strategy, df_strats_long)
+```{r}
+#| label: bayesian-vviq-2-groups
+#| message: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_strats_vviq_2 <-
+  fit_brms_model(
+    formula = score ~ group_2 * strategy,
+    data    = df_strats_long,
+    family  = brms::cumulative(link = "probit"),
+    file    = "models/m_strat_vviq_2.rds"
+  )
+
+# Singularity check
+mb_strats_vviq_2 |> get_singularity()
+# Model performance indices
+mb_strats_vviq_2  |> 
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+  knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mb_strats_vviq_2 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+# Group contrasts by strategy
+mb_strats_vviq_2 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("group_2" = "pairwise"), by = "strategy", 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(strategy, contrast) |> knitr::kable()
+# Strategy contrasts within groups
+mb_strats_vviq_2 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("strategy" = "pairwise"), by = "group_2", 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(group_2, contrast) |> knitr::kable()
+# Interaction contrasts
+mb_strats_vviq_2 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("strategy" = "pairwise"),
+    by = "group_2",
+    hypothesis = ~revpairwise, # for the interaction
+    type = "link",
+    draw_ids = draws
+  ) |> 
+  report_rope(hypothesis) |> knitr::kable()
+```
+
+### Frequentist
+
+```{r}
+#| label: frequentist-vviq-2-groups
+
+mf_strats_vviq_2 <- fit_clm(score ~ group_2 * strategy, df_strats_long)
 
 # Singularity
-m_strats_vviq_2 |> get_singularity()
+mf_strats_vviq_2 |> get_singularity()
 
 # Performance
-m_strats_vviq_2 |> get_performance() |> knitr::kable(align = "c")
+mf_strats_vviq_2 |> get_performance() |> knitr::kable(align = "c")
 # Group contrasts by strategy
-m_strats_vviq_2 |> report_contrast(~ group_2 | strategy) |> knitr::kable()
+mf_strats_vviq_2 |> report_contrast(~ group_2 | strategy) |> knitr::kable()
 # Strategy contrasts within groups
-m_strats_vviq_2 |> report_contrast(~ strategy | group_2) |> knitr::kable()
+mf_strats_vviq_2 |> report_contrast(~ strategy | group_2) |> knitr::kable()
 # Interaction contrasts
-m_strats_vviq_2 |> report_contrast(~ group_2 * strategy, interaction = TRUE) |>
+mf_strats_vviq_2 |> report_contrast(~ group_2 * strategy, interaction = TRUE) |>
   knitr::kable()
 ```
 
 ## VVIQ 3 groups
 
+### Bayesian
+
 ```{r}
-#| label: vviq-3-groups
+#| label: bayesian-vviq-3-groups
+#| message: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
 
-m_strats_vviq_3 <- fit_clm(score ~ group_3 * strategy, df_strats_long)
+mb_strats_vviq_3 <-
+  fit_brms_model(
+    formula = score ~ group_3 * strategy,
+    data    = df_strats_long,
+    family  = brms::cumulative(link = "probit"),
+    file    = "models/m_strat_vviq_3.rds"
+  )
 
-m_strats_vviq_3 |> get_singularity()
+# Singularity check
+mb_strats_vviq_3 |> get_singularity()
+# Model performance indices
+mb_strats_vviq_3  |> 
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+  knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mb_strats_vviq_3 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+# Group contrasts by strategy
+mb_strats_vviq_3 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("group_3" = "pairwise"), by = "strategy", 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(strategy, contrast) |> knitr::kable()
+# Strategy contrasts within groups
+mb_strats_vviq_3 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("strategy" = "pairwise"), by = "group_3", 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(group_3, contrast) |> knitr::kable()
+# Interaction contrasts
+mb_strats_vviq_3 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("strategy" = "pairwise"),
+    by = "group_3",
+    hypothesis = ~revpairwise, # for the interaction
+    type = "link",
+    draw_ids = draws
+  ) |> 
+  report_rope(hypothesis) |> knitr::kable()
+```
 
-m_strats_vviq_3 |> get_performance() |> knitr::kable(align = "c")
-m_strats_vviq_3 |> report_contrast(~ group_3 | strategy) |> knitr::kable()
-m_strats_vviq_3 |> report_contrast(~ strategy | group_3) |> knitr::kable()
-m_strats_vviq_3 |> report_contrast(~ group_3 * strategy, interaction = TRUE) |>
+### Frequentist
+
+```{r}
+#| label: frequentist-vviq-3-groups
+
+mf_strats_vviq_3 <- fit_clm(score ~ group_3 * strategy, df_strats_long)
+
+mf_strats_vviq_3 |> get_singularity()
+
+mf_strats_vviq_3 |> get_performance() |> knitr::kable(align = "c")
+mf_strats_vviq_3 |> report_contrast(~ group_3 | strategy) |> knitr::kable()
+mf_strats_vviq_3 |> report_contrast(~ strategy | group_3) |> knitr::kable()
+mf_strats_vviq_3 |> report_contrast(~ group_3 * strategy, interaction = TRUE) |>
   knitr::kable()
 ```
 
 ## OSIVQ 3 clusters
 
+### Bayesian
+
 ```{r}
-#| label: osivq-3-clusters
+#| label: bayesian-osivq-3-clusters
+#| message: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
 
-m_strats_osivq  <- fit_clm(score ~ cluster * strategy, df_strats_long)
+mb_strats_osivq <-
+  fit_brms_model(
+    formula = score ~ cluster * strategy,
+    data    = df_strats_long,
+    family  = brms::cumulative(link = "probit"),
+    file    = "models/m_strat_osivq.rds"
+  )
 
-m_strats_osivq |> get_singularity()
+# Singularity check
+mb_strats_osivq |> get_singularity()
+# Model performance indices
+mb_strats_osivq  |> 
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+  knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mb_strats_osivq |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+# Group contrasts by strategy
+mb_strats_osivq |> 
+  marginaleffects::avg_comparisons(
+    variables = list("cluster" = "pairwise"), by = "strategy", 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(strategy, contrast) |> knitr::kable()
+# Strategy contrasts within groups
+mb_strats_osivq |> 
+  marginaleffects::avg_comparisons(
+    variables = list("strategy" = "pairwise"), by = "cluster", 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(cluster, contrast) |> knitr::kable()
+# Interaction contrasts
+mb_strats_osivq |> 
+  marginaleffects::avg_comparisons(
+    variables = list("strategy" = "pairwise"),
+    by = "cluster",
+    hypothesis = ~revpairwise, # for the interaction
+    type = "link",
+    draw_ids = draws
+  ) |> 
+  report_rope(hypothesis) |> knitr::kable()
+```
 
-m_strats_osivq |> get_performance() |> knitr::kable(align = "c")
-m_strats_osivq |> report_contrast(~ cluster | strategy) |> knitr::kable()
-m_strats_osivq |> report_contrast(~ strategy | cluster) |> knitr::kable()
-m_strats_osivq |> report_contrast(~ cluster * strategy, interaction = TRUE) |>
+### Frequentist
+
+```{r}
+#| label: frequentist-osivq-3-clusters
+
+mf_strats_osivq  <- fit_clm(score ~ cluster * strategy, df_strats_long)
+
+mf_strats_osivq |> get_singularity()
+
+mf_strats_osivq |> get_performance() |> knitr::kable(align = "c")
+mf_strats_osivq |> report_contrast(~ cluster | strategy) |> knitr::kable()
+mf_strats_osivq |> report_contrast(~ strategy | cluster) |> knitr::kable()
+mf_strats_osivq |> report_contrast(~ cluster * strategy, interaction = TRUE) |>
   knitr::kable()
 ```
 

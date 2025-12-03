@@ -376,7 +376,7 @@ fit_brms_model <- function(
 report_rope <- function(
     marg_effects,
     ...,
-    digits = 2
+    digits = 3
 ) {
   rlang::check_installed("bayestestR", reason = "to compute ROPE ranges")
   rlang::check_installed("marginaleffects", reason = "to extract draws")
@@ -396,9 +396,11 @@ report_rope <- function(
         round(unique(.data$conf.high), digits),
         "]"
       ),
-      "In ROPE" = mean(draw > range[1] & draw < range[2]) |> round(digits),
-      "< ROPE" = mean(draw < range[1]) |> round(digits),
-      "> ROPE" = mean(draw > range[2]) |> round(digits)
+      pd = bayestestR::p_direction(.data$draw)$pd |> round(digits),
+      "In ROPE" =
+        mean(.data$draw > range[1] & .data$draw < range[2]) |> round(digits),
+      "< ROPE" = mean(.data$draw < range[1]) |> round(digits),
+      "> ROPE" = mean(.data$draw > range[2]) |> round(digits)
     ) |>
     dplyr::ungroup()
 
@@ -410,7 +412,7 @@ report_rope <- function(
     rope_report <-
       rope_report |>
       tidyr::separate_wider_delim(
-        hypothesis, delim = ") - (",
+        .data$hypothesis, delim = ") - (",
         names = c("level_1", "level_2")
       ) |>
       dplyr::mutate(
@@ -433,7 +435,7 @@ report_rope <- function(
           .data$level_1_cat_2_cat == .data$level_2_cat_2_cat
       ) |>
       dplyr::mutate(
-        dplyr::across(tidyselect::where(is.numeric), ~ round(., 2))
+        dplyr::across(tidyselect::where(is.numeric), ~ round(., digits))
       ) |>
       tidyr::unite(
         "Category contrast",

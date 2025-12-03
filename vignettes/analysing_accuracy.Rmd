@@ -113,8 +113,11 @@ if(!requireNamespace("cmdstanr", quietly = TRUE)) {
     repos = c('https://stan-dev.r-universe.dev', getOption("repos"))
   )
 }
-options(marginaleffects_safe=FALSE)
-draws <- seq(1, 4000, 2) # The draws that will be used for marginaleffects
+options("marginaleffects_safe" = FALSE)
+options("marginaleffects_posterior_interval" = "hdi")
+draws <- seq(1, 2000, 1) # To limit draws that will be used for marginaleffects
+
+prior_acc <- c(brms::prior(normal(0, 1), class = "b"))
 ```
 
 ## Frequentist models
@@ -153,7 +156,8 @@ mb_acc_vviq_2 <-
     formula = build_formula("accuracy", "group_2"),
     data    = df_expe,
     family  = brms::bernoulli(),
-    file    = "models/m_acc_group_2.rds"
+    prior   = prior_acc,
+    file    = "models/m_acc_vviq_2.rds"
   )
 
 # Singularity check
@@ -239,7 +243,8 @@ mb_acc_vviq_3 <-
     formula = build_formula("accuracy", "group_3"),
     data    = df_expe,
     family  = brms::bernoulli(),
-    file    = "models/m_acc_group_3.rds"
+    prior   = prior_acc,
+    file    = "models/m_acc_vviq_3.rds"
   )
 
 # Singularity check
@@ -318,6 +323,7 @@ mb_acc_osivq <-
     formula = build_formula("accuracy", "cluster"),
     data    = df_expe,
     family  = brms::bernoulli(),
+    prior   = prior_acc,
     file    = "models/m_acc_osivq.rds"
   )
 
@@ -397,6 +403,7 @@ mb_acc_strat <-
     formula = build_formula("accuracy", "strategy_group"),
     data    = df_expe,
     family  = brms::bernoulli(),
+    prior   = prior_acc,
     file    = "models/m_acc_strat.rds"
   )
 

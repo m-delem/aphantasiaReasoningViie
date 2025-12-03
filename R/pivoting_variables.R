@@ -64,7 +64,7 @@ pivot_terms_longer <- function(df) {
 #' get_clean_data()$df_survey |>
 #'   pivot_strategies_longer() |>
 #'   dplyr::select(id, group, strategy, score)
-pivot_strategies_longer <- function(df, base = 1, ...) {
+pivot_strategies_longer <- function(df, base = 1, ordered = FALSE, ...) {
   df_pivoted <-
     df |>
     factor_strategies(ordered = FALSE) |>
@@ -89,7 +89,8 @@ pivot_strategies_longer <- function(df, base = 1, ...) {
           "as_much_as_others",
           "mainly_this_strat",
           "only_this_strat"
-        )
+        ),
+        ordered = ordered
       ),
       strategy = factor(
         .data$strategy,

@@ -79,16 +79,14 @@ dplyr::glimpse(df_rt_long)
 
 # Method
 
-As described in the manuscript:
-
-> We fitted generalised additive models using the mgcv package (Wood, 2011) to
-> predict response times with a grouping variable (VVIQ groups, OSIVQ clusters),
-> Category (visual, spatial or control) and their interaction as fixed
-> categorical predictors, as well as “smooth” (non-linear) terms that capture
-> the evolution of RTs across trial terms (premise 1/2/3 and conclusion) for
-> each grouping and category, each problem for each grouping, and each
-> participant for each category (the latter two being equivalent to “random
-> effects” in mixed models).
+We fitted generalised additive models using the mgcv package (Wood, 2011) to
+predict response times with a grouping variable (VVIQ groups, OSIVQ clusters),
+Category (visual, spatial or control) and their interaction as fixed
+categorical predictors, as well as “smooth” (non-linear) terms that capture
+the evolution of RTs across trial terms (premise 1/2/3 and conclusion) for
+each grouping and category, each problem for each grouping, and each
+participant for each category (the latter two being equivalent to “random
+effects” in mixed models).
 
 Let's break this down.
 
@@ -119,7 +117,25 @@ the `df_rt_long` data frame:
 The same modelling pipeline was therefore applied three times, once for each of
 the last three grouping variables.
 
-## The modelling pipeline
+## Bayesian models
+
+```{r}
+#| label: bayesian-setup
+#| message: false
+#| warning: false
+
+if(!requireNamespace("cmdstanr", quietly = TRUE)) {
+  install.packages(
+    "cmdstanr",
+    repos = c('https://stan-dev.r-universe.dev', getOption("repos"))
+  )
+}
+options("marginaleffects_safe" = FALSE)
+options("marginaleffects_posterior_interval" = "hdi")
+draws <- seq(1, 2000, 1) # To limit draws that will be used for marginaleffects
+```
+
+## Frequentist models
 
 The models were fitted using the `mgcv::bam()` function. After model fit, we
 tested group and category differences with marginal contrasts. This task was
@@ -145,11 +161,39 @@ run.
 
 ## VVIQ 2 groups
 
+### Bayesian
+
+```{r}
+#| label: bayesian-vviq-2-groups
+#| message: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_nl_vviq_2 <-
+  fit_brms_model(
+    formula = rt ~ group_2 * category + 
+      s(term, by = interaction(group_2, category), k = 4),
+    data    = df_rt_long,
+    family  = brms::shifted_lognormal(),
+    prior   = c(
+      brms::prior(normal(0, 1), class = "b"),
+      brms::prior(exponential(1), class = "sds"),
+      brms::prior(exponential(1), class = "sigma")
+    ),
+    refresh = 10,
+    file    = "models/m_nl_vviq_2.rds"
+  )
+```
+
+### Frequentist
+
 ```{r}
 #| label: vviq-2-groups
 #| eval: false
 
-m_nl_vviq_2 <-
+mf_nl_vviq_2 <-
   mgcv::bam(
     formula = rt ~
       group_2_category +
@@ -162,7 +206,7 @@ m_nl_vviq_2 <-
   )
 
 contrasts_vviq_2 <-
-  m_nl_vviq_2 |>
+  mf_nl_vviq_2 |>
   get_contrast(
     ~ group_2_category | term,
     at = list(term = c(1, 2, 3, 4)),
@@ -221,7 +265,7 @@ Let's do the same for the other two classifications.
 #| label: vviq-3-groups
 #| eval: false
 
-m_nl_vviq_3 <-
+mf_nl_vviq_3 <-
   mgcv::bam(
     formula = rt ~
       group_3_category +
@@ -234,7 +278,7 @@ m_nl_vviq_3 <-
   )
 
 contrasts_vviq_3 <-
-  m_nl_vviq_3 |>
+  mf_nl_vviq_3 |>
   get_contrast(
     ~ group_3_category | term,
     at = list(term = c(1, 2, 3, 4)),
@@ -289,7 +333,7 @@ nl_contrasts$vviq_3 |>
 #| label: osivq-3-clusters
 #| eval: false
 
-m_nl_osivq <-
+mf_nl_osivq <-
   mgcv::bam(
     formula = rt ~
       cluster_category +
@@ -302,7 +346,7 @@ m_nl_osivq <-
   )
 
 contrasts_osivq <-
-  m_nl_osivq |>
+  mf_nl_osivq |>
   get_contrast(
     ~ cluster_category | term,
     at = list(term = c(1, 2, 3, 4)),
@@ -363,7 +407,7 @@ run here):
 # Getting model predictions (for plotting)
 preds_2 <-
   modelbased::estimate_relation(
-    m_nl_vviq_2,
+    mf_nl_vviq_2,
     by = c("group_2_category", "term")
   ) |>
   as.data.frame() |>
@@ -376,7 +420,7 @@ preds_2 <-
 
 preds_3 <-
   modelbased::estimate_relation(
-    m_nl_vviq_3,
+    mf_nl_vviq_3,
     by = c("group_3_category", "term")
   ) |>
   as.data.frame() |>
@@ -389,7 +433,7 @@ preds_3 <-
 
 preds_osivq <-
   modelbased::estimate_relation(
-    m_nl_osivq,
+    mf_nl_osivq,
     by = c("cluster_category", "term")
   ) |>
   as.data.frame() |>
