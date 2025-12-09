@@ -50,13 +50,12 @@ dplyr::glimpse(df_rt)
 ```
 
 By default, the `df_rt` data frame has one variable (one column) containing the
-response times of each participant for each trial term (or "phase", as referred
-to in the manuscript — "term" is the word commonly used in VIIE literature). We
-needed to have all of these terms (premises and conclusion) in a single "term"
+response times of each participant for each trial phase. We
+needed to have all of these phases (premises and conclusion) in a single "phase"
 variable along with the associated "rt" variable for modelling, so we gathered
 these four columns into two long columns by "pivoting" the RT data in a long
 format (reducing the number of columns and increasing the number of rows). This
-operation is performed by the `pivot_terms_longer()` function.
+operation is performed by the `pivot_phases_longer()` function.
 
 We also needed to create "interaction" variables between the grouping variables
 and the categories of the problems (visual, spatial, control) using the
@@ -67,7 +66,7 @@ modelling do not support interaction terms natively.
 #| label: pivot-terms
 
 df_rt_long <-
-  pivot_terms_longer(df_rt) |>
+  pivot_phases_longer(df_rt) |>
   dplyr::mutate(
     group_2_category = interaction(group_2, category),
     group_3_category = interaction(group_3, category),
@@ -131,7 +130,6 @@ if(!requireNamespace("cmdstanr", quietly = TRUE)) {
   )
 }
 options("marginaleffects_safe" = FALSE)
-options("marginaleffects_posterior_interval" = "hdi")
 draws <- seq(1, 2000, 1) # To limit draws that will be used for marginaleffects
 ```
 
@@ -171,21 +169,62 @@ run.
 #| fig-alt: >
 #|  Posterior predictive distributions.
 
+prior_nl <- c(
+  brms::prior(normal(0, 1), class = "b"),
+  brms::prior(exponential(1), class = "sds"),
+  brms::prior(exponential(1), class = "sigma")
+)
+
 mb_nl_vviq_2 <-
   fit_brms_model(
-    formula = rt ~ group_2 * category + 
-      s(term, by = interaction(group_2, category), k = 4),
+    formula = rt ~ 
+      group_2 * category + 
+      s(phase, by = interaction(group_2, category), k = 4) +
+      s(phase, id, bs = "fs", m = 1, k = 4),
     data    = df_rt_long,
     family  = brms::shifted_lognormal(),
-    prior   = c(
-      brms::prior(normal(0, 1), class = "b"),
-      brms::prior(exponential(1), class = "sds"),
-      brms::prior(exponential(1), class = "sigma")
-    ),
+    prior   = prior_nl,
     refresh = 10,
     file    = "models/m_nl_vviq_2.rds"
   )
+
+mb_nl_vviq_3 <-
+  fit_brms_model(
+    formula = rt ~ 
+      group_3 * category + 
+      s(phase, by = interaction(group_3, category), k = 4) +
+      s(phase, id, bs = "fs", m = 1, k = 4),
+    data    = df_rt_long,
+    family  = brms::shifted_lognormal(),
+    prior   = prior_nl,
+    refresh = 10,
+    file    = "models/m_nl_vviq_3.rds"
+  )
+
+mb_nl_osivq <-
+  fit_brms_model(
+    formula = rt ~ 
+      cluster * category + 
+      s(phase, by = interaction(cluster, category), k = 4) +
+      s(phase, id, bs = "fs", m = 1, k = 4),
+    data    = df_rt_long,
+    family  = brms::shifted_lognormal(),
+    prior   = prior_nl,
+    refresh = 10,
+    file    = "models/m_nl_osivq.rds"
+  )
 ```
+
+```{r}
+marginaleffects::avg_comparisons(
+  mb_nl_vviq_2, 
+  variables = list("category" = "pairwise"), 
+  by = c("group_2", "phase"), 
+  draw_ids = 1:100
+  ) |> 
+  report_rope(phase, group_2, contrast)
+```
+
 
 ### Frequentist
 
