@@ -11,26 +11,26 @@
 #' @examples
 #' get_clean_data()$df_expe |>
 #'   filter_trials_on_rt() |>
-#'   pivot_terms_longer() |>
+#'   pivot_phases_longer() |>
 #'   dplyr::select(id, problem, category, term, term_name, rt)
-pivot_terms_longer <- function(df) {
+pivot_phases_longer <- function(df) {
   df_pivoted <-
     df |>
     tidyr::pivot_longer(
       cols = "premise_1_rt":"conclusion_rt",
-      names_to = "term_name",
+      names_to = "phase_name",
       values_to = "rt"
     ) |>
     dplyr::mutate(
-      term = dplyr::case_match(
-        .data$term_name,
+      phase = dplyr::case_match(
+        .data$phase_name,
         "premise_1_rt"  ~ 1,
         "premise_2_rt"  ~ 2,
         "premise_3_rt"  ~ 3,
         "conclusion_rt" ~ 4
       ),
-      term_name = factor(
-        .data$term_name,
+      phase_name = factor(
+        .data$phase_name,
         levels = c(
           "premise_1_rt",
           "premise_2_rt",

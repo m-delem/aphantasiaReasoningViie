@@ -4,7 +4,7 @@
 \alias{report_rope}
 \title{Report the ROPE analysis for marginal effects}
 \usage{
-report_rope(marg_effects, ..., digits = 2)
+report_rope(marg_effects, ..., digits = 3)
 }
 \arguments{
 \item{marg_effects}{A marginaleffects object obtained with

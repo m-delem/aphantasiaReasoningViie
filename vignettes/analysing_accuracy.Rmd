@@ -1,6 +1,9 @@
 ---
 title: "Accuracy analyses"
 output: rmarkdown::html_vignette
+message: false
+bibliography: "references.bib"
+csl: "apa.csl"
 vignette: >
   %\VignetteIndexEntry{Accuracy analyses}
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,11 +18,9 @@ knitr::opts_chunk$set(
 ```
 
 This vignette contains a full breakdown of the analyses of participants'
-accuracy on the reasoning problems. The most interesting results are
-synthetically presented in the main manuscript (preprint
-[here](https://doi.org/10.31234/osf.io/vsjtb_v1)). The present document aims to
-provide a full account of the steps taken to reach these results, and to provide
-additional analyses that were not included in the manuscript for brevity.
+accuracy on the reasoning problems. Only Bayesian analyses were reported in the
+manuscript for brevity, but equivalent frequentist analyses were also conducted
+to test the convergence of the two approaches on the same results.
 
 ```{r setup}
 library(aphantasiaReasoningViie)
@@ -42,27 +43,27 @@ dplyr::glimpse(df_expe)
 
 # Method
 
-We fitted hierarchical linear models (said "Multilevel Models" in Bayesian or
-"Generalised Mixed Models in frequentist) with binomial distributions
-and logit links using the brms package for Bayesian models [@burknerBrmsPackageBayesian2017] or the glmmTMB package for frequentist models [@glmmTMB2025]. The
-models included a grouping variable (VVIQ groups, OSIVQ clusters), Category
-(visual, spatial, or control) along with their two-way interactions as fixed
-categorical predictors. Varying slopes and intercepts (“random effects”) have
-been added for each participant by category along with an intercept for each
-problem.
+We fitted hierarchical linear models (also said "multilevel" or "mixed" models)
+with binomial distributions and logit links using the brms package for Bayesian
+models [@burknerBrmsPackageBayesian2017] or the glmmTMB package for frequentist
+models [@glmmTMB2025]. The models included a grouping variable (VVIQ groups,
+OSIVQ clusters), Category (visual, spatial, or control) along with their two-way
+interactions as fixed categorical predictors. Varying slopes and intercepts
+(“random effects”) have been added for each participant by category along with
+an intercept for each problem.
 
 Let's break this down.
 
-## The grouping variables
+## Grouping variables
 
 We used several grouping variables to classify participants, all of which are in
 the `df_expe` data frame:
 
--   `group_4` is the 4-group VVIQ classification with an "aphantasia" group (VVIQ
-    = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group (VVIQ
-    $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It was
-    not used in the analyses because the hyperphantasia group was too small (N =
-    4).
+-   `group_4` is the 4-group VVIQ classification with an "aphantasia" group
+    (VVIQ = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group
+    (VVIQ $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It
+    was not used in the analyses because the hyperphantasia group was too small
+    (N = 4).
 
 -   `group_3` is the same as `group`, but with the hyperphantasia group merged
     with the typical group. It is referred to as "VVIQ 3 groups" in the
@@ -102,6 +103,39 @@ build_formula("accuracy", "cluster")
 
 ## Bayesian models
 
+Bayesian models were fitted using the `brms::brm()` function through a custom
+wrapper, `fit_brms_model()`, that sets several default options for us. 24000
+post-warmup iterations were spread across all available CPU for parallel
+processing[^1], with 2000 additional warmup iterations per chain. A fixed seed
+was used for reproducibility. The [CmdStanR](https://mc-stan.org/cmdstanr/) back-end
+was used for better performance. CmdStanR needs a special installation command which is provided in the chunk below if needed. A regularising normal prior with
+mean 0 and standard deviation 1 was used on the fixed effects coefficients to
+improve convergence and avoid overfitting.
+
+[^1]: This specific number was chosen arbitrarily to have an even number of
+    iterations on each chain on both computers that were used for the analyses,
+    one with 20 cores and one with 24 cores. The only important aspect is to
+    have enough iterations to ensure convergence and a good effective sample
+    size.
+
+After model fit, we checked for potential singularity issues and model performance
+using the `get_singularity()` and `get_performance()` functions created for the
+occasion (which are convenient wrappers around the *performance* package). Posterior predictive checks were also performed with the
+`performance::check_predictions()` function to check that the models were able to
+reproduce the data well.
+
+Finally, we tested our hypotheses with marginal contrasts. This task was
+performed with functions from the *marginaleffects* package. We used the
+`marginaleffects::avg_comparisons()` function to compute contrasts and a
+`report_rope()` wrapper (around `marginaleffects::posterior_draws()`, `bayestestR::rope_range()` and `bayestestR::p_direction()`) to summarise the
+results with the probability of direction (PD) of the contrasts and the proportions
+of their posterior distributions below, inside or above a region of practical equivalence to the null (ROPE) [see @makowskiIndicesEffectExistence2019]. We computed accuracy
+contrasts between groups, contrasts between categories within each group, and
+interaction contrasts (differences in category contrasts between groups).
+
+The setup of the CmdStanR back-end, marginaleffects options and the accuracy
+models prior are done in the chunk below.
+
 ```{r}
 #| label: bayesian-setup
 #| message: false
@@ -114,26 +148,25 @@ if(!requireNamespace("cmdstanr", quietly = TRUE)) {
   )
 }
 options("marginaleffects_safe" = FALSE)
-options("marginaleffects_posterior_interval" = "hdi")
-draws <- seq(1, 2000, 1) # To limit draws that will be used for marginaleffects
+draws <- seq(1, 100, 1) # To limit draws that will be used for marginaleffects
 
 prior_acc <- c(brms::prior(normal(0, 1), class = "b"))
 ```
 
 ## Frequentist models
 
-The models were fitted using the `glmmTMB::glmmTMB()` function (and a little
-`set_ranef_prior()` helper function to set a weakly informative prior on the
-random effects, which helps with convergence and singularity issues). After
+Frequentist models were fitted using the `glmmTMB::glmmTMB()` function (and a
+little `set_ranef_prior()` helper function to set a weakly informative prior on
+the random effects, which helps with convergence and singularity issues). After
 model fit, we checked for potential singularity issues and model performance
 using the `get_singularity()` and `get_performance()` functions created for the
 occasion (which are convenient wrappers around the *performance* package).
 
-Finally, we tested our hypotheses with marginal contrasts. This task was performed with the `report_contrast()` function, which is a
-wrapper around several functions from the *emmeans* package. We used it to
-compute accuracy contrasts between groups, contrasts between categories within
-each group, and interaction contrasts (differences in category contrasts between
-groups).
+Finally, we tested our hypotheses with marginal contrasts. This task was
+performed with the `report_contrast()` function, which is a wrapper around
+several functions from the *emmeans* package. We computed accuracy
+contrasts between groups, contrasts between categories within each group, and
+interaction contrasts (differences in category contrasts between groups).
 
 Here we go!
 
@@ -468,12 +501,11 @@ mf_acc_strat |> report_contrast(~ category * strategy_group, interaction = TRUE)
 
 # Visualisation
 
-The figures showing the distribution of accuracy data displayed in the 
+The figures showing the distribution of accuracy data displayed in the
 manuscript were created with the `plot_superb_jitter()` function from the
-package, which wraps functions from
-the *ggplot2* and *superb* packages to create nice visualisations easily. 
-A little `add_significance()` helper function was also created to add
-significance stars to the plots.
+package, which wraps functions from the *ggplot2* and *superb* packages to
+create nice visualisations easily. A little `add_significance()` helper function
+was also created to add significance stars to the plots.
 
 ```{r}
 #| label: plot-accuracy

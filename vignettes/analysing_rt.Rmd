@@ -17,11 +17,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette contains a full breakdown of the analyses of
-participants' total response times on the reasoning problems. Only Bayesian
-analyses were reported in the manuscript for brevity, but equivalent frequentist analyses
-were also conducted to test the convergence of the two approaches on the same
-results.
+This vignette contains a full breakdown of the analyses of participants' total
+response times on the reasoning problems. Only Bayesian analyses were reported
+in the manuscript for brevity, but equivalent frequentist analyses were also
+conducted to test the convergence of the two approaches on the same results.
 
 ```{r setup}
 library(aphantasiaReasoningViie)
@@ -48,14 +47,15 @@ dplyr::glimpse(df_rt)
 
 # Method
 
-We fitted hierarchical linear models (said "Multilevel Models" in Bayesian or
-"Generalised Mixed Models in frequentist) with skewed families of distributions 
-to account for the typically skewed distributions of RTs, using the brms package for Bayesian models [@burknerBrmsPackageBayesian2017] or the glmmTMB package for frequentist models [@glmmTMB2025]. The
-models included a grouping variable (VVIQ groups, OSIVQ clusters), Category
-(visual, spatial, or control) along with their two-way interactions as fixed
-categorical predictors. Varying slopes and intercepts (“random effects”) have
-been added for each participant by category along with an intercept for each
-problem.
+We fitted hierarchical linear models (also said "multilevel" or "mixed" models)
+with skewed families of distributions to account for the typically skewed
+distributions of RTs, using the brms package for Bayesian models
+[@burknerBrmsPackageBayesian2017] or the glmmTMB package for frequentist models
+[@glmmTMB2025]. The models included a grouping variable (VVIQ groups, OSIVQ
+clusters), Category (visual, spatial, or control) along with their two-way
+interactions as fixed categorical predictors. Varying slopes and intercepts
+(“random effects”) have been added for each participant by category along with
+an intercept for each problem.
 
 Let's break this down.
 
@@ -64,11 +64,11 @@ Let's break this down.
 We used several grouping variables to classify participants, all of which are in
 the `df_rt` data frame:
 
--   `group` is the 4-group VVIQ classification with an "aphantasia" group (VVIQ
-    = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group (VVIQ
-    $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It was
-    not used in the analyses because the hyperphantasia group was too small (N =
-    4).
+-   `group_4` is the 4-group VVIQ classification with an "aphantasia" group
+    (VVIQ = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group
+    (VVIQ $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It
+    was not used in the analyses because the hyperphantasia group was too small
+    (N = 4).
 
 -   `group_3` is the same as `group`, but with the hyperphantasia group merged
     with the typical group. It is referred to as "VVIQ 3 groups" in the
@@ -120,8 +120,7 @@ if(!requireNamespace("cmdstanr", quietly = TRUE)) {
   )
 }
 options("marginaleffects_safe" = FALSE)
-options("marginaleffects_posterior_interval" = "hdi")
-draws <- seq(1, 2000, 1) # To limit draws that will be used for marginaleffects
+draws <- seq(1, 200<, 1) # To limit draws that will be used for marginaleffects
 
 prior_rt <- c(
   brms::prior(normal(3, 0.05), class = "Intercept"),
@@ -406,7 +405,6 @@ mb_rt_osivq |>
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
-
 
 ### Frequentist
 

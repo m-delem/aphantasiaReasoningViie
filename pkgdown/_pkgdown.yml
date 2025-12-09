@@ -28,7 +28,7 @@ reference:
   - factor_chr_vars
   - compute_nieq_scores
   - pivot_strategies_longer
-  - pivot_terms_longer
+  - pivot_phases_longer
 - title: "Clustering"
   contents:
   - cluster_osivq

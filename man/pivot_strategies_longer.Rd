@@ -4,7 +4,7 @@
 \alias{pivot_strategies_longer}
 \title{Get a long format data frame with the strategies gathered in a single column}
 \usage{
-pivot_strategies_longer(df, base = 1, ...)
+pivot_strategies_longer(df, base = 1, ordered = FALSE, ...)
 }
 \arguments{
 \item{df}{A data frame containing the strategies data with columns for

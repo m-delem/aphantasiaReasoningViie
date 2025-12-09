@@ -396,11 +396,11 @@ report_rope <- function(
         round(unique(.data$conf.high), digits),
         "]"
       ),
-      pd = bayestestR::p_direction(.data$draw)$pd |> round(digits),
-      "In ROPE" =
+      PD = bayestestR::p_direction(.data$draw)$pd |> round(digits),
+      "Below ROPE" = mean(.data$draw < range[1]) |> round(digits),
+      "Inside ROPE" =
         mean(.data$draw > range[1] & .data$draw < range[2]) |> round(digits),
-      "< ROPE" = mean(.data$draw < range[1]) |> round(digits),
-      "> ROPE" = mean(.data$draw > range[2]) |> round(digits)
+      "Above ROPE" = mean(.data$draw > range[2]) |> round(digits)
     ) |>
     dplyr::ungroup()
 

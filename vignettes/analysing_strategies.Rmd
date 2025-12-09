@@ -106,8 +106,7 @@ if(!requireNamespace("cmdstanr", quietly = TRUE)) {
     repos = c('https://stan-dev.r-universe.dev', getOption("repos"))
   )
 }
-options("marginaleffects_safe" = FALSE)
-options("marginaleffects_posterior_interval" = "hdi")
+options("marginaleffects_safe" = FALSE)<
 draws <- seq(1, 2000, 1) # To limit draws that will be used for marginaleffects
 ```
 
