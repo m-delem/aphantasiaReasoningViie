@@ -1,8 +1,6 @@
 ---
 title: "Exploring RTs per phase (non-linear modelling)"
 output: rmarkdown::html_vignette
-message: false
-warning: false
 bibliography: "references.bib"
 csl: "apa.csl"
 vignette: >
@@ -213,6 +211,7 @@ but does not run.
 ```{r}
 #| label: bayesian-vviq-2-groups
 #| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -240,7 +239,7 @@ marginaleffects::avg_comparisons(
   mb_nl_vviq_2, 
   variables = list("category" = "pairwise"), 
   by = c("group_2", "phase"), 
-  draw_ids = draws
+  # draw_ids = draws
   ) |> 
   report_rope(phase, group_2, contrast) |> knitr::kable()
 ```
@@ -284,6 +283,8 @@ prettier display:
 
 ```{r}
 #| label: frequentist-contrasts-vviq-2
+#| message: false
+#| warning: false
 
 nl_contrasts$vviq_2 |>
   as.data.frame() |>
@@ -329,6 +330,7 @@ Let's do the same for the other two classifications.
 ```{r}
 #| label: bayesian-vviq-3-groups
 #| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -356,7 +358,7 @@ marginaleffects::avg_comparisons(
   mb_nl_vviq_3, 
   variables = list("category" = "pairwise"), 
   by = c("group_3", "phase"), 
-  draw_ids = draws
+  # draw_ids = draws
   ) |> 
   report_rope(phase, group_3, contrast) |> knitr::kable()
 ```
@@ -392,6 +394,8 @@ Same process as above, contrasts are saved in the package:
 
 ```{r}
 #| label: frequentist-contrasts-vviq-3
+#| message: false
+#| warning: false
 
 nl_contrasts$vviq_3 |>
   as.data.frame() |>
@@ -435,6 +439,7 @@ nl_contrasts$vviq_3 |>
 ```{r}
 #| label: bayesian-osivq-3-clusters
 #| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -462,7 +467,7 @@ marginaleffects::avg_comparisons(
   mb_nl_osivq, 
   variables = list("category" = "pairwise"), 
   by = c("cluster", "phase"), 
-  draw_ids = draws
+  # draw_ids = draws
   ) |> 
   report_rope(phase, cluster, contrast) |> knitr::kable()
 ```
@@ -497,6 +502,8 @@ Same process as above, contrasts are saved in the package:
 
 ```{r}
 #| label: frequentist-contrasts-osivq
+#| message: false
+#| warning: false
 
 nl_contrasts$osivq |>
   as.data.frame() |>

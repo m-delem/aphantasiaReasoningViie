@@ -1,8 +1,6 @@
 ---
 title: "Response time analyses"
 output: rmarkdown::html_vignette
-message: false
-warning: false
 bibliography: "references.bib"
 csl: "apa.csl"
 vignette: >
@@ -183,6 +181,8 @@ check that they covered a reasonable range of RT values.
 
 ```{r}
 #| label: test_rt_prior
+#| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -232,6 +232,8 @@ Here we go!
 
 ```{r}
 #| label: bayesian-vviq-2-groups
+#| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -249,23 +251,24 @@ mb_rt_vviq_2 <-
 # Singularity check
 mb_rt_vviq_2 |> get_singularity()
 # Model performance indices
-# mb_rt_vviq_2  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_rt_vviq_2  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_rt_vviq_2 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
 # Group contrasts
 mb_rt_vviq_2 |> 
   marginaleffects::avg_comparisons(
-    variables = list("group_2" = "pairwise"), draw_ids = seq(1, 4000, 2)
+    variables = list("group_2" = "pairwise"), 
+    # draw_ids = seq(1, 4000, 2)
   ) |>
   report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
 mb_rt_vviq_2 |> 
   marginaleffects::avg_comparisons(
     variables = list("category" = "pairwise"), by = "group_2", 
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(group_2, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -274,7 +277,7 @@ mb_rt_vviq_2 |>
     variables = list("category" = "pairwise"),
     by = "group_2",
     hypothesis = ~revpairwise, # for the interaction
-    draw_ids = draws
+    # draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -283,6 +286,8 @@ mb_rt_vviq_2 |>
 
 ```{r}
 #| label: frequentist-vviq-2-groups
+#| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -320,6 +325,8 @@ mf_rt_vviq_2 |> report_contrast(~ category * group_2, interaction = TRUE) |>
 
 ```{r}
 #| label: bayesian-vviq-3-groups
+#| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -337,9 +344,9 @@ mb_rt_vviq_3 <-
 # Singularity check
 mb_rt_vviq_3 |> get_singularity()
 # Model performance indices
-# mb_rt_vviq_3  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_rt_vviq_3  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_rt_vviq_3 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -347,7 +354,7 @@ mb_rt_vviq_3 |>
 mb_rt_vviq_3 |> 
   marginaleffects::avg_comparisons(
     variables = list("group_3" = "revpairwise"),
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
@@ -355,7 +362,7 @@ mb_rt_vviq_3 |>
   marginaleffects::avg_comparisons(
     variables = list("category" = "pairwise"),
     by = "group_3",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(group_3, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -364,7 +371,7 @@ mb_rt_vviq_3 |>
     variables = list("category" = "pairwise"),
     by = "group_3",
     hypothesis = ~revpairwise, # for the interaction
-    draw_ids = draws
+    # draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -373,6 +380,8 @@ mb_rt_vviq_3 |>
 
 ```{r}
 #| label: frequentist-vviq-3-groups
+#| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -407,6 +416,8 @@ mf_rt_vviq_3 |> report_contrast(~ category * group_3, interaction = TRUE) |>
 
 ```{r}
 #| label: bayesian-osivq-3-clusters
+#| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -424,9 +435,9 @@ mb_rt_osivq <-
 # Singularity check
 mb_rt_osivq |> get_singularity()
 # Model performance indices
-# mb_rt_osivq  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_rt_osivq  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_rt_osivq |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -434,7 +445,7 @@ mb_rt_osivq |>
 mb_rt_osivq |> 
   marginaleffects::avg_comparisons(
     variables = list("cluster" = "pairwise"),
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
@@ -442,7 +453,7 @@ mb_rt_osivq |>
   marginaleffects::avg_comparisons(
     variables = list("category" = "pairwise"),
     by = "cluster",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(cluster, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -451,7 +462,7 @@ mb_rt_osivq |>
     variables = list("category" = "pairwise"),
     by = "cluster",
     hypothesis = ~revpairwise, # for the interaction
-    draw_ids = draws
+    # draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -460,6 +471,8 @@ mb_rt_osivq |>
 
 ```{r}
 #| label: frequentist-osivq-3-clusters
+#| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -494,6 +507,8 @@ mf_rt_osivq |> report_contrast(~ category * cluster, interaction = TRUE) |>
 
 ```{r}
 #| label: bayesian-strategy-groups
+#| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -511,9 +526,9 @@ mb_rt_strat <-
 # Singularity check
 mb_rt_strat |> get_singularity()
 # Model performance indices
-# mb_rt_strat  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_rt_strat  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_rt_strat |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -521,7 +536,7 @@ mb_rt_strat |>
 mb_rt_strat |> 
   marginaleffects::avg_comparisons(
     variables = list("strategy_group" = "pairwise"),
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
@@ -529,7 +544,7 @@ mb_rt_strat |>
   marginaleffects::avg_comparisons(
     variables = list("category" = "pairwise"),
     by = "strategy_group",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(strategy_group, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -538,7 +553,7 @@ mb_rt_strat |>
     variables = list("category" = "pairwise"),
     by = "strategy_group",
     hypothesis = ~revpairwise, # for the interaction
-    draw_ids = draws
+    # draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -547,6 +562,8 @@ mb_rt_strat |>
 
 ```{r}
 #| label: frequentist-strategy-groups
+#| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -585,6 +602,8 @@ was also created to add significance stars to the plots.
 
 ```{r}
 #| label: plot-rt
+#| message: false
+#| warning: false
 #| fig.width: 10
 #| fig.height: 5
 #| fig.alt: >

@@ -1,8 +1,6 @@
 ---
 title: "Accuracy analyses"
 output: rmarkdown::html_vignette
-message: false
-warning: false
 bibliography: "references.bib"
 csl: "apa.csl"
 vignette: >
@@ -191,6 +189,7 @@ Here we go!
 ```{r}
 #| label: bayesian-vviq-2-groups
 #| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -208,9 +207,9 @@ mb_acc_vviq_2 <-
 # Singularity check
 mb_acc_vviq_2 |> get_singularity()
 # Model performance indices
-# mb_acc_vviq_2  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_acc_vviq_2  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_acc_vviq_2 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -219,7 +218,7 @@ mb_acc_vviq_2 |>
   marginaleffects::avg_comparisons(
     variables = list("group_2" = "pairwise"), 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
@@ -227,7 +226,7 @@ mb_acc_vviq_2 |>
   marginaleffects::avg_comparisons(
     variables = list("category" = "pairwise"), by = "group_2", 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(group_2, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -237,7 +236,7 @@ mb_acc_vviq_2 |>
     by = "group_2",
     hypothesis = ~revpairwise, # for the interaction
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -246,6 +245,8 @@ mb_acc_vviq_2 |>
 
 ```{r}
 #| label: frequentist-vviq-2-groups
+#| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -285,6 +286,7 @@ mf_acc_vviq_2 |>
 ```{r}
 #| label: bayesian-vviq-3-groups
 #| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -302,9 +304,9 @@ mb_acc_vviq_3 <-
 # Singularity check
 mb_acc_vviq_3 |> get_singularity()
 # Model performance indices
-# mb_acc_vviq_3  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_acc_vviq_3  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_acc_vviq_3 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -313,7 +315,7 @@ mb_acc_vviq_3 |>
   marginaleffects::avg_comparisons(
     variables = list("group_3" = "pairwise"), 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
@@ -321,7 +323,7 @@ mb_acc_vviq_3 |>
   marginaleffects::avg_comparisons(
     variables = list("category" = "pairwise"), by = "group_3", 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(group_3, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -331,7 +333,7 @@ mb_acc_vviq_3 |>
     by = "group_3",
     hypothesis = ~revpairwise, # for the interaction
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -340,6 +342,8 @@ mb_acc_vviq_3 |>
 
 ```{r}
 #| label: frequentist-vviq-3-groups
+#| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -372,6 +376,7 @@ mf_acc_vviq_3 |> report_contrast(~ category * group_3, interaction = TRUE) |>
 ```{r}
 #| label: bayesian-osivq-3-clusters
 #| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -389,9 +394,9 @@ mb_acc_osivq <-
 # Singularity check
 mb_acc_osivq |> get_singularity()
 # Model performance indices
-# mb_acc_osivq  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_acc_osivq  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_acc_osivq |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -400,7 +405,7 @@ mb_acc_osivq |>
   marginaleffects::avg_comparisons(
     variables = list("cluster" = "pairwise"), 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
@@ -408,7 +413,7 @@ mb_acc_osivq |>
   marginaleffects::avg_comparisons(
     variables = list("category" = "pairwise"), by = "cluster", 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(cluster, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -418,7 +423,7 @@ mb_acc_osivq |>
     by = "cluster",
     hypothesis = ~revpairwise, # for the interaction
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -427,6 +432,8 @@ mb_acc_osivq |>
 
 ```{r}
 #| label: frequentist-osivq-3-clusters
+#| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -459,6 +466,7 @@ mf_acc_osivq  |> report_contrast(~ category * cluster, interaction = TRUE) |>
 ```{r}
 #| label: bayesian-strategy-groups
 #| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -476,9 +484,9 @@ mb_acc_strat <-
 # Singularity check
 mb_acc_strat |> get_singularity()
 # Model performance indices
-# mb_acc_strat  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_acc_strat  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_acc_strat |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -487,7 +495,7 @@ mb_acc_strat |>
   marginaleffects::avg_comparisons(
     variables = list("strategy_group" = "pairwise"), 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
@@ -495,7 +503,7 @@ mb_acc_strat |>
   marginaleffects::avg_comparisons(
     variables = list("category" = "pairwise"), by = "strategy_group", 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(strategy_group, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -505,7 +513,7 @@ mb_acc_strat |>
     by = "strategy_group",
     hypothesis = ~revpairwise, # for the interaction
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -514,6 +522,8 @@ mb_acc_strat |>
 
 ```{r}
 #| label: frequentist-strategy-groups
+#| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -549,6 +559,8 @@ was also created to add significance stars to the plots.
 
 ```{r}
 #| label: plot-accuracy
+#| message: false
+#| warning: false
 #| fig.width: 10
 #| fig.height: 4
 #| fig.alt: >

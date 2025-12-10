@@ -183,6 +183,7 @@ Here we go!
 ```{r}
 #| label: bayesian-vviq-2-groups
 #| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -199,9 +200,9 @@ mb_strats_vviq_2 <-
 # Singularity check
 mb_strats_vviq_2 |> get_singularity()
 # Model performance indices
-# mb_strats_vviq_2  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_strats_vviq_2  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_strats_vviq_2 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -210,7 +211,7 @@ mb_strats_vviq_2 |>
   marginaleffects::avg_comparisons(
     variables = list("group_2" = "pairwise"), by = "strategy", 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(strategy, contrast) |> knitr::kable()
 # Strategy contrasts within groups
@@ -218,7 +219,7 @@ mb_strats_vviq_2 |>
   marginaleffects::avg_comparisons(
     variables = list("strategy" = "pairwise"), by = "group_2", 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(group_2, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -228,7 +229,7 @@ mb_strats_vviq_2 |>
     by = "group_2",
     hypothesis = ~revpairwise, # for the interaction
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -237,6 +238,8 @@ mb_strats_vviq_2 |>
 
 ```{r}
 #| label: frequentist-vviq-2-groups
+#| message: false
+#| warning: false
 
 mf_strats_vviq_2 <- fit_clm(score ~ group_2 * strategy, df_strats_long)
 
@@ -261,6 +264,7 @@ mf_strats_vviq_2 |> report_contrast(~ group_2 * strategy, interaction = TRUE) |>
 ```{r}
 #| label: bayesian-vviq-3-groups
 #| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -277,9 +281,9 @@ mb_strats_vviq_3 <-
 # Singularity check
 mb_strats_vviq_3 |> get_singularity()
 # Model performance indices
-# mb_strats_vviq_3  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_strats_vviq_3  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_strats_vviq_3 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -288,7 +292,7 @@ mb_strats_vviq_3 |>
   marginaleffects::avg_comparisons(
     variables = list("group_3" = "pairwise"), by = "strategy", 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(strategy, contrast) |> knitr::kable()
 # Strategy contrasts within groups
@@ -296,7 +300,7 @@ mb_strats_vviq_3 |>
   marginaleffects::avg_comparisons(
     variables = list("strategy" = "pairwise"), by = "group_3", 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(group_3, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -306,7 +310,7 @@ mb_strats_vviq_3 |>
     by = "group_3",
     hypothesis = ~revpairwise, # for the interaction
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -315,6 +319,8 @@ mb_strats_vviq_3 |>
 
 ```{r}
 #| label: frequentist-vviq-3-groups
+#| message: false
+#| warning: false
 
 mf_strats_vviq_3 <- fit_clm(score ~ group_3 * strategy, df_strats_long)
 
@@ -334,6 +340,7 @@ mf_strats_vviq_3 |> report_contrast(~ group_3 * strategy, interaction = TRUE) |>
 ```{r}
 #| label: bayesian-osivq-3-clusters
 #| message: false
+#| warning: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -350,9 +357,9 @@ mb_strats_osivq <-
 # Singularity check
 mb_strats_osivq |> get_singularity()
 # Model performance indices
-# mb_strats_osivq  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_strats_osivq  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_strats_osivq |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -361,7 +368,7 @@ mb_strats_osivq |>
   marginaleffects::avg_comparisons(
     variables = list("cluster" = "pairwise"), by = "strategy", 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(strategy, contrast) |> knitr::kable()
 # Strategy contrasts within groups
@@ -369,7 +376,7 @@ mb_strats_osivq |>
   marginaleffects::avg_comparisons(
     variables = list("strategy" = "pairwise"), by = "cluster", 
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |>
   report_rope(cluster, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -379,7 +386,7 @@ mb_strats_osivq |>
     by = "cluster",
     hypothesis = ~revpairwise, # for the interaction
     type = "link",
-    draw_ids = draws
+    # draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -388,6 +395,8 @@ mb_strats_osivq |>
 
 ```{r}
 #| label: frequentist-osivq-3-clusters
+#| message: false
+#| warning: false
 
 mf_strats_osivq  <- fit_clm(score ~ cluster * strategy, df_strats_long)
 
@@ -548,6 +557,8 @@ plot(ps)
 
 ```{r}
 #| label: plot-strategies-proportions
+#| message: false
+#| warning: false
 #| fig.width: 10
 #| fig.height: 8
 #| fig.alt: >
