@@ -326,7 +326,7 @@ fit_brms_model <- function(
     iterations = 24000,   # 40k recommended if BFs needed
     warmup = 2000,
     refresh = 500,
-    backend = "cmdstanr",
+    backend = "rstan", # cmdstanr for a cool interface, but conflicts with pkgdown
     file_refit = "on_change",
     file_compress = "xz",
     sample_prior = FALSE, # TRUE if BFs needed
@@ -337,7 +337,7 @@ fit_brms_model <- function(
   rlang::check_installed("fs", reason = "to create folders")
 
   # Set the folder to save the cmdstanr parameters
-  options(cmdstanr_write_stan_file_dir = "models/stan/")
+  # options(cmdstanr_write_stan_file_dir = "models/stan/")
 
   # Create a folder for the models if necessary
   fs::dir_create("models/")
