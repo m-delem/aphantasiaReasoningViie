@@ -24,13 +24,18 @@ variables to ensure correct ordering in plots."><meta property="og:image" conten
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Preliminary analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">OSIVQ clustering</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Main analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response times</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategies</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exploratory analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt_nl.html">Non-linear RT models</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -90,20 +95,20 @@ for each participant, category, and grouping/cluster combination.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">df_rt</span> <span class="op">|&gt;</span> <span class="fu">prepare_df_for_plotting</span><span class="op">(</span>dvar <span class="op">=</span> <span class="va">rt_total</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id                      category group group_2 group_3 strategy_group mean_dv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> acdn247721443631359lzxb Control  Typi… Typical Typical No visual str…    21.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> acdn247721443631359lzxb Spatial  Typi… Typical Typical No visual str…    17.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> acdn247721443631359lzxb Visual   Typi… Typical Typical No visual str…    20.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ahos206230340719944kiwl Control  Apha… Aphant… Aphant… No visual str…    26.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ahos206230340719944kiwl Spatial  Apha… Aphant… Aphant… No visual str…    27.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ahos206230340719944kiwl Visual   Apha… Aphant… Aphant… No visual str…    28.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> anoo201523848333505mpxv Control  Typi… Typical Typical Visual strate…    17.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> anoo201523848333505mpxv Spatial  Typi… Typical Typical Visual strate…    15.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> anoo201523848333505mpxv Visual   Typi… Typical Typical Visual strate…    26.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> arje91119258110263fkhy  Control  Typi… Typical Typical Visual strate…    27.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> arje91119258110263fkhy  Spatial  Typi… Typical Typical Visual strate…    20.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> arje91119258110263fkhy  Visual   Typi… Typical Typical Visual strate…    23.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id                    category group_4 group_2 group_3 strategy_group mean_dv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> acdn247721443631359l… Control  Typical Typical Typical No_visual_str…    21.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> acdn247721443631359l… Spatial  Typical Typical Typical No_visual_str…    17.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> acdn247721443631359l… Visual   Typical Typical Typical No_visual_str…    20.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ahos206230340719944k… Control  Aphant… Aphant… Aphant… No_visual_str…    26.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ahos206230340719944k… Spatial  Aphant… Aphant… Aphant… No_visual_str…    27.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ahos206230340719944k… Visual   Aphant… Aphant… Aphant… No_visual_str…    28.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> anoo201523848333505m… Control  Typical Typical Typical Visual_strate…    17.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> anoo201523848333505m… Spatial  Typical Typical Typical Visual_strate…    15.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> anoo201523848333505m… Visual   Typical Typical Typical Visual_strate…    26.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> arje91119258110263fk… Control  Typical Typical Typical Visual_strate…    27.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> arje91119258110263fk… Spatial  Typical Typical Typical Visual_strate…    20.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> arje91119258110263fk… Visual   Typical Typical Typical Visual_strate…    23.2</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

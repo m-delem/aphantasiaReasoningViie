@@ -24,13 +24,18 @@ This function is used repeatedly in a power analysis by simulation."><meta prope
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Preliminary analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">OSIVQ clustering</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Main analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response times</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategies</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exploratory analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt_nl.html">Non-linear RT models</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -98,11 +103,11 @@ These can include parameters like <code>meanlog</code>, <code>sdlog</code>, <cod
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">simulate_rt_test</span><span class="op">(</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">)</span>   <span class="co"># Low power, unlikely to detect the effect</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.733</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.172</span>
 <span class="r-in"><span><span class="fu">simulate_rt_test</span><span class="op">(</span><span class="fl">40</span>, <span class="fl">1.5</span><span class="op">)</span> <span class="co"># Better power, more likely</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05</span>
-<span class="r-in"><span><span class="fu">simulate_rt_test</span><span class="op">(</span><span class="fl">150</span>, <span class="fl">1</span><span class="op">)</span>  <span class="co"># High power, highly likely even for a small effect</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02</span>
+<span class="r-in"><span><span class="fu">simulate_rt_test</span><span class="op">(</span><span class="fl">150</span>, <span class="fl">1</span><span class="op">)</span>  <span class="co"># High power, highly likely even for a small effect</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.003</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

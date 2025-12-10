@@ -16,7 +16,7 @@ build_formula(vd, grouping)
 
 - grouping:
 
-  Grouping variable, typically "Group" or "cluster".
+  Grouping variable, e.g., "group_3", "cluster", etc.
 
 ## Value
 
@@ -26,6 +26,6 @@ A formula object for the model.
 
 ``` r
 build_formula("accuracy", "group")
-#> accuracy ~ group * category + (category | id) + (group | problem)
-#> <environment: 0x55ec07afa180>
+#> accuracy ~ group * category + (category | id) + (1 | problem)
+#> <environment: 0x562c734cb490>
 ```

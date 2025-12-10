@@ -87,7 +87,7 @@ dplyr::glimpse(experiment_data)
 #> Columns: 15
 #> $ id               <chr> "aacu64091390979054fksk", "aacu64091390979054fksk", "…
 #> $ language         <chr> "fr", "fr", "fr", "fr", "fr", "fr", "fr", "fr", "fr",…
-#> $ group            <fct> aphantasia, aphantasia, aphantasia, aphantasia, aphan…
+#> $ group_4          <fct> aphantasia, aphantasia, aphantasia, aphantasia, aphan…
 #> $ expe_phase       <chr> "expe_block_1", "expe_block_1", "expe_block_1", "expe…
 #> $ trial_number     <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16…
 #> $ problem          <int> 18, 26, 9, 6, 3, 11, 23, 2, 12, 7, 19, 8, 24, 16, 10,…
@@ -108,7 +108,7 @@ dplyr::glimpse(survey_data)
 #> $ language                            <chr> "fr", "fr", "fr", "fr", "fr", "fr"…
 #> $ age                                 <int> 41, 24, 26, 26, 48, 23, 26, 25, 28…
 #> $ gender                              <chr> "f", "f", "f", "m", "m", "m", "f",…
-#> $ group                               <fct> aphantasia, typical, aphantasia, t…
+#> $ group_4                             <fct> aphantasia, typical, aphantasia, t…
 #> $ country                             <chr> "fra", "fra", "fra", "fra", "fra",…
 #> $ language_native                     <chr> "fr", "fr", "fr", "fr", "fr", "fr"…
 #> $ language_usual                      <chr> "fr", "fr", "fr", "fr", "fr", "fr"…
@@ -116,7 +116,7 @@ dplyr::glimpse(survey_data)
 #> $ education                           <chr> "isced_03_college", "isced_07_mast…
 #> $ field                               <chr> "Tourisme", "isced_f_07_engin_cons…
 #> $ vviq_is_complete                    <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE…
-#> $ vviq_total_score                    <int> 16, 38, 16, 74, 19, 43, 59, 44, 25…
+#> $ vviq_total_score                    <dbl> 16, 38, 16, 74, 19, 43, 59, 44, 25…
 #> $ vviq_q01                            <int> 1, 3, 1, 4, 1, 4, 3, 3, 2, 4, 4, 1…
 #> $ vviq_q02                            <int> 1, 2, 1, 4, 1, 3, 3, 3, 1, 4, 4, 1…
 #> $ vviq_q03                            <int> 1, 1, 1, 5, 1, 2, 2, 3, 1, 4, 4, 1…
@@ -235,7 +235,7 @@ Jumping directly to the final product, this is the code that creates the
 clean data:
 
 ``` r
-clean_data <- get_clean_data(verbose = TRUE)
+df_expe   <- get_clean_data("experiment", verbose = TRUE)
 #> 
 #> Sample size before accuracy analysis: 137
 #> Participants below random accuracy (<= 50%): 8 (5.84%)
@@ -256,9 +256,27 @@ clean_data <- get_clean_data(verbose = TRUE)
 #> 
 #> Sample size before median RTs analysis: 106
 #> Participants with median RTs outside 2.25 SDs: 2 (1.89%)
-
-df_expe   <- clean_data$df_expe
-df_survey <- clean_data$df_survey
+df_survey <- get_clean_data("survey", verbose = TRUE)
+#> 
+#> Sample size before accuracy analysis: 137
+#> Participants below random accuracy (<= 50%): 8 (5.84%)
+#> 
+#> Sample size before manual examination: 137
+#> Manually identified participants:
+#> - N without VVIQ: 3 -> Excluded
+#> - N without OSIVQ: 6 -> Excluded
+#> - N without Raven: 2 -> Excluded
+#> - N who cheated: 3 -> Excluded
+#> - N who were distracted: 12 -> Excluded
+#> - N who had treatment: 4 -> Included
+#> - N with ADHD: 7 -> Included
+#> - N with ASD: 5 -> Included
+#> - N with dyslexia: 2 -> Included
+#> - N with other neuro troubles: 2 -> Included
+#> Participants to exclude: 24 (17.52%)
+#> 
+#> Sample size before median RTs analysis: 106
+#> Participants with median RTs outside 2.25 SDs: 2 (1.89%)
 ```
 
 These data frames have the same columns as the raw ones, albeit with
@@ -316,7 +334,7 @@ filter and format the data. The main steps are:
 
 ``` r
 # Get clean data without filtering based on median RTs (for demonstration)
-df <- get_clean_data(sd_mult = 99)$df_expe
+df <- get_clean_data("experiment", sd_mult = 99)
 
 plot_median_rt_distribution(df, sd_mult = 2.25, base_size = 12)
 ```
@@ -331,7 +349,7 @@ participants.](preparing_data_files/figure-html/visual-exam-1.png)
   (visual, spatial, or control).
 
 - [`factor_groups()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/factor_groups.md):
-  This function factors the `Group` variable in the experiment data,
+  This function factors the `group_4` variable in the experiment data,
   which indicates the group to which the participant belongs (Aphants,
   Hypophants, Typical imagers, or Hyperphants). The `n_groups` argument
   allows for different groupings based on the VVIQ scores, with options
@@ -371,13 +389,13 @@ Data all set for analyses!
     #>  collate  C.UTF-8
     #>  ctype    C.UTF-8
     #>  tz       UTC
-    #>  date     2025-11-20
+    #>  date     2025-12-10
     #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
     #>  quarto   1.8.26 @ /usr/local/bin/quarto
     #> 
     #> ─ Packages ───────────────────────────────────────────────────────────────────
     #>  ! package                 * version date (UTC) lib source
-    #>    aphantasiaReasoningViie * 1.0     2025-11-20 [1] local
+    #>    aphantasiaReasoningViie * 1.0     2025-12-10 [1] local
     #>    bslib                     0.9.0   2025-01-30 [1] RSPM
     #>    cachem                    1.1.0   2024-05-16 [1] RSPM
     #>    cli                       3.6.5   2025-04-23 [1] RSPM
@@ -396,7 +414,7 @@ Data all set for analyses!
     #>    ggplot2                   4.0.1   2025-11-14 [1] RSPM
     #>    glue                      1.8.0   2024-09-30 [1] RSPM
     #>    gtable                    0.3.6   2024-10-25 [1] RSPM
-    #>    htmltools                 0.5.8.1 2024-04-04 [1] RSPM
+    #>    htmltools                 0.5.9   2025-12-04 [1] RSPM
     #>    htmlwidgets               1.6.4   2023-12-06 [1] RSPM
     #>    jquerylib                 0.1.4   2021-04-26 [1] RSPM
     #>    jsonlite                  2.0.0   2025-03-27 [1] RSPM
@@ -435,7 +453,7 @@ Data all set for analyses!
     #>    vctrs                     0.6.5   2023-12-01 [1] RSPM
     #>    withr                     3.0.2   2024-10-28 [1] RSPM
     #>    xfun                      0.54    2025-10-30 [1] RSPM
-    #>    yaml                      2.3.10  2024-07-26 [1] RSPM
+    #>    yaml                      2.3.11  2025-11-28 [1] RSPM
     #> 
     #>  [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu
     #>  [2] /home/runner/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu/8f3cef43

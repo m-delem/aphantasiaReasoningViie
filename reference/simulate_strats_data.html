@@ -40,13 +40,18 @@ upon. The power analyses were conducted on RT data instead."><meta property="og:
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Preliminary analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">OSIVQ clustering</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Main analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response times</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategies</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exploratory analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt_nl.html">Non-linear RT models</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -153,16 +158,16 @@ groups.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">simulate_strats_data</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, seed <span class="op">=</span> <span class="fl">123</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id                group visual_strat spatial_strat verbal_strat semantic_strat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> subj_aphantasia_1 Apha…            1             5            1              2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> subj_aphantasia_2 Apha…            1             4            2              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> subj_aphantasia_3 Apha…            1             4            2              2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> subj_aphantasia_4 Apha…            1             3            1              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> subj_aphantasia_5 Apha…            2             4            1              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> subj_aphantasia_6 Apha…            1             5            2              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: sensorimotor_strat &lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id              group_4 visual_strat spatial_strat verbal_strat semantic_strat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> subj_aphantasi… Aphant…            1             5            1              2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> subj_aphantasi… Aphant…            1             4            2              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> subj_aphantasi… Aphant…            1             4            2              2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> subj_aphantasi… Aphant…            1             3            1              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> subj_aphantasi… Aphant…            2             4            1              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> subj_aphantasi… Aphant…            1             5            2              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 more variables: sensorimotor_strat &lt;int&gt;, group &lt;fct&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">df</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>

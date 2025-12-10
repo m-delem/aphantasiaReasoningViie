@@ -121,6 +121,13 @@ in your research, please cite the OSF project with the following:
 - [`get_clean_data()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/get_clean_data.md)
   : Wrapper function to get clean "analysis-ready" data
 
+- [`get_clustered_data()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/get_clustered_data.md)
+  : Wrapper function to get clean and clustered data immediately
+
+- [`get_viie_data()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/get_viie_data.md)
+  : Get data with the Visual Imagery Impedance Effect manually
+  calculated
+
 - [`filter_random_accuracy_ids()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/filter_random_accuracy_ids.md)
   : Filter participants with below random accuracy
 
@@ -159,7 +166,7 @@ in your research, please cite the OSF project with the following:
   : Get a long format data frame with the strategies gathered in a
   single column
 
-- [`pivot_terms_longer()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/pivot_terms_longer.md)
+- [`pivot_phases_longer()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/pivot_phases_longer.md)
   : Get a long format data frame with the problem terms in a single
   column
 
@@ -182,6 +189,10 @@ in your research, please cite the OSF project with the following:
   effects
 - [`fit_clm()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/fit_clm.md)
   : Fit a cumulative link model (CLM) using the ordinal package
+- [`fit_brms_model()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/fit_brms_model.md)
+  : Fit a Bayesian model using the brms package with default settings
+- [`report_rope()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/report_rope.md)
+  : Report the ROPE analysis for marginal effects
 - [`get_contrast()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/get_contrast.md)
   : Get the pairwise contrasts of variables in a model
 - [`get_params()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/get_params.md)
@@ -237,37 +248,19 @@ in your research, please cite the OSF project with the following:
 
 # Articles
 
-### Power analysis by simulation
-
-- [Power analysis by
-  simulation](https://m-delem.github.io/aphantasiaReasoningViie/articles/power_analysis.md):
-
-### Preparing data for analysis
-
-- [Preparing data for
-  analysis](https://m-delem.github.io/aphantasiaReasoningViie/articles/preparing_data.md):
-
-### Creating OSIVQ cognitive style clusters
-
-- [Creating OSIVQ cognitive style
-  clusters](https://m-delem.github.io/aphantasiaReasoningViie/articles/osivq_clusters.md):
-
-### Accuracy analyses
+### All vignettes
 
 - [Accuracy
   analyses](https://m-delem.github.io/aphantasiaReasoningViie/articles/analysing_accuracy.md):
-
-### Response time analyses
-
+- [Exploring RTs per phase (non-linear
+  modelling)](https://m-delem.github.io/aphantasiaReasoningViie/articles/analysing_rt_nl.md):
 - [Response time
   analyses](https://m-delem.github.io/aphantasiaReasoningViie/articles/analysing_rt.md):
-
-### Strategy use analyses
-
 - [Strategy use
   analyses](https://m-delem.github.io/aphantasiaReasoningViie/articles/analysing_strategies.md):
-
-### Exploring RTs per phase
-
-- [Exploring RTs per phase (non-linear
-  modelling)](https://m-delem.github.io/aphantasiaReasoningViie/articles/nl_modelling.md):
+- [Creating OSIVQ cognitive style
+  clusters](https://m-delem.github.io/aphantasiaReasoningViie/articles/osivq_clusters.md):
+- [Power analysis by
+  simulation](https://m-delem.github.io/aphantasiaReasoningViie/articles/power_analysis.md):
+- [Preparing data for
+  analysis](https://m-delem.github.io/aphantasiaReasoningViie/articles/preparing_data.md):

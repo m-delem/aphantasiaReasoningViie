@@ -6,7 +6,7 @@ column
 ## Usage
 
 ``` r
-pivot_strategies_longer(df, base = 1, ...)
+pivot_strategies_longer(df, base = 1, ordered = FALSE, ...)
 ```
 
 ## Arguments
@@ -22,6 +22,11 @@ pivot_strategies_longer(df, base = 1, ...)
   An integer indicating the base level for factor contrasts. Default is
   1 for the visual strategy.
 
+- ordered:
+
+  A logical indicating whether the `score` factor levels should be
+  ordered. Default is `FALSE`.
+
 - ...:
 
   Additional arguments passed to
@@ -36,11 +41,11 @@ and `score` is a factor indicating the level of strategy use.
 ## Examples
 
 ``` r
-get_clean_data()$df_survey |>
+get_clean_data("survey") |>
   pivot_strategies_longer() |>
-  dplyr::select(id, group, strategy, score)
+  dplyr::select(id, group_4, strategy, score)
 #> # A tibble: 520 × 4
-#>    id                      group      strategy     score            
+#>    id                      group_4    strategy     score            
 #>    <fct>                   <fct>      <fct>        <fct>            
 #>  1 acdn247721443631359lzxb Typical    Visual       no_use           
 #>  2 acdn247721443631359lzxb Typical    Verbal       mainly_this_strat

@@ -5,7 +5,7 @@ Plot model predictions from the non-linear GAMM results
 ## Usage
 
 ``` r
-plot_nl(df, title = NULL, ...)
+plot_nl(df, var = "term", title = NULL, ...)
 ```
 
 ## Arguments
@@ -27,6 +27,13 @@ plot_nl(df, title = NULL, ...)
 
   - `group`: the participant group Results from model fits are saved
     natively in the package in the `nl_predictions` object.
+
+- var:
+
+  A string indicating the variable to plot on the x-axis. Added for
+  backwards compatibility with an older version of the package where
+  trial phases were named "term", but have since been renamed "phase".
+  Default is "term".
 
 - title:
 

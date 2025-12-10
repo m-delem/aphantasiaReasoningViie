@@ -18,13 +18,18 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Preliminary analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">OSIVQ clustering</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Main analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response times</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategies</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exploratory analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt_nl.html">Non-linear RT models</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -77,28 +82,28 @@ category, including total trials and a flag for low trial counts.</p>
 <span class="r-in"><span><span class="fu">get_trial_count</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Rowwise: </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id                      group Control Spatial Visual n_trials_total low_trials</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> acdn247721443631359lzxb Typi…       9       9      9             27 FALSE     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> ahos206230340719944kiwl Apha…       9       9      9             27 FALSE     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> anoo201523848333505mpxv Typi…       9       9      9             27 FALSE     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> arje91119258110263fkhy  Typi…       9       9      9             27 FALSE     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> auzb748856118756901vqiz Typi…       9       9      9             27 FALSE     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> azcj317771758245897ccrd Hypo…       9       9      9             27 FALSE     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id                    group_4 Control Spatial Visual n_trials_total low_trials</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> acdn247721443631359l… Typical       9       9      9             27 FALSE     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> ahos206230340719944k… Aphant…       9       9      9             27 FALSE     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> anoo201523848333505m… Typical       9       9      9             27 FALSE     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> arje91119258110263fk… Typical       9       9      9             27 FALSE     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> auzb748856118756901v… Typical       9       9      9             27 FALSE     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> azcj317771758245897c… Hypoph…       9       9      9             27 FALSE     </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">df_rt</span> <span class="op">&lt;-</span> <span class="fu"><a href="filter_trials_on_rt.html">filter_trials_on_rt</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Allows to identify and examine the participants that lost a lot of trials</span></span></span>
 <span class="r-in"><span><span class="fu">get_trial_count</span><span class="op">(</span><span class="va">df_rt</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Rowwise: </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id                      group Control Spatial Visual n_trials_total low_trials</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ynhf865603843332103uxhx Typi…       2       6      4             12 TRUE      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> bbwg95779316229529nvnw  Typi…       5       4      4             13 FALSE     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> bwba621197531274841rnng Hype…       5       3      5             13 FALSE     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> ckmw15672323159356eazf  Apha…       5       5      4             14 FALSE     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> rxgq435410820299509eabx Typi…       4       5      5             14 FALSE     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> tqnu59278134349817sjwu  Typi…       4       5      5             14 FALSE     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id                    group_4 Control Spatial Visual n_trials_total low_trials</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ynhf865603843332103u… Typical       2       6      4             12 TRUE      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> bbwg95779316229529nv… Typical       5       4      4             13 FALSE     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> bwba621197531274841r… Hyperp…       5       3      5             13 FALSE     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> ckmw15672323159356ea… Aphant…       5       5      4             14 FALSE     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> rxgq435410820299509e… Typical       4       5      5             14 FALSE     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> tqnu59278134349817sj… Typical       4       5      5             14 FALSE     </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

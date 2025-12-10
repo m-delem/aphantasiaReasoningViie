@@ -46,13 +46,18 @@ Inspired by Lisa DeBruine.
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Preliminary analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">OSIVQ clustering</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Main analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response times</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategies</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exploratory analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt_nl.html">Non-linear RT models</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -175,17 +180,17 @@ set.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">simulate_acc_data</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 16</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id    group  category accuracy trial   tau_0 tau_vis tau_spa aphantasia visual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> id001 Aphan… Visual          1     1 -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">4</span> 0.005<span style="text-decoration: underline;">09</span> -<span style="color: #BB0000;">0.024</span><span style="color: #BB0000; text-decoration: underline;">0</span>          1      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> id001 Aphan… Visual          1     2 -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">4</span> 0.005<span style="text-decoration: underline;">09</span> -<span style="color: #BB0000;">0.024</span><span style="color: #BB0000; text-decoration: underline;">0</span>          1      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> id001 Aphan… Visual          1     3 -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">4</span> 0.005<span style="text-decoration: underline;">09</span> -<span style="color: #BB0000;">0.024</span><span style="color: #BB0000; text-decoration: underline;">0</span>          1      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> id001 Aphan… Visual          1     4 -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">4</span> 0.005<span style="text-decoration: underline;">09</span> -<span style="color: #BB0000;">0.024</span><span style="color: #BB0000; text-decoration: underline;">0</span>          1      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> id001 Aphan… Visual          1     5 -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">4</span> 0.005<span style="text-decoration: underline;">09</span> -<span style="color: #BB0000;">0.024</span><span style="color: #BB0000; text-decoration: underline;">0</span>          1      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> id001 Aphan… Visual          1     6 -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">4</span> 0.005<span style="text-decoration: underline;">09</span> -<span style="color: #BB0000;">0.024</span><span style="color: #BB0000; text-decoration: underline;">0</span>          1      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 6 more variables: spatial &lt;dbl&gt;, Y &lt;dbl&gt;, pr &lt;dbl&gt;, n_correct &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   n_trials &lt;int&gt;, mean_acc &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 17</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id    group_4    category accuracy trial group         tau_0  tau_vis tau_spa</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> id001 Aphantasia Visual          1     1 Aphantasia -<span style="color: #BB0000;">0.008</span><span style="color: #BB0000; text-decoration: underline;">23</span> -<span style="color: #BB0000;">0.004</span><span style="color: #BB0000; text-decoration: underline;">34</span> 0.007<span style="text-decoration: underline;">07</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> id001 Aphantasia Visual          1     2 Aphantasia -<span style="color: #BB0000;">0.008</span><span style="color: #BB0000; text-decoration: underline;">23</span> -<span style="color: #BB0000;">0.004</span><span style="color: #BB0000; text-decoration: underline;">34</span> 0.007<span style="text-decoration: underline;">07</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> id001 Aphantasia Visual          1     3 Aphantasia -<span style="color: #BB0000;">0.008</span><span style="color: #BB0000; text-decoration: underline;">23</span> -<span style="color: #BB0000;">0.004</span><span style="color: #BB0000; text-decoration: underline;">34</span> 0.007<span style="text-decoration: underline;">07</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> id001 Aphantasia Visual          1     4 Aphantasia -<span style="color: #BB0000;">0.008</span><span style="color: #BB0000; text-decoration: underline;">23</span> -<span style="color: #BB0000;">0.004</span><span style="color: #BB0000; text-decoration: underline;">34</span> 0.007<span style="text-decoration: underline;">07</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> id001 Aphantasia Visual          1     5 Aphantasia -<span style="color: #BB0000;">0.008</span><span style="color: #BB0000; text-decoration: underline;">23</span> -<span style="color: #BB0000;">0.004</span><span style="color: #BB0000; text-decoration: underline;">34</span> 0.007<span style="text-decoration: underline;">07</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> id001 Aphantasia Visual          1     6 Aphantasia -<span style="color: #BB0000;">0.008</span><span style="color: #BB0000; text-decoration: underline;">23</span> -<span style="color: #BB0000;">0.004</span><span style="color: #BB0000; text-decoration: underline;">34</span> 0.007<span style="text-decoration: underline;">07</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 8 more variables: aphantasia &lt;dbl&gt;, visual &lt;dbl&gt;, spatial &lt;dbl&gt;, Y &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   pr &lt;dbl&gt;, n_correct &lt;int&gt;, n_trials &lt;int&gt;, mean_acc &lt;dbl&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">df</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">category</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
@@ -197,12 +202,12 @@ set.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   group      category mean_acc median_acc sd_acc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Aphantasia Control     0.754          1  0.431</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Aphantasia Spatial     0.78           1  0.414</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Aphantasia Visual      0.794          1  0.404</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Typical    Control     0.788          1  0.409</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Typical    Spatial     0.788          1  0.409</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Typical    Visual      0.809          1  0.393</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Aphantasia Control     0.796          1  0.404</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Aphantasia Spatial     0.782          1  0.413</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Aphantasia Visual      0.784          1  0.411</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Typical    Control     0.772          1  0.420</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Typical    Spatial     0.791          1  0.407</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Typical    Visual      0.783          1  0.412</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

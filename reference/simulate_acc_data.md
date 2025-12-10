@@ -100,17 +100,17 @@ A data frame with the simulated accuracy data.
 ``` r
 df <- simulate_acc_data(100)
 head(df)
-#> # A tibble: 6 × 16
-#>   id    group  category accuracy trial   tau_0 tau_vis tau_spa aphantasia visual
-#>   <chr> <fct>  <fct>       <int> <int>   <dbl>   <dbl>   <dbl>      <dbl>  <dbl>
-#> 1 id001 Aphan… Visual          1     1 -0.0184 0.00509 -0.0240          1      1
-#> 2 id001 Aphan… Visual          1     2 -0.0184 0.00509 -0.0240          1      1
-#> 3 id001 Aphan… Visual          1     3 -0.0184 0.00509 -0.0240          1      1
-#> 4 id001 Aphan… Visual          1     4 -0.0184 0.00509 -0.0240          1      1
-#> 5 id001 Aphan… Visual          1     5 -0.0184 0.00509 -0.0240          1      1
-#> 6 id001 Aphan… Visual          1     6 -0.0184 0.00509 -0.0240          1      1
-#> # ℹ 6 more variables: spatial <dbl>, Y <dbl>, pr <dbl>, n_correct <int>,
-#> #   n_trials <int>, mean_acc <dbl>
+#> # A tibble: 6 × 17
+#>   id    group_4    category accuracy trial group         tau_0  tau_vis tau_spa
+#>   <chr> <fct>      <fct>       <int> <int> <fct>         <dbl>    <dbl>   <dbl>
+#> 1 id001 Aphantasia Visual          1     1 Aphantasia -0.00823 -0.00434 0.00707
+#> 2 id001 Aphantasia Visual          1     2 Aphantasia -0.00823 -0.00434 0.00707
+#> 3 id001 Aphantasia Visual          1     3 Aphantasia -0.00823 -0.00434 0.00707
+#> 4 id001 Aphantasia Visual          1     4 Aphantasia -0.00823 -0.00434 0.00707
+#> 5 id001 Aphantasia Visual          1     5 Aphantasia -0.00823 -0.00434 0.00707
+#> 6 id001 Aphantasia Visual          1     6 Aphantasia -0.00823 -0.00434 0.00707
+#> # ℹ 8 more variables: aphantasia <dbl>, visual <dbl>, spatial <dbl>, Y <dbl>,
+#> #   pr <dbl>, n_correct <int>, n_trials <int>, mean_acc <dbl>
 
 df |>
   dplyr::group_by(group, category) |>
@@ -122,10 +122,10 @@ df |>
 #> # A tibble: 6 × 5
 #>   group      category mean_acc median_acc sd_acc
 #>   <fct>      <fct>       <dbl>      <dbl>  <dbl>
-#> 1 Aphantasia Control     0.754          1  0.431
-#> 2 Aphantasia Spatial     0.78           1  0.414
-#> 3 Aphantasia Visual      0.794          1  0.404
-#> 4 Typical    Control     0.788          1  0.409
-#> 5 Typical    Spatial     0.788          1  0.409
-#> 6 Typical    Visual      0.809          1  0.393
+#> 1 Aphantasia Control     0.796          1  0.404
+#> 2 Aphantasia Spatial     0.782          1  0.413
+#> 3 Aphantasia Visual      0.784          1  0.411
+#> 4 Typical    Control     0.772          1  0.420
+#> 5 Typical    Spatial     0.791          1  0.407
+#> 6 Typical    Visual      0.783          1  0.412
 ```

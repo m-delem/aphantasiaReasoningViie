@@ -46,10 +46,10 @@ if (require("glmmTMB", quietly = TRUE)) {
  report_contrast(model, ~ category | group_2)
 }
 #>            Contrast    group_2 Odds ratio           CI p.value
-#> 1 Control / Spatial Aphantasia      1.000 [0.67, 1.48]   1.000
-#> 2  Control / Visual Aphantasia      1.000 [0.67, 1.48]   1.000
-#> 3  Spatial / Visual Aphantasia      1.000 [0.67, 1.48]   1.000
-#> 4 Control / Spatial    Typical      1.219 [0.82, 1.81]   0.468
-#> 5  Control / Visual    Typical      1.604 [1.09, 2.35]   0.011
-#> 6  Spatial / Visual    Typical      1.315 [0.91, 1.91]   0.194
+#> 1 Spatial / Control Aphantasia      1.000 [0.67, 1.48]   1.000
+#> 2  Visual / Control Aphantasia      1.000 [0.67, 1.48]   1.000
+#> 3  Visual / Spatial Aphantasia      1.000 [0.67, 1.48]   1.000
+#> 4 Spatial / Control    Typical      0.820 [0.55, 1.22]   0.468
+#> 5  Visual / Control    Typical      0.624 [0.43, 0.91]   0.011
+#> 6  Visual / Spatial    Typical      0.760  [0.52, 1.1]   0.194
 ```

@@ -5,7 +5,7 @@ Get performance indices for a model in a clean format
 ## Usage
 
 ``` r
-get_performance(model, ...)
+get_performance(model, metrics = "common", verbose = FALSE, ...)
 ```
 
 ## Arguments
@@ -13,6 +13,15 @@ get_performance(model, ...)
 - model:
 
   A fitted model object.
+
+- metrics:
+
+  Can be "all", "common" or a character vector of metrics to be
+  computed, see `?performance::model_performance()` for details.
+
+- verbose:
+
+  Toggle warnings on or off. Default is FALSE.
 
 - ...:
 

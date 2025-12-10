@@ -40,13 +40,18 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
+<li><h6 class="dropdown-header" data-toc-skip>Preliminary analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">OSIVQ clustering</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Main analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response times</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategies</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exploratory analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt_nl.html">Non-linear RT models</a></li>
   </ul>
 </li>
       </ul>
@@ -85,7 +90,7 @@
     
     
 <p>This vignette dives into the details of the power analysis by
-simulation that is briefly presented in the manuscript (preprint <a href="https://doi.org/10.31234/osf.io/vsjtb_v1" class="external-link">here</a>). We describe
+simulation that is briefly mentioned in the manuscript (preprint <a href="https://doi.org/10.31234/osf.io/vsjtb_v1" class="external-link">here</a>). We describe
 the rationale behind this approach, how we built the generative model
 used to simulate data, how we fitted models on these simulations, and
 how we estimated the power of our model to detect the effect of
@@ -123,11 +128,11 @@ distributions of the observed variables.</p>
 </h3>
 <p>We designed our model before data collection based on our hypotheses
 and variables. This is the model that was be used as the data-generating
-process for the simulations. The model we used is a generalised linear
-mixed-effects model (GLMM) with the following structure, in R
-syntax:</p>
+process for the simulations. The model we used is a hierarchical linear
+model (said “multilevel model” in Bayesian or “mixed model in
+frequentist) with the following structure, in R syntax:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dependent_variable</span> <span class="op">~</span> <span class="va">grouping</span> <span class="op">*</span> <span class="va">category</span> <span class="op">+</span> <span class="op">(</span><span class="va">category</span> <span class="op">|</span> <span class="va">id</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">grouping</span> <span class="op">|</span> <span class="va">problem</span><span class="op">)</span> </span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dependent_variable</span> <span class="op">~</span> <span class="va">grouping</span> <span class="op">*</span> <span class="va">category</span> <span class="op">+</span> <span class="op">(</span><span class="va">category</span> <span class="op">|</span> <span class="va">id</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">problem</span><span class="op">)</span></span></code></pre></div>
 <p>Where the dependent variable can be accuracy or response times
 (RTs).</p>
 <ul>
@@ -141,14 +146,14 @@ spatial or control).</p></li>
 <li><p>The interaction between grouping and category is a third fixed
 factor (implied by the <code>*</code>).</p></li>
 <li><p>The random effects are the intercepts and slopes by category for
-each participant (<code>category | id</code>) and each problem by group
-(<code>grouping | problem</code>).</p></li>
+each participant (<code>category | id</code>) and an intercept per
+problem.</p></li>
 </ul>
 <p>The parameters for each variable can be made explicit by writing the
 model formally as such:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>D</mi><mi>V</mi><mo>=</mo><mspace width="0.222em"></mspace></mtd><mtd columnalign="left" style="text-align: left"><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>τ</mi><mn>0</mn></msub><mo>+</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>β</mi><mrow><mi>g</mi><mi>r</mi><mi>o</mi><mi>u</mi><mi>p</mi><mi>i</mi><mi>n</mi><mi>g</mi></mrow></msub><mo>+</mo><msub><mi>τ</mi><mrow><mi>p</mi><mi>r</mi><mi>o</mi><mi>b</mi><mi>l</mi><mi>e</mi><mi>m</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>g</mi><mi>r</mi><mi>o</mi><mi>u</mi><mi>p</mi><mi>i</mi><mi>n</mi><mi>g</mi><mspace width="0.222em"></mspace><mo>+</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>β</mi><mrow><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>o</mi><mi>r</mi><mi>y</mi></mrow></msub><mo>+</mo><msub><mi>τ</mi><mrow><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>o</mi><mi>r</mi><mi>y</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>o</mi><mi>r</mi><mi>y</mi><mspace width="0.222em"></mspace><mo>+</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>β</mi><mrow><mi>g</mi><mi>r</mi><mi>o</mi><mi>u</mi><mi>p</mi><mi>i</mi><mi>n</mi><mi>g</mi><mo>:</mo><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>o</mi><mi>r</mi><mi>y</mi></mrow></msub><mo>+</mo><msub><mi>τ</mi><mrow><mi>g</mi><mi>r</mi><mi>o</mi><mi>u</mi><mi>p</mi><mi>i</mi><mi>n</mi><mi>g</mi><mo>:</mo><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>o</mi><mi>r</mi><mi>y</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>g</mi><mi>r</mi><mi>o</mi><mi>u</mi><mi>p</mi><mi>i</mi><mi>n</mi><mi>g</mi><mo>×</mo><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>o</mi><mi>r</mi><mi>y</mi><mspace width="0.222em"></mspace><mo>+</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mi>ϵ</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*}
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>D</mi><mi>V</mi><mo>=</mo><mspace width="0.222em"></mspace></mtd><mtd columnalign="left" style="text-align: left"><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>τ</mi><mn>0</mn></msub><mo>+</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>β</mi><mrow><mi>g</mi><mi>r</mi><mi>o</mi><mi>u</mi><mi>p</mi><mi>i</mi><mi>n</mi><mi>g</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>g</mi><mi>r</mi><mi>o</mi><mi>u</mi><mi>p</mi><mi>i</mi><mi>n</mi><mi>g</mi><mspace width="0.222em"></mspace><mo>+</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>β</mi><mrow><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>o</mi><mi>r</mi><mi>y</mi></mrow></msub><mo>+</mo><msub><mi>τ</mi><mrow><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>o</mi><mi>r</mi><mi>y</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>o</mi><mi>r</mi><mi>y</mi><mspace width="0.222em"></mspace><mo>+</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>β</mi><mrow><mi>g</mi><mi>r</mi><mi>o</mi><mi>u</mi><mi>p</mi><mi>i</mi><mi>n</mi><mi>g</mi><mo>:</mo><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>o</mi><mi>r</mi><mi>y</mi></mrow></msub><mo>+</mo><msub><mi>τ</mi><mrow><mi>g</mi><mi>r</mi><mi>o</mi><mi>u</mi><mi>p</mi><mi>i</mi><mi>n</mi><mi>g</mi><mo>:</mo><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>o</mi><mi>r</mi><mi>y</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>g</mi><mi>r</mi><mi>o</mi><mi>u</mi><mi>p</mi><mi>i</mi><mi>n</mi><mi>g</mi><mo>×</mo><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>o</mi><mi>r</mi><mi>y</mi><mspace width="0.222em"></mspace><mo>+</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mi>ϵ</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*}
 DV = \ &amp; \beta_0 + \tau_0 + \\
-  &amp; (\beta_{grouping} + \tau_{problem}) \times grouping \ + \\
+  &amp; (\beta_{grouping}) \times grouping \ + \\
   &amp; (\beta_{category} + \tau_{category}) \times category \ + \\
   &amp; (\beta_{grouping:category} + \tau_{grouping:category}) \times grouping \times category \ + \\
   &amp; \epsilon
@@ -169,10 +174,6 @@ global intercept per participant).</li>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>g</mi><mi>r</mi><mi>o</mi><mi>u</mi><mi>p</mi><mi>i</mi><mi>n</mi><mi>g</mi></mrow></msub><annotation encoding="application/x-tex">\beta_{grouping}</annotation></semantics></math>
 is the fixed effect of the grouping variable (the difference in the
 dependent variable between the groups).</li>
-<li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mrow><mi>p</mi><mi>r</mi><mi>o</mi><mi>b</mi><mi>l</mi><mi>e</mi><mi>m</mi></mrow></msub><annotation encoding="application/x-tex">\tau_{problem}</annotation></semantics></math>
-is the random effect of the problem (the variation of the grouping
-effect per problem).</li>
 <li>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>c</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>o</mi><mi>r</mi><mi>y</mi></mrow></msub><annotation encoding="application/x-tex">\beta_{category}</annotation></semantics></math>
 is the fixed effect of the category variable (the difference in the
@@ -209,14 +210,13 @@ a specific group (aphantasia), that we called the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>a</mi><mi>p</mi><mi>h</mi><mo>−</mo><mi>v</mi><mi>i</mi><mi>s</mi></mrow></msub><annotation encoding="application/x-tex">\beta_{aph-vis}</annotation></semantics></math>
 coefficient. Thus, for our simulations, we set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>g</mi><mi>r</mi><mi>o</mi><mi>u</mi><mi>p</mi><mi>i</mi><mi>n</mi><mi>g</mi></mrow></msub><annotation encoding="application/x-tex">\beta_{grouping}</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mrow><mi>p</mi><mi>r</mi><mi>o</mi><mi>b</mi><mi>l</mi><mi>e</mi><mi>m</mi></mrow></msub><annotation encoding="application/x-tex">\tau_{problem}</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mrow><mi>s</mi><mi>p</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>a</mi><mi>l</mi></mrow></msub><annotation encoding="application/x-tex">\beta_{spatial}</annotation></semantics></math>
 (the effect of the spatial category) and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mrow><mi>s</mi><mi>p</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>a</mi><mi>l</mi></mrow></msub><annotation encoding="application/x-tex">\tau_{spatial}</annotation></semantics></math>
 (the associated slope) and all other interaction coefficients to 0,
 respectively because we had no hypothesis or previous data on the group
-effect, the difference between the problems, the spatial effect, or the
-variation in spatial performance.</p>
+effect, the effect of the problems, the spatial effect, or the variation
+in spatial performance.</p>
 <p>Given this theoretical model and our assumptions, we tried to choose
 constant values for the remaining parameters that were not analysed
 (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\beta_{0}</annotation></semantics></math>,
@@ -402,14 +402,19 @@ model is able to detect it.</p>
 <div class="section level3">
 <h3 id="modelling-and-testing-the-contrast-of-interest">Modelling and testing the contrast of interest<a class="anchor" aria-label="anchor" href="#modelling-and-testing-the-contrast-of-interest"></a>
 </h3>
-<p>For our final analyses, we fitted frequentist GLMMs with Gamma
-distributions using the <code>glmmTMB</code> package. For the sake of
-computation speed, and because we did not simulate any variance tied to
-the problem types, we simplified the formula for the power analyses by
-removing the second random term. <em>Note the use of the
-<code><a href="../reference/set_ranef_prior.html">set_ranef_prior()</a></code> helper function, which helps setting
-regularizing priors on the random effects’ SD to alleviate convergence
-issues</em>.</p>
+<p>The main analyses reported in the manuscript are Bayesian
+hierarchical models. However, to achieve reasonable computation times
+while allowing us to simulate and fit a lot of models, we conducted
+power analyses with frequentist equivalents (GLMMs with Gamma
+distributions) using the <code>glmmTMB</code> package<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;The &lt;code&gt;&lt;a href="../reference/set_ranef_prior.html"&gt;set_ranef_prior()&lt;/a&gt;&lt;/code&gt; function helps
+setting regularizing priors on the random effects’ SD to alleviate
+convergence issues.&lt;/p&gt;'><sup>1</sup></a>. We also simplified
+the formula to speed up computation by removing the second random term,
+as we did not simulate any variance tied to problem types. <em>Note that
+all final analyses have also been conducted using frequentist models to
+assess the consistency of Bayesian and frequentist results. These
+additional frequentist analyses are reported in full in the other
+vignettes of this package.</em></p>
 <p>Let’s see how this model performs on our test data. We’ll use the
 <code><a href="../reference/report_contrast.html">report_contrast()</a></code> function from the package to get the
 contrasts of interest easily.</p>
@@ -433,45 +438,45 @@ contrasts of interest easily.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">Control - Spatial</td>
+<td align="left">Spatial - Control</td>
 <td align="left">Aphantasia</td>
-<td align="right">0.034</td>
-<td align="left">[-0.56, 0.63]</td>
+<td align="right">-0.034</td>
+<td align="left">[-0.63, 0.56]</td>
 <td align="right">0.990</td>
 </tr>
 <tr class="even">
-<td align="left">Control - Visual</td>
+<td align="left">Visual - Control</td>
 <td align="left">Aphantasia</td>
-<td align="right">-0.352</td>
-<td align="left">[-0.89, 0.19]</td>
+<td align="right">0.352</td>
+<td align="left">[-0.19, 0.89]</td>
 <td align="right">0.278</td>
 </tr>
 <tr class="odd">
-<td align="left">Spatial - Visual</td>
+<td align="left">Visual - Spatial</td>
 <td align="left">Aphantasia</td>
-<td align="right">-0.386</td>
-<td align="left">[-0.98, 0.21]</td>
+<td align="right">0.386</td>
+<td align="left">[-0.21, 0.98]</td>
 <td align="right">0.277</td>
 </tr>
 <tr class="even">
-<td align="left">Control - Spatial</td>
+<td align="left">Spatial - Control</td>
 <td align="left">Typical</td>
-<td align="right">0.241</td>
-<td align="left">[-0.36, 0.84]</td>
+<td align="right">-0.241</td>
+<td align="left">[-0.84, 0.36]</td>
 <td align="right">0.618</td>
 </tr>
 <tr class="odd">
-<td align="left">Control - Visual</td>
+<td align="left">Visual - Control</td>
 <td align="left">Typical</td>
-<td align="right">-2.311</td>
-<td align="left">[-2.9, -1.72]</td>
+<td align="right">2.311</td>
+<td align="left">[1.72, 2.9]</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="even">
-<td align="left">Spatial - Visual</td>
+<td align="left">Visual - Spatial</td>
 <td align="left">Typical</td>
-<td align="right">-2.552</td>
-<td align="left">[-3.19, -1.91]</td>
+<td align="right">2.552</td>
+<td align="left">[1.91, 3.19]</td>
 <td align="right">0.000</td>
 </tr>
 </tbody>
@@ -482,39 +487,39 @@ simulated a 2.35s effect, with some random variance added). How about
 the interaction contrasts?</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="va">model</span>, <span class="op">~</span> <span class="va">group</span> <span class="op">*</span> <span class="va">category</span>, interaction <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<table style="width:100%;" class="table">
+<table class="table">
 <colgroup>
-<col width="29%">
-<col width="25%">
-<col width="15%">
-<col width="18%">
-<col width="11%">
+<col width="28%">
+<col width="28%">
+<col width="14%">
+<col width="17%">
+<col width="10%">
 </colgroup>
 <thead><tr class="header">
-<th align="left">Group contrast</th>
-<th align="left">Category contrast</th>
+<th align="left">group_revpairwise</th>
+<th align="left">category_revpairwise</th>
 <th align="right">Difference</th>
 <th align="left">95% CI</th>
 <th align="right">p.value</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">Aphantasia - Typical</td>
-<td align="left">Control - Spatial</td>
+<td align="left">Typical - Aphantasia</td>
+<td align="left">Spatial - Control</td>
 <td align="right">-0.207</td>
 <td align="left">[-0.91, 0.5]</td>
 <td align="right">0.566</td>
 </tr>
 <tr class="even">
-<td align="left">Aphantasia - Typical</td>
-<td align="left">Control - Visual</td>
+<td align="left">Typical - Aphantasia</td>
+<td align="left">Visual - Control</td>
 <td align="right">1.960</td>
 <td align="left">[1.29, 2.63]</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="odd">
-<td align="left">Aphantasia - Typical</td>
-<td align="left">Spatial - Visual</td>
+<td align="left">Typical - Aphantasia</td>
+<td align="left">Visual - Spatial</td>
 <td align="right">2.166</td>
 <td align="left">[1.44, 2.89]</td>
 <td align="right">0.000</td>
@@ -639,14 +644,14 @@ the VIIE.</p>
 <span><span class="co">#&gt;  collate  C.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2025-11-20</span></span>
+<span><span class="co">#&gt;  date     2025-12-10</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt;  quarto   1.8.26 @ /usr/local/bin/quarto</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">!</span> <span style="color: #555555; font-style: italic;">package                </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version   </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
 <span><span class="co">#&gt;    abind                     1.4-8      <span style="color: #555555;">2024-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    aphantasiaReasoningViie * 1.0        <span style="color: #555555;">2025-11-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
+<span><span class="co">#&gt;    aphantasiaReasoningViie * 1.0        <span style="color: #555555;">2025-12-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
 <span><span class="co">#&gt;    backports                 1.5.0      <span style="color: #555555;">2024-05-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    bayesplot                 1.14.0     <span style="color: #555555;">2025-08-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> boot                      1.3-32     <span style="color: #555555;">2025-08-29</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
@@ -679,7 +684,7 @@ the VIIE.</p>
 <span><span class="co">#&gt;    glmmTMB                   1.1.13     <span style="color: #555555;">2025-10-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    glue                      1.8.0      <span style="color: #555555;">2024-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    gtable                    0.3.6      <span style="color: #555555;">2024-10-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    htmltools                 0.5.8.1    <span style="color: #555555;">2024-04-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    htmltools                 0.5.9      <span style="color: #555555;">2025-12-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    htmlwidgets               1.6.4      <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    httpuv                    1.6.16     <span style="color: #555555;">2025-04-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    jquerylib                 0.1.4      <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -688,7 +693,7 @@ the VIIE.</p>
 <span><span class="co">#&gt;    later                     1.4.4      <span style="color: #555555;">2025-08-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> lattice                   0.22-7     <span style="color: #555555;">2025-04-02</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
 <span><span class="co">#&gt;    lifecycle                 1.0.4      <span style="color: #555555;">2023-11-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    lme4                      1.1-37     <span style="color: #555555;">2025-03-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    lme4                      1.1-38     <span style="color: #555555;">2025-12-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    loo                       2.8.0      <span style="color: #555555;">2024-07-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    lsr                       0.5.2      <span style="color: #555555;">2021-12-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    magrittr                  2.0.4      <span style="color: #555555;">2025-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -727,20 +732,20 @@ the VIIE.</p>
 <span><span class="co">#&gt;    reshape2                  1.4.5      <span style="color: #555555;">2025-11-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    rlang                     1.1.6      <span style="color: #555555;">2025-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    rmarkdown                 2.30       <span style="color: #555555;">2025-09-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    rrapply                   1.2.7      <span style="color: #555555;">2024-06-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    rrapply                   1.2.8      <span style="color: #555555;">2025-11-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    rstantools                2.5.0      <span style="color: #555555;">2025-09-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    S7                        0.2.1      <span style="color: #555555;">2025-11-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    sandwich                  3.1-1      <span style="color: #555555;">2024-09-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    sass                      0.4.10     <span style="color: #555555;">2025-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    scales                    1.4.0      <span style="color: #555555;">2025-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    sessioninfo               1.2.3      <span style="color: #555555;">2025-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    shiny                     1.11.1     <span style="color: #555555;">2025-07-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    shiny                     1.12.0     <span style="color: #555555;">2025-12-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    shinyBS                   0.61.1     <span style="color: #555555;">2022-04-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    showtext                  0.9-7      <span style="color: #555555;">2024-03-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    showtextdb                3.0        <span style="color: #555555;">2020-06-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    stringi                   1.8.7      <span style="color: #555555;">2025-03-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    stringr                   1.6.0      <span style="color: #555555;">2025-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    superb                  * 1.0.0      <span style="color: #555555;">2025-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    superb                  * 1.0.1      <span style="color: #555555;">2025-12-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    sysfonts                  0.8.9      <span style="color: #555555;">2024-03-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    systemfonts               1.3.1      <span style="color: #555555;">2025-10-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    tensorA                   0.36.2.1   <span style="color: #555555;">2023-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -756,7 +761,7 @@ the VIIE.</p>
 <span><span class="co">#&gt;    withr                     3.0.2      <span style="color: #555555;">2024-10-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    xfun                      0.54       <span style="color: #555555;">2025-10-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    xtable                    1.8-4      <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    yaml                      2.3.10     <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    yaml                      2.3.11     <span style="color: #555555;">2025-11-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    zoo                       1.8-14     <span style="color: #555555;">2025-04-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu</span></span></span>
@@ -770,10 +775,11 @@ the VIIE.</p>
 <h3 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
-<div id="ref-delem2025uncovering" class="csl-entry">
-Delem, M., Turkben, S., Cousineau, D., Cavalli, E., &amp; Plancher, G.
-(2025). <em>Unsupervised clustering reveals spatial and verbal cognitive
-profiles in aphantasia and typical imagery</em>.
+<div id="ref-delemUnsupervisedClusteringReveals2025a" class="csl-entry">
+Delem, M., Turkben, S., Cavalli, E., Cousineau, D., &amp; Plancher, G.
+(2025). Unsupervised clustering reveals spatial and verbal cognitive
+profiles in aphantasia and typical imagery. <em>Neuropsychologia</em>,
+<em>219</em>, 109279. <a href="https://doi.org/10.1016/j.neuropsychologia.2025.109279" class="external-link">https://doi.org/10.1016/j.neuropsychologia.2025.109279</a>
 </div>
 <div id="ref-gazzoIndividualDifferencesImagery2013" class="csl-entry">
 Gazzo, E., Knauff, M., &amp; Knauff, M. (2013). <em>Individual
@@ -795,6 +801,7 @@ Psychology</em>, <em>15</em>, 1454107. <a href="https://doi.org/10.3389/fpsyg.20
 </div>
 </div>
 </div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

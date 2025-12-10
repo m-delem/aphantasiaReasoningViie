@@ -8,7 +8,7 @@ contains the following columns:
 
 - `language` (the language the experiment was conducted in, FR or EN)
 
-- `group` (aphantasia, hypophantasia, typical, hyperphantasia or
+- `group_4` (aphantasia, hypophantasia, typical, hyperphantasia or
   no_vviq)
 
 - `expe_phase` (the phase of the experiment)

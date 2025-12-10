@@ -21,6 +21,7 @@ survey data.
 
 ``` r
 get_clean_data(
+  type = "all",
   n_groups = 2,
   exclude_no_vviq = TRUE,
   exclude_no_osivq = TRUE,
@@ -38,6 +39,10 @@ get_clean_data(
 ```
 
 ## Arguments
+
+- type:
+
+  The type of data to return: "experiment", "survey", or "all".
 
 - n_groups:
 
@@ -105,16 +110,20 @@ get_clean_data(
 
 ## Value
 
-A list containing two data frames:
+A cleaned data frame or a list of cleaned data frames, depending on the
+`type` parameter:
 
-- `df_expe`: The cleaned experiment data.
+- If `type` is "experiment", returns the cleaned experiment data frame.
 
-- `df_survey`: The cleaned survey data.
+- If `type` is "survey", returns the cleaned survey data frame.
+
+- If `type` is "all", returns a list containing both cleaned data
+  frames.
 
 ## Examples
 
 ``` r
-clean_data <- get_clean_data(verbose = TRUE)
+clean_data <- get_clean_data(type = "all", verbose = TRUE)
 #> 
 #> Sample size before accuracy analysis: 137
 #> Participants below random accuracy (<= 50%): 8 (5.84%)
@@ -135,38 +144,73 @@ clean_data <- get_clean_data(verbose = TRUE)
 #> 
 #> Sample size before median RTs analysis: 106
 #> Participants with median RTs outside 2.25 SDs: 2 (1.89%)
-head(clean_data$df_expe)
-#> # A tibble: 6 × 29
-#>   id       language group group_2 group_3 strategy_group expe_phase trial_number
-#>   <fct>    <fct>    <fct> <fct>   <fct>   <fct>          <fct>             <int>
-#> 1 acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            1
-#> 2 acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            2
-#> 3 acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            3
-#> 4 acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            4
-#> 5 acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            5
-#> 6 acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            6
-#> # ℹ 21 more variables: problem <int>, category <fct>, premise_1_rt <dbl>,
-#> #   premise_2_rt <dbl>, premise_3_rt <dbl>, conclusion_rt <dbl>,
-#> #   rt_total <dbl>, response <fct>, correct_response <fct>, accuracy <int>,
-#> #   acc_perc <dbl>, visual_strat <ord>, verbal_strat <ord>,
-#> #   spatial_strat <ord>, semantic_strat <ord>, sensorimotor_strat <ord>,
-#> #   asso_strat_1 <fct>, other_strat <fct>, asso_strat_2 <fct>,
-#> #   asso_strat_3 <fct>, median_rt <dbl>
-head(clean_data$df_survey)
-#> # A tibble: 6 × 113
-#>   id          language   age gender group group_2 group_3 strategy_group country
-#>   <fct>       <fct>    <int> <fct>  <fct> <fct>   <fct>   <fct>          <fct>  
-#> 1 acdn247721… fr          24 f      Typi… Typical Typical No visual str… fra    
-#> 2 ahos206230… fr          26 f      Apha… Aphant… Aphant… No visual str… fra    
-#> 3 anoo201523… fr          23 m      Typi… Typical Typical Visual strate… fra    
-#> 4 arje911192… fr          26 f      Typi… Typical Typical Visual strate… fra    
-#> 5 auzb748856… fr          25 f      Typi… Typical Typical No visual str… fra    
-#> 6 azcj317771… fr          28 m      Hypo… Aphant… Hypoph… Visual strate… fra    
-#> # ℹ 104 more variables: language_native <fct>, language_usual <fct>, job <fct>,
-#> #   education <fct>, field <fct>, vviq_is_complete <lgl>,
-#> #   vviq_total_score <int>, vviq_q01 <int>, vviq_q02 <int>, vviq_q03 <int>,
-#> #   vviq_q04 <int>, vviq_q05 <int>, vviq_q06 <int>, vviq_q07 <int>,
-#> #   vviq_q08 <int>, vviq_q09 <int>, vviq_q10 <int>, vviq_q11 <int>,
-#> #   vviq_q12 <int>, vviq_q13 <int>, vviq_q14 <int>, vviq_q15 <int>,
-#> #   vviq_q16 <int>, osivq_is_complete <lgl>, osivq_object <dbl>, …
+colnames(get_clean_data(type = "experiment"))
+#>  [1] "id"                 "language"           "group_4"           
+#>  [4] "group_2"            "group_3"            "strategy_group"    
+#>  [7] "expe_phase"         "trial_number"       "problem"           
+#> [10] "category"           "premise_1_rt"       "premise_2_rt"      
+#> [13] "premise_3_rt"       "conclusion_rt"      "rt_total"          
+#> [16] "response"           "correct_response"   "accuracy"          
+#> [19] "acc_perc"           "visual_strat"       "verbal_strat"      
+#> [22] "spatial_strat"      "semantic_strat"     "sensorimotor_strat"
+#> [25] "asso_strat_1"       "other_strat"        "asso_strat_2"      
+#> [28] "asso_strat_3"       "median_rt"         
+colnames(get_clean_data(type = "survey"))
+#>   [1] "id"                       "language"                
+#>   [3] "age"                      "gender"                  
+#>   [5] "group_4"                  "group_2"                 
+#>   [7] "group_3"                  "strategy_group"          
+#>   [9] "country"                  "language_native"         
+#>  [11] "language_usual"           "job"                     
+#>  [13] "education"                "field"                   
+#>  [15] "vviq_is_complete"         "vviq_total_score"        
+#>  [17] "vviq_q01"                 "vviq_q02"                
+#>  [19] "vviq_q03"                 "vviq_q04"                
+#>  [21] "vviq_q05"                 "vviq_q06"                
+#>  [23] "vviq_q07"                 "vviq_q08"                
+#>  [25] "vviq_q09"                 "vviq_q10"                
+#>  [27] "vviq_q11"                 "vviq_q12"                
+#>  [29] "vviq_q13"                 "vviq_q14"                
+#>  [31] "vviq_q15"                 "vviq_q16"                
+#>  [33] "osivq_is_complete"        "osivq_object"            
+#>  [35] "osivq_spatial"            "osivq_verbal"            
+#>  [37] "osivq_q01s"               "osivq_q02v"              
+#>  [39] "osivq_q04v"               "osivq_q05s"              
+#>  [41] "osivq_q06o"               "osivq_q07s"              
+#>  [43] "osivq_q08v"               "osivq_q09v"              
+#>  [45] "osivq_q11o"               "osivq_q12o"              
+#>  [47] "osivq_q13o"               "osivq_q14s"              
+#>  [49] "osivq_q16v"               "osivq_q17s"              
+#>  [51] "osivq_q18o"               "osivq_q20o"              
+#>  [53] "osivq_q23o"               "osivq_q26o"              
+#>  [55] "osivq_q27s"               "osivq_q29o"              
+#>  [57] "osivq_q30s"               "osivq_q31s"              
+#>  [59] "osivq_q32s"               "osivq_q33o"              
+#>  [61] "osivq_q34o"               "osivq_q35v"              
+#>  [63] "osivq_q37v"               "osivq_q39v"              
+#>  [65] "osivq_q40o"               "osivq_q41v"              
+#>  [67] "osivq_q42s"               "osivq_q43o"              
+#>  [69] "osivq_q44s"               "osivq_q45o"              
+#>  [71] "raven_is_complete"        "raven_score"             
+#>  [73] "nieq_is_complete"         "nieq_voice"              
+#>  [75] "nieq_visual"              "nieq_emotions"           
+#>  [77] "nieq_sensory"             "nieq_abstract"           
+#>  [79] "nieq_freq_inner_voice"    "nieq_freq_mental_imagery"
+#>  [81] "nieq_freq_emotions"       "nieq_freq_sensory_focus" 
+#>  [83] "nieq_freq_unsymbolised"   "nieq_prop_inner_voice"   
+#>  [85] "nieq_prop_mental_imagery" "nieq_prop_emotions"      
+#>  [87] "nieq_prop_sensory_focus"  "nieq_prop_unsymbolised"  
+#>  [89] "gave_false_info"          "what_false_info"         
+#>  [91] "visual_strat"             "verbal_strat"            
+#>  [93] "spatial_strat"            "semantic_strat"          
+#>  [95] "sensorimotor_strat"       "asso_strat_1"            
+#>  [97] "other_strat"              "asso_strat_2"            
+#>  [99] "asso_strat_3"             "prognosis"               
+#> [101] "neuro_trouble"            "treatment"               
+#> [103] "has_adhd"                 "has_asd"                 
+#> [105] "has_dyslexia"             "has_other_neuro_trouble" 
+#> [107] "has_treatment"            "has_been_distracted"     
+#> [109] "has_cheated"              "met_issues"              
+#> [111] "issues"                   "used_external_support"   
+#> [113] "what_external_support"   
 ```

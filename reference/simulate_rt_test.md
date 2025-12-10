@@ -43,9 +43,9 @@ The p-value for the group x control-visual interaction contrast.
 
 ``` r
 simulate_rt_test(10, 1)   # Low power, unlikely to detect the effect
-#> [1] 0.733
+#> [1] 0.172
 simulate_rt_test(40, 1.5) # Better power, more likely
-#> [1] 0.05
-simulate_rt_test(150, 1)  # High power, highly likely even for a small effect
 #> [1] 0.02
+simulate_rt_test(150, 1)  # High power, highly likely even for a small effect
+#> [1] 0.003
 ```

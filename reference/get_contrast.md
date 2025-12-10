@@ -5,7 +5,14 @@ Get the pairwise contrasts of variables in a model
 ## Usage
 
 ``` r
-get_contrast(model, formula, at = NULL, ...)
+get_contrast(
+  model,
+  formula,
+  type = "response",
+  at = NULL,
+  method = "revpairwise",
+  ...
+)
 ```
 
 ## Arguments
@@ -20,9 +27,17 @@ get_contrast(model, formula, at = NULL, ...)
   [`?emmeans::emmeans`](https://rvlenth.github.io/emmeans/reference/emmeans.html)
   for details.
 
+- type:
+
+  Type of response to be returned. Default is "response".
+
 - at:
 
   Optional. A list of values at which to evaluate the contrasts.
+
+- method:
+
+  Method for computing the contrasts. Default is "revpairwise".
 
 - ...:
 
@@ -51,15 +66,15 @@ if (require("glmmTMB", quietly = TRUE)) {
 }
 #> group_2 = Aphantasia:
 #>  contrast          odds.ratio    SE  df null z.ratio p.value
-#>  Control / Spatial       1.00 0.169 Inf    1   0.000  1.0000
-#>  Control / Visual        1.00 0.169 Inf    1   0.000  1.0000
-#>  Spatial / Visual        1.00 0.169 Inf    1   0.000  1.0000
+#>  Spatial / Control      1.000 0.169 Inf    1   0.000  1.0000
+#>  Visual / Control       1.000 0.169 Inf    1   0.000  1.0000
+#>  Visual / Spatial       1.000 0.169 Inf    1   0.000  1.0000
 #> 
 #> group_2 = Typical:
 #>  contrast          odds.ratio    SE  df null z.ratio p.value
-#>  Control / Spatial       1.22 0.205 Inf    1   1.176  0.4676
-#>  Control / Visual        1.60 0.262 Inf    1   2.890  0.0108
-#>  Spatial / Visual        1.32 0.208 Inf    1   1.731  0.1935
+#>  Spatial / Control      0.820 0.138 Inf    1  -1.176  0.4676
+#>  Visual / Control       0.624 0.102 Inf    1  -2.890  0.0108
+#>  Visual / Spatial       0.760 0.120 Inf    1  -1.731  0.1935
 #> 
 #> P value adjustment: tukey method for comparing a family of 3 estimates 
 #> Tests are performed on the log odds ratio scale 

@@ -18,13 +18,18 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Preliminary analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">OSIVQ clustering</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Main analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response times</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategies</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exploratory analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt_nl.html">Non-linear RT models</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -61,7 +66,7 @@
 
 
 <dl><dt id="arg-df">df<a class="anchor" aria-label="anchor" href="#arg-df"></a></dt>
-<dd><p>A data frame with columns <code>group</code>, <code>cluster</code>, <code>vviq_total_score</code>,
+<dd><p>A data frame with columns <code>group_4</code>, <code>cluster</code>, <code>vviq_total_score</code>,
 <code>osivq_object</code>, <code>osivq_spatial</code>, <code>osivq_verbal</code>, and <code>raven_score</code>.</p></dd>
 
 </dl></div>
@@ -81,7 +86,7 @@ OSIVQ spatial, OSIVQ verbal, and Raven scores.</p>
 <span class="r-in"><span> <span class="fu"><a href="add_named_clusters.html">add_named_clusters</a></span><span class="op">(</span><span class="va">clustering</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span> <span class="fu">summarise_clustering</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   group          cluster       n  vviq object spatial verbal raven</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   group_4        cluster       n  vviq object spatial verbal raven</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Hypophantasia  cluster_1     3  24     1.67    3.67   2.55  15.7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Typical        cluster_1    12  50.9   2.39    2.84   2.46  15.3</span>
@@ -89,7 +94,7 @@ OSIVQ spatial, OSIVQ verbal, and Raven scores.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Typical        cluster_2    38  57.3   3.71    2.87   3.09  15.8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Hyperphantasia cluster_2     4  77.5   4.41    3.93   3.56  15  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Aphantasia     cluster_2     1  16     4.93    3.27   4.44  16  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> Aphantasia     cluster_3    25  16.0   1.25    2.26   3.38  16.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> Aphantasia     cluster_3    25  16     1.25    2.26   3.38  16.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> Hypophantasia  cluster_3    14  23.7   1.36    2.52   3.5   15.3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span> Typical        cluster_3     3  50.3   1.76    2.67   4.11  17.3</span>
 </code></pre></div>

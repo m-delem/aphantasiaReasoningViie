@@ -86,16 +86,16 @@ A tibble containing the simulated strategies data for the four groups.
 ``` r
 df <- simulate_strats_data(n = 100, seed = 123)
 head(df)
-#> # A tibble: 6 × 7
-#>   id                group visual_strat spatial_strat verbal_strat semantic_strat
-#>   <chr>             <fct>        <int>         <int>        <int>          <int>
-#> 1 subj_aphantasia_1 Apha…            1             5            1              2
-#> 2 subj_aphantasia_2 Apha…            1             4            2              1
-#> 3 subj_aphantasia_3 Apha…            1             4            2              2
-#> 4 subj_aphantasia_4 Apha…            1             3            1              1
-#> 5 subj_aphantasia_5 Apha…            2             4            1              1
-#> 6 subj_aphantasia_6 Apha…            1             5            2              1
-#> # ℹ 1 more variable: sensorimotor_strat <int>
+#> # A tibble: 6 × 8
+#>   id              group_4 visual_strat spatial_strat verbal_strat semantic_strat
+#>   <chr>           <chr>          <int>         <int>        <int>          <int>
+#> 1 subj_aphantasi… Aphant…            1             5            1              2
+#> 2 subj_aphantasi… Aphant…            1             4            2              1
+#> 3 subj_aphantasi… Aphant…            1             4            2              2
+#> 4 subj_aphantasi… Aphant…            1             3            1              1
+#> 5 subj_aphantasi… Aphant…            2             4            1              1
+#> 6 subj_aphantasi… Aphant…            1             5            2              1
+#> # ℹ 2 more variables: sensorimotor_strat <int>, group <fct>
 
 df |>
  dplyr::group_by(group) |>

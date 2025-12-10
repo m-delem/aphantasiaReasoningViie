@@ -74,9 +74,9 @@ cluster assignments.
 df <- get_clean_data()$df_survey
 clustering <- cluster_osivq(df)
 
-df |> add_named_clusters(clustering) |> dplyr::select(id, group, cluster)
+df |> add_named_clusters(clustering) |> dplyr::select(id, group_4, cluster)
 #> # A tibble: 104 × 3
-#>    id                      group          cluster  
+#>    id                      group_4        cluster  
 #>    <fct>                   <fct>          <fct>    
 #>  1 acdn247721443631359lzxb Typical        cluster_2
 #>  2 ahos206230340719944kiwl Aphantasia     cluster_3

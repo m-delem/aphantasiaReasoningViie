@@ -1,7 +1,7 @@
 # Power analysis by simulation
 
 This vignette dives into the details of the power analysis by simulation
-that is briefly presented in the manuscript (preprint
+that is briefly mentioned in the manuscript (preprint
 [here](https://doi.org/10.31234/osf.io/vsjtb_v1)). We describe the
 rationale behind this approach, how we built the generative model used
 to simulate data, how we fitted models on these simulations, and how we
@@ -38,11 +38,12 @@ distributions of the observed variables.
 
 We designed our model before data collection based on our hypotheses and
 variables. This is the model that was be used as the data-generating
-process for the simulations. The model we used is a generalised linear
-mixed-effects model (GLMM) with the following structure, in R syntax:
+process for the simulations. The model we used is a hierarchical linear
+model (said “multilevel model” in Bayesian or “mixed model in
+frequentist) with the following structure, in R syntax:
 
 ``` r
-dependent_variable ~ grouping * category + (category | id) + (grouping | problem) 
+dependent_variable ~ grouping * category + (category | id) + (1 | problem)
 ```
 
 Where the dependent variable can be accuracy or response times (RTs).
@@ -59,15 +60,14 @@ Where the dependent variable can be accuracy or response times (RTs).
   (implied by the `*`).
 
 - The random effects are the intercepts and slopes by category for each
-  participant (`category | id`) and each problem by group
-  (`grouping | problem`).
+  participant (`category | id`) and an intercept per problem.
 
 The parameters for each variable can be made explicit by writing the
 model formally as such:
 
 $$\begin{aligned}
 {DV = \ } & {\beta_{0} + \tau_{0} +} \\
- & {\left( \beta_{grouping} + \tau_{problem} \right) \times grouping\  +} \\
+ & {\left( \beta_{grouping} \right) \times grouping\  +} \\
  & {\left( \beta_{category} + \tau_{category} \right) \times category\  +} \\
  & {\left( \beta_{grouping:category} + \tau_{grouping:category} \right) \times grouping \times category\  +} \\
  & \epsilon
@@ -82,8 +82,6 @@ Where:
   of the global intercept per participant).
 - $\beta_{grouping}$ is the fixed effect of the grouping variable (the
   difference in the dependent variable between the groups).
-- $\tau_{problem}$ is the random effect of the problem (the variation of
-  the grouping effect per problem).
 - $\beta_{category}$ is the fixed effect of the category variable (the
   difference in the dependent variable between the categories).
 - $\tau_{category}$ is the random effect of the category (the variation
@@ -104,12 +102,12 @@ purposes, we are only interested in the difference between the visual
 category and the others, that we called the $\beta_{vis}$ coefficient,
 and the difference in this difference (the interaction) for a specific
 group (aphantasia), that we called the $\beta_{aph - vis}$ coefficient.
-Thus, for our simulations, we set $\beta_{grouping}$, $\tau_{problem}$,
-$\beta_{spatial}$ (the effect of the spatial category) and
-$\tau_{spatial}$ (the associated slope) and all other interaction
-coefficients to 0, respectively because we had no hypothesis or previous
-data on the group effect, the difference between the problems, the
-spatial effect, or the variation in spatial performance.
+Thus, for our simulations, we set $\beta_{grouping}$, $\beta_{spatial}$
+(the effect of the spatial category) and $\tau_{spatial}$ (the
+associated slope) and all other interaction coefficients to 0,
+respectively because we had no hypothesis or previous data on the group
+effect, the effect of the problems, the spatial effect, or the variation
+in spatial performance.
 
 Given this theoretical model and our assumptions, we tried to choose
 constant values for the remaining parameters that were not analysed
@@ -289,14 +287,16 @@ All set! Now we can move on to the actual power analysis.
 
 ### Modelling and testing the contrast of interest
 
-For our final analyses, we fitted frequentist GLMMs with Gamma
-distributions using the `glmmTMB` package. For the sake of computation
-speed, and because we did not simulate any variance tied to the problem
-types, we simplified the formula for the power analyses by removing the
-second random term. *Note the use of the
-[`set_ranef_prior()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/set_ranef_prior.md)
-helper function, which helps setting regularizing priors on the random
-effects’ SD to alleviate convergence issues*.
+The main analyses reported in the manuscript are Bayesian hierarchical
+models. However, to achieve reasonable computation times while allowing
+us to simulate and fit a lot of models, we conducted power analyses with
+frequentist equivalents (GLMMs with Gamma distributions) using the
+`glmmTMB` package[¹](#fn1). We also simplified the formula to speed up
+computation by removing the second random term, as we did not simulate
+any variance tied to problem types. *Note that all final analyses have
+also been conducted using frequentist models to assess the consistency
+of Bayesian and frequentist results. These additional frequentist
+analyses are reported in full in the other vignettes of this package.*
 
 Let’s see how this model performs on our test data. We’ll use the
 [`report_contrast()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/report_contrast.md)
@@ -314,14 +314,14 @@ model <-
 report_contrast(model, ~ category | group) |> knitr::kable()
 ```
 
-| Contrast          | Group      | Difference | 95% CI           | p.value |
-|:------------------|:-----------|-----------:|:-----------------|--------:|
-| Control - Spatial | Aphantasia |      0.034 | \[-0.56, 0.63\]  |   0.990 |
-| Control - Visual  | Aphantasia |     -0.352 | \[-0.89, 0.19\]  |   0.278 |
-| Spatial - Visual  | Aphantasia |     -0.386 | \[-0.98, 0.21\]  |   0.277 |
-| Control - Spatial | Typical    |      0.241 | \[-0.36, 0.84\]  |   0.618 |
-| Control - Visual  | Typical    |     -2.311 | \[-2.9, -1.72\]  |   0.000 |
-| Spatial - Visual  | Typical    |     -2.552 | \[-3.19, -1.91\] |   0.000 |
+| Contrast          | Group      | Difference | 95% CI          | p.value |
+|:------------------|:-----------|-----------:|:----------------|--------:|
+| Spatial - Control | Aphantasia |     -0.034 | \[-0.63, 0.56\] |   0.990 |
+| Visual - Control  | Aphantasia |      0.352 | \[-0.19, 0.89\] |   0.278 |
+| Visual - Spatial  | Aphantasia |      0.386 | \[-0.21, 0.98\] |   0.277 |
+| Spatial - Control | Typical    |     -0.241 | \[-0.84, 0.36\] |   0.618 |
+| Visual - Control  | Typical    |      2.311 | \[1.72, 2.9\]   |   0.000 |
+| Visual - Spatial  | Typical    |      2.552 | \[1.91, 3.19\]  |   0.000 |
 
 We see that the model managed to detect the visual effect in the typical
 group, and also does a pretty decent estimation of its value (we
@@ -332,11 +332,11 @@ the interaction contrasts?
 report_contrast(model, ~ group * category, interaction = TRUE) |> knitr::kable()
 ```
 
-| Group contrast       | Category contrast | Difference | 95% CI         | p.value |
-|:---------------------|:------------------|-----------:|:---------------|--------:|
-| Aphantasia - Typical | Control - Spatial |     -0.207 | \[-0.91, 0.5\] |   0.566 |
-| Aphantasia - Typical | Control - Visual  |      1.960 | \[1.29, 2.63\] |   0.000 |
-| Aphantasia - Typical | Spatial - Visual  |      2.166 | \[1.44, 2.89\] |   0.000 |
+| group_revpairwise    | category_revpairwise | Difference | 95% CI         | p.value |
+|:---------------------|:---------------------|-----------:|:---------------|--------:|
+| Typical - Aphantasia | Spatial - Control    |     -0.207 | \[-0.91, 0.5\] |   0.566 |
+| Typical - Aphantasia | Visual - Control     |      1.960 | \[1.29, 2.63\] |   0.000 |
+| Typical - Aphantasia | Visual - Spatial     |      2.166 | \[1.44, 2.89\] |   0.000 |
 
 As expected, the interaction is also detected, and its value reflects
 the difference in the visual effect between the groups.
@@ -477,14 +477,14 @@ the VIIE.
     #>  collate  C.UTF-8
     #>  ctype    C.UTF-8
     #>  tz       UTC
-    #>  date     2025-11-20
+    #>  date     2025-12-10
     #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
     #>  quarto   1.8.26 @ /usr/local/bin/quarto
     #> 
     #> ─ Packages ───────────────────────────────────────────────────────────────────
     #>  ! package                 * version    date (UTC) lib source
     #>    abind                     1.4-8      2024-09-12 [1] RSPM
-    #>    aphantasiaReasoningViie * 1.0        2025-11-20 [1] local
+    #>    aphantasiaReasoningViie * 1.0        2025-12-10 [1] local
     #>    backports                 1.5.0      2024-05-23 [1] RSPM
     #>    bayesplot                 1.14.0     2025-08-31 [1] RSPM
     #>  P boot                      1.3-32     2025-08-29 [?] CRAN (R 4.5.2)
@@ -517,7 +517,7 @@ the VIIE.
     #>    glmmTMB                   1.1.13     2025-10-09 [1] RSPM
     #>    glue                      1.8.0      2024-09-30 [1] RSPM
     #>    gtable                    0.3.6      2024-10-25 [1] RSPM
-    #>    htmltools                 0.5.8.1    2024-04-04 [1] RSPM
+    #>    htmltools                 0.5.9      2025-12-04 [1] RSPM
     #>    htmlwidgets               1.6.4      2023-12-06 [1] RSPM
     #>    httpuv                    1.6.16     2025-04-16 [1] RSPM
     #>    jquerylib                 0.1.4      2021-04-26 [1] RSPM
@@ -526,7 +526,7 @@ the VIIE.
     #>    later                     1.4.4      2025-08-27 [1] RSPM
     #>  P lattice                   0.22-7     2025-04-02 [?] CRAN (R 4.5.2)
     #>    lifecycle                 1.0.4      2023-11-07 [1] RSPM
-    #>    lme4                      1.1-37     2025-03-26 [1] RSPM
+    #>    lme4                      1.1-38     2025-12-02 [1] RSPM
     #>    loo                       2.8.0      2024-07-03 [1] RSPM
     #>    lsr                       0.5.2      2021-12-01 [1] RSPM
     #>    magrittr                  2.0.4      2025-09-12 [1] RSPM
@@ -565,20 +565,20 @@ the VIIE.
     #>    reshape2                  1.4.5      2025-11-12 [1] RSPM
     #>    rlang                     1.1.6      2025-04-11 [1] RSPM
     #>    rmarkdown                 2.30       2025-09-28 [1] RSPM
-    #>    rrapply                   1.2.7      2024-06-26 [1] RSPM
+    #>    rrapply                   1.2.8      2025-11-25 [1] RSPM
     #>    rstantools                2.5.0      2025-09-01 [1] RSPM
     #>    S7                        0.2.1      2025-11-14 [1] RSPM
     #>    sandwich                  3.1-1      2024-09-15 [1] RSPM
     #>    sass                      0.4.10     2025-04-11 [1] RSPM
     #>    scales                    1.4.0      2025-04-24 [1] RSPM
     #>    sessioninfo               1.2.3      2025-02-05 [1] RSPM
-    #>    shiny                     1.11.1     2025-07-03 [1] RSPM
+    #>    shiny                     1.12.0     2025-12-03 [1] RSPM
     #>    shinyBS                   0.61.1     2022-04-17 [1] RSPM
     #>    showtext                  0.9-7      2024-03-02 [1] RSPM
     #>    showtextdb                3.0        2020-06-04 [1] RSPM
     #>    stringi                   1.8.7      2025-03-27 [1] RSPM
     #>    stringr                   1.6.0      2025-11-04 [1] RSPM
-    #>    superb                  * 1.0.0      2025-08-18 [1] RSPM
+    #>    superb                  * 1.0.1      2025-12-04 [1] RSPM
     #>    sysfonts                  0.8.9      2024-03-02 [1] RSPM
     #>    systemfonts               1.3.1      2025-10-01 [1] RSPM
     #>    tensorA                   0.36.2.1   2023-12-13 [1] RSPM
@@ -594,7 +594,7 @@ the VIIE.
     #>    withr                     3.0.2      2024-10-28 [1] RSPM
     #>    xfun                      0.54       2025-10-30 [1] RSPM
     #>    xtable                    1.8-4      2019-04-21 [1] RSPM
-    #>    yaml                      2.3.10     2024-07-26 [1] RSPM
+    #>    yaml                      2.3.11     2025-11-28 [1] RSPM
     #>    zoo                       1.8-14     2025-04-10 [1] RSPM
     #> 
     #>  [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu
@@ -607,9 +607,10 @@ the VIIE.
 
 ### References
 
-Delem, M., Turkben, S., Cousineau, D., Cavalli, E., & Plancher, G.
-(2025). *Unsupervised clustering reveals spatial and verbal cognitive
-profiles in aphantasia and typical imagery*.
+Delem, M., Turkben, S., Cavalli, E., Cousineau, D., & Plancher, G.
+(2025). Unsupervised clustering reveals spatial and verbal cognitive
+profiles in aphantasia and typical imagery. *Neuropsychologia*, *219*,
+109279. <https://doi.org/10.1016/j.neuropsychologia.2025.109279>
 
 Gazzo, E., Knauff, M., & Knauff, M. (2013). *Individual differences,
 imagery and the visual impedance effect*.
@@ -624,3 +625,10 @@ C., Hardwick, R. M., Fuelscher, I., Marshall, B., Hodges, N. J., Hyde,
 C., & Holmes, P. S. (2024). An international estimate of the prevalence
 of differing visual imagery abilities. *Frontiers in Psychology*, *15*,
 1454107. <https://doi.org/10.3389/fpsyg.2024.1454107>
+
+------------------------------------------------------------------------
+
+1.  The
+    [`set_ranef_prior()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/set_ranef_prior.md)
+    function helps setting regularizing priors on the random effects’ SD
+    to alleviate convergence issues.

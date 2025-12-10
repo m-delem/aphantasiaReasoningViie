@@ -18,13 +18,18 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Preliminary analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">OSIVQ clustering</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Main analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response times</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategies</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exploratory analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt_nl.html">Non-linear RT models</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -53,7 +58,14 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_contrast</span><span class="op">(</span><span class="va">model</span>, <span class="va">formula</span>, at <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_contrast</span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  <span class="va">formula</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"response"</span>,</span>
+<span>  at <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"revpairwise"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -69,8 +81,16 @@
 contrasts. See <code><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html" class="external-link">?emmeans::emmeans</a></code> for details.</p></dd>
 
 
+<dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
+<dd><p>Type of response to be returned. Default is "response".</p></dd>
+
+
 <dt id="arg-at">at<a class="anchor" aria-label="anchor" href="#arg-at"></a></dt>
 <dd><p>Optional. A list of values at which to evaluate the contrasts.</p></dd>
+
+
+<dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
+<dd><p>Method for computing the contrasts. Default is "revpairwise".</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -99,15 +119,15 @@ variables.</p>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> group_2 = Aphantasia:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  contrast          odds.ratio    SE  df null z.ratio p.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Control / Spatial       1.00 0.169 Inf    1   0.000  1.0000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Control / Visual        1.00 0.169 Inf    1   0.000  1.0000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Spatial / Visual        1.00 0.169 Inf    1   0.000  1.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Spatial / Control      1.000 0.169 Inf    1   0.000  1.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Visual / Control       1.000 0.169 Inf    1   0.000  1.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Visual / Spatial       1.000 0.169 Inf    1   0.000  1.0000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> group_2 = Typical:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  contrast          odds.ratio    SE  df null z.ratio p.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Control / Spatial       1.22 0.205 Inf    1   1.176  0.4676</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Control / Visual        1.60 0.262 Inf    1   2.890  0.0108</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Spatial / Visual        1.32 0.208 Inf    1   1.731  0.1935</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Spatial / Control      0.820 0.138 Inf    1  -1.176  0.4676</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Visual / Control       0.624 0.102 Inf    1  -2.890  0.0108</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Visual / Spatial       0.760 0.120 Inf    1  -1.731  0.1935</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> P value adjustment: tukey method for comparing a family of 3 estimates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Tests are performed on the log odds ratio scale </span>

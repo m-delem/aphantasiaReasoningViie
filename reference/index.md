@@ -28,6 +28,13 @@
 - [`get_clean_data()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/get_clean_data.md)
   : Wrapper function to get clean "analysis-ready" data
 
+- [`get_clustered_data()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/get_clustered_data.md)
+  : Wrapper function to get clean and clustered data immediately
+
+- [`get_viie_data()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/get_viie_data.md)
+  : Get data with the Visual Imagery Impedance Effect manually
+  calculated
+
 - [`filter_random_accuracy_ids()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/filter_random_accuracy_ids.md)
   : Filter participants with below random accuracy
 
@@ -66,7 +73,7 @@
   : Get a long format data frame with the strategies gathered in a
   single column
 
-- [`pivot_terms_longer()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/pivot_terms_longer.md)
+- [`pivot_phases_longer()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/pivot_phases_longer.md)
   : Get a long format data frame with the problem terms in a single
   column
 
@@ -89,6 +96,10 @@
   effects
 - [`fit_clm()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/fit_clm.md)
   : Fit a cumulative link model (CLM) using the ordinal package
+- [`fit_brms_model()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/fit_brms_model.md)
+  : Fit a Bayesian model using the brms package with default settings
+- [`report_rope()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/report_rope.md)
+  : Report the ROPE analysis for marginal effects
 - [`get_contrast()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/get_contrast.md)
   : Get the pairwise contrasts of variables in a model
 - [`get_params()`](https://m-delem.github.io/aphantasiaReasoningViie/reference/get_params.md)

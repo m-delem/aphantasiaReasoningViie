@@ -40,13 +40,18 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
+<li><h6 class="dropdown-header" data-toc-skip>Preliminary analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">OSIVQ clustering</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Main analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response times</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategies</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exploratory analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt_nl.html">Non-linear RT models</a></li>
   </ul>
 </li>
       </ul>
@@ -93,7 +98,7 @@ named, and how they relate to the VVIQ-based groups.</p>
 <p>First, let’s get the cleaned, analysis-ready data (see
 <code><a href="../articles/preparing_data.html">vignette("preparing_data")</a></code> for details).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df_survey</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_clean_data.html">get_clean_data</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">df_survey</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df_survey</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_clean_data.html">get_clean_data</a></span><span class="op">(</span><span class="st">"survey"</span><span class="op">)</span></span></code></pre></div>
 <p>The OSIVQ clusters were created using a consensus of three clustering
 algorithms (GMM, PAM and C-Means) applied to the three OSIVQ sub-scales
 (Object, Spatial and Verbal). A function was created for this specific
@@ -118,7 +123,7 @@ the three clusters produced.</p>
 <span>  <span class="fu"><a href="../reference/add_named_clusters.html">add_named_clusters</a></span><span class="op">(</span><span class="va">clustering</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/summarise_clustering.html">summarise_clustering</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 8</span></span></span>
-<span><span class="co">#&gt;   group          cluster       n  vviq object spatial verbal raven</span></span>
+<span><span class="co">#&gt;   group_4        cluster       n  vviq object spatial verbal raven</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Hypophantasia  cluster_1     3  24     1.67    3.67   2.55  15.7</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Typical        cluster_1    12  50.9   2.39    2.84   2.46  15.3</span></span>
@@ -126,7 +131,7 @@ the three clusters produced.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Typical        cluster_2    38  57.3   3.71    2.87   3.09  15.8</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Hyperphantasia cluster_2     4  77.5   4.41    3.93   3.56  15  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Aphantasia     cluster_2     1  16     4.93    3.27   4.44  16  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Aphantasia     cluster_3    25  16.0   1.25    2.26   3.38  16.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Aphantasia     cluster_3    25  16     1.25    2.26   3.38  16.0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> Hypophantasia  cluster_3    14  23.7   1.36    2.52   3.5   15.3</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> Typical        cluster_3     3  50.3   1.76    2.67   4.11  17.3</span></span></code></pre></div>
 <p>We saw here that cluster 1 was the spatialiser one, cluster 2 was the
@@ -153,7 +158,7 @@ two.</p>
 <span><span class="co">#&gt; Verbaliser             0           1</span></span>
 <span><span class="fu"><a href="../reference/summarise_clustering.html">summarise_clustering</a></span><span class="op">(</span><span class="va">df_survey</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 8</span></span></span>
-<span><span class="co">#&gt;   group          cluster         n  vviq object spatial verbal raven</span></span>
+<span><span class="co">#&gt;   group_4        cluster         n  vviq object spatial verbal raven</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Typical        Visualiser     38  57.3   3.71    2.87   3.09  15.8</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Hyperphantasia Visualiser      4  77.5   4.41    3.93   3.56  15  </span></span>
@@ -161,14 +166,29 @@ two.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Hypophantasia  Spatialiser     3  24     1.67    3.67   2.55  15.7</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Typical        Spatialiser    12  50.9   2.39    2.84   2.46  15.3</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Aphantasia     Spatialiser     4  16     1.41    3.32   1.97  17  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Aphantasia     Verbaliser     25  16.0   1.25    2.26   3.38  16.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Aphantasia     Verbaliser     25  16     1.25    2.26   3.38  16.0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> Hypophantasia  Verbaliser     14  23.7   1.36    2.52   3.5   15.3</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> Typical        Verbaliser      3  50.3   1.76    2.67   4.11  17.3</span></span></code></pre></div>
 <p><code><a href="../reference/cluster_osivq.html">cluster_osivq()</a></code> uses a seed, so the resulting clusters
 will always be the same for a given seed and data set. Thus, we were
 able to use this short clustering pipeline in all subsequent analyses to
 create our “cluster” variable and add it to the experimental data set
-for modelling.</p>
+for modelling. To avoid copy-pasting this code pipeline in every
+analysis script, we created a wrapper, <code><a href="../reference/get_clustered_data.html">get_clustered_data()</a></code>
+with default arguments based on the analysis above:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_clustered_data.html">get_clustered_data</a></span><span class="op">(</span><span class="st">"experiment"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "id"                 "language"           "group_4"           </span></span>
+<span><span class="co">#&gt;  [4] "cluster"            "group_2"            "group_3"           </span></span>
+<span><span class="co">#&gt;  [7] "strategy_group"     "expe_phase"         "trial_number"      </span></span>
+<span><span class="co">#&gt; [10] "problem"            "category"           "premise_1_rt"      </span></span>
+<span><span class="co">#&gt; [13] "premise_2_rt"       "premise_3_rt"       "conclusion_rt"     </span></span>
+<span><span class="co">#&gt; [16] "rt_total"           "response"           "correct_response"  </span></span>
+<span><span class="co">#&gt; [19] "accuracy"           "acc_perc"           "visual_strat"      </span></span>
+<span><span class="co">#&gt; [22] "verbal_strat"       "spatial_strat"      "semantic_strat"    </span></span>
+<span><span class="co">#&gt; [25] "sensorimotor_strat" "asso_strat_1"       "other_strat"       </span></span>
+<span><span class="co">#&gt; [28] "asso_strat_2"       "asso_strat_3"       "median_rt"</span></span></code></pre></div>
+<p>Clusters are there, ready for analysis!</p>
 <hr>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -180,14 +200,14 @@ for modelling.</p>
 <span><span class="co">#&gt;  collate  C.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2025-11-20</span></span>
+<span><span class="co">#&gt;  date     2025-12-10</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt;  quarto   1.8.26 @ /usr/local/bin/quarto</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">!</span> <span style="color: #555555; font-style: italic;">package                </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version</span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
 <span><span class="co">#&gt;    abind                     1.4-8   <span style="color: #555555;">2024-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    aphantasiaReasoningViie * 1.0     <span style="color: #555555;">2025-11-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
+<span><span class="co">#&gt;    aphantasiaReasoningViie * 1.0     <span style="color: #555555;">2025-12-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
 <span><span class="co">#&gt;    assertthat                0.2.1   <span style="color: #555555;">2019-03-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    bslib                     0.9.0   <span style="color: #555555;">2025-01-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    cachem                    1.1.0   <span style="color: #555555;">2024-05-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -218,7 +238,7 @@ for modelling.</p>
 <span><span class="co">#&gt;    haven                     2.5.5   <span style="color: #555555;">2025-05-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    highr                     0.11    <span style="color: #555555;">2024-05-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    hms                       1.1.4   <span style="color: #555555;">2025-10-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    htmltools                 0.5.8.1 <span style="color: #555555;">2024-04-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    htmltools                 0.5.9   <span style="color: #555555;">2025-12-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    htmlwidgets               1.6.4   <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    httpuv                    1.6.16  <span style="color: #555555;">2025-04-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    jquerylib                 0.1.4   <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -257,7 +277,7 @@ for modelling.</p>
 <span><span class="co">#&gt;    sass                      0.4.10  <span style="color: #555555;">2025-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    scales                    1.4.0   <span style="color: #555555;">2025-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    sessioninfo               1.2.3   <span style="color: #555555;">2025-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    shiny                     1.11.1  <span style="color: #555555;">2025-07-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    shiny                     1.12.0  <span style="color: #555555;">2025-12-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    stringi                   1.8.7   <span style="color: #555555;">2025-03-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    stringr                   1.6.0   <span style="color: #555555;">2025-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    systemfonts               1.3.1   <span style="color: #555555;">2025-10-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -270,7 +290,7 @@ for modelling.</p>
 <span><span class="co">#&gt;    withr                     3.0.2   <span style="color: #555555;">2024-10-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    xfun                      0.54    <span style="color: #555555;">2025-10-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    xtable                    1.8-4   <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    yaml                      2.3.10  <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    yaml                      2.3.11  <span style="color: #555555;">2025-11-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu/8f3cef43</span></span></span>
@@ -283,10 +303,11 @@ for modelling.</p>
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
-<div id="ref-delem2025uncovering" class="csl-entry">
-Delem, M., Turkben, S., Cousineau, D., Cavalli, E., &amp; Plancher, G.
-(2025). <em>Unsupervised clustering reveals spatial and verbal cognitive
-profiles in aphantasia and typical imagery</em>.
+<div id="ref-delemUnsupervisedClusteringReveals2025a" class="csl-entry">
+Delem, M., Turkben, S., Cavalli, E., Cousineau, D., &amp; Plancher, G.
+(2025). Unsupervised clustering reveals spatial and verbal cognitive
+profiles in aphantasia and typical imagery. <em>Neuropsychologia</em>,
+<em>219</em>, 109279. <a href="https://doi.org/10.1016/j.neuropsychologia.2025.109279" class="external-link">https://doi.org/10.1016/j.neuropsychologia.2025.109279</a>
 </div>
 </div>
 </div>

@@ -15,7 +15,7 @@ contains the following:
 
 - `gender`
 
-- `Group` (aphantasia, hypophantasia, typical, hyperphantasia or
+- `group_4` (aphantasia, hypophantasia, typical, hyperphantasia or
   no_vviq)
 
 - `country`

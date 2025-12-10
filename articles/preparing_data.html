@@ -40,13 +40,18 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
+<li><h6 class="dropdown-header" data-toc-skip>Preliminary analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">OSIVQ clustering</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Main analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response times</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategies</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exploratory analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt_nl.html">Non-linear RT models</a></li>
   </ul>
 </li>
       </ul>
@@ -179,7 +184,7 @@ package:</p>
 <span><span class="co">#&gt; Columns: 15</span></span>
 <span><span class="co">#&gt; $ id               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "aacu64091390979054fksk"<span style="color: #949494;">, </span>"aacu64091390979054fksk"<span style="color: #949494;">, </span>"…</span></span>
 <span><span class="co">#&gt; $ language         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">,</span>…</span></span>
-<span><span class="co">#&gt; $ group            <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> aphantasia<span style="color: #949494;">, </span>aphantasia<span style="color: #949494;">, </span>aphantasia<span style="color: #949494;">, </span>aphantasia<span style="color: #949494;">, </span>aphan…</span></span>
+<span><span class="co">#&gt; $ group_4          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> aphantasia<span style="color: #949494;">, </span>aphantasia<span style="color: #949494;">, </span>aphantasia<span style="color: #949494;">, </span>aphantasia<span style="color: #949494;">, </span>aphan…</span></span>
 <span><span class="co">#&gt; $ expe_phase       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "expe_block_1"<span style="color: #949494;">, </span>"expe_block_1"<span style="color: #949494;">, </span>"expe_block_1"<span style="color: #949494;">, </span>"expe…</span></span>
 <span><span class="co">#&gt; $ trial_number     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>5<span style="color: #949494;">, </span>6<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>8<span style="color: #949494;">, </span>9<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>11<span style="color: #949494;">, </span>12<span style="color: #949494;">, </span>13<span style="color: #949494;">, </span>14<span style="color: #949494;">, </span>15<span style="color: #949494;">, </span>16…</span></span>
 <span><span class="co">#&gt; $ problem          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 18<span style="color: #949494;">, </span>26<span style="color: #949494;">, </span>9<span style="color: #949494;">, </span>6<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>11<span style="color: #949494;">, </span>23<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>12<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>19<span style="color: #949494;">, </span>8<span style="color: #949494;">, </span>24<span style="color: #949494;">, </span>16<span style="color: #949494;">, </span>10<span style="color: #949494;">,</span>…</span></span>
@@ -200,7 +205,7 @@ package:</p>
 <span><span class="co">#&gt; $ language                            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"…</span></span>
 <span><span class="co">#&gt; $ age                                 <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 41<span style="color: #949494;">, </span>24<span style="color: #949494;">, </span>26<span style="color: #949494;">, </span>26<span style="color: #949494;">, </span>48<span style="color: #949494;">, </span>23<span style="color: #949494;">, </span>26<span style="color: #949494;">, </span>25<span style="color: #949494;">, </span>28…</span></span>
 <span><span class="co">#&gt; $ gender                              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "f"<span style="color: #949494;">, </span>"f"<span style="color: #949494;">, </span>"f"<span style="color: #949494;">, </span>"m"<span style="color: #949494;">, </span>"m"<span style="color: #949494;">, </span>"m"<span style="color: #949494;">, </span>"f"<span style="color: #949494;">,</span>…</span></span>
-<span><span class="co">#&gt; $ group                               <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> aphantasia<span style="color: #949494;">, </span>typical<span style="color: #949494;">, </span>aphantasia<span style="color: #949494;">, </span>t…</span></span>
+<span><span class="co">#&gt; $ group_4                             <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> aphantasia<span style="color: #949494;">, </span>typical<span style="color: #949494;">, </span>aphantasia<span style="color: #949494;">, </span>t…</span></span>
 <span><span class="co">#&gt; $ country                             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "fra"<span style="color: #949494;">, </span>"fra"<span style="color: #949494;">, </span>"fra"<span style="color: #949494;">, </span>"fra"<span style="color: #949494;">, </span>"fra"<span style="color: #949494;">,</span>…</span></span>
 <span><span class="co">#&gt; $ language_native                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"…</span></span>
 <span><span class="co">#&gt; $ language_usual                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"<span style="color: #949494;">, </span>"fr"…</span></span>
@@ -208,7 +213,7 @@ package:</p>
 <span><span class="co">#&gt; $ education                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "isced_03_college"<span style="color: #949494;">, </span>"isced_07_mast…</span></span>
 <span><span class="co">#&gt; $ field                               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Tourisme"<span style="color: #949494;">, </span>"isced_f_07_engin_cons…</span></span>
 <span><span class="co">#&gt; $ vviq_is_complete                    <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> TRUE<span style="color: #949494;">, </span>TRUE<span style="color: #949494;">, </span>TRUE<span style="color: #949494;">, </span>TRUE<span style="color: #949494;">, </span>TRUE<span style="color: #949494;">, </span>TRUE…</span></span>
-<span><span class="co">#&gt; $ vviq_total_score                    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 16<span style="color: #949494;">, </span>38<span style="color: #949494;">, </span>16<span style="color: #949494;">, </span>74<span style="color: #949494;">, </span>19<span style="color: #949494;">, </span>43<span style="color: #949494;">, </span>59<span style="color: #949494;">, </span>44<span style="color: #949494;">, </span>25…</span></span>
+<span><span class="co">#&gt; $ vviq_total_score                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 16<span style="color: #949494;">, </span>38<span style="color: #949494;">, </span>16<span style="color: #949494;">, </span>74<span style="color: #949494;">, </span>19<span style="color: #949494;">, </span>43<span style="color: #949494;">, </span>59<span style="color: #949494;">, </span>44<span style="color: #949494;">, </span>25…</span></span>
 <span><span class="co">#&gt; $ vviq_q01                            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>1…</span></span>
 <span><span class="co">#&gt; $ vviq_q02                            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>1…</span></span>
 <span><span class="co">#&gt; $ vviq_q03                            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>5<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>1…</span></span>
@@ -321,7 +326,7 @@ a wrapper around a pipeline that will be described below. Jumping
 directly to the final product, this is the code that creates the clean
 data:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_clean_data.html">get_clean_data</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">df_expe</span>   <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_clean_data.html">get_clean_data</a></span><span class="op">(</span><span class="st">"experiment"</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Sample size before accuracy analysis: 137</span></span>
 <span><span class="co">#&gt; Participants below random accuracy (&lt;= 50%): 8 (5.84%)</span></span>
@@ -342,9 +347,27 @@ data:</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Sample size before median RTs analysis: 106</span></span>
 <span><span class="co">#&gt; Participants with median RTs outside 2.25 SDs: 2 (1.89%)</span></span>
-<span></span>
-<span><span class="va">df_expe</span>   <span class="op">&lt;-</span> <span class="va">clean_data</span><span class="op">$</span><span class="va">df_expe</span></span>
-<span><span class="va">df_survey</span> <span class="op">&lt;-</span> <span class="va">clean_data</span><span class="op">$</span><span class="va">df_survey</span></span></code></pre></div>
+<span><span class="va">df_survey</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_clean_data.html">get_clean_data</a></span><span class="op">(</span><span class="st">"survey"</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Sample size before accuracy analysis: 137</span></span>
+<span><span class="co">#&gt; Participants below random accuracy (&lt;= 50%): 8 (5.84%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Sample size before manual examination: 137</span></span>
+<span><span class="co">#&gt; Manually identified participants:</span></span>
+<span><span class="co">#&gt; - N without VVIQ: 3 -&gt; Excluded</span></span>
+<span><span class="co">#&gt; - N without OSIVQ: 6 -&gt; Excluded</span></span>
+<span><span class="co">#&gt; - N without Raven: 2 -&gt; Excluded</span></span>
+<span><span class="co">#&gt; - N who cheated: 3 -&gt; Excluded</span></span>
+<span><span class="co">#&gt; - N who were distracted: 12 -&gt; Excluded</span></span>
+<span><span class="co">#&gt; - N who had treatment: 4 -&gt; Included</span></span>
+<span><span class="co">#&gt; - N with ADHD: 7 -&gt; Included</span></span>
+<span><span class="co">#&gt; - N with ASD: 5 -&gt; Included</span></span>
+<span><span class="co">#&gt; - N with dyslexia: 2 -&gt; Included</span></span>
+<span><span class="co">#&gt; - N with other neuro troubles: 2 -&gt; Included</span></span>
+<span><span class="co">#&gt; Participants to exclude: 24 (17.52%)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Sample size before median RTs analysis: 106</span></span>
+<span><span class="co">#&gt; Participants with median RTs outside 2.25 SDs: 2 (1.89%)</span></span></code></pre></div>
 <p>These data frames have the same columns as the raw ones, albeit with
 different variable types or formats (string variables are converted to
 factors with appropriate levels and contrasts, response times are
@@ -393,7 +416,7 @@ examination:</p>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get clean data without filtering based on median RTs (for demonstration)</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_clean_data.html">get_clean_data</a></span><span class="op">(</span>sd_mult <span class="op">=</span> <span class="fl">99</span><span class="op">)</span><span class="op">$</span><span class="va">df_expe</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_clean_data.html">get_clean_data</a></span><span class="op">(</span><span class="st">"experiment"</span>, sd_mult <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/plot_median_rt_distribution.html">plot_median_rt_distribution</a></span><span class="op">(</span><span class="va">df</span>, sd_mult <span class="op">=</span> <span class="fl">2.25</span>, base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <p><img src="preparing_data_files/figure-html/visual-exam-1.png" class="r-plt" alt="Distribution of median response times per participant, with a threshold of 2.25 standard deviations below the mean to flag suspicious participants." width="672"></p>
@@ -403,8 +426,8 @@ examination:</p>
 the type of problem presented to the participant (visual, spatial, or
 control).</p></li>
 <li><p><code><a href="../reference/factor_groups.html">factor_groups()</a></code>: This function factors the
-<code>Group</code> variable in the experiment data, which indicates the
-group to which the participant belongs (Aphants, Hypophants, Typical
+<code>group_4</code> variable in the experiment data, which indicates
+the group to which the participant belongs (Aphants, Hypophants, Typical
 imagers, or Hyperphants). The <code>n_groups</code> argument allows for
 different groupings based on the VVIQ scores, with options for 2, 3, or
 4 groups.</p></li>
@@ -437,13 +460,13 @@ data.</p></li>
 <span><span class="co">#&gt;  collate  C.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2025-11-20</span></span>
+<span><span class="co">#&gt;  date     2025-12-10</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt;  quarto   1.8.26 @ /usr/local/bin/quarto</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">!</span> <span style="color: #555555; font-style: italic;">package                </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version</span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
-<span><span class="co">#&gt;    aphantasiaReasoningViie * 1.0     <span style="color: #555555;">2025-11-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
+<span><span class="co">#&gt;    aphantasiaReasoningViie * 1.0     <span style="color: #555555;">2025-12-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
 <span><span class="co">#&gt;    bslib                     0.9.0   <span style="color: #555555;">2025-01-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    cachem                    1.1.0   <span style="color: #555555;">2024-05-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    cli                       3.6.5   <span style="color: #555555;">2025-04-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -462,7 +485,7 @@ data.</p></li>
 <span><span class="co">#&gt;    ggplot2                   4.0.1   <span style="color: #555555;">2025-11-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    glue                      1.8.0   <span style="color: #555555;">2024-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    gtable                    0.3.6   <span style="color: #555555;">2024-10-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    htmltools                 0.5.8.1 <span style="color: #555555;">2024-04-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    htmltools                 0.5.9   <span style="color: #555555;">2025-12-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    htmlwidgets               1.6.4   <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    jquerylib                 0.1.4   <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    jsonlite                  2.0.0   <span style="color: #555555;">2025-03-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -501,7 +524,7 @@ data.</p></li>
 <span><span class="co">#&gt;    vctrs                     0.6.5   <span style="color: #555555;">2023-12-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    withr                     3.0.2   <span style="color: #555555;">2024-10-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    xfun                      0.54    <span style="color: #555555;">2025-10-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    yaml                      2.3.10  <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    yaml                      2.3.11  <span style="color: #555555;">2025-11-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu/8f3cef43</span></span></span>

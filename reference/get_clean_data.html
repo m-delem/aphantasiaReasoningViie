@@ -34,13 +34,18 @@ survey data."><meta property="og:image" content="https://m-delem.github.io/aphan
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Preliminary analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">OSIVQ clustering</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Main analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response times</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategies</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exploratory analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt_nl.html">Non-linear RT models</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -59,7 +64,7 @@ survey data."><meta property="og:image" content="https://m-delem.github.io/aphan
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Wrapper function to get clean "analysis-ready" data</h1>
-      <small class="dont-index">Source: <a href="https://github.com/m-delem/aphantasiaReasoningViie/blob/master/R/get_clean_data.R" class="external-link"><code>R/get_clean_data.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/m-delem/aphantasiaReasoningViie/blob/master/R/get_data.R" class="external-link"><code>R/get_data.R</code></a></small>
       <div class="d-none name"><code>get_clean_data.Rd</code></div>
     </div>
 
@@ -78,6 +83,7 @@ survey data.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_clean_data</span><span class="op">(</span></span>
+<span>  type <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>  n_groups <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  exclude_no_vviq <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  exclude_no_osivq <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -98,7 +104,11 @@ survey data.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-n-groups">n_groups<a class="anchor" aria-label="anchor" href="#arg-n-groups"></a></dt>
+<dl><dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
+<dd><p>The type of data to return: "experiment", "survey", or "all".</p></dd>
+
+
+<dt id="arg-n-groups">n_groups<a class="anchor" aria-label="anchor" href="#arg-n-groups"></a></dt>
 <dd><p>The number of groups to factor in the data. Must be 2, 3 or
 4. 2 divides the sample into Aphants and Typical imagers using the 32 VVIQ
 criterio, 3 divides the sample into Aphants (VVIQ = 16), Hypophants
@@ -167,13 +177,15 @@ about the filtering process. Default is <code>FALSE</code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list containing two data frames:</p><ul><li><p><code>df_expe</code>: The cleaned experiment data.</p></li>
-<li><p><code>df_survey</code>: The cleaned survey data.</p></li>
+    <p>A cleaned data frame or a list of cleaned data frames, depending on the
+<code>type</code> parameter:</p><ul><li><p>If <code>type</code> is "experiment", returns the cleaned experiment data frame.</p></li>
+<li><p>If <code>type</code> is "survey", returns the cleaned survey data frame.</p></li>
+<li><p>If <code>type</code> is "all", returns a list containing both cleaned data frames.</p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="fu">get_clean_data</span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">clean_data</span> <span class="op">&lt;-</span> <span class="fu">get_clean_data</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"all"</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Sample size before accuracy analysis: 137</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Participants below random accuracy (&lt;= 50%): 8 (5.84%)</span>
@@ -194,40 +206,75 @@ about the filtering process. Default is <code>FALSE</code>.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Sample size before median RTs analysis: 106</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Participants with median RTs outside 2.25 SDs: 2 (1.89%)</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">clean_data</span><span class="op">$</span><span class="va">df_expe</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 29</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id       language group group_2 group_3 strategy_group expe_phase trial_number</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> acdn247… fr       Typi… Typical Typical No visual str… expe_bloc…            6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 21 more variables: problem &lt;int&gt;, category &lt;fct&gt;, premise_1_rt &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   premise_2_rt &lt;dbl&gt;, premise_3_rt &lt;dbl&gt;, conclusion_rt &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   rt_total &lt;dbl&gt;, response &lt;fct&gt;, correct_response &lt;fct&gt;, accuracy &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   acc_perc &lt;dbl&gt;, visual_strat &lt;ord&gt;, verbal_strat &lt;ord&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   spatial_strat &lt;ord&gt;, semantic_strat &lt;ord&gt;, sensorimotor_strat &lt;ord&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   asso_strat_1 &lt;fct&gt;, other_strat &lt;fct&gt;, asso_strat_2 &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   asso_strat_3 &lt;fct&gt;, median_rt &lt;dbl&gt;</span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">clean_data</span><span class="op">$</span><span class="va">df_survey</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 113</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id          language   age gender group group_2 group_3 strategy_group country</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> acdn247721… fr          24 f      Typi… Typical Typical No visual str… fra    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> ahos206230… fr          26 f      Apha… Aphant… Aphant… No visual str… fra    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> anoo201523… fr          23 m      Typi… Typical Typical Visual strate… fra    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> arje911192… fr          26 f      Typi… Typical Typical Visual strate… fra    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> auzb748856… fr          25 f      Typi… Typical Typical No visual str… fra    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> azcj317771… fr          28 m      Hypo… Aphant… Hypoph… Visual strate… fra    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 104 more variables: language_native &lt;fct&gt;, language_usual &lt;fct&gt;, job &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   education &lt;fct&gt;, field &lt;fct&gt;, vviq_is_complete &lt;lgl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_total_score &lt;int&gt;, vviq_q01 &lt;int&gt;, vviq_q02 &lt;int&gt;, vviq_q03 &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_q04 &lt;int&gt;, vviq_q05 &lt;int&gt;, vviq_q06 &lt;int&gt;, vviq_q07 &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_q08 &lt;int&gt;, vviq_q09 &lt;int&gt;, vviq_q10 &lt;int&gt;, vviq_q11 &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_q12 &lt;int&gt;, vviq_q13 &lt;int&gt;, vviq_q14 &lt;int&gt;, vviq_q15 &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   vviq_q16 &lt;int&gt;, osivq_is_complete &lt;lgl&gt;, osivq_object &lt;dbl&gt;, …</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="fu">get_clean_data</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"experiment"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "id"                 "language"           "group_4"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "group_2"            "group_3"            "strategy_group"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "expe_phase"         "trial_number"       "problem"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "category"           "premise_1_rt"       "premise_2_rt"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "premise_3_rt"       "conclusion_rt"      "rt_total"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "response"           "correct_response"   "accuracy"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "acc_perc"           "visual_strat"       "verbal_strat"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "spatial_strat"      "semantic_strat"     "sensorimotor_strat"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "asso_strat_1"       "other_strat"        "asso_strat_2"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "asso_strat_3"       "median_rt"         </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="fu">get_clean_data</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"survey"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "id"                       "language"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] "age"                      "gender"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5] "group_4"                  "group_2"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] "group_3"                  "strategy_group"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [9] "country"                  "language_native"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [11] "language_usual"           "job"                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] "education"                "field"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [15] "vviq_is_complete"         "vviq_total_score"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [17] "vviq_q01"                 "vviq_q02"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] "vviq_q03"                 "vviq_q04"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [21] "vviq_q05"                 "vviq_q06"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [23] "vviq_q07"                 "vviq_q08"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] "vviq_q09"                 "vviq_q10"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [27] "vviq_q11"                 "vviq_q12"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [29] "vviq_q13"                 "vviq_q14"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] "vviq_q15"                 "vviq_q16"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [33] "osivq_is_complete"        "osivq_object"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [35] "osivq_spatial"            "osivq_verbal"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] "osivq_q01s"               "osivq_q02v"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [39] "osivq_q04v"               "osivq_q05s"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [41] "osivq_q06o"               "osivq_q07s"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] "osivq_q08v"               "osivq_q09v"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [45] "osivq_q11o"               "osivq_q12o"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [47] "osivq_q13o"               "osivq_q14s"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] "osivq_q16v"               "osivq_q17s"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [51] "osivq_q18o"               "osivq_q20o"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [53] "osivq_q23o"               "osivq_q26o"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] "osivq_q27s"               "osivq_q29o"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [57] "osivq_q30s"               "osivq_q31s"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [59] "osivq_q32s"               "osivq_q33o"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] "osivq_q34o"               "osivq_q35v"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [63] "osivq_q37v"               "osivq_q39v"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [65] "osivq_q40o"               "osivq_q41v"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] "osivq_q42s"               "osivq_q43o"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [69] "osivq_q44s"               "osivq_q45o"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [71] "raven_is_complete"        "raven_score"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] "nieq_is_complete"         "nieq_voice"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] "nieq_visual"              "nieq_emotions"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [77] "nieq_sensory"             "nieq_abstract"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] "nieq_freq_inner_voice"    "nieq_freq_mental_imagery"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [81] "nieq_freq_emotions"       "nieq_freq_sensory_focus" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [83] "nieq_freq_unsymbolised"   "nieq_prop_inner_voice"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] "nieq_prop_mental_imagery" "nieq_prop_emotions"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [87] "nieq_prop_sensory_focus"  "nieq_prop_unsymbolised"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [89] "gave_false_info"          "what_false_info"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] "visual_strat"             "verbal_strat"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [93] "spatial_strat"            "semantic_strat"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [95] "sensorimotor_strat"       "asso_strat_1"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] "other_strat"              "asso_strat_2"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [99] "asso_strat_3"             "prognosis"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [101] "neuro_trouble"            "treatment"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [103] "has_adhd"                 "has_asd"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [105] "has_dyslexia"             "has_other_neuro_trouble" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [107] "has_treatment"            "has_been_distracted"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [109] "has_cheated"              "met_issues"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [111] "issues"                   "used_external_support"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [113] "what_external_support"   </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

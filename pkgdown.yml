@@ -3,13 +3,13 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   analysing_accuracy: analysing_accuracy.html
+  analysing_rt_nl: analysing_rt_nl.html
   analysing_rt: analysing_rt.html
   analysing_strategies: analysing_strategies.html
-  nl_modelling: nl_modelling.html
   osivq_clusters: osivq_clusters.html
   power_analysis: power_analysis.html
   preparing_data: preparing_data.html
-last_built: 2025-11-20T21:03Z
+last_built: 2025-12-10T18:05Z
 urls:
   reference: https://m-delem.github.io/aphantasiaReasoningViie/reference
   article: https://m-delem.github.io/aphantasiaReasoningViie/articles

@@ -18,13 +18,18 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Preliminary analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">OSIVQ clustering</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Main analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response times</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategies</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exploratory analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt_nl.html">Non-linear RT models</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -108,6 +113,20 @@
 
         <dt>
 
+          <code><a href="get_clustered_data.html">get_clustered_data()</a></code>
+
+        </dt>
+        <dd>Wrapper function to get clean and clustered data immediately</dd>
+
+        <dt>
+
+          <code><a href="get_viie_data.html">get_viie_data()</a></code>
+
+        </dt>
+        <dd>Get data with the Visual Imagery Impedance Effect manually calculated</dd>
+
+        <dt>
+
           <code><a href="filter_random_accuracy_ids.html">filter_random_accuracy_ids()</a></code>
 
         </dt>
@@ -178,7 +197,7 @@
 
         <dt>
 
-          <code><a href="pivot_terms_longer.html">pivot_terms_longer()</a></code>
+          <code><a href="pivot_phases_longer.html">pivot_phases_longer()</a></code>
 
         </dt>
         <dd>Get a long format data frame with the problem terms in a single column</dd>
@@ -242,6 +261,20 @@
 
         </dt>
         <dd>Fit a cumulative link model (CLM) using the ordinal package</dd>
+
+        <dt>
+
+          <code><a href="fit_brms_model.html">fit_brms_model()</a></code>
+
+        </dt>
+        <dd>Fit a Bayesian model using the brms package with default settings</dd>
+
+        <dt>
+
+          <code><a href="report_rope.html">report_rope()</a></code>
+
+        </dt>
+        <dd>Report the ROPE analysis for marginal effects</dd>
 
         <dt>
 

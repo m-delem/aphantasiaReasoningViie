@@ -360,4 +360,18 @@ if (require("superb", quietly = TRUE)) {
     base_size = 12
   )
 }
+#> Warning: No shared levels found between `names(values)` of the manual scale and the
+#> data's color and fill values.
+#> Warning: No shared levels found between `names(values)` of the manual scale and the
+#> data's color and fill values.
+#> Warning: No shared levels found between `names(values)` of the manual scale and the
+#> data's color and fill values.
+#> Warning: No shared levels found between `names(values)` of the manual scale and the
+#> data's color and fill values.
+#> Warning: No shared levels found between `names(values)` of the manual scale and the
+#> data's color and fill values.
+#> Warning: Removed 6 rows containing missing values or values outside the scale range
+#> (`geom_point()`).
+#> Warning: Removed 6 rows containing missing values or values outside the scale range
+#> (`geom_line()`).
 ```

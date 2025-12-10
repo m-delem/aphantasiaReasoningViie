@@ -18,13 +18,18 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis by simulation</a></li>
-    <li><a class="dropdown-item" href="../articles/preparing_data.html">Preparing data for analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">Creating OSIVQ cognitive style clusters</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response time analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategy use analyses</a></li>
-    <li><a class="dropdown-item" href="../articles/nl_modelling.html">Exploring RTs per phase (non-linear modelling)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Preliminary analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/power_analysis.html">Power analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/preparing_data.html">Data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/osivq_clusters.html">OSIVQ clustering</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Main analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_accuracy.html">Accuracy</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt.html">Response times</a></li>
+    <li><a class="dropdown-item" href="../articles/analysing_strategies.html">Strategies</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exploratory analyses</h6></li>
+    <li><a class="dropdown-item" href="../articles/analysing_rt_nl.html">Non-linear RT models</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -94,12 +99,12 @@ formatted for reporting.</p>
 <span class="r-in"><span> <span class="fu">report_contrast</span><span class="op">(</span><span class="va">model</span>, <span class="op">~</span> <span class="va">category</span> <span class="op">|</span> <span class="va">group_2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            Contrast    group_2 Odds ratio           CI p.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Control / Spatial Aphantasia      1.000 [0.67, 1.48]   1.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Control / Visual Aphantasia      1.000 [0.67, 1.48]   1.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Spatial / Visual Aphantasia      1.000 [0.67, 1.48]   1.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Control / Spatial    Typical      1.219 [0.82, 1.81]   0.468</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Control / Visual    Typical      1.604 [1.09, 2.35]   0.011</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Spatial / Visual    Typical      1.315 [0.91, 1.91]   0.194</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Spatial / Control Aphantasia      1.000 [0.67, 1.48]   1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Visual / Control Aphantasia      1.000 [0.67, 1.48]   1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Visual / Spatial Aphantasia      1.000 [0.67, 1.48]   1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Spatial / Control    Typical      0.820 [0.55, 1.22]   0.468</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Visual / Control    Typical      0.624 [0.43, 0.91]   0.011</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Visual / Spatial    Typical      0.760  [0.52, 1.1]   0.194</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
