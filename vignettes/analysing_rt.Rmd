@@ -158,12 +158,12 @@ priors is done in the chunk below.
 ```{r}
 #| label: bayesian-setup
 
-if(!requireNamespace("cmdstanr", quietly = TRUE)) {
-  install.packages(
-    "cmdstanr",
-    repos = c('https://stan-dev.r-universe.dev', getOption("repos"))
-  )
-}
+# if(!requireNamespace("cmdstanr", quietly = TRUE)) {
+#   install.packages(
+#     "cmdstanr",
+#     repos = c('https://stan-dev.r-universe.dev', getOption("repos"))
+#   )
+# }
 options("marginaleffects_safe" = FALSE)
 draws <- seq(1, 100, 1) # To limit draws that will be used for marginaleffects
 
