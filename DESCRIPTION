@@ -28,7 +28,6 @@ Imports:
 Suggests: 
     bayestestR,
     brms,
-    cmdstanr,
     coda.plot,
     collapse,
     cropcircles,
