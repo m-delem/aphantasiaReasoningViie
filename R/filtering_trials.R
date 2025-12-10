@@ -121,10 +121,10 @@ filter_trials_on_rt <- function(
 get_trial_count <- function(df) {
   df_trials <-
     df |>
-    dplyr::group_by(.data$id, .data$group, .data$category) |>
+    dplyr::group_by(.data$id, .data$group_4, .data$category) |>
     dplyr::count() |>
     dplyr::ungroup() |>
-    dplyr::mutate(dplyr::across("group":"category", stringr::str_to_title)) |>
+    dplyr::mutate(dplyr::across("group_4":"category", stringr::str_to_title)) |>
     tidyr::pivot_wider(
       names_from = "category",
       values_from = "n",

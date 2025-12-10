@@ -203,8 +203,8 @@ factor_groups <- function(
       df |>
       dplyr::mutate(
         group = dplyr::case_when(
-          .data$group == "hyperphantasia" ~ "typical",
-          TRUE ~ .data$group
+          .data$group_4 == "hyperphantasia" ~ "typical",
+          TRUE ~ .data$group_4
         )
       )
 
@@ -220,9 +220,9 @@ factor_groups <- function(
       df |>
       dplyr::mutate(
         group = dplyr::case_when(
-          .data$group == "hypophantasia" ~ "aphantasia",
-          .data$group == "hyperphantasia" ~ "typical",
-          TRUE ~ .data$group
+          .data$group_4 == "hypophantasia" ~ "aphantasia",
+          .data$group_4 == "hyperphantasia" ~ "typical",
+          TRUE ~ .data$group_4
         )
       )
 
@@ -238,7 +238,7 @@ factor_groups <- function(
   df_factored <-
     df |>
     dplyr::mutate(
-      group = .data$group |>
+      group = .data$group_4 |>
         stringr::str_to_title() |>
         factor(levels = levels) |>
         add_factor_contrasts(

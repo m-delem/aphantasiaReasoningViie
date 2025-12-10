@@ -15,7 +15,7 @@ test_that("data wrangling helpers work properly", {
 library(superb)
 
 test_that("ggplot2 helpers work properly", {
-  df_expe <- get_clean_data()$df_expe
+  df_expe <- get_clean_data("experiment")
   p_acc <- plot_superb_jitter(df_expe, accuracy, group_2)
 
   expect_error(save_ggplot(p_acc, ncol = 3)) # 1 or 2 max

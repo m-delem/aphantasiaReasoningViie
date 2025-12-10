@@ -33,7 +33,7 @@ jobs:
             quiet = FALSE,
             clean = FALSE,
             install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package"),
-            function_exclusions = "run_power_analysis"
+            function_exclusions = c("run_power_analysis", "fit_brms_model", "report_rope")
           )
           print(cov)
           covr::to_cobertura(cov)

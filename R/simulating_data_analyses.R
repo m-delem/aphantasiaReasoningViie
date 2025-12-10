@@ -85,7 +85,7 @@ simulate_rt_data <- function(
     # Each subject is assigned to a group
     faux::add_between(
       .by = "id",
-      group = c("Aphantasia", "Typical")
+      group_4 = c("Aphantasia", "Typical")
     ) |>
     # Each subject has trials in the three categories
     faux::add_within(
@@ -109,7 +109,7 @@ simulate_rt_data <- function(
     dplyr::mutate(
       # The base RT value follows a shifted log-normal distribution
       beta_0 = brms::rshifted_lnorm(dplyr::n(), meanlog, sdlog, shift),
-      aphantasia = ifelse(.data$group == "Aphantasia", 1, 0),
+      aphantasia = ifelse(.data$group_4 == "Aphantasia", 1, 0),
       visual  = ifelse(.data$category == "Visual", 1, 0),
       spatial = ifelse(.data$category == "Spatial", 1, 0),
       rt_total = .data$beta_0 + .data$tau_0 +
@@ -168,13 +168,13 @@ simulate_rt_test <- function(
 
   model <-
     glmmTMB::glmmTMB(
-      rt_total ~ group * category + (category | id),
+      rt_total ~ group_4 * category + (category | id),
       data = df,
       family = stats::Gamma(link = "identity"),
       prior   = set_ranef_prior()
     ) |> suppressMessages() |> suppressWarnings()
 
-  contrasts <- report_contrast(model, ~ group * category, interaction = TRUE)
+  contrasts <- report_contrast(model, ~ group_4 * category, interaction = TRUE)
 
   # Updating the progressr progress bar (for the power analysis function)
   p()
@@ -498,7 +498,7 @@ simulate_acc_data <- function(
     # Each subject is assigned to a group
     faux::add_between(
       .by = "id",
-      group = c("Aphantasia", "Typical")
+      group_4 = c("Aphantasia", "Typical")
     ) |>
     # Each subject has trials in the three categories
     faux::add_within(
@@ -519,7 +519,7 @@ simulate_acc_data <- function(
       tau_spa = tau_spa
     ) |>
     dplyr::mutate(
-      aphantasia = ifelse(.data$group == "Aphantasia", 1, 0),
+      aphantasia = ifelse(.data$group_4 == "Aphantasia", 1, 0),
       visual  = ifelse(.data$category == "Visual", 1, 0),
       spatial = ifelse(.data$category == "Spatial", 1, 0),
       Y = beta_0 + .data$tau_0 +
@@ -624,9 +624,9 @@ simulate_strats_data <- function(
       ) |>
       dplyr::mutate(
         id = paste0("subj_", stringr::str_to_lower(group_name), "_", 1:n),
-        group = group_name
+        group_4 = group_name
       ) |>
-      dplyr::relocate("id", "group")
+      dplyr::relocate("id", "group_4")
 
     return(df_strats)
   }
