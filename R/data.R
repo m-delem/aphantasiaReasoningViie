@@ -10,7 +10,7 @@
 #' - The `language` the experiment was conducted in (FR or EN)
 #' - `age`
 #' - `gender`
-#' - `Group` (aphantasia, hypophantasia, typical, hyperphantasia or no_vviq)
+#' - `group_4` (aphantasia, hypophantasia, typical, hyperphantasia or no_vviq)
 #' - `country`
 #' - `language_native` (the native language of the participant)
 #' - `language_usual` (the language the participant usually uses)
@@ -61,7 +61,7 @@
 #' - An encrypted unique participant `id` (that also allows to join the data
 #'   with the survey data)
 #' - `language` (the language the experiment was conducted in, FR or EN)
-#' - `group` (aphantasia, hypophantasia, typical, hyperphantasia or no_vviq)
+#' - `group_4` (aphantasia, hypophantasia, typical, hyperphantasia or no_vviq)
 #' - `expe_phase` (the phase of the experiment)
 #' - `trial_number` (the presentation order of the problems)
 #' - `problem` (the problem presented to the participant)

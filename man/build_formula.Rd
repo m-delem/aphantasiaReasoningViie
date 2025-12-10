@@ -9,7 +9,7 @@ build_formula(vd, grouping)
 \arguments{
 \item{vd}{Variable of interest, either "accuracy" or "rt_total".}
 
-\item{grouping}{Grouping variable, typically "Group" or "cluster".}
+\item{grouping}{Grouping variable, e.g., "group_3", "cluster", etc.}
 }
 \value{
 A formula object for the model.

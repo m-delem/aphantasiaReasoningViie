@@ -1,6 +1,10 @@
 ---
 title: "Accuracy analyses"
 output: rmarkdown::html_vignette
+message: false
+warning: false
+bibliography: "references.bib"
+csl: "apa.csl"
 vignette: >
   %\VignetteIndexEntry{Accuracy analyses}
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,11 +19,10 @@ knitr::opts_chunk$set(
 ```
 
 This vignette contains a full breakdown of the analyses of participants'
-accuracy on the reasoning problems. The most interesting results are
-synthetically presented in the main manuscript (preprint
-[here](https://doi.org/10.31234/osf.io/vsjtb_v1)). The present document aims to
-provide a full account of the steps taken to reach these results, and to provide
-additional analyses that were not included in the manuscript for brevity.
+accuracy on the reasoning problems. Only Bayesian analyses were reported in the
+manuscript for brevity, but equivalent frequentist analyses were also conducted
+to test the convergence of the two approaches on similar results. They are
+reported in this vignette alongside the Bayesian analyses for completeness.
 
 ```{r setup}
 library(aphantasiaReasoningViie)
@@ -27,62 +30,42 @@ library(aphantasiaReasoningViie)
 
 # Data preparation
 
-First, let's get the clean, analysis-ready data, create cognitive style clusters
-using OSIVQ scores (see `vignette("preparing_data")` and
-`vignette("osivq_clusters")` for details), and add this classification to the
-dataset containing accuracy data.
+First, let's get the clean, analysis-ready and clustered data (see
+`vignette("preparing_data")` and `vignette("osivq_clusters")` for details).
 
 ```{r}
 #| label: get-data
 
-df_survey  <- get_clean_data()$df_survey
-# Clustering OSIVQ data
-clustering <- cluster_osivq(df_survey)
-# Adding named clusters to the survey data
-df_survey <- add_named_clusters(
-  df_survey, clustering,
-  names  = c("Spatialiser", "Visualiser", "Verbaliser"),
-  levels = c("Visualiser", "Spatialiser", "Verbaliser"),
-  contrasts = c("_visualiser", "_spatialiser", "_verbaliser"),
-  base = 1
-)
-# Merging with experiment data
 df_expe <-
-  dplyr::left_join(
-    get_clean_data()$df_expe,
-    df_survey |> dplyr::select(id, cluster),
-    by = dplyr::join_by("id")
-  ) |>
-  dplyr::relocate(cluster, .after = "group") |> 
-  dplyr::select(id, group:strategy_group, problem, category, accuracy)
+  get_clustered_data("experiment") |> 
+  dplyr::select(id, group_4:strategy_group, problem, category, accuracy)
 
 dplyr::glimpse(df_expe)
 ```
 
 # Method
 
-As described in the manuscript:
-
-> We fitted Generalised Linear Mixed Models (GLMMs) with binomial distributions
-> and logit links using the glmmTMB package (McGillycuddy et al., 2025) to
-> predict accuracy with a grouping variable (VVIQ groups, OSIVQ clusters),
-> Category (visual, spatial, or control) along with their two-way interactions
-> as fixed categorical predictors. Varying slopes and intercepts (“random
-> effects”) have been added for each participant by category and for each
-> problem by grouping variable.
+We fitted hierarchical linear models (also said "multilevel" or "mixed" models)
+with binomial distributions and logit links using the *brms* package for
+Bayesian models [@burknerBrmsPackageBayesian2017] or the *glmmTMB* package for
+frequentist models [@glmmTMB2025]. The models included a grouping variable (VVIQ
+groups, OSIVQ clusters), Category (visual, spatial, or control) along with their
+two-way interactions as fixed categorical predictors. Varying slopes and
+intercepts (“random effects”) have been added for each participant by category
+along with an intercept for each problem.
 
 Let's break this down.
 
-## The grouping variables
+## Grouping variables
 
 We used several grouping variables to classify participants, all of which are in
 the `df_expe` data frame:
 
--   `group` is the 4-group VVIQ classification with an "aphantasia" group (VVIQ
-    = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group (VVIQ
-    $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It was
-    not used in the analyses because the hyperphantasia group was too small (N =
-    4).
+-   `group_4` is the 4-group VVIQ classification with an "aphantasia" group
+    (VVIQ = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group
+    (VVIQ $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It
+    was not used in the analyses because the hyperphantasia group was too small
+    (N = 4).
 
 -   `group_3` is the same as `group`, but with the hyperphantasia group merged
     with the typical group. It is referred to as "VVIQ 3 groups" in the
@@ -107,7 +90,7 @@ the `df_expe` data frame:
 The same modelling pipeline was therefore applied four times, once for each of
 the last four grouping variables.
 
-## The modelling pipeline
+## Model formula
 
 We created a small `build_formula()` helper function to write the formula
 easily, as we used the same model structure a lot of times:
@@ -120,33 +103,82 @@ build_formula("accuracy", "group_2")
 build_formula("accuracy", "cluster")
 ```
 
-The models were fitted using the `glmmTMB::glmmTMB()` function (and a little
-`set_ranef_prior()` helper function to set a weakly informative prior on the
-random effects, which helps with convergence and singularity issues). After
+## Bayesian models
+
+Bayesian models were fitted using the `brms::brm()` function through a custom
+wrapper, `fit_brms_model()`, that sets several default options for us. 24000
+post-warmup iterations were spread across all available CPU for parallel
+processing[^1], with 2000 additional warmup iterations per chain. A fixed seed
+was used for reproducibility. The [CmdStanR](https://mc-stan.org/cmdstanr/)
+back-end was used for better performance. CmdStanR needs a special installation
+command which is provided in the next chunk if needed. A regularising normal
+prior with mean 0 and standard deviation 1 was used on the fixed effects
+coefficients to improve convergence and avoid overfitting. To avoid having to
+refit the models each time the vignette is built and improve reproducibility,
+fitted models are saved in the `vignettes/models` folder and loaded in the R
+chunks.
+
+[^1]: This specific number was chosen arbitrarily to have an even number of
+    iterations on each chain on the two computers that were used for the
+    analyses, one with 20 cores and one with 24 cores. The only important aspect
+    here is to have enough iterations to ensure convergence and a good effective
+    sample size.
+
+After model fit, we checked for potential singularity issues and model
+performance using the `get_singularity()` and `get_performance()` functions
+created for the occasion (which are convenient wrappers around the *performance*
+package). Posterior predictive checks were also performed with the
+`performance::check_predictions()` function to check that the models were able
+to reproduce the data well.
+
+Finally, we tested our hypotheses with marginal contrasts. This task was
+performed with functions from the *marginaleffects* package. We used the
+`marginaleffects::avg_comparisons()` function to compute contrasts and a custom
+`report_rope()` wrapper (around `marginaleffects::posterior_draws()`,
+`bayestestR::rope_range()` and `bayestestR::p_direction()`) to summarise their
+posterior distributions. We computed the probability of direction (PD) of the
+contrasts and the proportions of their posterior distributions below, inside or
+above a region of practical equivalence to the null (ROPE) [see
+@makowskiIndicesEffectExistence2019]. We computed accuracy contrasts between
+groups, contrasts between categories within each group, and interaction
+contrasts (differences in category contrasts between groups).
+
+The setup of the CmdStanR back-end, marginaleffects options and the accuracy
+models prior is done in the chunk below.
+
+```{r}
+#| label: bayesian-setup
+#| message: false
+#| warning: false
+
+if(!requireNamespace("cmdstanr", quietly = TRUE)) {
+  install.packages(
+    "cmdstanr",
+    repos = c('https://stan-dev.r-universe.dev', getOption("repos"))
+  )
+}
+options("marginaleffects_safe" = FALSE)
+draws <- seq(1, 100, 1) # To limit draws that will be used for marginaleffects
+
+prior_acc <- c(brms::prior(normal(0, 1), class = "b"))
+```
+
+## Frequentist models
+
+Frequentist models were fitted using the `glmmTMB::glmmTMB()` function (and a
+little `set_ranef_prior()` helper function to set a weakly informative prior on
+the random effects, which helps with convergence and singularity issues). After
 model fit, we checked for potential singularity issues and model performance
-using the `get_singularity()` and `get_performance()` functions created for the
-occasion (which are convenient wrappers around the *performance* package).
+using the `get_singularity()` and `get_performance()` functions.
 
-Finally, we tested our hypotheses with marginal contrasts. As stated in the
-manuscript:
+Finally, we tested our hypotheses with marginal contrasts. This task was
+performed with the `report_contrast()` function, which is a wrapper around
+several functions from the *emmeans* package[^2]. We computed accuracy contrasts
+between groups, contrasts between categories within each group, and interaction
+contrasts (differences in category contrasts between groups).
 
-> Due to the way that variance is partitioned in GLMMs (Rights & Sterba, 2019),
-> there does not exist an agreed-upon way to calculate standard effect sizes for
-> individual terms such as main effects or interactions in these models. Thus,
-> in line with general recommendations on how to report effect sizes (e.g., Pek
-> & Flora, 2018), we report and analyse unstandardised effect sizes for post-hoc
-> tests in the form of estimated marginal contrasts (i.e. differences in
-> model-estimated marginal means, hereinafter denoted Δ), in seconds for RTs or
-> as odds ratios for accuracies. To answer our hypotheses, we planned to analyse
-> contrasts between groups, contrasts between categories for each group
-> separately, and interaction contrasts testing the differences in category
-> contrasts between the groups.
-
-This task was performed with the `report_contrast()` function, which is a
-wrapper around several functions from the *emmeans* package. We used it to
-compute accuracy contrasts between groups, contrasts between categories within
-each group, and interaction contrasts (differences in category contrasts between
-groups).
+[^2]: The marginaleffects package was not used for frequentist analyses because
+    it conflicted with glmmTMB models, whereas the emmeans package worked fine.
 
 Here we go!
 
@@ -154,10 +186,72 @@ Here we go!
 
 ## VVIQ 2 groups
 
-```{r}
-#| label: vviq-2-groups
+### Bayesian
 
-m_acc_vviq_2 <-
+```{r}
+#| label: bayesian-vviq-2-groups
+#| message: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_acc_vviq_2 <-
+  fit_brms_model(
+    formula = build_formula("accuracy", "group_2"),
+    data    = df_expe,
+    family  = brms::bernoulli(),
+    prior   = prior_acc,
+    file    = "models/m_acc_vviq_2.rds"
+  )
+
+# Singularity check
+mb_acc_vviq_2 |> get_singularity()
+# Model performance indices
+# mb_acc_vviq_2  |> 
+#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+#   knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mb_acc_vviq_2 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+# Group contrasts
+mb_acc_vviq_2 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("group_2" = "pairwise"), 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(contrast) |> knitr::kable()
+# Category contrasts within groups
+mb_acc_vviq_2 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"), by = "group_2", 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(group_2, contrast) |> knitr::kable()
+# Interaction contrasts
+mb_acc_vviq_2 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"),
+    by = "group_2",
+    hypothesis = ~revpairwise, # for the interaction
+    type = "link",
+    draw_ids = draws
+  ) |> 
+  report_rope(hypothesis) |> knitr::kable()
+```
+
+### Frequentist
+
+```{r}
+#| label: frequentist-vviq-2-groups
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mf_acc_vviq_2 <-
   glmmTMB::glmmTMB(
     data    = df_expe,
     formula = build_formula("accuracy", "group_2"),
@@ -166,25 +260,92 @@ m_acc_vviq_2 <-
   )
 
 # Singularity
-m_acc_vviq_2 |> get_singularity()
+mf_acc_vviq_2 |> get_singularity()
 
 # Performance
-m_acc_vviq_2 |> get_performance() |> knitr::kable(align = "c")
+mf_acc_vviq_2 |> get_performance() |> knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mf_acc_vviq_2 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
 # Group contrasts
-m_acc_vviq_2 |> report_contrast(~ group_2) |> knitr::kable()
-# Category contrasts within groups
-m_acc_vviq_2 |> report_contrast(~ category | group_2) |> knitr::kable()
+mf_acc_vviq_2 |> report_contrast(~ group_2, ratios = FALSE) |> knitr::kable()
+ # Category contrasts within groups
+mf_acc_vviq_2 |> 
+  report_contrast(~ category | group_2, ratios = FALSE) |> knitr::kable()
 # Interaction contrasts
-m_acc_vviq_2 |> report_contrast(~ category * group_2, interaction = TRUE) |>
+mf_acc_vviq_2 |> 
+  report_contrast(~ category * group_2, interaction = TRUE) |>
   knitr::kable()
 ```
 
 ## VVIQ 3 groups
 
-```{r}
-#| label: vviq-3-groups
+### Bayesian
 
-m_acc_vviq_3 <-
+```{r}
+#| label: bayesian-vviq-3-groups
+#| message: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_acc_vviq_3 <-
+  fit_brms_model(
+    formula = build_formula("accuracy", "group_3"),
+    data    = df_expe,
+    family  = brms::bernoulli(),
+    prior   = prior_acc,
+    file    = "models/m_acc_vviq_3.rds"
+  )
+
+# Singularity check
+mb_acc_vviq_3 |> get_singularity()
+# Model performance indices
+# mb_acc_vviq_3  |> 
+#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+#   knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mb_acc_vviq_3 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+# Group contrasts
+mb_acc_vviq_3 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("group_3" = "pairwise"), 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(contrast) |> knitr::kable()
+# Category contrasts within groups
+mb_acc_vviq_3 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"), by = "group_3", 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(group_3, contrast) |> knitr::kable()
+# Interaction contrasts
+mb_acc_vviq_3 |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"),
+    by = "group_3",
+    hypothesis = ~revpairwise, # for the interaction
+    type = "link",
+    draw_ids = draws
+  ) |> 
+  report_rope(hypothesis) |> knitr::kable()
+```
+
+### Frequentist
+
+```{r}
+#| label: frequentist-vviq-3-groups
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mf_acc_vviq_3 <-
   glmmTMB::glmmTMB(
     data    = df_expe,
     formula = build_formula("accuracy", "group_3"),
@@ -192,21 +353,86 @@ m_acc_vviq_3 <-
     prior   = set_ranef_prior(20)
   )
 
-m_acc_vviq_3 |> get_singularity()
+mf_acc_vviq_3 |> get_singularity()
 
-m_acc_vviq_3 |> get_performance() |> knitr::kable(align = "c")
-m_acc_vviq_3 |> report_contrast(~ group_3) |> knitr::kable()
-m_acc_vviq_3 |> report_contrast(~ category | group_3) |> knitr::kable()
-m_acc_vviq_3 |> report_contrast(~ category * group_3, interaction = TRUE) |>
+mf_acc_vviq_3 |> get_performance() |> knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mf_acc_vviq_3 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+mf_acc_vviq_3 |> report_contrast(~ group_3, ratios = FALSE) |> knitr::kable()
+mf_acc_vviq_3 |> report_contrast(~ category | group_3, ratios = FALSE) |> knitr::kable()
+mf_acc_vviq_3 |> report_contrast(~ category * group_3, interaction = TRUE) |>
   knitr::kable()
 ```
 
 ## OSIVQ 3 clusters
 
-```{r}
-#| label: osivq-3-clusters
+### Bayesian
 
-m_acc_osivq <-
+```{r}
+#| label: bayesian-osivq-3-clusters
+#| message: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_acc_osivq <-
+  fit_brms_model(
+    formula = build_formula("accuracy", "cluster"),
+    data    = df_expe,
+    family  = brms::bernoulli(),
+    prior   = prior_acc,
+    file    = "models/m_acc_osivq.rds"
+  )
+
+# Singularity check
+mb_acc_osivq |> get_singularity()
+# Model performance indices
+# mb_acc_osivq  |> 
+#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+#   knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mb_acc_osivq |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+# Group contrasts
+mb_acc_osivq |> 
+  marginaleffects::avg_comparisons(
+    variables = list("cluster" = "pairwise"), 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(contrast) |> knitr::kable()
+# Category contrasts within groups
+mb_acc_osivq |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"), by = "cluster", 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(cluster, contrast) |> knitr::kable()
+# Interaction contrasts
+mb_acc_osivq |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"),
+    by = "cluster",
+    hypothesis = ~revpairwise, # for the interaction
+    type = "link",
+    draw_ids = draws
+  ) |> 
+  report_rope(hypothesis) |> knitr::kable()
+```
+
+### Frequentist
+
+```{r}
+#| label: frequentist-osivq-3-clusters
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mf_acc_osivq <-
   glmmTMB::glmmTMB(
     data    = df_expe,
     formula = build_formula("accuracy", "cluster"),
@@ -214,21 +440,86 @@ m_acc_osivq <-
     prior   = set_ranef_prior(15)
   )
 
-m_acc_osivq  |> get_singularity()
+mf_acc_osivq  |> get_singularity()
 
-m_acc_osivq  |> get_performance() |> knitr::kable(align = "c")
-m_acc_osivq  |> report_contrast(~ cluster) |> knitr::kable()
-m_acc_osivq  |> report_contrast(~ category | cluster) |> knitr::kable()
-m_acc_osivq  |> report_contrast(~ category * cluster, interaction = TRUE) |>
+mf_acc_osivq  |> get_performance() |> knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mf_acc_osivq |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+mf_acc_osivq  |> report_contrast(~ cluster, ratios = FALSE) |> knitr::kable()
+mf_acc_osivq  |> report_contrast(~ category | cluster, ratios = FALSE) |> knitr::kable()
+mf_acc_osivq  |> report_contrast(~ category * cluster, interaction = TRUE) |>
   knitr::kable()
 ```
 
 ## Strategy groups
 
-```{r}
-#| label: strategy-groups
+### Bayesian
 
-m_acc_strat <-
+```{r}
+#| label: bayesian-strategy-groups
+#| message: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_acc_strat <-
+  fit_brms_model(
+    formula = build_formula("accuracy", "strategy_group"),
+    data    = df_expe,
+    family  = brms::bernoulli(),
+    prior   = prior_acc,
+    file    = "models/m_acc_strat.rds"
+  )
+
+# Singularity check
+mb_acc_strat |> get_singularity()
+# Model performance indices
+# mb_acc_strat  |> 
+#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+#   knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mb_acc_strat |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+# Group contrasts
+mb_acc_strat |> 
+  marginaleffects::avg_comparisons(
+    variables = list("strategy_group" = "pairwise"), 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(contrast) |> knitr::kable()
+# Category contrasts within groups
+mb_acc_strat |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"), by = "strategy_group", 
+    type = "link",
+    draw_ids = draws
+  ) |>
+  report_rope(strategy_group, contrast) |> knitr::kable()
+# Interaction contrasts
+mb_acc_strat |> 
+  marginaleffects::avg_comparisons(
+    variables = list("category" = "pairwise"),
+    by = "strategy_group",
+    hypothesis = ~revpairwise, # for the interaction
+    type = "link",
+    draw_ids = draws
+  ) |> 
+  report_rope(hypothesis) |> knitr::kable()
+```
+
+### Frequentist
+
+```{r}
+#| label: frequentist-strategy-groups
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mf_acc_strat <-
   glmmTMB::glmmTMB(
     data    = df_expe,
     formula = build_formula("accuracy", "strategy_group"),
@@ -236,23 +527,25 @@ m_acc_strat <-
     prior   = set_ranef_prior(55)
   )
 
-m_acc_strat |> get_singularity()
+mf_acc_strat |> get_singularity()
 
-m_acc_strat |> get_performance() |> knitr::kable(align = "c")
-m_acc_strat |> report_contrast(~ strategy_group) |> knitr::kable()
-m_acc_strat |> report_contrast(~ category | strategy_group) |> knitr::kable()
-m_acc_strat |> report_contrast(~ category * strategy_group, interaction = TRUE) |>
+mf_acc_strat |> get_performance() |> knitr::kable(align = "c")
+# Posterior predictive check (best model performance indicator)
+mf_acc_strat |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+mf_acc_strat |> report_contrast(~ strategy_group, ratios = FALSE) |> knitr::kable()
+mf_acc_strat |> report_contrast(~ category | strategy_group, ratios = FALSE) |> knitr::kable()
+mf_acc_strat |> report_contrast(~ category * strategy_group, interaction = TRUE) |>
   knitr::kable()
 ```
 
 # Visualisation
 
-The figures showing the distribution of accuracy data displayed in the 
+The figures showing the distribution of accuracy data displayed in the
 manuscript were created with the `plot_superb_jitter()` function from the
-package, which wraps functions from
-the *ggplot2* and *superb* packages to create nice visualisations easily. 
-A little `add_significance()` helper function was also created to add
-significance stars to the plots.
+package, which wraps functions from the *ggplot2* and *superb* packages to
+create nice visualisations easily. A little `add_significance()` helper function
+was also created to add significance stars to the plots.
 
 ```{r}
 #| label: plot-accuracy

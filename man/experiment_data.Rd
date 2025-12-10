@@ -20,7 +20,7 @@ contains the following columns:
 \item An encrypted unique participant \code{id} (that also allows to join the data
 with the survey data)
 \item \code{language} (the language the experiment was conducted in, FR or EN)
-\item \code{group} (aphantasia, hypophantasia, typical, hyperphantasia or no_vviq)
+\item \code{group_4} (aphantasia, hypophantasia, typical, hyperphantasia or no_vviq)
 \item \code{expe_phase} (the phase of the experiment)
 \item \code{trial_number} (the presentation order of the problems)
 \item \code{problem} (the problem presented to the participant)

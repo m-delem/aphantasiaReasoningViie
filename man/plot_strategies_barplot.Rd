@@ -4,7 +4,7 @@
 \alias{plot_strategies_barplot}
 \title{Plot proportions of strategy use for groups as barplots}
 \usage{
-plot_strategies_barplot(df_long, grouping = "group", title = NULL, ...)
+plot_strategies_barplot(df_long, grouping = "group_4", title = NULL, ...)
 }
 \arguments{
 \item{df_long}{A data frame containing the strategies data in a long format
@@ -30,5 +30,5 @@ df_long <-
   get_clean_data()$df_survey |>
   pivot_strategies_longer()
 
-plot_strategies_barplot(df_long, grouping = group, base_size = 12)
+plot_strategies_barplot(df_long, grouping = group_4, base_size = 12)
 }

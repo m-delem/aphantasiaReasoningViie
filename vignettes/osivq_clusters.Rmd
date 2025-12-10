@@ -26,17 +26,19 @@ library(aphantasiaReasoningViie)
 First, let's get the cleaned, analysis-ready data (see 
 `vignette("preparing_data")` for details). 
 
-```{r data}
-df_survey  <- get_clean_data()$df_survey
+```{r}
+#| label: data
+
+df_survey  <- get_clean_data("survey")
 ```
 
 The OSIVQ clusters were created using a consensus of three clustering algorithms
 (GMM, PAM and C-Means) applied to the three OSIVQ sub-scales (Object, Spatial and
 Verbal). A function was created for this specific task, `cluster_osivq()`, which
 uses the `diceR::dice()` function from the *diceR* package under the hood.
-Following the methodology proposed by @delem2025uncovering, we searched for 
-three "visualiser", "spatialiser" and "verbaliser" clusters based on their most
-"dominant" OSIVQ sub-scale score.
+Following the methodology proposed by @delemUnsupervisedClusteringReveals2025a, 
+we searched for three "visualiser", "spatialiser" and "verbaliser" clusters 
+based on their most "dominant" OSIVQ sub-scale score.
 
 However, the clustering algorithm does not name the clusters, so we needed to
 check their properties to assign meaningful names. The function
@@ -79,7 +81,18 @@ summarise_clustering(df_survey)
 `cluster_osivq()` uses a seed, so the resulting clusters will always be the 
 same for a given seed and data set. Thus, we were able to use this short 
 clustering pipeline in all subsequent analyses to create our "cluster" 
-variable and add it to the experimental data set for modelling.
+variable and add it to the experimental data set for modelling. To avoid 
+copy-pasting this code pipeline in every analysis script, we created a
+wrapper, `get_clustered_data()` with default arguments based on the analysis
+above:
+
+```{r}
+#| label: get_clustered_data
+
+colnames(get_clustered_data("experiment"))
+```
+
+Clusters are there, ready for analysis!
 
 --------------------------------------------------------------------------------
 

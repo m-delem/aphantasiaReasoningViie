@@ -93,7 +93,9 @@ The raw data sets are directly available upon loading the package:
 library(aphantasiaReasoningViie)
 ```
 
-```{r raw-data}
+```{r}
+#| label: raw-data
+
 dplyr::glimpse(experiment_data)
 
 dplyr::glimpse(survey_data)
@@ -116,11 +118,11 @@ this is `get_clean_data()`, which is a wrapper around a pipeline that will be
 described below. Jumping directly to the final product, this is the code that
 creates the clean data:
 
-```{r clean-data}
-clean_data <- get_clean_data(verbose = TRUE)
+```{r}
+#| label: clean-data
 
-df_expe   <- clean_data$df_expe
-df_survey <- clean_data$df_survey
+df_expe   <- get_clean_data("experiment", verbose = TRUE)
+df_survey <- get_clean_data("survey", verbose = TRUE)
 ```
 
 These data frames have the same columns as the raw ones, albeit with different
@@ -169,7 +171,8 @@ functions that filter and format the data. The main steps are:
     A plotting function was designed to wrap the ggplot for this visual
     examination:
 
-```{r visual-exam}
+```{r}
+#| label: visual-exam
 #| fig-width: 7
 #| fig-height: 3.5
 #| fig-alt: >
@@ -177,7 +180,7 @@ functions that filter and format the data. The main steps are:
 #|  of 2.25 standard deviations below the mean to flag suspicious participants.
 
 # Get clean data without filtering based on median RTs (for demonstration)
-df <- get_clean_data(sd_mult = 99)$df_expe
+df <- get_clean_data("experiment", sd_mult = 99)
 
 plot_median_rt_distribution(df, sd_mult = 2.25, base_size = 12)
 ```
@@ -186,7 +189,7 @@ plot_median_rt_distribution(df, sd_mult = 2.25, base_size = 12)
     experiment data, which indicates the type of problem presented to the
     participant (visual, spatial, or control).
 
--   `factor_groups()`: This function factors the `Group` variable in the
+-   `factor_groups()`: This function factors the `group_4` variable in the
     experiment data, which indicates the group to which the participant belongs
     (Aphants, Hypophants, Typical imagers, or Hyperphants). The `n_groups`
     argument allows for different groupings based on the VVIQ scores, with
@@ -213,7 +216,8 @@ Data all set for analyses!
 
 --------------------------------------------------------------------------------
 
-```{r session_info}
+```{r}
+#| label: session_info
 #| echo: false
 
 sessioninfo::session_info()

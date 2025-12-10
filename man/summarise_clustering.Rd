@@ -7,7 +7,7 @@
 summarise_clustering(df)
 }
 \arguments{
-\item{df}{A data frame with columns \code{group}, \code{cluster}, \code{vviq_total_score},
+\item{df}{A data frame with columns \code{group_4}, \code{cluster}, \code{vviq_total_score},
 \code{osivq_object}, \code{osivq_spatial}, \code{osivq_verbal}, and \code{raven_score}.}
 }
 \value{

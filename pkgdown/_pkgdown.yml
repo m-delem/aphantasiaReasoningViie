@@ -16,6 +16,8 @@ reference:
 - title: "Data preparation"
   contents:
   - get_clean_data
+  - get_clustered_data
+  - get_viie_data
   - filter_random_accuracy_ids
   - filter_manually_identified_ids
   - filter_suspicious_rt_ids
@@ -26,7 +28,7 @@ reference:
   - factor_chr_vars
   - compute_nieq_scores
   - pivot_strategies_longer
-  - pivot_terms_longer
+  - pivot_phases_longer
 - title: "Clustering"
   contents:
   - cluster_osivq
@@ -37,6 +39,8 @@ reference:
   - build_formula
   - set_ranef_prior
   - fit_clm
+  - fit_brms_model
+  - report_rope
   - get_contrast
   - get_params
   - get_performance
@@ -61,32 +65,28 @@ reference:
   - run_power_analysis
   - plot_power
 
-articles:
-- title: "Power analysis by simulation"
-  navbar: ~
-  contents:
-  - power_analysis
-- title: "Preparing data for analysis"
-  navbar: ~
-  contents:
-  - preparing_data
-- title: "Creating OSIVQ cognitive style clusters"
-  navbar: ~
-  contents:
-  - osivq_clusters
-- title: "Accuracy analyses"
-  navbar: ~
-  contents:
-  - analysing_accuracy
-- title: "Response time analyses"
-  navbar: ~
-  contents:
-  - analysing_rt
-- title: "Strategy use analyses"
-  navbar: ~
-  contents:
-  - analysing_strategies
-- title: "Exploring RTs per phase"
-  navbar: ~
-  contents:
-  - nl_modelling
+navbar:
+  left:
+    - text: "Reference"
+      href: reference/index.html
+    - text: "Articles"
+      menu:
+        - text: "Preliminary analyses"
+        - text: "Power analysis"
+          href: articles/power_analysis.html
+        - text: "Data preparation"
+          href: articles/preparing_data.html
+        - text: "OSIVQ clustering"
+          href: articles/osivq_clusters.html
+        - text: "----"
+        - text: "Main analyses"
+        - text: "Accuracy"
+          href: articles/analysing_accuracy.html
+        - text: "Response times"
+          href: articles/analysing_rt.html
+        - text: "Strategies"
+          href: articles/analysing_strategies.html
+        - text: "----"
+        - text: "Exploratory analyses"
+        - text: "Non-linear RT models"
+          href: articles/analysing_rt_nl.html

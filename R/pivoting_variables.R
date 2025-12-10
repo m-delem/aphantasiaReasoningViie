@@ -9,28 +9,28 @@
 #' @export
 #'
 #' @examples
-#' get_clean_data()$df_expe |>
+#' get_clean_data("experiment") |>
 #'   filter_trials_on_rt() |>
-#'   pivot_terms_longer() |>
-#'   dplyr::select(id, problem, category, term, term_name, rt)
-pivot_terms_longer <- function(df) {
+#'   pivot_phases_longer() |>
+#'   dplyr::select(id, problem, category, phase, phase_name, rt)
+pivot_phases_longer <- function(df) {
   df_pivoted <-
     df |>
     tidyr::pivot_longer(
       cols = "premise_1_rt":"conclusion_rt",
-      names_to = "term_name",
+      names_to = "phase_name",
       values_to = "rt"
     ) |>
     dplyr::mutate(
-      term = dplyr::case_match(
-        .data$term_name,
+      phase = dplyr::case_match(
+        .data$phase_name,
         "premise_1_rt"  ~ 1,
         "premise_2_rt"  ~ 2,
         "premise_3_rt"  ~ 3,
         "conclusion_rt" ~ 4
       ),
-      term_name = factor(
-        .data$term_name,
+      phase_name = factor(
+        .data$phase_name,
         levels = c(
           "premise_1_rt",
           "premise_2_rt",
@@ -53,6 +53,8 @@ pivot_terms_longer <- function(df) {
 #' `semantic_strat`, and `sensorimotor_strat`.
 #' @param base An integer indicating the base level for factor contrasts.
 #' Default is 1 for the visual strategy.
+#' @param ordered A logical indicating whether the `score` factor levels should
+#' be ordered. Default is `FALSE`.
 #' @param ... Additional arguments passed to [add_factor_contrasts()].
 #'
 #' @returns A data frame in long format with columns for `id`, `group`,
@@ -61,10 +63,10 @@ pivot_terms_longer <- function(df) {
 #' @export
 #'
 #' @examples
-#' get_clean_data()$df_survey |>
+#' get_clean_data("survey") |>
 #'   pivot_strategies_longer() |>
-#'   dplyr::select(id, group, strategy, score)
-pivot_strategies_longer <- function(df, base = 1, ...) {
+#'   dplyr::select(id, group_4, strategy, score)
+pivot_strategies_longer <- function(df, base = 1, ordered = FALSE, ...) {
   df_pivoted <-
     df |>
     factor_strategies(ordered = FALSE) |>
@@ -89,7 +91,8 @@ pivot_strategies_longer <- function(df, base = 1, ...) {
           "as_much_as_others",
           "mainly_this_strat",
           "only_this_strat"
-        )
+        ),
+        ordered = ordered
       ),
       strategy = factor(
         .data$strategy,

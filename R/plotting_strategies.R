@@ -17,10 +17,10 @@
 #'   get_clean_data()$df_survey |>
 #'   pivot_strategies_longer()
 #'
-#' plot_strategies_barplot(df_long, grouping = group, base_size = 12)
+#' plot_strategies_barplot(df_long, grouping = group_4, base_size = 12)
 plot_strategies_barplot <- function(
     df_long,
-    grouping = "group",
+    grouping = "group_4",
     title = NULL,
     ...
 ) {
@@ -142,10 +142,10 @@ plot_strategies_barplot <- function(
 #'   get_clean_data()$df_survey |>
 #'   pivot_strategies_longer()
 #'
-#' plot_strategies_scores(df_long, grouping = group, base_size = 12)
+#' plot_strategies_scores(df_long, grouping = group_4, base_size = 12)
 plot_strategies_scores <- function(
     df_long,
-    grouping = "group",
+    grouping = "group_4",
     title = NULL,
     x_labels = NULL,
     ...
@@ -173,7 +173,7 @@ plot_strategies_scores <- function(
 
   df_mean <-
     df_plot |>
-    dplyr::select("group":"strategy", "mean":"se") |>
+    dplyr::select("group_4":"strategy", "mean":"se") |>
     dplyr::distinct()
 
   scale_labels <- c(

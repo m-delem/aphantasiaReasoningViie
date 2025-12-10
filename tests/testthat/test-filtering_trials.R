@@ -1,6 +1,6 @@
 test_that("Trial filtering functions work as expected", {
   df_rt <-
-    get_clean_data()$df_expe |>
+    get_clean_data("experiment") |>
     filter_trials_on_rt(verbose = TRUE) |>
     suppressMessages()
   df_trials <- get_trial_count(df_rt)

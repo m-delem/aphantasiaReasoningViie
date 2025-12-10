@@ -4,7 +4,7 @@
 \alias{plot_nl}
 \title{Plot model predictions from the non-linear GAMM results}
 \usage{
-plot_nl(df, title = NULL, ...)
+plot_nl(df, var = "term", title = NULL, ...)
 }
 \arguments{
 \item{df}{A data frame containing the model predictions with columns:
@@ -18,6 +18,10 @@ plot_nl(df, title = NULL, ...)
 Results from model fits are saved natively in the package in the
 \code{nl_predictions} object.
 }}
+
+\item{var}{A string indicating the variable to plot on the x-axis. Added for
+backwards compatibility with an older version of the package where trial
+phases were named "term", but have since been renamed "phase". Default is "term".}
 
 \item{title}{An optional title for the plot. Default is NULL.}
 

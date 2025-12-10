@@ -1,0 +1,876 @@
+---
+title: "Exploring RTs per phase (non-linear modelling)"
+output: rmarkdown::html_vignette
+message: false
+warning: false
+bibliography: "references.bib"
+csl: "apa.csl"
+vignette: >
+  %\VignetteIndexEntry{Exploring RTs per phase (non-linear modelling)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This vignette contains a full breakdown of the exploratory non-linear modelling
+conducted to analyse the evolution of participants' response times over the
+course of the trial phases. Indeed, in addition to the total response times per
+trial usually analysed in VIIE studies, we collected response time data for each
+trial phase (three premises and the conclusion). We explored whether the VIIE
+could be specific to certain phases, or whether it was a difference in the
+dynamics of reasoning across trial phases rather than an overall difference in
+speed, by modelling response times throughout a trial with non-linear models.
+
+The non-linear modelling used here was heavily inspired by [this tutorial by
+Ping Hei Yeung](https://yeungpinghei.github.io/) and [this Stackoverflow
+thread](https://stackoverflow.com/q/68659805). Only Bayesian analyses were
+reported in the manuscript for brevity, but equivalent frequentist analyses were
+also conducted to test the convergence of the two approaches on similar results.
+They are reported in this vignette alongside the Bayesian analyses for
+completeness.
+
+```{r setup}
+library(aphantasiaReasoningViie)
+```
+
+# Data preparation
+
+First, let's get the clean, analysis-ready and clustered data (see
+`vignette("preparing_data")` and `vignette("osivq_clusters")` for details) and
+filter trials based on RTs (see `vignette("analysing_rt")` for details).
+
+```{r}
+#| label: get-data
+
+df_rt <-
+  get_clustered_data("experiment") |>
+  filter_trials_on_rt() |> 
+  dplyr::select(id:conclusion_rt)
+
+dplyr::glimpse(df_rt)
+```
+
+By default, the `df_rt` data frame has one variable (one column) containing the
+response times of each participant for each trial phase. We needed to have all
+of these phases (premises and conclusion) in a single "phase" variable along
+with the associated "rt" variable for modelling, so we gathered these four
+columns into two long columns by "pivoting" the RT data in a long format
+(reducing the number of columns and increasing the number of rows). This
+operation is performed by the `pivot_phases_longer()` function.
+
+We also needed to create "interaction" variables between the grouping variables
+and the categories of the problems (visual, spatial, control) using the
+`base::interaction()` function because *mgcv* models used for non-linear
+modelling do not support interaction terms natively.
+
+```{r}
+#| label: pivot-terms
+
+df_rt_long <-
+  pivot_phases_longer(df_rt) |>
+  dplyr::mutate(
+    group_2_category = interaction(group_2, category),
+    group_3_category = interaction(group_3, category),
+    cluster_category = interaction(cluster, category)
+  )
+
+dplyr::glimpse(df_rt_long)
+```
+
+# Method
+
+We fitted generalised additive models using the *brms* package for Bayesian
+models [@burknerBrmsPackageBayesian2017] or the *mgcv* package [@mgcv2011] to
+predict response times with a grouping variable (VVIQ groups, OSIVQ clusters),
+Category (visual, spatial or control) and their interaction as fixed categorical
+predictors, as well as “smooth” (non-linear) terms that capture the evolution of
+RTs across trial phases (premise 1/2/3 and conclusion) for each grouping and
+category and each participant (the latter two being equivalent to a “random
+intercept” in mixed models).
+
+Let's break this down.
+
+## Grouping variables
+
+We used several grouping variables to classify participants, all of which are in
+the `df_rt_long` data frame:
+
+-   `group_4` is the 4-group VVIQ classification with an "aphantasia" group
+    (VVIQ = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group
+    (VVIQ $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It
+    was not used in the analyses because the hyperphantasia group was too small
+    (N = 4).
+
+-   `group_3` is the same as `group`, but with the hyperphantasia group merged
+    with the typical group. It is referred to as "VVIQ 3 groups" in the
+    manuscript results.
+
+-   `group_2` is the binary classification often used in aphantasia literature
+    that additionally merges the hypophantasia group with the aphantasia group.
+    It is refereed to as "VVIQ 2 groups" in the manuscript results.
+
+-   `cluster` is the cognitive style classification obtained from clustering
+    OSIVQ scores. It contains three groups: "Visualiser", "Spatialiser", and
+    "Verbaliser". It is referred to as "OSIVQ 3 clusters" in the manuscript
+    results.
+
+The same modelling pipeline was therefore applied three times, once for each of
+the last three grouping variables.
+
+## Bayesian models
+
+Bayesian models were fitted using the `brms::brm()` function through a custom
+wrapper, `fit_brms_model()`, that sets several default options for us. 24000
+post-warmup iterations were spread across all available CPU for parallel
+processing[^1], with 2000 additional warmup iterations per chain. A fixed seed
+was used for reproducibility. The [CmdStanR](https://mc-stan.org/cmdstanr/)
+back-end was used for better performance. CmdStanR needs a special installation
+command which is provided in the next chunk if needed. Regularising priors
+coefficients were used to improve convergence and avoid overfitting. A normal
+prior with mean 0 and standard deviation 1 was used on the fixed effects, an
+exponential prior with rate 1 on the standard deviation of the random effects,
+and an exponential prior with rate 1 on the residual standard deviation. The
+fine tuning of these priors was done based on prior predictive checks (see
+`vignette("osivq_clusters")` for details). To avoid having to refit the models
+each time the vignette is built and improve reproducibility, fitted models
+(which took more than 6 hours per model on 24 cores) are saved in the
+`vignettes/models` folder and loaded in the R chunks.
+
+[^1]: This specific number was chosen arbitrarily to have an even number of
+    iterations on each chain on the two computers that were used for the
+    analyses, one with 20 cores and one with 24 cores. The only important aspect
+    here is to have enough iterations to ensure convergence and a good effective
+    sample size.
+
+Finally, we tested our hypotheses on group and category differences with
+marginal contrasts. This task was performed with functions from the
+*marginaleffects* package. We used the `marginaleffects::avg_comparisons()`
+function to compute contrasts and a custom `report_rope()` wrapper (around
+`marginaleffects::posterior_draws()`, `bayestestR::rope_range()` and
+`bayestestR::p_direction()`) to summarise their posterior distributions. We
+computed the probability of direction (PD) of the contrasts and the proportions
+of their posterior distributions below, inside or above a region of practical
+equivalence to the null (ROPE) [see @makowskiIndicesEffectExistence2019].
+
+The setup of the CmdStanR back-end, marginaleffects options and the model priors
+is done in the chunk below.
+
+```{r}
+#| label: bayesian-setup
+#| message: false
+#| warning: false
+
+if(!requireNamespace("cmdstanr", quietly = TRUE)) {
+  install.packages(
+    "cmdstanr",
+    repos = c('https://stan-dev.r-universe.dev', getOption("repos"))
+  )
+}
+options("marginaleffects_safe" = FALSE)
+draws <- seq(1, 100, 1) # To limit draws that will be used for marginaleffects
+
+prior_nl <- c(
+  brms::prior(normal(0, 1), class = "b"),
+  brms::prior(exponential(1), class = "sds"),
+  brms::prior(exponential(1), class = "sigma")
+)
+```
+
+## Frequentist models
+
+The models were fitted using the `mgcv::bam()` function. After model fit, we
+tested group and category differences with marginal contrasts. This task was
+performed with the `get_contrast()` function, which is a wrapper around several
+functions from the *emmeans* package.
+
+These models took a long time to fit and needed to be saved for ease of reuse,
+but model fits were too heavy to be kept as package data (more than 100 MB).
+Thus, two sub-products of the models were saved as package data instead:
+
+-   Contrast analyses obtained with `get_contrast()` for the statistical tests.
+    The analyses for the three grouping variables have been saved in the
+    `nl_contrasts` list.
+
+-   Model predictions obtained with `modelbased::estimate_relation()` for the
+    data used for visualisation. The predictions for the three grouping
+    variables have been saved in the `nl_predictions` list.
+
+The code to fit the frequentist models and get the contrasts is provided below
+but does not run.
+
+# Results
+
+## VVIQ 2 groups
+
+### Bayesian
+
+```{r}
+#| label: bayesian-vviq-2-groups
+#| message: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_nl_vviq_2 <-
+  fit_brms_model(
+    formula = rt ~ 
+      group_2 * category + 
+      s(phase, by = interaction(group_2, category), k = 4) +
+      s(phase, id, bs = "fs", m = 1, k = 4),
+    data    = df_rt_long,
+    family  = brms::shifted_lognormal(),
+    prior   = prior_nl,
+    refresh = 10,
+    file    = "models/m_nl_vviq_2.rds"
+  )
+
+# Posterior predictive check (best model performance indicator)
+mb_nl_vviq_2 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+
+# Contrasts
+marginaleffects::avg_comparisons(
+  mb_nl_vviq_2, 
+  variables = list("category" = "pairwise"), 
+  by = c("group_2", "phase"), 
+  draw_ids = draws
+  ) |> 
+  report_rope(phase, group_2, contrast) |> knitr::kable()
+```
+
+### Frequentist
+
+Note that the frequentist models were fitted with an earlier version of the
+package when the `term` variable was used instead of `phase`. The code below
+reflects this older version for consistency with the saved contrasts. Replacing
+`term` with `phase` would not change the results (but would be required to refit
+the models).
+
+```{r}
+#| label: frequentist-vviq-2-groups
+#| eval: false
+
+mf_nl_vviq_2 <-
+  mgcv::bam(
+    formula = rt ~
+      group_2_category +
+      s(term, by = group_2_category,  bs = "tp", k = 4) +
+      s(term, id, bs = "fs", m = 1, k = 4),
+    family  = Gamma(link = "identity"),
+    data    = df_rt_long,
+    method  = "fREML"
+  )
+
+contrasts_vviq_2 <-
+  mf_nl_vviq_2 |>
+  get_contrast(
+    ~ group_2_category | term,
+    at = list(term = c(1, 2, 3, 4)),
+    interaction = FALSE,
+    adjust = "none"
+  )
+```
+
+The chunk above does not run, but the contrasts can be accessed natively in the
+package in the `nl_contrasts` object. The code below tweaks them a bit for a
+prettier display:
+
+```{r}
+#| label: frequentist-contrasts-vviq-2
+
+nl_contrasts$vviq_2 |>
+  as.data.frame() |>
+  tidyr::separate_wider_delim(
+    contrast, " - ", names = c("group_cat_1", "group_cat_2")
+  ) |>
+  tidyr::separate_wider_delim(
+    group_cat_1, ".", names = c("group_1", "category_1")
+  ) |>
+  tidyr::separate_wider_delim(
+    group_cat_2, ".", names = c("group_2", "category_2")
+  ) |>
+  dplyr::filter(group_1 == group_2 & p.value < 1) |>
+  dplyr::select(!c(
+    tidyselect::contains("group_2"),
+    tidyselect::contains("cluster_2"),
+    tidyselect::contains("SE"),
+    tidyselect::contains("df")
+  )) |>
+  dplyr::mutate(across(c(estimate:p.value), ~round(., 3))) |>
+  tidyr::unite(`Category contrast`, category_1, category_2, sep = " - ") |>
+  dplyr::rename(group = group_1, `RT difference` = estimate) |>
+  dplyr::arrange(term, group) |>
+  dplyr::mutate(
+    term = term |>
+      as.character() |>
+      dplyr::case_match(
+        "1" ~ "Premise 1",
+        "2" ~ "Premise 2",
+        "3" ~ "Premise 3",
+        "4" ~ "Conclusion"
+      ),
+  ) |>
+  knitr::kable(digits = 3)
+```
+
+Let's do the same for the other two classifications.
+
+## VVIQ 3 groups
+
+### Bayesian
+
+```{r}
+#| label: bayesian-vviq-3-groups
+#| message: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_nl_vviq_3 <-
+  fit_brms_model(
+    formula = rt ~ 
+      group_3 * category + 
+      s(phase, by = interaction(group_3, category), k = 4) +
+      s(phase, id, bs = "fs", m = 1, k = 4),
+    data    = df_rt_long,
+    family  = brms::shifted_lognormal(),
+    prior   = prior_nl,
+    refresh = 10,
+    file    = "models/m_nl_vviq_3.rds"
+  )
+
+# Posterior predictive check (best model performance indicator)
+mb_nl_vviq_3 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+
+# Contrasts
+marginaleffects::avg_comparisons(
+  mb_nl_vviq_3, 
+  variables = list("category" = "pairwise"), 
+  by = c("group_3", "phase"), 
+  draw_ids = draws
+  ) |> 
+  report_rope(phase, group_3, contrast) |> knitr::kable()
+```
+
+### Frequentist
+
+```{r}
+#| label: frequentist-vviq-3-groups
+#| eval: false
+
+mf_nl_vviq_3 <-
+  mgcv::bam(
+    formula = rt ~
+      group_3_category +
+      s(term, by = group_3_category,  bs = "tp", k = 4) +
+      s(term, id, bs = "fs", m = 1, k = 4),
+    family  = Gamma(link = "identity"),
+    data    = df_rt_long,
+    method  = "fREML"
+  )
+
+contrasts_vviq_3 <-
+  mf_nl_vviq_3 |>
+  get_contrast(
+    ~ group_3_category | term,
+    at = list(term = c(1, 2, 3, 4)),
+    interaction = FALSE,
+    adjust = "none"
+  )
+```
+
+Same process as above, contrasts are saved in the package:
+
+```{r}
+#| label: frequentist-contrasts-vviq-3
+
+nl_contrasts$vviq_3 |>
+  as.data.frame() |>
+  tidyr::separate_wider_delim(
+    contrast, " - ", names = c("group_cat_1", "group_cat_2")
+  ) |>
+  tidyr::separate_wider_delim(
+    group_cat_1, ".", names = c("group_1", "category_1")
+  ) |>
+  tidyr::separate_wider_delim(
+    group_cat_2, ".", names = c("group_2", "category_2")
+  ) |>
+  dplyr::filter(group_1 == group_2 & p.value < 1) |>
+  dplyr::select(!c(
+    tidyselect::contains("group_2"),
+    tidyselect::contains("cluster_2"),
+    tidyselect::contains("SE"),
+    tidyselect::contains("df")
+  )) |>
+  dplyr::mutate(across(c(estimate:p.value), ~round(., 3))) |>
+  tidyr::unite(`Category contrast`, category_1, category_2, sep = " - ") |>
+  dplyr::rename(group = group_1, `RT difference` = estimate) |>
+  dplyr::arrange(term, group) |>
+  dplyr::mutate(
+    term = term |>
+      as.character() |>
+      dplyr::case_match(
+        "1" ~ "Premise 1",
+        "2" ~ "Premise 2",
+        "3" ~ "Premise 3",
+        "4" ~ "Conclusion"
+      ),
+  ) |>
+  knitr::kable(digits = 3)
+```
+
+## OSIVQ 3 clusters
+
+### Bayesian
+
+```{r}
+#| label: bayesian-osivq-3-clusters
+#| message: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_nl_osivq <-
+  fit_brms_model(
+    formula = rt ~ 
+      cluster * category + 
+      s(phase, by = interaction(cluster, category), k = 4) +
+      s(phase, id, bs = "fs", m = 1, k = 4),
+    data    = df_rt_long,
+    family  = brms::shifted_lognormal(),
+    prior   = prior_nl,
+    refresh = 10,
+    file    = "models/m_nl_osivq.rds"
+  )
+
+# Posterior predictive check (best model performance indicator)
+mb_nl_osivq |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+
+# Contrasts
+marginaleffects::avg_comparisons(
+  mb_nl_osivq, 
+  variables = list("category" = "pairwise"), 
+  by = c("cluster", "phase"), 
+  draw_ids = draws
+  ) |> 
+  report_rope(phase, cluster, contrast) |> knitr::kable()
+```
+
+### Frequentist
+
+```{r}
+#| label: frequentist-osivq-3-clusters
+#| eval: false
+
+mf_nl_osivq <-
+  mgcv::bam(
+    formula = rt ~
+      cluster_category +
+      s(term, by = cluster_category,    bs = "tp", k = 4) +
+      s(term, id, bs = "fs", m = 1, k = 4),
+    family  = Gamma(link = "identity"),
+    data    = df_rt_long,
+    method  = "fREML"
+  )
+
+contrasts_osivq <-
+  mf_nl_osivq |>
+  get_contrast(
+    ~ cluster_category | term,
+    at = list(term = c(1, 2, 3, 4)),
+    interaction = TRUE
+  )
+```
+
+Same process as above, contrasts are saved in the package:
+
+```{r}
+#| label: frequentist-contrasts-osivq
+
+nl_contrasts$osivq |>
+  as.data.frame() |>
+  tidyr::separate_wider_delim(
+    cluster_category_pairwise, " - ", names = c("cluster_cat_1", "cluster_cat_2")
+  ) |>
+  tidyr::separate_wider_delim(
+    cluster_cat_1, ".", names = c("cluster_1", "category_1")
+  ) |>
+  tidyr::separate_wider_delim(
+    cluster_cat_2, ".", names = c("cluster_2", "category_2")
+  ) |>
+  dplyr::filter(cluster_1 == cluster_2 & p.value < 1) |>
+  dplyr::select(!c(
+    tidyselect::contains("group_2"),
+    tidyselect::contains("cluster_2"),
+    tidyselect::contains("SE"),
+    tidyselect::contains("df")
+  )) |>
+  dplyr::mutate(across(c(estimate:p.value), ~round(., 3))) |>
+  tidyr::unite(`Category contrast`, category_1, category_2, sep = " - ") |>
+  dplyr::rename(cluster = cluster_1, `RT difference` = estimate) |>
+  dplyr::arrange(term, cluster) |>
+  dplyr::mutate(
+    term = dplyr::case_match(
+      term,
+      1 ~ "Premise 1",
+      2 ~ "Premise 2",
+      3 ~ "Premise 3",
+      4 ~ "Conclusion"
+    ),
+  ) |>
+  knitr::kable(digits = 3)
+```
+
+# Visualisation
+
+The non-linear dynamics were represented using model predictions for each phase,
+grouping and category. These predictions have been computed with the
+`modelbased::estimate_relation()` function on the frequentist models and the
+code below (which does not run here). The frequentist models are used here for
+convenience, but the Bayesian models could also be used to get similar
+predictions.
+
+```{r}
+#| label: model-predictions
+#| eval: false
+
+# Getting model predictions (for plotting)
+preds_2 <-
+  modelbased::estimate_relation(
+    mf_nl_vviq_2,
+    by = c("group_2_category", "term")
+  ) |>
+  as.data.frame() |>
+  dplyr::select(group_2_category, term, Predicted, CI_low, CI_high) |>
+  tidyr::separate_wider_delim(
+    group_2_category,
+    delim = ".",
+    names = c("group", "category")
+  )
+
+preds_3 <-
+  modelbased::estimate_relation(
+    mf_nl_vviq_3,
+    by = c("group_3_category", "term")
+  ) |>
+  as.data.frame() |>
+  dplyr::select(group_3_category, term, Predicted, CI_low, CI_high) |>
+  tidyr::separate_wider_delim(
+    group_3_category,
+    delim = ".",
+    names = c("group", "category")
+  )
+
+preds_osivq <-
+  modelbased::estimate_relation(
+    mf_nl_osivq,
+    by = c("cluster_category", "term")
+  ) |>
+  as.data.frame() |>
+  dplyr::select(cluster_category, term, Predicted, CI_low, CI_high) |>
+  tidyr::separate_wider_delim(
+    cluster_category,
+    delim = ".",
+    names = c("group", "category")
+  )
+```
+
+They have been saved as package data in the `nl_predictions` object. We created
+a `plot_nl()` function to visualise the data easily and added significance
+labels based on the contrasts with the `add_significance()` helper function
+(which is why the code below is so lengthy).
+
+```{r}
+#| label: plot-nl
+#| fig.width: 9
+#| fig.height: 9
+#| fig.alt: >
+#|  Plots showing the mean RTs in each trial term and category for several
+#|  different grouping variables.
+#| warning: false
+#| message: false
+
+library(patchwork)
+
+pnl1 <-
+  plot_nl(
+    nl_predictions$vviq_2, title = "VVIQ 2 groups",
+    base_size = 12,
+    plot.background = ggplot2::element_rect(fill = "white", colour = NA)
+  )  +
+
+  # 2nd premise
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Aphantasia")),
+      x_star = 1.93,
+      y_star = 5.97,
+      stars  = "°",
+      x_line = .data$x_star - 0.06,
+      x_line_end = .data$x_star + 0.06,
+      y_line = 5.9
+    )
+  ) +
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Typical")),
+      x_star = 1.93,
+      y_star = 6.24,
+      stars  = "**",
+      x_line = .data$x_star - 0.06,
+      x_line_end = .data$x_star + 0.06,
+      y_line = 6.17
+    )
+  ) +
+
+  # 3rd premise
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Aphantasia")),
+      x_star = 3.06,
+      y_star = 7.87,
+      stars  = "***",
+      x_line = .data$x_star - 0.05,
+      x_line_end = .data$x_star + 0.05,
+      y_line = 7.8
+    )
+  ) +
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Aphantasia")),
+      x_star = 3.01,
+      y_star = 8.27,
+      stars  = "°",
+      x_line = .data$x_star - 0.1,
+      x_line_end = .data$x_star + 0.1,
+      y_line = 8.2
+    )
+  ) +
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Typical")),
+      x_star = 3.06,
+      y_star = 8.47,
+      stars  = "***",
+      x_line = .data$x_star - 0.05,
+      x_line_end = .data$x_star + 0.05,
+      y_line = 8.4
+    )
+  )  +
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Typical")),
+      x_star = 2.93,
+      y_star = 7.77,
+      stars  = "*",
+      x_line = .data$x_star - 0.05,
+      x_line_end = .data$x_star + 0.05,
+      y_line = 7.7
+    )
+  )
+
+pnl2 <-
+  plot_nl(
+    nl_predictions$vviq_3,
+    title = "VVIQ 3 groups",
+    plot.margin = ggplot2::margin(t = 10),
+    base_size = 12,
+    plot.background = ggplot2::element_rect(fill = "white", colour = NA)
+  ) +
+
+  # 2nd premise
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Aphantasia")),
+      x_star = 1.93,
+      y_star = 6.63,
+      stars  = "*",
+      x_line = .data$x_star - 0.06,
+      x_line_end = .data$x_star + 0.06,
+      y_line = 6.57
+    )
+  ) +
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Typical")),
+      x_star = 1.93,
+      y_star = 6.24,
+      stars  = "**",
+      x_line = .data$x_star - 0.06,
+      x_line_end = .data$x_star + 0.06,
+      y_line = 6.17
+    )
+  )  +
+
+  # 3rd premise
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Aphantasia")),
+      x_star = 3.06,
+      y_star = 8.32,
+      stars  = "*",
+      x_line = .data$x_star - 0.05,
+      x_line_end = .data$x_star + 0.05,
+      y_line = 8.25
+    )
+  ) +
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Hypophantasia")),
+      x_star = 3.06,
+      y_star = 7.62,
+      stars  = "*",
+      x_line = .data$x_star - 0.05,
+      x_line_end = .data$x_star + 0.05,
+      y_line = 7.55
+    )
+  ) +
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Typical")),
+      x_star = 3.06,
+      y_star = 8.47,
+      stars  = "***",
+      x_line = .data$x_star - 0.05,
+      x_line_end = .data$x_star + 0.05,
+      y_line = 8.4
+    )
+  )  +
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Typical")),
+      x_star = 2.93,
+      y_star = 7.77,
+      stars  = "*",
+      x_line = .data$x_star - 0.05,
+      x_line_end = .data$x_star + 0.05,
+      y_line = 7.7
+    )
+  )
+
+pnl3 <-
+  plot_nl(
+    nl_predictions$osivq,
+    title = "OSIVQ clusters",
+    plot.margin = ggplot2::margin(t = 10),
+    base_size = 12,
+    plot.background = ggplot2::element_rect(fill = "white", colour = NA)
+  ) +
+
+  # 1st premise
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Visualiser")),
+      x_star = 1,
+      y_star = 8.47,
+      stars  = "°",
+      x_line = .data$x_star - 0.1,
+      x_line_end = .data$x_star + 0.1,
+      y_line = 8.4
+    )
+  ) +
+
+  # 2nd premise
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Visualiser")),
+      x_star = 1.93,
+      y_star = 6.37,
+      stars  = "**",
+      x_line = .data$x_star - 0.06,
+      x_line_end = .data$x_star + 0.06,
+      y_line = 6.3
+    )
+  ) +
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Verbaliser")),
+      x_star = 1.93,
+      y_star = 6.17,
+      stars  = "°",
+      x_line = .data$x_star - 0.06,
+      x_line_end = .data$x_star + 0.06,
+      y_line = 6.1
+    )
+  ) +
+
+  # 3rd premise
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Visualiser")),
+      x_star = 3.06,
+      y_star = 8.62,
+      stars  = "***",
+      x_line = .data$x_star - 0.05,
+      x_line_end = .data$x_star + 0.05,
+      y_line = 8.55
+    )
+  ) +
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Visualiser")),
+      x_star = 2.93,
+      y_star = 7.77,
+      stars  = "*",
+      x_line = .data$x_star - 0.05,
+      x_line_end = .data$x_star + 0.05,
+      y_line = 7.7
+    )
+  ) +
+  add_significance(
+    size_star = 3,
+    tibble::tibble(
+      group  = factor(c("Verbaliser")),
+      x_star = 3.06,
+      y_star = 8.04,
+      stars  = "*",
+      x_line = .data$x_star - 0.05,
+      x_line_end = .data$x_star + 0.05,
+      y_line = 7.97
+    )
+  )
+
+pnl <- pnl1 / pnl2 / pnl3 +
+  patchwork::plot_layout(axes = "collect", guides = "collect") &
+  ggplot2::theme(legend.position = "bottom")
+
+plot(pnl)
+```
+
+All done!
+
+--------------------------------------------------------------------------------
+
+```{r session_info}
+#| echo: false
+
+sessioninfo::session_info()
+```

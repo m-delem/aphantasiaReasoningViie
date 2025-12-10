@@ -68,6 +68,7 @@ bibliography: "references.bib"
 csl: "apa.csl"
 filters:
   - authors-block
+  - highlight-text
 ---
 
 **Keywords**: aphantasia, mental imagery, reasoning, cognitive style, strategy

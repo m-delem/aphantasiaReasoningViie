@@ -6,7 +6,7 @@
 \usage{
 plot_strategies_scores(
   df_long,
-  grouping = "group",
+  grouping = "group_4",
   title = NULL,
   x_labels = NULL,
   ...
@@ -40,5 +40,5 @@ df_long <-
   get_clean_data()$df_survey |>
   pivot_strategies_longer()
 
-plot_strategies_scores(df_long, grouping = group, base_size = 12)
+plot_strategies_scores(df_long, grouping = group_4, base_size = 12)
 }

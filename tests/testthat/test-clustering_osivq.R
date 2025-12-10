@@ -1,5 +1,5 @@
 test_that("The clustering suite works as expected", {
-  df <- get_clean_data()$df_survey
+  df <- get_clean_data("survey")
   clustering <- cluster_osivq(df)
   df2 <- df |> add_named_clusters(clustering)
   df3 <- summarise_clustering(df2)

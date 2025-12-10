@@ -203,8 +203,8 @@ factor_groups <- function(
       df |>
       dplyr::mutate(
         group = dplyr::case_when(
-          .data$group == "hyperphantasia" ~ "typical",
-          TRUE ~ .data$group
+          .data$group_4 == "hyperphantasia" ~ "typical",
+          TRUE ~ .data$group_4
         )
       )
 
@@ -220,9 +220,9 @@ factor_groups <- function(
       df |>
       dplyr::mutate(
         group = dplyr::case_when(
-          .data$group == "hypophantasia" ~ "aphantasia",
-          .data$group == "hyperphantasia" ~ "typical",
-          TRUE ~ .data$group
+          .data$group_4 == "hypophantasia" ~ "aphantasia",
+          .data$group_4 == "hyperphantasia" ~ "typical",
+          TRUE ~ .data$group_4
         )
       )
 
@@ -238,7 +238,7 @@ factor_groups <- function(
   df_factored <-
     df |>
     dplyr::mutate(
-      group = .data$group |>
+      group = .data$group_4 |>
         stringr::str_to_title() |>
         factor(levels = levels) |>
         add_factor_contrasts(
@@ -255,9 +255,9 @@ create_all_groups <- function(df, ...) {
     df |>
     dplyr::mutate(
       group_2 = dplyr::case_when(
-        .data$group == "hypophantasia" ~ "aphantasia",
-        .data$group == "hyperphantasia" ~ "typical",
-        TRUE ~ .data$group
+        .data$group_4 == "hypophantasia" ~ "aphantasia",
+        .data$group_4 == "hyperphantasia" ~ "typical",
+        TRUE ~ .data$group_4
       ) |>
         stringr::str_to_title() |>
         factor(levels = c("Aphantasia", "Typical")) |>
@@ -270,8 +270,8 @@ create_all_groups <- function(df, ...) {
           ...
         ),
       group_3 = dplyr::case_when(
-        .data$group == "hyperphantasia" ~ "typical",
-        TRUE ~ .data$group
+        .data$group_4 == "hyperphantasia" ~ "typical",
+        TRUE ~ .data$group_4
       ) |>
         stringr::str_to_title() |>
         factor(levels = c("Aphantasia", "Hypophantasia", "Typical")) |>
@@ -284,7 +284,7 @@ create_all_groups <- function(df, ...) {
           base = 3,
           ...
         ),
-      group = .data$group |>
+      group_4 = .data$group_4 |>
         stringr::str_to_title() |>
         factor(
           levels = c("Aphantasia", "Hypophantasia", "Typical","Hyperphantasia")
@@ -301,10 +301,10 @@ create_all_groups <- function(df, ...) {
         ),
       strategy_group = ifelse(
         .data$visual_strat == "no_use",
-        "No visual strategy",
-        "Visual strategy user"
+        "No_visual_strategy",
+        "Visual_strategy_user"
         ) |>
-        factor(levels = c("Visual strategy user", "No visual strategy")) |>
+        factor(levels = c("Visual_strategy_user", "No_visual_strategy")) |>
         add_factor_contrasts(
           n = c("_visual_strat_user", "_no_visual_strat")
         )
@@ -313,7 +313,7 @@ create_all_groups <- function(df, ...) {
       "group_2",
       "group_3",
       "strategy_group",
-      .after = "group"
+      .after = "group_4"
     )
   return(df_all_groups)
 }

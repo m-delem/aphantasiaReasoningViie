@@ -8,7 +8,7 @@ survey_data <-
   dplyr::inner_join(
     common_survey_data_full |>
       dplyr::select(
-        id:gender, group = Group, country,
+        id:gender, group_4 = Group, country,
         language_native, language_usual, job:treatment,
         vviq_is_complete, vviq_total_score:vviq_q16,
         osivq_is_complete,
@@ -33,6 +33,7 @@ survey_data <-
   # These are IDs that have been manually identified by examining the
   # self-reports in demographics or feedback questionnaires.
   dplyr::mutate(
+    vviq_total_score = ifelse(vviq_total_score < 16, 16, vviq_total_score),
     has_adhd = ifelse(
       id %in% c(
         "aacu64091390979054fksk",
@@ -99,7 +100,7 @@ survey_data <-
 experiment_data <-
   expe_reasoning_viie_data |>
   dplyr::select(
-    id, language, group = Group,
+    id, language, group_4 = Group,
     expe_phase, trial_number, problem = trial_code,
     category:correct_response, accuracy
   ) |>

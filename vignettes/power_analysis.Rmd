@@ -16,11 +16,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette dives into the details of the power analysis by simulation that 
-is briefly presented in the manuscript (preprint [here](https://doi.org/10.31234/osf.io/vsjtb_v1)). We describe the rationale behind
-this approach, how we built the generative model used to simulate data, how we
-fitted models on these simulations, and how we estimated the power of our model
-to detect the effect of interest.
+This vignette dives into the details of the power analysis by simulation that is
+briefly mentioned in the manuscript (preprint
+[here](https://doi.org/10.31234/osf.io/vsjtb_v1)). We describe the rationale
+behind this approach, how we built the generative model used to simulate data,
+how we fitted models on these simulations, and how we estimated the power of our
+model to detect the effect of interest.
 
 # Rationale
 
@@ -51,19 +52,21 @@ the distributions of the observed variables.
 
 We designed our model before data collection based on our hypotheses and
 variables. This is the model that was be used as the data-generating process for
-the simulations. The model we used is a generalised linear mixed-effects model
-(GLMM) with the following structure, in R syntax:
+the simulations. The model we used is a hierarchical linear model (said
+"multilevel model" in Bayesian or "mixed model in frequentist) with the
+following structure, in R syntax:
 
 ``` r
-dependent_variable ~ grouping * category + (category | id) + (grouping | problem) 
+dependent_variable ~ grouping * category + (category | id) + (1 | problem)
 ```
 
 Where the dependent variable can be accuracy or response times (RTs).
 
 -   The `grouping` can be our basic VVIQ groups (of varying precision depending
     on the definition, with 2, 3 or 4 groups), or OSIVQ cognitive style groups
-    as proposed by @delem2025uncovering (in aphantasia literature) or
-    @gazzoIndividualDifferencesImagery2013 (in reasoning literature).
+    as proposed by @delemUnsupervisedClusteringReveals2025a (in aphantasia
+    literature) or @gazzoIndividualDifferencesImagery2013 (in reasoning
+    literature).
 
 -   The `category` is the problem category (visual, spatial or control).
 
@@ -71,15 +74,14 @@ Where the dependent variable can be accuracy or response times (RTs).
     (implied by the `*`).
 
 -   The random effects are the intercepts and slopes by category for each
-    participant (`category | id`) and each problem by group
-    (`grouping | problem`).
+    participant (`category | id`) and an intercept per problem.
 
 The parameters for each variable can be made explicit by writing the model
 formally as such:
 
 \begin{align*}
 DV = \ & \beta_0 + \tau_0 + \\
-  & (\beta_{grouping} + \tau_{problem}) \times grouping \ + \\
+  & (\beta_{grouping}) \times grouping \ + \\
   & (\beta_{category} + \tau_{category}) \times category \ + \\
   & (\beta_{grouping:category} + \tau_{grouping:category}) \times grouping \times category \ + \\
   & \epsilon
@@ -93,8 +95,6 @@ Where:
     global intercept per participant).
 -   $\beta_{grouping}$ is the fixed effect of the grouping variable (the
     difference in the dependent variable between the groups).
--   $\tau_{problem}$ is the random effect of the problem (the variation of the
-    grouping effect per problem).
 -   $\beta_{category}$ is the fixed effect of the category variable (the
     difference in the dependent variable between the categories).
 -   $\tau_{category}$ is the random effect of the category (the variation of the
@@ -115,11 +115,11 @@ only interested in the difference between the visual category and the others,
 that we called the $\beta_{vis}$ coefficient, and the difference in this
 difference (the interaction) for a specific group (aphantasia), that we called
 the $\beta_{aph-vis}$ coefficient. Thus, for our simulations, we set
-$\beta_{grouping}$, $\tau_{problem}$, $\beta_{spatial}$ (the effect of the
-spatial category) and $\tau_{spatial}$ (the associated slope) and all other
-interaction coefficients to 0, respectively because we had no hypothesis or
-previous data on the group effect, the difference between the problems, the
-spatial effect, or the variation in spatial performance.
+$\beta_{grouping}$, $\beta_{spatial}$ (the effect of the spatial category) and
+$\tau_{spatial}$ (the associated slope) and all other interaction coefficients
+to 0, respectively because we had no hypothesis or previous data on the group
+effect, the effect of the problems, the spatial effect, or the variation in
+spatial performance.
 
 Given this theoretical model and our assumptions, we tried to choose constant
 values for the remaining parameters that were not analysed ($\beta_{0}$,
@@ -286,12 +286,19 @@ All set! Now we can move on to the actual power analysis.
 
 ## Modelling and testing the contrast of interest
 
-For our final analyses, we fitted frequentist GLMMs with Gamma distributions
-using the `glmmTMB` package. For the sake of computation speed, and because we
-did not simulate any variance tied to the problem types, we simplified the
-formula for the power analyses by removing the second random term. *Note the use
-of the `set_ranef_prior()` helper function, which helps setting regularizing
-priors on the random effects' SD to alleviate convergence issues*.
+The main analyses reported in the manuscript are Bayesian hierarchical models.
+However, to achieve reasonable computation times while allowing us to simulate
+and fit a lot of models, we conducted power analyses with frequentist
+equivalents (GLMMs with Gamma distributions) using the `glmmTMB` package[^1]. We
+also simplified the formula to speed up computation by removing the second
+random term, as we did not simulate any variance tied to problem types. *Note
+that all final analyses have also been conducted using frequentist models to
+assess the consistency of Bayesian and frequentist results. These additional
+frequentist analyses are reported in full in the other vignettes of this
+package.*
+
+[^1]: The `set_ranef_prior()` function helps setting regularizing priors on the
+    random effects' SD to alleviate convergence issues.
 
 Let's see how this model performs on our test data. We'll use the
 `report_contrast()` function from the package to get the contrasts of interest
@@ -437,7 +444,8 @@ evidence in favour or against the existence of the VIIE.
 
 --------------------------------------------------------------------------------
 
-```{r session_info}
+```{r}
+#| label: session_info
 #| echo: false
 
 sessioninfo::session_info()

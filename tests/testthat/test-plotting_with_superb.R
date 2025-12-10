@@ -1,7 +1,7 @@
 library(superb)
 
 test_that("The plotting suite that uses superb works correctly", {
-  df_expe <- get_clean_data()$df_expe
+  df_expe <- get_clean_data("experiment")
   df_rt   <- df_expe |> filter_trials_on_rt()
 
   p1 <- plot_superb_raincloud(df_rt, rt_total, group_2)

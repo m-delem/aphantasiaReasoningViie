@@ -51,5 +51,5 @@ them into this function to get a meaningful variable to analyse.
 df <- get_clean_data()$df_survey
 clustering <- cluster_osivq(df)
 
-df |> add_named_clusters(clustering) |> dplyr::select(id, group, cluster)
+df |> add_named_clusters(clustering) |> dplyr::select(id, group_4, cluster)
 }
