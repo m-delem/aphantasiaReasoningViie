@@ -93,6 +93,9 @@ plot_median_rt_distribution <- function(df, sd_mult = 2, ...) {
 #' - `group`: the participant group
 #' Results from model fits are saved natively in the package in the
 #' `nl_predictions` object.
+#' @param var A string indicating the variable to plot on the x-axis. Added for
+#' backwards compatibility with an older version of the package where trial
+#' phases were named "term", but have since been renamed "phase". Default is "term".
 #' @param title An optional title for the plot. Default is NULL.
 #' @param ... Additional arguments passed to the [theme_pdf()] function for
 #' customising the plot theme.
@@ -103,12 +106,12 @@ plot_median_rt_distribution <- function(df, sd_mult = 2, ...) {
 #'
 #' @examples
 #' plot_nl(nl_predictions$vviq_2, base_size = 12)
-plot_nl <- function(df, title = NULL, ...) {
+plot_nl <- function(df, var = "term", title = NULL, ...) {
   p <-
     df |>
     ggplot2::ggplot(
       ggplot2::aes(
-        x = factor(.data$term),
+        x = factor(.data[[var]]),
         y = .data$Predicted,
         color = .data$category,
         group = .data$category

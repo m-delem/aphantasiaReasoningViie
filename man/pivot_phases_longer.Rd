@@ -19,8 +19,8 @@ integer in a \code{term} column and as a factor in a \code{term_name} column.
 Get a long format data frame with the problem terms in a single column
 }
 \examples{
-get_clean_data()$df_expe |>
+get_clean_data("experiment") |>
   filter_trials_on_rt() |>
   pivot_phases_longer() |>
-  dplyr::select(id, problem, category, term, term_name, rt)
+  dplyr::select(id, problem, category, phase, phase_name, rt)
 }

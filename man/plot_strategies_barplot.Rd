@@ -30,5 +30,5 @@ df_long <-
   get_clean_data()$df_survey |>
   pivot_strategies_longer()
 
-plot_strategies_barplot(df_long, grouping = group, base_size = 12)
+plot_strategies_barplot(df_long, grouping = group_4, base_size = 12)
 }

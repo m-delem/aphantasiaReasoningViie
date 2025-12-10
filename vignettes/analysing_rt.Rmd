@@ -2,6 +2,7 @@
 title: "Response time analyses"
 output: rmarkdown::html_vignette
 message: false
+warning: false
 bibliography: "references.bib"
 csl: "apa.csl"
 vignette: >
@@ -20,7 +21,8 @@ knitr::opts_chunk$set(
 This vignette contains a full breakdown of the analyses of participants' total
 response times on the reasoning problems. Only Bayesian analyses were reported
 in the manuscript for brevity, but equivalent frequentist analyses were also
-conducted to test the convergence of the two approaches on the same results.
+conducted to test the convergence of the two approaches on similar results. They
+are reported in this vignette alongside the Bayesian analyses for completeness.
 
 ```{r setup}
 library(aphantasiaReasoningViie)
@@ -49,10 +51,10 @@ dplyr::glimpse(df_rt)
 
 We fitted hierarchical linear models (also said "multilevel" or "mixed" models)
 with skewed families of distributions to account for the typically skewed
-distributions of RTs, using the brms package for Bayesian models
-[@burknerBrmsPackageBayesian2017] or the glmmTMB package for frequentist models
-[@glmmTMB2025]. The models included a grouping variable (VVIQ groups, OSIVQ
-clusters), Category (visual, spatial, or control) along with their two-way
+distributions of RTs, using the *brms* package for Bayesian models
+[@burknerBrmsPackageBayesian2017] or the *glmmTMB* package for frequentist
+models [@glmmTMB2025]. The models included a grouping variable (VVIQ groups,
+OSIVQ clusters), Category (visual, spatial, or control) along with their two-way
 interactions as fixed categorical predictors. Varying slopes and intercepts
 (“random effects”) have been added for each participant by category along with
 an intercept for each problem.
@@ -108,10 +110,53 @@ build_formula("rt_total", "cluster")
 
 ## Bayesian models
 
+Bayesian models were fitted using the `brms::brm()` function through a custom
+wrapper, `fit_brms_model()`, that sets several default options for us. 24000
+post-warmup iterations were spread across all available CPU for parallel
+processing[^1], with 2000 additional warmup iterations per chain. A fixed seed
+was used for reproducibility. The [CmdStanR](https://mc-stan.org/cmdstanr/)
+back-end was used for better performance. CmdStanR needs a special installation
+command which is provided in the next chunk if needed. Regularising priors
+coefficients were used to improve convergence and avoid overfitting. A normal
+prior of mean 3 and standard deviation 0.05 was used on the intercept (on the
+log scale of RTs), a normal prior with mean 0 and standard deviation 1 was used
+on the fixed effects, an exponential prior with rate 10 on the standard
+deviation of the random effects, and an exponential prior with rate 10 on the
+residual standard deviation. The fine tuning of these priors was done based on
+prior predictive checks, which is presented below. To avoid having to refit the
+models each time the vignette is built and improve reproducibility, fitted
+models are saved in the `vignettes/models` folder and loaded in the R chunks.
+
+[^1]: This specific number was chosen arbitrarily to have an even number of
+    iterations on each chain on the two computers that were used for the
+    analyses, one with 20 cores and one with 24 cores. The only important aspect
+    here is to have enough iterations to ensure convergence and a good effective
+    sample size.
+
+After model fit, we checked for potential singularity issues and model
+performance using the `get_singularity()` and `get_performance()` functions
+created for the occasion (which are convenient wrappers around the *performance*
+package). Posterior predictive checks were also performed with the
+`performance::check_predictions()` function to check that the models were able
+to reproduce the data well.
+
+Finally, we tested our hypotheses with marginal contrasts. This task was
+performed with functions from the *marginaleffects* package. We used the
+`marginaleffects::avg_comparisons()` function to compute contrasts and a custom
+`report_rope()` wrapper (around `marginaleffects::posterior_draws()`,
+`bayestestR::rope_range()` and `bayestestR::p_direction()`) to summarise their
+posterior distributions. We computed the probability of direction (PD) of the
+contrasts and the proportions of their posterior distributions below, inside or
+above a region of practical equivalence to the null (ROPE) [see
+@makowskiIndicesEffectExistence2019]. We computed accuracy contrasts between
+groups, contrasts between categories within each group, and interaction
+contrasts (differences in category contrasts between groups).
+
+The setup of the CmdStanR back-end, marginaleffects options and the RT model
+priors is done in the chunk below.
+
 ```{r}
 #| label: bayesian-setup
-#| message: false
-#| warning: false
 
 if(!requireNamespace("cmdstanr", quietly = TRUE)) {
   install.packages(
@@ -120,7 +165,7 @@ if(!requireNamespace("cmdstanr", quietly = TRUE)) {
   )
 }
 options("marginaleffects_safe" = FALSE)
-draws <- seq(1, 200<, 1) # To limit draws that will be used for marginaleffects
+draws <- seq(1, 100, 1) # To limit draws that will be used for marginaleffects
 
 prior_rt <- c(
   brms::prior(normal(3, 0.05), class = "Intercept"),
@@ -130,10 +175,14 @@ prior_rt <- c(
   )
 ```
 
+Prior predictive check were performed to ensure that the priors set on the RT
+models were adequate. This was done by fitting a model with the same structure
+as the planned analyses but sampling only from the prior distributions. The
+posterior predictive distributions of this prior-only model were then plotted to
+check that they covered a reasonable range of RT values.
+
 ```{r}
 #| label: test_rt_prior
-#| warning: false
-#| message: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -158,18 +207,20 @@ performance::check_predictions(mb_rt_prior) |>
 
 ## Frequentist models
 
-The models were fitted using the `glmmTMB::glmmTMB()` function (and a little
-`set_ranef_prior()` helper function to set a weakly informative prior on the
-random effects, which helps with convergence and singularity issues). After
+Frequentist models were fitted using the `glmmTMB::glmmTMB()` function (and a
+little `set_ranef_prior()` helper function to set a weakly informative prior on
+the random effects, which helps with convergence and singularity issues). After
 model fit, we checked for potential singularity issues and model performance
-using the `get_singularity()` and `get_performance()` functions created for the
-occasion (which are convenient wrappers around the *performance* package).
+using the `get_singularity()` and `get_performance()` functions.
 
 Finally, we tested our hypotheses with marginal contrasts. This task was
 performed with the `report_contrast()` function, which is a wrapper around
-several functions from the *emmeans* package. We used it to compute response
-time contrasts between groups, contrasts between categories within each group,
-and interaction contrasts (differences in category contrasts between groups).
+several functions from the *emmeans* package[^2]. We computed accuracy contrasts
+between groups, contrasts between categories within each group, and interaction
+contrasts (differences in category contrasts between groups).
+
+[^2]: The marginaleffects package was not used for frequentist analyses because
+    it conflicted with glmmTMB models, whereas the emmeans package worked fine.
 
 Here we go!
 
@@ -181,7 +232,6 @@ Here we go!
 
 ```{r}
 #| label: bayesian-vviq-2-groups
-#| message: false
 #| fig-width: 6
 #| fig-height: 3.5
 #| fig-alt: >
@@ -199,9 +249,9 @@ mb_rt_vviq_2 <-
 # Singularity check
 mb_rt_vviq_2 |> get_singularity()
 # Model performance indices
-mb_rt_vviq_2  |> 
-  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-  knitr::kable(align = "c")
+# mb_rt_vviq_2  |> 
+#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+#   knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_rt_vviq_2 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -287,9 +337,9 @@ mb_rt_vviq_3 <-
 # Singularity check
 mb_rt_vviq_3 |> get_singularity()
 # Model performance indices
-mb_rt_vviq_3  |> 
-  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-  knitr::kable(align = "c")
+# mb_rt_vviq_3  |> 
+#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+#   knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_rt_vviq_3 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -374,9 +424,9 @@ mb_rt_osivq <-
 # Singularity check
 mb_rt_osivq |> get_singularity()
 # Model performance indices
-mb_rt_osivq  |> 
-  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-  knitr::kable(align = "c")
+# mb_rt_osivq  |> 
+#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+#   knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_rt_osivq |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -461,9 +511,9 @@ mb_rt_strat <-
 # Singularity check
 mb_rt_strat |> get_singularity()
 # Model performance indices
-mb_rt_strat  |> 
-  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-  knitr::kable(align = "c")
+# mb_rt_strat  |> 
+#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+#   knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_rt_strat |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)

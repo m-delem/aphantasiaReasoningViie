@@ -1,6 +1,10 @@
 ---
 title: "Exploring RTs per phase (non-linear modelling)"
 output: rmarkdown::html_vignette
+message: false
+warning: false
+bibliography: "references.bib"
+csl: "apa.csl"
 vignette: >
   %\VignetteIndexEntry{Exploring RTs per phase (non-linear modelling)}
   %\VignetteEngine{knitr::rmarkdown}
@@ -16,17 +20,20 @@ knitr::opts_chunk$set(
 
 This vignette contains a full breakdown of the exploratory non-linear modelling
 conducted to analyse the evolution of participants' response times over the
-course of the trial phases. As stated in the manuscript:
-
-> In addition to the total response times per trial usually analysed in VIIE
-> studies, we collected response time data for each trial phase (three premises
-> and the conclusion). We explored whether the VIIE could be specific to certain
-> phases, or whether it was a difference in the dynamics of reasoning across
-> trial phases rather than an overall difference in speed, by modelling response
-> times throughout a trial with non-linear models.
+course of the trial phases. Indeed, in addition to the total response times per
+trial usually analysed in VIIE studies, we collected response time data for each
+trial phase (three premises and the conclusion). We explored whether the VIIE
+could be specific to certain phases, or whether it was a difference in the
+dynamics of reasoning across trial phases rather than an overall difference in
+speed, by modelling response times throughout a trial with non-linear models.
 
 The non-linear modelling used here was heavily inspired by [this tutorial by
-Ping Hei Yeung](https://yeungpinghei.github.io/).
+Ping Hei Yeung](https://yeungpinghei.github.io/) and [this Stackoverflow
+thread](https://stackoverflow.com/q/68659805). Only Bayesian analyses were
+reported in the manuscript for brevity, but equivalent frequentist analyses were
+also conducted to test the convergence of the two approaches on similar results.
+They are reported in this vignette alongside the Bayesian analyses for
+completeness.
 
 ```{r setup}
 library(aphantasiaReasoningViie)
@@ -35,8 +42,8 @@ library(aphantasiaReasoningViie)
 # Data preparation
 
 First, let's get the clean, analysis-ready and clustered data (see
-`vignette("preparing_data")` and `vignette("osivq_clusters")` for details)
-and filter trials based on RTs (see `vignette("analysing_rt")` for details).
+`vignette("preparing_data")` and `vignette("osivq_clusters")` for details) and
+filter trials based on RTs (see `vignette("analysing_rt")` for details).
 
 ```{r}
 #| label: get-data
@@ -50,11 +57,11 @@ dplyr::glimpse(df_rt)
 ```
 
 By default, the `df_rt` data frame has one variable (one column) containing the
-response times of each participant for each trial phase. We
-needed to have all of these phases (premises and conclusion) in a single "phase"
-variable along with the associated "rt" variable for modelling, so we gathered
-these four columns into two long columns by "pivoting" the RT data in a long
-format (reducing the number of columns and increasing the number of rows). This
+response times of each participant for each trial phase. We needed to have all
+of these phases (premises and conclusion) in a single "phase" variable along
+with the associated "rt" variable for modelling, so we gathered these four
+columns into two long columns by "pivoting" the RT data in a long format
+(reducing the number of columns and increasing the number of rows). This
 operation is performed by the `pivot_phases_longer()` function.
 
 We also needed to create "interaction" variables between the grouping variables
@@ -78,27 +85,27 @@ dplyr::glimpse(df_rt_long)
 
 # Method
 
-We fitted generalised additive models using the mgcv package (Wood, 2011) to
+We fitted generalised additive models using the *brms* package for Bayesian
+models [@burknerBrmsPackageBayesian2017] or the *mgcv* package [@mgcv2011] to
 predict response times with a grouping variable (VVIQ groups, OSIVQ clusters),
-Category (visual, spatial or control) and their interaction as fixed
-categorical predictors, as well as “smooth” (non-linear) terms that capture
-the evolution of RTs across trial terms (premise 1/2/3 and conclusion) for
-each grouping and category, each problem for each grouping, and each
-participant for each category (the latter two being equivalent to “random
-effects” in mixed models).
+Category (visual, spatial or control) and their interaction as fixed categorical
+predictors, as well as “smooth” (non-linear) terms that capture the evolution of
+RTs across trial phases (premise 1/2/3 and conclusion) for each grouping and
+category and each participant (the latter two being equivalent to a “random
+intercept” in mixed models).
 
 Let's break this down.
 
-## The grouping variables
+## Grouping variables
 
 We used several grouping variables to classify participants, all of which are in
 the `df_rt_long` data frame:
 
--   `group_4` is the 4-group VVIQ classification with an "aphantasia" group (VVIQ
-    = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group (VVIQ
-    $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It was
-    not used in the analyses because the hyperphantasia group was too small (N =
-    4).
+-   `group_4` is the 4-group VVIQ classification with an "aphantasia" group
+    (VVIQ = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group
+    (VVIQ $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It
+    was not used in the analyses because the hyperphantasia group was too small
+    (N = 4).
 
 -   `group_3` is the same as `group`, but with the hyperphantasia group merged
     with the typical group. It is referred to as "VVIQ 3 groups" in the
@@ -118,6 +125,42 @@ the last three grouping variables.
 
 ## Bayesian models
 
+Bayesian models were fitted using the `brms::brm()` function through a custom
+wrapper, `fit_brms_model()`, that sets several default options for us. 24000
+post-warmup iterations were spread across all available CPU for parallel
+processing[^1], with 2000 additional warmup iterations per chain. A fixed seed
+was used for reproducibility. The [CmdStanR](https://mc-stan.org/cmdstanr/)
+back-end was used for better performance. CmdStanR needs a special installation
+command which is provided in the next chunk if needed. Regularising priors
+coefficients were used to improve convergence and avoid overfitting. A normal
+prior with mean 0 and standard deviation 1 was used on the fixed effects, an
+exponential prior with rate 1 on the standard deviation of the random effects,
+and an exponential prior with rate 1 on the residual standard deviation. The
+fine tuning of these priors was done based on prior predictive checks (see
+`vignette("osivq_clusters")` for details). To avoid having to refit the models
+each time the vignette is built and improve reproducibility, fitted models
+(which took more than 6 hours per model on 24 cores) are saved in the
+`vignettes/models` folder and loaded in the R chunks.
+
+[^1]: This specific number was chosen arbitrarily to have an even number of
+    iterations on each chain on the two computers that were used for the
+    analyses, one with 20 cores and one with 24 cores. The only important aspect
+    here is to have enough iterations to ensure convergence and a good effective
+    sample size.
+
+Finally, we tested our hypotheses on group and category differences with
+marginal contrasts. This task was performed with functions from the
+*marginaleffects* package. We used the `marginaleffects::avg_comparisons()`
+function to compute contrasts and a custom `report_rope()` wrapper (around
+`marginaleffects::posterior_draws()`, `bayestestR::rope_range()` and
+`bayestestR::p_direction()`) to summarise their posterior distributions. We
+computed the probability of direction (PD) of the contrasts and the proportions
+of their posterior distributions below, inside or above a region of practical
+equivalence to the null (ROPE) [see @makowskiIndicesEffectExistence2019].
+
+The setup of the CmdStanR back-end, marginaleffects options and the model priors
+is done in the chunk below.
+
 ```{r}
 #| label: bayesian-setup
 #| message: false
@@ -130,7 +173,13 @@ if(!requireNamespace("cmdstanr", quietly = TRUE)) {
   )
 }
 options("marginaleffects_safe" = FALSE)
-draws <- seq(1, 2000, 1) # To limit draws that will be used for marginaleffects
+draws <- seq(1, 100, 1) # To limit draws that will be used for marginaleffects
+
+prior_nl <- c(
+  brms::prior(normal(0, 1), class = "b"),
+  brms::prior(exponential(1), class = "sds"),
+  brms::prior(exponential(1), class = "sigma")
+)
 ```
 
 ## Frequentist models
@@ -141,8 +190,8 @@ performed with the `get_contrast()` function, which is a wrapper around several
 functions from the *emmeans* package.
 
 These models took a long time to fit and needed to be saved for ease of reuse,
-but model fits were too heavy to be kept as package data. Thus, two sub-products
-of the models were saved as package data instead:
+but model fits were too heavy to be kept as package data (more than 100 MB).
+Thus, two sub-products of the models were saved as package data instead:
 
 -   Contrast analyses obtained with `get_contrast()` for the statistical tests.
     The analyses for the three grouping variables have been saved in the
@@ -152,8 +201,8 @@ of the models were saved as package data instead:
     data used for visualisation. The predictions for the three grouping
     variables have been saved in the `nl_predictions` list.
 
-The code to fit the models and get the contrasts is provided below but does not
-run.
+The code to fit the frequentist models and get the contrasts is provided below
+but does not run.
 
 # Results
 
@@ -169,12 +218,6 @@ run.
 #| fig-alt: >
 #|  Posterior predictive distributions.
 
-prior_nl <- c(
-  brms::prior(normal(0, 1), class = "b"),
-  brms::prior(exponential(1), class = "sds"),
-  brms::prior(exponential(1), class = "sigma")
-)
-
 mb_nl_vviq_2 <-
   fit_brms_model(
     formula = rt ~ 
@@ -188,48 +231,30 @@ mb_nl_vviq_2 <-
     file    = "models/m_nl_vviq_2.rds"
   )
 
-mb_nl_vviq_3 <-
-  fit_brms_model(
-    formula = rt ~ 
-      group_3 * category + 
-      s(phase, by = interaction(group_3, category), k = 4) +
-      s(phase, id, bs = "fs", m = 1, k = 4),
-    data    = df_rt_long,
-    family  = brms::shifted_lognormal(),
-    prior   = prior_nl,
-    refresh = 10,
-    file    = "models/m_nl_vviq_3.rds"
-  )
+# Posterior predictive check (best model performance indicator)
+mb_nl_vviq_2 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
 
-mb_nl_osivq <-
-  fit_brms_model(
-    formula = rt ~ 
-      cluster * category + 
-      s(phase, by = interaction(cluster, category), k = 4) +
-      s(phase, id, bs = "fs", m = 1, k = 4),
-    data    = df_rt_long,
-    family  = brms::shifted_lognormal(),
-    prior   = prior_nl,
-    refresh = 10,
-    file    = "models/m_nl_osivq.rds"
-  )
-```
-
-```{r}
+# Contrasts
 marginaleffects::avg_comparisons(
   mb_nl_vviq_2, 
   variables = list("category" = "pairwise"), 
   by = c("group_2", "phase"), 
-  draw_ids = 1:100
+  draw_ids = draws
   ) |> 
-  report_rope(phase, group_2, contrast)
+  report_rope(phase, group_2, contrast) |> knitr::kable()
 ```
-
 
 ### Frequentist
 
+Note that the frequentist models were fitted with an earlier version of the
+package when the `term` variable was used instead of `phase`. The code below
+reflects this older version for consistency with the saved contrasts. Replacing
+`term` with `phase` would not change the results (but would be required to refit
+the models).
+
 ```{r}
-#| label: vviq-2-groups
+#| label: frequentist-vviq-2-groups
 #| eval: false
 
 mf_nl_vviq_2 <-
@@ -237,8 +262,7 @@ mf_nl_vviq_2 <-
     formula = rt ~
       group_2_category +
       s(term, by = group_2_category,  bs = "tp", k = 4) +
-      s(term, problem, by = group_2,  bs = "fs", m = 1, k = 4) +
-      s(term, id,      by = category, bs = "fs", m = 1, k = 4),
+      s(term, id, bs = "fs", m = 1, k = 4),
     family  = Gamma(link = "identity"),
     data    = df_rt_long,
     method  = "fREML"
@@ -259,7 +283,7 @@ package in the `nl_contrasts` object. The code below tweaks them a bit for a
 prettier display:
 
 ```{r}
-#| label: contrasts-vviq-2
+#| label: frequentist-contrasts-vviq-2
 
 nl_contrasts$vviq_2 |>
   as.data.frame() |>
@@ -300,8 +324,47 @@ Let's do the same for the other two classifications.
 
 ## VVIQ 3 groups
 
+### Bayesian
+
 ```{r}
-#| label: vviq-3-groups
+#| label: bayesian-vviq-3-groups
+#| message: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_nl_vviq_3 <-
+  fit_brms_model(
+    formula = rt ~ 
+      group_3 * category + 
+      s(phase, by = interaction(group_3, category), k = 4) +
+      s(phase, id, bs = "fs", m = 1, k = 4),
+    data    = df_rt_long,
+    family  = brms::shifted_lognormal(),
+    prior   = prior_nl,
+    refresh = 10,
+    file    = "models/m_nl_vviq_3.rds"
+  )
+
+# Posterior predictive check (best model performance indicator)
+mb_nl_vviq_3 |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+
+# Contrasts
+marginaleffects::avg_comparisons(
+  mb_nl_vviq_3, 
+  variables = list("category" = "pairwise"), 
+  by = c("group_3", "phase"), 
+  draw_ids = draws
+  ) |> 
+  report_rope(phase, group_3, contrast) |> knitr::kable()
+```
+
+### Frequentist
+
+```{r}
+#| label: frequentist-vviq-3-groups
 #| eval: false
 
 mf_nl_vviq_3 <-
@@ -309,8 +372,7 @@ mf_nl_vviq_3 <-
     formula = rt ~
       group_3_category +
       s(term, by = group_3_category,  bs = "tp", k = 4) +
-      s(term, problem, by = group_3,  bs = "fs", m = 1, k = 4) +
-      s(term, id,      by = category, bs = "fs", m = 1, k = 4),
+      s(term, id, bs = "fs", m = 1, k = 4),
     family  = Gamma(link = "identity"),
     data    = df_rt_long,
     method  = "fREML"
@@ -329,7 +391,7 @@ contrasts_vviq_3 <-
 Same process as above, contrasts are saved in the package:
 
 ```{r}
-#| label: contrasts-vviq-3
+#| label: frequentist-contrasts-vviq-3
 
 nl_contrasts$vviq_3 |>
   as.data.frame() |>
@@ -368,8 +430,47 @@ nl_contrasts$vviq_3 |>
 
 ## OSIVQ 3 clusters
 
+### Bayesian
+
 ```{r}
-#| label: osivq-3-clusters
+#| label: bayesian-osivq-3-clusters
+#| message: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: >
+#|  Posterior predictive distributions.
+
+mb_nl_osivq <-
+  fit_brms_model(
+    formula = rt ~ 
+      cluster * category + 
+      s(phase, by = interaction(cluster, category), k = 4) +
+      s(phase, id, bs = "fs", m = 1, k = 4),
+    data    = df_rt_long,
+    family  = brms::shifted_lognormal(),
+    prior   = prior_nl,
+    refresh = 10,
+    file    = "models/m_nl_osivq.rds"
+  )
+
+# Posterior predictive check (best model performance indicator)
+mb_nl_osivq |> 
+  performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
+
+# Contrasts
+marginaleffects::avg_comparisons(
+  mb_nl_osivq, 
+  variables = list("category" = "pairwise"), 
+  by = c("cluster", "phase"), 
+  draw_ids = draws
+  ) |> 
+  report_rope(phase, cluster, contrast) |> knitr::kable()
+```
+
+### Frequentist
+
+```{r}
+#| label: frequentist-osivq-3-clusters
 #| eval: false
 
 mf_nl_osivq <-
@@ -377,8 +478,7 @@ mf_nl_osivq <-
     formula = rt ~
       cluster_category +
       s(term, by = cluster_category,    bs = "tp", k = 4) +
-      s(term, problem, by = cluster,    bs = "fs", m = 1, k = 4) +
-      s(term, id,      by = category, bs = "fs", m = 1, k = 4),
+      s(term, id, bs = "fs", m = 1, k = 4),
     family  = Gamma(link = "identity"),
     data    = df_rt_long,
     method  = "fREML"
@@ -396,7 +496,7 @@ contrasts_osivq <-
 Same process as above, contrasts are saved in the package:
 
 ```{r}
-#| label: contrasts-osivq
+#| label: frequentist-contrasts-osivq
 
 nl_contrasts$osivq |>
   as.data.frame() |>
@@ -434,10 +534,12 @@ nl_contrasts$osivq |>
 
 # Visualisation
 
-The non-linear dynamics were represented using model predictions for each term,
+The non-linear dynamics were represented using model predictions for each phase,
 grouping and category. These predictions have been computed with the
-`modelbased::estimate_relation()` function and the code below (which does not
-run here):
+`modelbased::estimate_relation()` function on the frequentist models and the
+code below (which does not run here). The frequentist models are used here for
+convenience, but the Bayesian models could also be used to get similar
+predictions.
 
 ```{r}
 #| label: model-predictions
@@ -484,10 +586,10 @@ preds_osivq <-
   )
 ```
 
-... And have been saved as package data in the `nl_predictions` object. We
-created a `plot_nl()` function to visualise the data easily and added
-significance labels based on the contrasts with the `add_significance()` helper
-function (which is why the code below is so lengthy).
+They have been saved as package data in the `nl_predictions` object. We created
+a `plot_nl()` function to visualise the data easily and added significance
+labels based on the contrasts with the `add_significance()` helper function
+(which is why the code below is so lengthy).
 
 ```{r}
 #| label: plot-nl

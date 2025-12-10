@@ -9,10 +9,10 @@
 #' @export
 #'
 #' @examples
-#' get_clean_data()$df_expe |>
+#' get_clean_data("experiment") |>
 #'   filter_trials_on_rt() |>
 #'   pivot_phases_longer() |>
-#'   dplyr::select(id, problem, category, term, term_name, rt)
+#'   dplyr::select(id, problem, category, phase, phase_name, rt)
 pivot_phases_longer <- function(df) {
   df_pivoted <-
     df |>
@@ -53,6 +53,8 @@ pivot_phases_longer <- function(df) {
 #' `semantic_strat`, and `sensorimotor_strat`.
 #' @param base An integer indicating the base level for factor contrasts.
 #' Default is 1 for the visual strategy.
+#' @param ordered A logical indicating whether the `score` factor levels should
+#' be ordered. Default is `FALSE`.
 #' @param ... Additional arguments passed to [add_factor_contrasts()].
 #'
 #' @returns A data frame in long format with columns for `id`, `group`,
@@ -61,9 +63,9 @@ pivot_phases_longer <- function(df) {
 #' @export
 #'
 #' @examples
-#' get_clean_data()$df_survey |>
+#' get_clean_data("survey") |>
 #'   pivot_strategies_longer() |>
-#'   dplyr::select(id, group, strategy, score)
+#'   dplyr::select(id, group_4, strategy, score)
 pivot_strategies_longer <- function(df, base = 1, ordered = FALSE, ...) {
   df_pivoted <-
     df |>

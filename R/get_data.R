@@ -192,10 +192,10 @@ get_clustered_data <- function(
   df_expe <-
     dplyr::left_join(
       get_clean_data("experiment"),
-      df_survey |> dplyr::select(id, cluster),
+      df_survey |> dplyr::select("id", "cluster"),
       by = dplyr::join_by("id")
     ) |>
-    dplyr::relocate(cluster, .after = "group_4")
+    dplyr::relocate("cluster", .after = "group_4")
 
   if (type == "experiment") {
     return(df_expe)

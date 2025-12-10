@@ -334,6 +334,8 @@ fit_brms_model <- function(
     adapt_delta = 0.95,
     seed = 667
 ) {
+  rlang::check_installed("fs", reason = "to create folders")
+
   # Set the folder to save the cmdstanr parameters
   options(cmdstanr_write_stan_file_dir = "models/stan/")
 
@@ -448,7 +450,7 @@ report_rope <- function(
         sep = " - "
       ) |>
       dplyr::select(!c("level_2_cat_1", "level_2_cat_2_cat")) |>
-      dplyr::arrange(`Grouping contrast`)
+      dplyr::arrange(.data$`Grouping contrast`)
   }
 
   return(rope_report)

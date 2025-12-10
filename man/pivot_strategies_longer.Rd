@@ -14,6 +14,9 @@ pivot_strategies_longer(df, base = 1, ordered = FALSE, ...)
 \item{base}{An integer indicating the base level for factor contrasts.
 Default is 1 for the visual strategy.}
 
+\item{ordered}{A logical indicating whether the \code{score} factor levels should
+be ordered. Default is \code{FALSE}.}
+
 \item{...}{Additional arguments passed to \code{\link[=add_factor_contrasts]{add_factor_contrasts()}}.}
 }
 \value{
@@ -25,7 +28,7 @@ strategy and \code{score} is a factor indicating the level of strategy use.
 Get a long format data frame with the strategies gathered in a single column
 }
 \examples{
-get_clean_data()$df_survey |>
+get_clean_data("survey") |>
   pivot_strategies_longer() |>
-  dplyr::select(id, group, strategy, score)
+  dplyr::select(id, group_4, strategy, score)
 }

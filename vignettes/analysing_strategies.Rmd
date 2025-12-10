@@ -1,6 +1,10 @@
 ---
 title: "Strategy use analyses"
 output: rmarkdown::html_vignette
+message: false
+warning: false
+bibliography: "references.bib"
+csl: "apa.csl"
 vignette: >
   %\VignetteIndexEntry{Strategy use analyses}
   %\VignetteEngine{knitr::rmarkdown}
@@ -16,11 +20,10 @@ knitr::opts_chunk$set(
 
 This vignette contains a full breakdown of the analyses of the self-reported
 (using Likert scales) mental strategies that participants used to solve the
-reasoning problems. The most interesting results are synthetically presented in
-the main manuscript (preprint [here](https://doi.org/10.31234/osf.io/vsjtb_v1)).
-The present document aims to provide a full account of the steps taken to reach
-these results, and to provide additional analyses that were not included in the
-manuscript for brevity.
+reasoning problems. Only Bayesian analyses were reported in the manuscript for
+brevity, but equivalent frequentist analyses were also conducted to test the
+convergence of the two approaches on similar results. They are reported in this
+vignette alongside the Bayesian analyses for completeness.
 
 ```{r setup}
 library(aphantasiaReasoningViie)
@@ -56,26 +59,26 @@ dplyr::glimpse(df_strats_long)
 
 # Method
 
-Ordinal cumulative link regression models were fitted, using the brms package for
-Bayesian models or the ordinal
-package (Christensen, 2023) for frequentist models, to predict the score (on a question about the use
-of a given strategy) with a grouping variable (VVIQ groups, OSIVQ clusters),
-Strategy (visual, verbal, spatial, semantic or sensorimotor) and their two-way
-interaction as fixed categorical predictors. We planned to analyse the
-contrasts between groups for each strategy separately.
+Ordinal cumulative link regression models were fitted, using the *brms* package
+for Bayesian models [@burknerBrmsPackageBayesian2017] or the *ordinal* package
+[@ordinal2023] for frequentist models, to predict the score (on a question about
+the use of a given strategy) with a grouping variable (VVIQ groups, OSIVQ
+clusters), Strategy (visual, verbal, spatial, semantic or sensorimotor) and
+their two-way interaction as fixed categorical predictors. We planned to analyse
+the contrasts between groups for each strategy separately.
 
 Let's break this down.
 
-## The grouping variables
+## Grouping variables
 
 We used several grouping variables to classify participants, all of which are in
 the `df_strats_long` data frame:
 
--   `group_4` is the 4-group VVIQ classification with an "aphantasia" group (VVIQ
-    = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group (VVIQ
-    $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It was
-    not used in the analyses because the hyperphantasia group was too small (N =
-    4).
+-   `group_4` is the 4-group VVIQ classification with an "aphantasia" group
+    (VVIQ = 16), "hypophantasia" group (VVIQ $\in$ [17, 32]), "typical" group
+    (VVIQ $\in$ [33, 74]), and "hyperphantasia" group (VVIQ $\in$ [75, 80]). It
+    was not used in the analyses because the hyperphantasia group was too small
+    (N = 4).
 
 -   `group_3` is the same as `group`, but with the hyperphantasia group merged
     with the typical group. It is referred to as "VVIQ 3 groups" in the
@@ -95,6 +98,45 @@ the last three grouping variables.
 
 ## Bayesian models
 
+Bayesian models were fitted using the `brms::brm()` function through a custom
+wrapper, `fit_brms_model()`, that sets several default options for us. 24000
+post-warmup iterations were spread across all available CPU for parallel
+processing[^1], with 2000 additional warmup iterations per chain. A fixed seed
+was used for reproducibility. The [CmdStanR](https://mc-stan.org/cmdstanr/)
+back-end was used for better performance. CmdStanR needs a special installation
+command which is provided in the next chunk if needed. Since the models were
+very simple and easy to fit, default priors were used. To avoid having to refit
+the models each time the vignette is built and improve reproducibility, fitted
+models are saved in the `vignettes/models` folder and loaded in the R chunks.
+
+[^1]: This specific number was chosen arbitrarily to have an even number of
+    iterations on each chain on the two computers that were used for the
+    analyses, one with 20 cores and one with 24 cores. The only important aspect
+    here is to have enough iterations to ensure convergence and a good effective
+    sample size.
+
+After model fit, we checked for potential singularity issues and model
+performance using the `get_singularity()` and `get_performance()` functions
+created for the occasion (which are convenient wrappers around the *performance*
+package). Posterior predictive checks were also performed with the
+`performance::check_predictions()` function to check that the models were able
+to reproduce the data well.
+
+Finally, we tested our hypotheses with marginal contrasts. This task was
+performed with functions from the *marginaleffects* package. We used the
+`marginaleffects::avg_comparisons()` function to compute contrasts and a custom
+`report_rope()` wrapper (around `marginaleffects::posterior_draws()`,
+`bayestestR::rope_range()` and `bayestestR::p_direction()`) to summarise their
+posterior distributions. We computed the probability of direction (PD) of the
+contrasts and the proportions of their posterior distributions below, inside or
+above a region of practical equivalence to the null (ROPE) [see
+@makowskiIndicesEffectExistence2019]. We computed strategy use contrasts between
+groups for each strategy, contrasts between strategies within each group, and
+interaction contrasts (differences in strategy contrasts between groups).
+
+The setup of the CmdStanR back-end and marginaleffects options is done in the
+chunk below.
+
 ```{r}
 #| label: bayesian-setup
 #| message: false
@@ -106,14 +148,14 @@ if(!requireNamespace("cmdstanr", quietly = TRUE)) {
     repos = c('https://stan-dev.r-universe.dev', getOption("repos"))
   )
 }
-options("marginaleffects_safe" = FALSE)<
-draws <- seq(1, 2000, 1) # To limit draws that will be used for marginaleffects
+options("marginaleffects_safe" = FALSE)
+draws <- seq(1, 100, 1) # To limit draws that will be used for marginaleffects
 ```
 
 ## Frequentist models
 
-The ordinal models were fitted using the `fit_clm()` function, which is a
-wrapper around the `ordinal::clm()` function that simply sets a probit link by
+Frequentist ordinal models were fitted using the `fit_clm()` function, which is
+a wrapper around the `ordinal::clm()` function that simply sets a probit link by
 default. After model fit, we checked for potential singularity issues and model
 performance using the `get_singularity()` and `get_performance()` functions
 created for the occasion (which are convenient wrappers around the *performance*
@@ -121,10 +163,14 @@ package).
 
 Finally, we tested our hypotheses with marginal contrasts. This task was
 performed with the `report_contrast()` function, which is a wrapper around
-several functions from the *emmeans* package. We used it to compute strategy use
-contrasts between groups for each strategy, contrasts between strategies within
-each group, and interaction contrasts (differences in strategy contrasts between
-groups).
+several functions from the *emmeans* package[^2]. We used it to compute strategy
+use contrasts between groups for each strategy, contrasts between strategies
+within each group, and interaction contrasts (differences in strategy contrasts
+between groups).
+
+[^2]: The marginaleffects package was not used for frequentist analyses because
+    it conflicted with *ordinal* models, whereas the emmeans package worked
+    fine.
 
 Here we go!
 
@@ -153,9 +199,9 @@ mb_strats_vviq_2 <-
 # Singularity check
 mb_strats_vviq_2 |> get_singularity()
 # Model performance indices
-mb_strats_vviq_2  |> 
-  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-  knitr::kable(align = "c")
+# mb_strats_vviq_2  |> 
+#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+#   knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_strats_vviq_2 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -231,9 +277,9 @@ mb_strats_vviq_3 <-
 # Singularity check
 mb_strats_vviq_3 |> get_singularity()
 # Model performance indices
-mb_strats_vviq_3  |> 
-  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-  knitr::kable(align = "c")
+# mb_strats_vviq_3  |> 
+#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+#   knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_strats_vviq_3 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -304,9 +350,9 @@ mb_strats_osivq <-
 # Singularity check
 mb_strats_osivq |> get_singularity()
 # Model performance indices
-mb_strats_osivq  |> 
-  get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-  knitr::kable(align = "c")
+# mb_strats_osivq  |> 
+#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
+#   knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mb_strats_osivq |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
