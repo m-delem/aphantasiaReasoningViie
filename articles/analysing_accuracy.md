@@ -99,11 +99,11 @@ structure a lot of times:
 ``` r
 build_formula("accuracy", "group_2")
 #> accuracy ~ group_2 * category + (category | id) + (1 | problem)
-#> <environment: 0x5607641fe138>
+#> <environment: 0x5600e8402f10>
 
 build_formula("accuracy", "cluster")
 #> accuracy ~ cluster * category + (category | id) + (1 | problem)
-#> <environment: 0x56076426f620>
+#> <environment: 0x5600ea553f48>
 ```
 
 ### Bayesian models
@@ -164,7 +164,7 @@ accuracy models prior is done in the chunk below.
 #   )
 # }
 options("marginaleffects_safe" = FALSE)
-draws <- seq(1, 100, 1) # To limit draws that will be used for marginaleffects
+draws <- seq(1, 2000, 1) # To limit draws that will be used for marginaleffects
 
 prior_acc <- c(brms::prior(normal(0, 1), class = "b"))
 ```
@@ -213,9 +213,16 @@ mb_acc_vviq_2 <-
 # Singularity check
 mb_acc_vviq_2 |> get_singularity()
 # Model performance indices
-# mb_acc_vviq_2  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_acc_vviq_2  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
+```
+
+|  WAIC  |  R2   | R2 (marg.) | RMSE  |
+|:------:|:-----:|:----------:|:-----:|
+| 2717.2 | 0.103 |   0.008    | 0.379 |
+
+``` r
 # Posterior predictive check (best model performance indicator)
 mb_acc_vviq_2 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -235,9 +242,9 @@ mb_acc_vviq_2 |>
   report_rope(contrast) |> knitr::kable()
 ```
 
-| contrast             | Estimate | 95% CI            |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|:---------------------|---------:|:------------------|-----:|-----------:|------------:|-----------:|
-| Typical - Aphantasia |     0.27 | \[-0.018, 0.544\] | 0.94 |          0 |        0.32 |       0.68 |
+| contrast             | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|:---------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
+| Typical - Aphantasia |    0.249 | \[-0.074, 0.571\] | 0.929 |      0.002 |       0.332 |      0.665 |
 
 ``` r
 # Category contrasts within groups
@@ -250,14 +257,14 @@ mb_acc_vviq_2 |>
   report_rope(group_2, contrast) |> knitr::kable()
 ```
 
-| group_2    | contrast          | Estimate | 95% CI             |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|:-----------|:------------------|---------:|:-------------------|-----:|-----------:|------------:|-----------:|
-| Aphantasia | Spatial - Control |   -0.061 | \[-0.464, 0.46\]   | 0.61 |       0.32 |        0.53 |       0.15 |
-| Aphantasia | Visual - Control  |    0.015 | \[-0.509, 0.459\]  | 0.52 |       0.20 |        0.57 |       0.23 |
-| Aphantasia | Visual - Spatial  |    0.055 | \[-0.434, 0.6\]    | 0.64 |       0.12 |        0.55 |       0.33 |
-| Typical    | Spatial - Control |   -0.279 | \[-0.886, 0.258\]  | 0.84 |       0.68 |        0.28 |       0.04 |
-| Typical    | Visual - Control  |   -0.474 | \[-1.006, -0.016\] | 0.97 |       0.88 |        0.12 |       0.00 |
-| Typical    | Visual - Spatial  |   -0.234 | \[-0.612, 0.345\]  | 0.83 |       0.59 |        0.32 |       0.09 |
+| group_2    | contrast          | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|:-----------|:------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
+| Aphantasia | Spatial - Control |   -0.031 | \[-0.675, 0.516\] | 0.542 |      0.304 |       0.470 |      0.226 |
+| Aphantasia | Visual - Control  |   -0.004 | \[-0.593, 0.606\] | 0.505 |      0.261 |       0.476 |      0.262 |
+| Aphantasia | Visual - Spatial  |    0.032 | \[-0.527, 0.636\] | 0.545 |      0.202 |       0.507 |      0.291 |
+| Typical    | Spatial - Control |   -0.262 | \[-0.886, 0.311\] | 0.806 |      0.610 |       0.325 |      0.065 |
+| Typical    | Visual - Control  |   -0.489 | \[-1.046, 0.098\] | 0.954 |      0.859 |       0.128 |      0.013 |
+| Typical    | Visual - Spatial  |   -0.231 | \[-0.771, 0.348\] | 0.780 |      0.557 |       0.360 |      0.082 |
 
 ``` r
 # Interaction contrasts
@@ -272,11 +279,11 @@ mb_acc_vviq_2 |>
   report_rope(hypothesis) |> knitr::kable()
 ```
 
-| Category contrast | Grouping contrast    | Estimate | 95% CI            |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|:------------------|:---------------------|---------:|:------------------|-----:|-----------:|------------:|-----------:|
-| Spatial - Control | Aphantasia - Typical |    0.204 | \[-0.208, 0.756\] | 0.77 |       0.06 |        0.38 |       0.56 |
-| Visual - Control  | Aphantasia - Typical |    0.467 | \[0.085, 1.133\]  | 0.99 |       0.00 |        0.06 |       0.94 |
-| Visual - Spatial  | Aphantasia - Typical |    0.285 | \[-0.108, 0.634\] | 0.93 |       0.00 |        0.26 |       0.74 |
+| Category contrast | Grouping contrast    | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|:------------------|:---------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
+| Spatial - Control | Aphantasia - Typical |    0.223 | \[-0.243, 0.707\] | 0.810 |      0.044 |       0.390 |      0.566 |
+| Visual - Control  | Aphantasia - Typical |    0.486 | \[0.013, 0.978\]  | 0.978 |      0.003 |       0.094 |      0.903 |
+| Visual - Spatial  | Aphantasia - Typical |    0.266 | \[-0.17, 0.685\]  | 0.873 |      0.024 |       0.328 |      0.647 |
 
 #### Frequentist
 
@@ -291,7 +298,6 @@ mf_acc_vviq_2 <-
 
 # Singularity
 mf_acc_vviq_2 |> get_singularity()
-#> The model is not singular, parameter estimates are trustworthy.
 
 # Performance
 mf_acc_vviq_2 |> get_performance() |> knitr::kable(align = "c")
@@ -305,9 +311,6 @@ mf_acc_vviq_2 |> get_performance() |> knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mf_acc_vviq_2 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
-#> Ignoring unknown labels:
-#> • size : ""
-#> • alpha : ""
 ```
 
 ![Posterior predictive
@@ -316,7 +319,6 @@ distributions.](analysing_accuracy_files/figure-html/frequentist-vviq-2-groups-1
 ``` r
 # Group contrasts
 mf_acc_vviq_2 |> report_contrast(~ group_2, ratios = FALSE) |> knitr::kable()
-#> NOTE: Results may be misleading due to involvement in interactions
 ```
 
 | Contrast             | Difference | 95% CI          | p.value |
@@ -368,9 +370,16 @@ mb_acc_vviq_3 <-
 # Singularity check
 mb_acc_vviq_3 |> get_singularity()
 # Model performance indices
-# mb_acc_vviq_3  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_acc_vviq_3  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
+```
+
+|  WAIC  |  R2   | R2 (marg.) | RMSE  |
+|:------:|:-----:|:----------:|:-----:|
+| 2720.7 | 0.105 |   0.010    | 0.378 |
+
+``` r
 # Posterior predictive check (best model performance indicator)
 mb_acc_vviq_3 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -390,11 +399,11 @@ mb_acc_vviq_3 |>
   report_rope(contrast) |> knitr::kable()
 ```
 
-| contrast                   | Estimate | 95% CI            |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|:---------------------------|---------:|:------------------|-----:|-----------:|------------:|-----------:|
-| Hypophantasia - Aphantasia |   -0.061 | \[-0.631, 0.397\] | 0.59 |       0.37 |        0.43 |       0.20 |
-| Typical - Aphantasia       |    0.266 | \[-0.07, 0.689\]  | 0.90 |       0.02 |        0.37 |       0.61 |
-| Typical - Hypophantasia    |    0.336 | \[-0.299, 0.908\] | 0.94 |       0.05 |        0.28 |       0.67 |
+| contrast                   | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|:---------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
+| Hypophantasia - Aphantasia |   -0.157 | \[-0.648, 0.334\] | 0.735 |      0.459 |       0.452 |      0.089 |
+| Typical - Aphantasia       |    0.181 | \[-0.197, 0.557\] | 0.830 |      0.031 |       0.470 |      0.499 |
+| Typical - Hypophantasia    |    0.335 | \[-0.087, 0.82\]  | 0.933 |      0.011 |       0.238 |      0.752 |
 
 ``` r
 # Category contrasts within groups
@@ -407,17 +416,17 @@ mb_acc_vviq_3 |>
   report_rope(group_3, contrast) |> knitr::kable()
 ```
 
-| group_3       | contrast          | Estimate | 95% CI            |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|:--------------|:------------------|---------:|:------------------|-----:|-----------:|------------:|-----------:|
-| Aphantasia    | Spatial - Control |    0.032 | \[-0.716, 0.686\] | 0.54 |       0.27 |        0.42 |       0.31 |
-| Aphantasia    | Visual - Control  |    0.039 | \[-0.519, 0.664\] | 0.52 |       0.19 |        0.49 |       0.32 |
-| Aphantasia    | Visual - Spatial  |    0.028 | \[-0.664, 0.659\] | 0.54 |       0.24 |        0.45 |       0.31 |
-| Hypophantasia | Spatial - Control |   -0.189 | \[-1.111, 0.345\] | 0.70 |       0.50 |        0.36 |       0.14 |
-| Hypophantasia | Visual - Control  |   -0.008 | \[-0.842, 0.757\] | 0.51 |       0.38 |        0.34 |       0.28 |
-| Hypophantasia | Visual - Spatial  |    0.226 | \[-0.527, 0.803\] | 0.74 |       0.19 |        0.25 |       0.56 |
-| Typical       | Spatial - Control |   -0.271 | \[-0.885, 0.358\] | 0.85 |       0.58 |        0.35 |       0.07 |
-| Typical       | Visual - Control  |   -0.403 | \[-1.037, 0.121\] | 0.93 |       0.78 |        0.19 |       0.03 |
-| Typical       | Visual - Spatial  |   -0.138 | \[-0.691, 0.36\]  | 0.72 |       0.42 |        0.49 |       0.09 |
+| group_3       | contrast          | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|:--------------|:------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
+| Aphantasia    | Spatial - Control |    0.059 | \[-0.604, 0.718\] | 0.576 |      0.237 |       0.404 |      0.359 |
+| Aphantasia    | Visual - Control  |    0.006 | \[-0.69, 0.676\]  | 0.506 |      0.284 |       0.429 |      0.286 |
+| Aphantasia    | Visual - Spatial  |   -0.056 | \[-0.695, 0.585\] | 0.572 |      0.354 |       0.424 |      0.222 |
+| Hypophantasia | Spatial - Control |   -0.199 | \[-0.931, 0.55\]  | 0.699 |      0.517 |       0.320 |      0.162 |
+| Hypophantasia | Visual - Control  |   -0.078 | \[-0.839, 0.613\] | 0.572 |      0.396 |       0.354 |      0.251 |
+| Hypophantasia | Visual - Spatial  |    0.111 | \[-0.608, 0.821\] | 0.617 |      0.206 |       0.370 |      0.424 |
+| Typical       | Spatial - Control |   -0.247 | \[-0.881, 0.361\] | 0.800 |      0.587 |       0.334 |      0.079 |
+| Typical       | Visual - Control  |   -0.467 | \[-1.106, 0.117\] | 0.950 |      0.845 |       0.140 |      0.015 |
+| Typical       | Visual - Spatial  |   -0.217 | \[-0.764, 0.348\] | 0.787 |      0.548 |       0.372 |      0.080 |
 
 ``` r
 # Interaction contrasts
@@ -432,17 +441,17 @@ mb_acc_vviq_3 |>
   report_rope(hypothesis) |> knitr::kable()
 ```
 
-| Category contrast | Grouping contrast          | Estimate | 95% CI            |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|:------------------|:---------------------------|---------:|:------------------|-----:|-----------:|------------:|-----------:|
-| Spatial - Control | Aphantasia - Hypophantasia |    0.261 | \[-0.37, 0.968\]  | 0.79 |       0.15 |        0.27 |       0.58 |
-| Visual - Control  | Aphantasia - Hypophantasia |    0.132 | \[-0.721, 0.679\] | 0.62 |       0.20 |        0.34 |       0.46 |
-| Visual - Spatial  | Aphantasia - Hypophantasia |   -0.120 | \[-0.753, 0.462\] | 0.65 |       0.43 |        0.39 |       0.18 |
-| Spatial - Control | Aphantasia - Typical       |    0.334 | \[-0.181, 0.864\] | 0.90 |       0.03 |        0.30 |       0.67 |
-| Visual - Control  | Aphantasia - Typical       |    0.483 | \[-0.07, 1.032\]  | 0.95 |       0.00 |        0.17 |       0.83 |
-| Visual - Spatial  | Aphantasia - Typical       |    0.176 | \[-0.277, 0.797\] | 0.74 |       0.08 |        0.43 |       0.49 |
-| Spatial - Control | Hypophantasia - Typical    |    0.080 | \[-0.549, 0.568\] | 0.58 |       0.28 |        0.35 |       0.37 |
-| Visual - Control  | Hypophantasia - Typical    |    0.369 | \[-0.195, 1.061\] | 0.86 |       0.03 |        0.25 |       0.72 |
-| Visual - Spatial  | Hypophantasia - Typical    |    0.353 | \[-0.258, 0.845\] | 0.86 |       0.06 |        0.22 |       0.72 |
+| Category contrast | Grouping contrast          | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|:------------------|:---------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
+| Spatial - Control | Aphantasia - Hypophantasia |    0.255 | \[-0.436, 0.921\] | 0.753 |      0.120 |       0.293 |      0.588 |
+| Visual - Control  | Aphantasia - Hypophantasia |    0.084 | \[-0.614, 0.746\] | 0.592 |      0.228 |       0.392 |      0.380 |
+| Visual - Spatial  | Aphantasia - Hypophantasia |   -0.177 | \[-0.838, 0.492\] | 0.695 |      0.495 |       0.352 |      0.154 |
+| Spatial - Control | Aphantasia - Typical       |    0.314 | \[-0.221, 0.85\]  | 0.877 |      0.034 |       0.279 |      0.686 |
+| Visual - Control  | Aphantasia - Typical       |    0.474 | \[-0.042, 0.99\]  | 0.966 |      0.005 |       0.129 |      0.866 |
+| Visual - Spatial  | Aphantasia - Typical       |    0.159 | \[-0.336, 0.667\] | 0.733 |      0.086 |       0.452 |      0.463 |
+| Spatial - Control | Hypophantasia - Typical    |    0.062 | \[-0.611, 0.702\] | 0.576 |      0.219 |       0.422 |      0.359 |
+| Visual - Control  | Hypophantasia - Typical    |    0.397 | \[-0.201, 0.999\] | 0.884 |      0.034 |       0.216 |      0.751 |
+| Visual - Spatial  | Hypophantasia - Typical    |    0.341 | \[-0.274, 0.909\] | 0.859 |      0.046 |       0.246 |      0.708 |
 
 #### Frequentist
 
@@ -456,7 +465,6 @@ mf_acc_vviq_3 <-
   )
 
 mf_acc_vviq_3 |> get_singularity()
-#> The model is not singular, parameter estimates are trustworthy.
 
 mf_acc_vviq_3 |> get_performance() |> knitr::kable(align = "c")
 ```
@@ -469,9 +477,6 @@ mf_acc_vviq_3 |> get_performance() |> knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mf_acc_vviq_3 |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
-#> Ignoring unknown labels:
-#> • size : ""
-#> • alpha : ""
 ```
 
 ![Posterior predictive
@@ -479,7 +484,6 @@ distributions.](analysing_accuracy_files/figure-html/frequentist-vviq-3-groups-1
 
 ``` r
 mf_acc_vviq_3 |> report_contrast(~ group_3, ratios = FALSE) |> knitr::kable()
-#> NOTE: Results may be misleading due to involvement in interactions
 ```
 
 | Contrast                   | Difference | 95% CI          | p.value |
@@ -538,9 +542,16 @@ mb_acc_osivq <-
 # Singularity check
 mb_acc_osivq |> get_singularity()
 # Model performance indices
-# mb_acc_osivq  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_acc_osivq  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
+```
+
+|  WAIC  |  R2   | R2 (marg.) | RMSE  |
+|:------:|:-----:|:----------:|:-----:|
+| 2724.1 | 0.104 |   0.008    | 0.378 |
+
+``` r
 # Posterior predictive check (best model performance indicator)
 mb_acc_osivq |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -560,11 +571,11 @@ mb_acc_osivq |>
   report_rope(contrast) |> knitr::kable()
 ```
 
-| contrast                 | Estimate | 95% CI            |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|:-------------------------|---------:|:------------------|-----:|-----------:|------------:|-----------:|
-| Spatialiser - Visualiser |   -0.040 | \[-0.442, 0.355\] | 0.58 |       0.24 |        0.57 |       0.19 |
-| Verbaliser - Spatialiser |   -0.167 | \[-0.548, 0.365\] | 0.77 |       0.46 |        0.45 |       0.09 |
-| Verbaliser - Visualiser  |   -0.200 | \[-0.523, 0.216\] | 0.83 |       0.54 |        0.42 |       0.04 |
+| contrast                 | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|:-------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
+| Spatialiser - Visualiser |   -0.075 | \[-0.524, 0.382\] | 0.625 |      0.324 |       0.539 |      0.136 |
+| Verbaliser - Spatialiser |   -0.137 | \[-0.594, 0.326\] | 0.721 |      0.420 |       0.499 |      0.081 |
+| Verbaliser - Visualiser  |   -0.208 | \[-0.571, 0.145\] | 0.884 |      0.562 |       0.422 |      0.016 |
 
 ``` r
 # Category contrasts within groups
@@ -577,17 +588,17 @@ mb_acc_osivq |>
   report_rope(cluster, contrast) |> knitr::kable()
 ```
 
-| cluster     | contrast          | Estimate | 95% CI            |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|:------------|:------------------|---------:|:------------------|-----:|-----------:|------------:|-----------:|
-| Visualiser  | Spatial - Control |   -0.280 | \[-1.123, 0.273\] | 0.87 |       0.64 |        0.29 |       0.07 |
-| Visualiser  | Visual - Control  |   -0.475 | \[-0.985, 0.068\] | 0.96 |       0.86 |        0.13 |       0.01 |
-| Visualiser  | Visual - Spatial  |   -0.158 | \[-0.609, 0.478\] | 0.70 |       0.45 |        0.41 |       0.14 |
-| Spatialiser | Spatial - Control |    0.026 | \[-0.721, 0.89\]  | 0.51 |       0.30 |        0.37 |       0.33 |
-| Spatialiser | Visual - Control  |   -0.211 | \[-0.99, 0.456\]  | 0.74 |       0.55 |        0.33 |       0.12 |
-| Spatialiser | Visual - Spatial  |   -0.265 | \[-0.853, 0.503\] | 0.78 |       0.56 |        0.33 |       0.11 |
-| Verbaliser  | Spatial - Control |   -0.101 | \[-0.654, 0.415\] | 0.65 |       0.44 |        0.40 |       0.16 |
-| Verbaliser  | Visual - Control  |   -0.107 | \[-0.489, 0.392\] | 0.62 |       0.39 |        0.48 |       0.13 |
-| Verbaliser  | Visual - Spatial  |   -0.005 | \[-0.488, 0.59\]  | 0.51 |       0.23 |        0.48 |       0.29 |
+| cluster     | contrast          | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|:------------|:------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
+| Visualiser  | Spatial - Control |   -0.292 | \[-0.92, 0.324\]  | 0.829 |      0.638 |       0.293 |      0.068 |
+| Visualiser  | Visual - Control  |   -0.467 | \[-1.059, 0.113\] | 0.943 |      0.835 |       0.153 |      0.013 |
+| Visualiser  | Visual - Spatial  |   -0.178 | \[-0.747, 0.439\] | 0.733 |      0.494 |       0.390 |      0.116 |
+| Spatialiser | Spatial - Control |    0.029 | \[-0.744, 0.83\]  | 0.520 |      0.300 |       0.354 |      0.346 |
+| Spatialiser | Visual - Control  |   -0.232 | \[-0.985, 0.495\] | 0.741 |      0.553 |       0.322 |      0.124 |
+| Spatialiser | Visual - Spatial  |   -0.271 | \[-0.976, 0.473\] | 0.757 |      0.591 |       0.290 |      0.120 |
+| Verbaliser  | Spatial - Control |   -0.078 | \[-0.72, 0.543\]  | 0.601 |      0.378 |       0.420 |      0.203 |
+| Verbaliser  | Visual - Control  |   -0.110 | \[-0.728, 0.52\]  | 0.634 |      0.398 |       0.451 |      0.150 |
+| Verbaliser  | Visual - Spatial  |   -0.040 | \[-0.64, 0.597\]  | 0.553 |      0.302 |       0.451 |      0.246 |
 
 ``` r
 # Interaction contrasts
@@ -602,17 +613,17 @@ mb_acc_osivq |>
   report_rope(hypothesis) |> knitr::kable()
 ```
 
-| Category contrast | Grouping contrast        | Estimate | 95% CI            |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|:------------------|:-------------------------|---------:|:------------------|-----:|-----------:|------------:|-----------:|
-| Spatial - Control | Spatialiser - Verbaliser |    0.144 | \[-0.565, 0.74\]  | 0.60 |       0.23 |        0.32 |       0.45 |
-| Visual - Control  | Spatialiser - Verbaliser |   -0.157 | \[-0.765, 0.504\] | 0.68 |       0.46 |        0.39 |       0.15 |
-| Visual - Spatial  | Spatialiser - Verbaliser |   -0.242 | \[-0.785, 0.272\] | 0.85 |       0.60 |        0.34 |       0.06 |
-| Spatial - Control | Visualiser - Spatialiser |   -0.313 | \[-0.927, 0.404\] | 0.86 |       0.65 |        0.29 |       0.06 |
-| Visual - Control  | Visualiser - Spatialiser |   -0.218 | \[-0.849, 0.365\] | 0.79 |       0.54 |        0.33 |       0.13 |
-| Visual - Spatial  | Visualiser - Spatialiser |    0.123 | \[-0.427, 0.642\] | 0.65 |       0.18 |        0.41 |       0.41 |
-| Spatial - Control | Visualiser - Verbaliser  |   -0.195 | \[-0.696, 0.197\] | 0.88 |       0.51 |        0.45 |       0.04 |
-| Visual - Control  | Visualiser - Verbaliser  |   -0.386 | \[-0.862, 0.065\] | 0.95 |       0.83 |        0.15 |       0.02 |
-| Visual - Spatial  | Visualiser - Verbaliser  |   -0.164 | \[-0.519, 0.259\] | 0.74 |       0.47 |        0.46 |       0.07 |
+| Category contrast | Grouping contrast        | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|:------------------|:-------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
+| Spatial - Control | Spatialiser - Verbaliser |    0.120 | \[-0.581, 0.769\] | 0.620 |      0.210 |       0.366 |      0.425 |
+| Visual - Control  | Spatialiser - Verbaliser |   -0.137 | \[-0.795, 0.532\] | 0.660 |      0.438 |       0.392 |      0.170 |
+| Visual - Spatial  | Spatialiser - Verbaliser |   -0.249 | \[-0.887, 0.398\] | 0.766 |      0.579 |       0.322 |      0.098 |
+| Spatial - Control | Visualiser - Spatialiser |   -0.311 | \[-1.018, 0.363\] | 0.830 |      0.647 |       0.282 |      0.071 |
+| Visual - Control  | Visualiser - Spatialiser |   -0.223 | \[-0.837, 0.393\] | 0.757 |      0.550 |       0.350 |      0.100 |
+| Visual - Spatial  | Visualiser - Spatialiser |    0.083 | \[-0.493, 0.699\] | 0.609 |      0.188 |       0.410 |      0.402 |
+| Spatial - Control | Visualiser - Verbaliser  |   -0.211 | \[-0.722, 0.321\] | 0.797 |      0.544 |       0.384 |      0.072 |
+| Visual - Control  | Visualiser - Verbaliser  |   -0.360 | \[-0.836, 0.159\] | 0.919 |      0.753 |       0.226 |      0.021 |
+| Visual - Spatial  | Visualiser - Verbaliser  |   -0.143 | \[-0.634, 0.332\] | 0.707 |      0.441 |       0.464 |      0.094 |
 
 #### Frequentist
 
@@ -626,7 +637,6 @@ mf_acc_osivq <-
   )
 
 mf_acc_osivq  |> get_singularity()
-#> The model is not singular, parameter estimates are trustworthy.
 
 mf_acc_osivq  |> get_performance() |> knitr::kable(align = "c")
 ```
@@ -639,9 +649,6 @@ mf_acc_osivq  |> get_performance() |> knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mf_acc_osivq |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
-#> Ignoring unknown labels:
-#> • size : ""
-#> • alpha : ""
 ```
 
 ![Posterior predictive
@@ -649,7 +656,6 @@ distributions.](analysing_accuracy_files/figure-html/frequentist-osivq-3-cluster
 
 ``` r
 mf_acc_osivq  |> report_contrast(~ cluster, ratios = FALSE) |> knitr::kable()
-#> NOTE: Results may be misleading due to involvement in interactions
 ```
 
 | Contrast                 | Difference | 95% CI          | p.value |
@@ -708,9 +714,16 @@ mb_acc_strat <-
 # Singularity check
 mb_acc_strat |> get_singularity()
 # Model performance indices
-# mb_acc_strat  |> 
-#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |> 
-#   knitr::kable(align = "c")
+mb_acc_strat  |>
+  get_performance(metrics = c("WAIC", "R2", "RMSE")) |>
+  knitr::kable(align = "c")
+```
+
+|  WAIC  |  R2   | R2 (marg.) | RMSE  |
+|:------:|:-----:|:----------:|:-----:|
+| 2721.6 | 0.102 |   0.006    | 0.379 |
+
+``` r
 # Posterior predictive check (best model performance indicator)
 mb_acc_strat |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
@@ -730,9 +743,9 @@ mb_acc_strat |>
   report_rope(contrast) |> knitr::kable()
 ```
 
-| contrast                                  | Estimate | 95% CI            |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|:------------------------------------------|---------:|:------------------|-----:|-----------:|------------:|-----------:|
-| No_visual_strategy - Visual_strategy_user |    0.015 | \[-0.286, 0.363\] | 0.57 |       0.09 |        0.69 |       0.22 |
+| contrast                                  | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|:------------------------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
+| No_visual_strategy - Visual_strategy_user |    0.006 | \[-0.347, 0.328\] | 0.518 |      0.128 |       0.723 |       0.15 |
 
 ``` r
 # Category contrasts within groups
@@ -745,14 +758,14 @@ mb_acc_strat |>
   report_rope(strategy_group, contrast) |> knitr::kable()
 ```
 
-| strategy_group       | contrast          | Estimate | 95% CI            |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|:---------------------|:------------------|---------:|:------------------|-----:|-----------:|------------:|-----------:|
-| Visual_strategy_user | Spatial - Control |   -0.377 | \[-0.913, 0.372\] | 0.83 |       0.68 |        0.24 |       0.08 |
-| Visual_strategy_user | Visual - Control  |   -0.388 | \[-0.836, 0.095\] | 0.92 |       0.75 |        0.24 |       0.01 |
-| Visual_strategy_user | Visual - Spatial  |   -0.086 | \[-0.594, 0.509\] | 0.58 |       0.31 |        0.48 |       0.21 |
-| No_visual_strategy   | Spatial - Control |   -0.027 | \[-0.573, 0.687\] | 0.52 |       0.30 |        0.48 |       0.22 |
-| No_visual_strategy   | Visual - Control  |   -0.158 | \[-0.886, 0.252\] | 0.71 |       0.45 |        0.46 |       0.09 |
-| No_visual_strategy   | Visual - Spatial  |   -0.167 | \[-0.693, 0.431\] | 0.72 |       0.49 |        0.37 |       0.14 |
+| strategy_group       | contrast          | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|:---------------------|:------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
+| Visual_strategy_user | Spatial - Control |   -0.297 | \[-0.868, 0.281\] | 0.837 |      0.638 |       0.312 |      0.050 |
+| Visual_strategy_user | Visual - Control  |   -0.349 | \[-0.943, 0.201\] | 0.895 |      0.730 |       0.241 |      0.029 |
+| Visual_strategy_user | Visual - Spatial  |   -0.065 | \[-0.597, 0.486\] | 0.585 |      0.332 |       0.482 |      0.187 |
+| No_visual_strategy   | Spatial - Control |   -0.014 | \[-0.602, 0.61\]  | 0.519 |      0.284 |       0.450 |      0.266 |
+| No_visual_strategy   | Visual - Control  |   -0.227 | \[-0.811, 0.364\] | 0.764 |      0.554 |       0.354 |      0.092 |
+| No_visual_strategy   | Visual - Spatial  |   -0.215 | \[-0.796, 0.385\] | 0.770 |      0.544 |       0.365 |      0.091 |
 
 ``` r
 # Interaction contrasts
@@ -767,11 +780,11 @@ mb_acc_strat |>
   report_rope(hypothesis) |> knitr::kable()
 ```
 
-| Category contrast | Grouping contrast                         | Estimate | 95% CI            |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|:------------------|:------------------------------------------|---------:|:------------------|-----:|-----------:|------------:|-----------:|
-| Spatial - Control | Visual_strategy_user - No_visual_strategy |   -0.308 | \[-0.799, 0.278\] | 0.85 |       0.69 |        0.27 |       0.04 |
-| Visual - Control  | Visual_strategy_user - No_visual_strategy |   -0.142 | \[-0.64, 0.27\]   | 0.78 |       0.46 |        0.45 |       0.09 |
-| Visual - Spatial  | Visual_strategy_user - No_visual_strategy |    0.147 | \[-0.294, 0.487\] | 0.69 |       0.08 |        0.51 |       0.41 |
+| Category contrast | Grouping contrast                         | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|:------------------|:------------------------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
+| Spatial - Control | Visual_strategy_user - No_visual_strategy |   -0.282 | \[-0.77, 0.201\]  | 0.874 |      0.651 |       0.319 |      0.030 |
+| Visual - Control  | Visual_strategy_user - No_visual_strategy |   -0.133 | \[-0.577, 0.34\]  | 0.713 |      0.416 |       0.492 |      0.092 |
+| Visual - Spatial  | Visual_strategy_user - No_visual_strategy |    0.153 | \[-0.302, 0.608\] | 0.749 |      0.081 |       0.470 |      0.448 |
 
 #### Frequentist
 
@@ -785,7 +798,6 @@ mf_acc_strat <-
   )
 
 mf_acc_strat |> get_singularity()
-#> The model is not singular, parameter estimates are trustworthy.
 
 mf_acc_strat |> get_performance() |> knitr::kable(align = "c")
 ```
@@ -798,9 +810,6 @@ mf_acc_strat |> get_performance() |> knitr::kable(align = "c")
 # Posterior predictive check (best model performance indicator)
 mf_acc_strat |> 
   performance::check_predictions() |> plot() + theme_pdf(base_size = 12)
-#> Ignoring unknown labels:
-#> • size : ""
-#> • alpha : ""
 ```
 
 ![Posterior predictive
@@ -808,7 +817,6 @@ distributions.](analysing_accuracy_files/figure-html/frequentist-strategy-groups
 
 ``` r
 mf_acc_strat |> report_contrast(~ strategy_group, ratios = FALSE) |> knitr::kable()
-#> NOTE: Results may be misleading due to involvement in interactions
 ```
 
 | Contrast                                  | Difference | 95% CI          | p.value |

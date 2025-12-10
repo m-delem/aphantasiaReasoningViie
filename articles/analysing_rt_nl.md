@@ -201,7 +201,7 @@ model priors is done in the chunk below.
 #   )
 # }
 options("marginaleffects_safe" = FALSE)
-draws <- seq(1, 100, 1) # To limit draws that will be used for marginaleffects
+draws <- seq(1, 2000, 1) # To limit draws that will be used for marginaleffects
 
 prior_nl <- c(
   brms::prior(normal(0, 1), class = "b"),
@@ -278,32 +278,32 @@ marginaleffects::avg_comparisons(
   report_rope(phase, group_2, contrast) |> knitr::kable()
 ```
 
-| phase | group_2    | contrast          | Estimate | 95% CI             |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|------:|:-----------|:------------------|---------:|:-------------------|-----:|-----------:|------------:|-----------:|
-|     1 | Aphantasia | Spatial - Control |   -0.060 | \[-0.5, 0.41\]     | 0.59 |       0.09 |        0.87 |       0.04 |
-|     1 | Aphantasia | Visual - Control  |    0.245 | \[-0.274, 0.747\]  | 0.79 |       0.01 |        0.68 |       0.31 |
-|     1 | Aphantasia | Visual - Spatial  |    0.282 | \[-0.164, 0.705\]  | 0.89 |       0.00 |        0.61 |       0.39 |
-|     1 | Typical    | Spatial - Control |   -0.062 | \[-0.428, 0.477\]  | 0.61 |       0.04 |        0.91 |       0.05 |
-|     1 | Typical    | Visual - Control  |    0.543 | \[0.052, 1.03\]    | 0.98 |       0.00 |        0.31 |       0.69 |
-|     1 | Typical    | Visual - Spatial  |    0.582 | \[0.136, 0.993\]   | 0.99 |       0.00 |        0.24 |       0.76 |
-|     2 | Aphantasia | Spatial - Control |    0.745 | \[0.395, 1.088\]   | 1.00 |       0.00 |        0.03 |       0.97 |
-|     2 | Aphantasia | Visual - Control  |    0.028 | \[-0.232, 0.411\]  | 0.54 |       0.01 |        0.94 |       0.05 |
-|     2 | Aphantasia | Visual - Spatial  |   -0.733 | \[-1.067, -0.395\] | 1.00 |       0.98 |        0.02 |       0.00 |
-|     2 | Typical    | Spatial - Control |    1.052 | \[0.811, 1.338\]   | 1.00 |       0.00 |        0.00 |       1.00 |
-|     2 | Typical    | Visual - Control  |    0.464 | \[0.219, 0.796\]   | 1.00 |       0.00 |        0.27 |       0.73 |
-|     2 | Typical    | Visual - Spatial  |   -0.596 | \[-0.957, -0.283\] | 1.00 |       0.87 |        0.13 |       0.00 |
-|     3 | Aphantasia | Spatial - Control |   -0.611 | \[-1.072, -0.212\] | 0.99 |       0.87 |        0.13 |       0.00 |
-|     3 | Aphantasia | Visual - Control  |    0.684 | \[0.268, 1.186\]   | 1.00 |       0.00 |        0.10 |       0.90 |
-|     3 | Aphantasia | Visual - Spatial  |    1.314 | \[0.844, 1.758\]   | 1.00 |       0.00 |        0.00 |       1.00 |
-|     3 | Typical    | Spatial - Control |   -0.972 | \[-1.487, -0.494\] | 1.00 |       0.99 |        0.01 |       0.00 |
-|     3 | Typical    | Visual - Control  |    0.475 | \[0.052, 1.043\]   | 0.98 |       0.00 |        0.27 |       0.73 |
-|     3 | Typical    | Visual - Spatial  |    1.457 | \[0.964, 1.932\]   | 1.00 |       0.00 |        0.00 |       1.00 |
-|     4 | Aphantasia | Spatial - Control |   -0.025 | \[-0.335, 0.377\]  | 0.56 |       0.01 |        0.95 |       0.04 |
-|     4 | Aphantasia | Visual - Control  |    0.473 | \[0.14, 0.956\]    | 0.99 |       0.00 |        0.28 |       0.72 |
-|     4 | Aphantasia | Visual - Spatial  |    0.487 | \[0.031, 0.885\]   | 0.98 |       0.00 |        0.24 |       0.76 |
-|     4 | Typical    | Spatial - Control |   -0.110 | \[-0.384, 0.237\]  | 0.73 |       0.03 |        0.97 |       0.00 |
-|     4 | Typical    | Visual - Control  |    0.348 | \[0.098, 0.642\]   | 0.99 |       0.00 |        0.54 |       0.46 |
-|     4 | Typical    | Visual - Spatial  |    0.479 | \[0.166, 0.782\]   | 0.98 |       0.00 |        0.25 |       0.75 |
+| phase | group_2    | contrast          | Estimate | 95% CI             |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|------:|:-----------|:------------------|---------:|:-------------------|------:|-----------:|------------:|-----------:|
+|     1 | Aphantasia | Spatial - Control |   -0.049 | \[-0.549, 0.436\]  | 0.572 |      0.102 |       0.849 |      0.050 |
+|     1 | Aphantasia | Visual - Control  |    0.242 | \[-0.258, 0.776\]  | 0.821 |      0.009 |       0.688 |      0.304 |
+|     1 | Aphantasia | Visual - Spatial  |    0.292 | \[-0.22, 0.777\]   | 0.875 |      0.005 |       0.617 |      0.378 |
+|     1 | Typical    | Spatial - Control |   -0.042 | \[-0.476, 0.431\]  | 0.565 |      0.079 |       0.873 |      0.048 |
+|     1 | Typical    | Visual - Control  |    0.524 | \[0.031, 1.032\]   | 0.983 |      0.000 |       0.276 |      0.724 |
+|     1 | Typical    | Visual - Spatial  |    0.555 | \[0.074, 1.049\]   | 0.988 |      0.000 |       0.224 |      0.775 |
+|     2 | Aphantasia | Spatial - Control |    0.712 | \[0.35, 1.085\]    | 1.000 |      0.000 |       0.034 |      0.966 |
+|     2 | Aphantasia | Visual - Control  |    0.021 | \[-0.325, 0.359\]  | 0.547 |      0.015 |       0.965 |      0.020 |
+|     2 | Aphantasia | Visual - Spatial  |   -0.694 | \[-1.052, -0.349\] | 1.000 |      0.966 |       0.034 |      0.000 |
+|     2 | Typical    | Spatial - Control |    1.066 | \[0.717, 1.391\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+|     2 | Typical    | Visual - Control  |    0.476 | \[0.192, 0.795\]   | 0.997 |      0.000 |       0.240 |      0.759 |
+|     2 | Typical    | Visual - Spatial  |   -0.585 | \[-0.933, -0.227\] | 0.999 |      0.882 |       0.117 |      0.000 |
+|     3 | Aphantasia | Spatial - Control |   -0.648 | \[-1.101, -0.216\] | 0.998 |      0.897 |       0.103 |      0.000 |
+|     3 | Aphantasia | Visual - Control  |    0.656 | \[0.175, 1.147\]   | 0.997 |      0.000 |       0.139 |      0.861 |
+|     3 | Aphantasia | Visual - Spatial  |    1.307 | \[0.84, 1.763\]    | 1.000 |      0.000 |       0.000 |      1.000 |
+|     3 | Typical    | Spatial - Control |   -0.967 | \[-1.411, -0.495\] | 1.000 |      0.995 |       0.005 |      0.000 |
+|     3 | Typical    | Visual - Control  |    0.495 | \[0.003, 1.01\]    | 0.975 |      0.000 |       0.308 |      0.692 |
+|     3 | Typical    | Visual - Spatial  |    1.462 | \[0.982, 1.899\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+|     4 | Aphantasia | Spatial - Control |   -0.033 | \[-0.408, 0.333\]  | 0.574 |      0.042 |       0.942 |      0.016 |
+|     4 | Aphantasia | Visual - Control  |    0.470 | \[0.053, 0.873\]   | 0.988 |      0.000 |       0.290 |      0.710 |
+|     4 | Aphantasia | Visual - Spatial  |    0.500 | \[0.12, 0.899\]    | 0.995 |      0.000 |       0.238 |      0.761 |
+|     4 | Typical    | Spatial - Control |   -0.095 | \[-0.43, 0.241\]   | 0.719 |      0.060 |       0.938 |      0.002 |
+|     4 | Typical    | Visual - Control  |    0.341 | \[0.005, 0.686\]   | 0.976 |      0.000 |       0.560 |      0.439 |
+|     4 | Typical    | Visual - Spatial  |    0.443 | \[0.07, 0.8\]      | 0.991 |      0.000 |       0.345 |      0.655 |
 
 #### Frequentist
 
@@ -442,44 +442,44 @@ marginaleffects::avg_comparisons(
   report_rope(phase, group_3, contrast) |> knitr::kable()
 ```
 
-| phase | group_3       | contrast          | Estimate | 95% CI             |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|------:|:--------------|:------------------|---------:|:-------------------|-----:|-----------:|------------:|-----------:|
-|     1 | Aphantasia    | Spatial - Control |   -0.178 | \[-0.835, 0.653\]  | 0.67 |       0.27 |        0.65 |       0.08 |
-|     1 | Aphantasia    | Visual - Control  |    0.022 | \[-0.668, 0.656\]  | 0.53 |       0.16 |        0.68 |       0.16 |
-|     1 | Aphantasia    | Visual - Spatial  |    0.199 | \[-0.367, 0.705\]  | 0.69 |       0.03 |        0.71 |       0.26 |
-|     1 | Hypophantasia | Spatial - Control |    0.288 | \[-0.368, 1.066\]  | 0.79 |       0.03 |        0.59 |       0.38 |
-|     1 | Hypophantasia | Visual - Control  |    0.570 | \[-0.136, 1.187\]  | 0.95 |       0.00 |        0.24 |       0.76 |
-|     1 | Hypophantasia | Visual - Spatial  |    0.218 | \[-0.43, 1.051\]   | 0.77 |       0.06 |        0.52 |       0.42 |
-|     1 | Typical       | Spatial - Control |   -0.023 | \[-0.426, 0.354\]  | 0.55 |       0.07 |        0.91 |       0.02 |
-|     1 | Typical       | Visual - Control  |    0.542 | \[0.119, 0.908\]   | 1.00 |       0.00 |        0.17 |       0.83 |
-|     1 | Typical       | Visual - Spatial  |    0.601 | \[0.044, 0.974\]   | 0.98 |       0.00 |        0.21 |       0.79 |
-|     2 | Aphantasia    | Spatial - Control |    0.785 | \[0.325, 1.194\]   | 1.00 |       0.00 |        0.06 |       0.94 |
-|     2 | Aphantasia    | Visual - Control  |    0.087 | \[-0.39, 0.485\]   | 0.64 |       0.03 |        0.85 |       0.12 |
-|     2 | Aphantasia    | Visual - Spatial  |   -0.701 | \[-1.086, -0.325\] | 0.99 |       0.93 |        0.07 |       0.00 |
-|     2 | Hypophantasia | Spatial - Control |    0.306 | \[-0.13, 0.844\]   | 0.88 |       0.00 |        0.60 |       0.40 |
-|     2 | Hypophantasia | Visual - Control  |   -0.037 | \[-0.501, 0.463\]  | 0.60 |       0.09 |        0.85 |       0.06 |
-|     2 | Hypophantasia | Visual - Spatial  |   -0.329 | \[-0.825, 0.121\]  | 0.91 |       0.45 |        0.55 |       0.00 |
-|     2 | Typical       | Spatial - Control |    1.050 | \[0.755, 1.405\]   | 1.00 |       0.00 |        0.00 |       1.00 |
-|     2 | Typical       | Visual - Control  |    0.485 | \[0.181, 0.794\]   | 1.00 |       0.00 |        0.24 |       0.76 |
-|     2 | Typical       | Visual - Spatial  |   -0.557 | \[-0.937, -0.177\] | 1.00 |       0.85 |        0.15 |       0.00 |
-|     3 | Aphantasia    | Spatial - Control |   -0.486 | \[-0.979, -0.032\] | 0.98 |       0.70 |        0.30 |       0.00 |
-|     3 | Aphantasia    | Visual - Control  |    0.733 | \[0.147, 1.54\]    | 0.99 |       0.00 |        0.13 |       0.87 |
-|     3 | Aphantasia    | Visual - Spatial  |    1.199 | \[0.661, 1.916\]   | 1.00 |       0.00 |        0.01 |       0.99 |
-|     3 | Hypophantasia | Spatial - Control |   -0.403 | \[-0.994, 0.169\]  | 0.88 |       0.51 |        0.49 |       0.00 |
-|     3 | Hypophantasia | Visual - Control  |    0.558 | \[-0.154, 1.182\]  | 0.93 |       0.00 |        0.30 |       0.70 |
-|     3 | Hypophantasia | Visual - Spatial  |    0.966 | \[0.309, 1.612\]   | 1.00 |       0.00 |        0.04 |       0.96 |
-|     3 | Typical       | Spatial - Control |   -0.983 | \[-1.375, -0.524\] | 1.00 |       1.00 |        0.00 |       0.00 |
-|     3 | Typical       | Visual - Control  |    0.469 | \[0.043, 0.987\]   | 1.00 |       0.00 |        0.36 |       0.64 |
-|     3 | Typical       | Visual - Spatial  |    1.443 | \[0.914, 1.913\]   | 1.00 |       0.00 |        0.00 |       1.00 |
-|     4 | Aphantasia    | Spatial - Control |   -0.047 | \[-0.476, 0.39\]   | 0.59 |       0.05 |        0.91 |       0.04 |
-|     4 | Aphantasia    | Visual - Control  |    0.321 | \[-0.104, 0.795\]  | 0.94 |       0.00 |        0.53 |       0.47 |
-|     4 | Aphantasia    | Visual - Spatial  |    0.389 | \[-0.039, 0.806\]  | 0.96 |       0.00 |        0.47 |       0.53 |
-|     4 | Hypophantasia | Spatial - Control |   -0.205 | \[-0.877, 0.282\]  | 0.74 |       0.33 |        0.66 |       0.01 |
-|     4 | Hypophantasia | Visual - Control  |    0.679 | \[-0.045, 1.336\]  | 0.96 |       0.02 |        0.13 |       0.85 |
-|     4 | Hypophantasia | Visual - Spatial  |    0.937 | \[0.262, 1.636\]   | 0.99 |       0.00 |        0.08 |       0.92 |
-|     4 | Typical       | Spatial - Control |   -0.084 | \[-0.353, 0.217\]  | 0.77 |       0.02 |        0.98 |       0.00 |
-|     4 | Typical       | Visual - Control  |    0.313 | \[-0.008, 0.657\]  | 0.96 |       0.00 |        0.63 |       0.37 |
-|     4 | Typical       | Visual - Spatial  |    0.427 | \[0.044, 0.864\]   | 0.99 |       0.00 |        0.39 |       0.61 |
+| phase | group_3       | contrast          | Estimate | 95% CI             |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|------:|:--------------|:------------------|---------:|:-------------------|------:|-----------:|------------:|-----------:|
+|     1 | Aphantasia    | Spatial - Control |   -0.198 | \[-0.848, 0.501\]  | 0.721 |      0.312 |       0.630 |      0.058 |
+|     1 | Aphantasia    | Visual - Control  |   -0.009 | \[-0.702, 0.66\]   | 0.508 |      0.152 |       0.716 |      0.132 |
+|     1 | Aphantasia    | Visual - Spatial  |    0.179 | \[-0.483, 0.863\]  | 0.700 |      0.048 |       0.664 |      0.288 |
+|     1 | Hypophantasia | Spatial - Control |    0.354 | \[-0.372, 1.078\]  | 0.825 |      0.026 |       0.495 |      0.478 |
+|     1 | Hypophantasia | Visual - Control  |    0.576 | \[-0.162, 1.34\]   | 0.944 |      0.005 |       0.280 |      0.715 |
+|     1 | Hypophantasia | Visual - Spatial  |    0.234 | \[-0.494, 0.989\]  | 0.715 |      0.055 |       0.580 |      0.365 |
+|     1 | Typical       | Spatial - Control |   -0.022 | \[-0.467, 0.445\]  | 0.538 |      0.072 |       0.875 |      0.052 |
+|     1 | Typical       | Visual - Control  |    0.536 | \[0.031, 1.015\]   | 0.983 |      0.000 |       0.253 |      0.747 |
+|     1 | Typical       | Visual - Spatial  |    0.561 | \[0.048, 1.041\]   | 0.982 |      0.000 |       0.236 |      0.764 |
+|     2 | Aphantasia    | Spatial - Control |    0.773 | \[0.335, 1.224\]   | 1.000 |      0.000 |       0.038 |      0.962 |
+|     2 | Aphantasia    | Visual - Control  |    0.049 | \[-0.403, 0.489\]  | 0.576 |      0.036 |       0.890 |      0.074 |
+|     2 | Aphantasia    | Visual - Spatial  |   -0.733 | \[-1.155, -0.289\] | 0.998 |      0.941 |       0.060 |      0.000 |
+|     2 | Hypophantasia | Spatial - Control |    0.282 | \[-0.223, 0.797\]  | 0.864 |      0.004 |       0.625 |      0.370 |
+|     2 | Hypophantasia | Visual - Control  |   -0.031 | \[-0.532, 0.488\]  | 0.552 |      0.086 |       0.850 |      0.064 |
+|     2 | Hypophantasia | Visual - Spatial  |   -0.315 | \[-0.801, 0.19\]   | 0.882 |      0.415 |       0.579 |      0.006 |
+|     2 | Typical       | Spatial - Control |    1.058 | \[0.718, 1.38\]    | 1.000 |      0.000 |       0.000 |      1.000 |
+|     2 | Typical       | Visual - Control  |    0.482 | \[0.163, 0.787\]   | 1.000 |      0.000 |       0.250 |      0.750 |
+|     2 | Typical       | Visual - Spatial  |   -0.574 | \[-0.921, -0.22\]  | 1.000 |      0.871 |       0.130 |      0.000 |
+|     3 | Aphantasia    | Spatial - Control |   -0.483 | \[-1.043, 0.068\]  | 0.955 |      0.659 |       0.338 |      0.002 |
+|     3 | Aphantasia    | Visual - Control  |    0.718 | \[0.091, 1.384\]   | 0.986 |      0.000 |       0.142 |      0.857 |
+|     3 | Aphantasia    | Visual - Spatial  |    1.198 | \[0.618, 1.795\]   | 1.000 |      0.000 |       0.002 |      0.999 |
+|     3 | Hypophantasia | Spatial - Control |   -0.440 | \[-1.085, 0.158\]  | 0.926 |      0.583 |       0.413 |      0.004 |
+|     3 | Hypophantasia | Visual - Control  |    0.538 | \[-0.174, 1.218\]  | 0.925 |      0.008 |       0.316 |      0.676 |
+|     3 | Hypophantasia | Visual - Spatial  |    0.982 | \[0.31, 1.633\]    | 0.997 |      0.000 |       0.034 |      0.966 |
+|     3 | Typical       | Spatial - Control |   -0.959 | \[-1.387, -0.533\] | 1.000 |      0.997 |       0.003 |      0.000 |
+|     3 | Typical       | Visual - Control  |    0.491 | \[0.009, 0.989\]   | 0.977 |      0.000 |       0.322 |      0.677 |
+|     3 | Typical       | Visual - Spatial  |    1.452 | \[0.967, 1.918\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+|     4 | Aphantasia    | Spatial - Control |   -0.022 | \[-0.488, 0.431\]  | 0.540 |      0.068 |       0.885 |      0.047 |
+|     4 | Aphantasia    | Visual - Control  |    0.378 | \[-0.085, 0.822\]  | 0.940 |      0.002 |       0.480 |      0.518 |
+|     4 | Aphantasia    | Visual - Spatial  |    0.398 | \[-0.05, 0.841\]   | 0.958 |      0.000 |       0.452 |      0.547 |
+|     4 | Hypophantasia | Spatial - Control |   -0.227 | \[-0.864, 0.379\]  | 0.758 |      0.338 |       0.635 |      0.026 |
+|     4 | Hypophantasia | Visual - Control  |    0.697 | \[0.03, 1.387\]    | 0.983 |      0.002 |       0.169 |      0.830 |
+|     4 | Hypophantasia | Visual - Spatial  |    0.917 | \[0.311, 1.595\]   | 0.997 |      0.000 |       0.041 |      0.959 |
+|     4 | Typical       | Spatial - Control |   -0.098 | \[-0.425, 0.228\]  | 0.723 |      0.058 |       0.942 |      0.001 |
+|     4 | Typical       | Visual - Control  |    0.333 | \[-0.016, 0.687\]  | 0.968 |      0.000 |       0.579 |      0.421 |
+|     4 | Typical       | Visual - Spatial  |    0.437 | \[0.074, 0.8\]     | 0.993 |      0.000 |       0.354 |      0.646 |
 
 #### Frequentist
 
@@ -620,44 +620,44 @@ marginaleffects::avg_comparisons(
   report_rope(phase, cluster, contrast) |> knitr::kable()
 ```
 
-| phase | cluster     | contrast          | Estimate | 95% CI             |   PD | Below ROPE | Inside ROPE | Above ROPE |
-|------:|:------------|:------------------|---------:|:-------------------|-----:|-----------:|------------:|-----------:|
-|     1 | Visualiser  | Spatial - Control |    0.172 | \[-0.346, 0.682\]  | 0.77 |       0.03 |        0.74 |       0.23 |
-|     1 | Visualiser  | Visual - Control  |    0.892 | \[0.163, 1.407\]   | 1.00 |       0.00 |        0.07 |       0.93 |
-|     1 | Visualiser  | Visual - Spatial  |    0.663 | \[0.085, 1.264\]   | 0.99 |       0.00 |        0.17 |       0.83 |
-|     1 | Spatialiser | Spatial - Control |    0.162 | \[-0.554, 0.899\]  | 0.68 |       0.07 |        0.59 |       0.34 |
-|     1 | Spatialiser | Visual - Control  |    0.091 | \[-0.683, 0.946\]  | 0.61 |       0.10 |        0.62 |       0.28 |
-|     1 | Spatialiser | Visual - Spatial  |   -0.117 | \[-0.894, 0.736\]  | 0.62 |       0.26 |        0.56 |       0.18 |
-|     1 | Verbaliser  | Spatial - Control |   -0.194 | \[-0.588, 0.236\]  | 0.78 |       0.22 |        0.78 |       0.00 |
-|     1 | Verbaliser  | Visual - Control  |    0.059 | \[-0.44, 0.604\]   | 0.55 |       0.05 |        0.83 |       0.12 |
-|     1 | Verbaliser  | Visual - Spatial  |    0.252 | \[-0.319, 0.723\]  | 0.78 |       0.01 |        0.64 |       0.35 |
-|     2 | Visualiser  | Spatial - Control |    1.133 | \[0.845, 1.402\]   | 1.00 |       0.00 |        0.00 |       1.00 |
-|     2 | Visualiser  | Visual - Control  |    0.584 | \[0.246, 0.919\]   | 1.00 |       0.00 |        0.14 |       0.86 |
-|     2 | Visualiser  | Visual - Spatial  |   -0.544 | \[-0.813, -0.242\] | 1.00 |       0.84 |        0.16 |       0.00 |
-|     2 | Spatialiser | Spatial - Control |    0.548 | \[0.012, 1.008\]   | 0.97 |       0.00 |        0.27 |       0.73 |
-|     2 | Spatialiser | Visual - Control  |    0.214 | \[-0.346, 0.683\]  | 0.76 |       0.02 |        0.69 |       0.29 |
-|     2 | Spatialiser | Visual - Spatial  |   -0.339 | \[-0.815, 0.338\]  | 0.85 |       0.49 |        0.50 |       0.01 |
-|     2 | Verbaliser  | Spatial - Control |    0.759 | \[0.403, 1.022\]   | 1.00 |       0.00 |        0.02 |       0.98 |
-|     2 | Verbaliser  | Visual - Control  |    0.038 | \[-0.347, 0.347\]  | 0.57 |       0.02 |        0.96 |       0.02 |
-|     2 | Verbaliser  | Visual - Spatial  |   -0.709 | \[-1.066, -0.387\] | 1.00 |       0.98 |        0.02 |       0.00 |
-|     3 | Visualiser  | Spatial - Control |   -0.951 | \[-1.383, -0.492\] | 1.00 |       0.99 |        0.01 |       0.00 |
-|     3 | Visualiser  | Visual - Control  |    0.668 | \[0.024, 1.274\]   | 0.98 |       0.00 |        0.14 |       0.86 |
-|     3 | Visualiser  | Visual - Spatial  |    1.622 | \[1.163, 2.168\]   | 1.00 |       0.00 |        0.00 |       1.00 |
-|     3 | Spatialiser | Spatial - Control |   -0.640 | \[-1.241, 0.013\]  | 0.96 |       0.82 |        0.18 |       0.00 |
-|     3 | Spatialiser | Visual - Control  |    0.059 | \[-0.756, 0.818\]  | 0.53 |       0.18 |        0.60 |       0.22 |
-|     3 | Spatialiser | Visual - Spatial  |    0.671 | \[0.055, 1.464\]   | 0.97 |       0.00 |        0.16 |       0.84 |
-|     3 | Verbaliser  | Spatial - Control |   -0.569 | \[-1.057, -0.158\] | 1.00 |       0.79 |        0.21 |       0.00 |
-|     3 | Verbaliser  | Visual - Control  |    0.712 | \[0.195, 1.276\]   | 1.00 |       0.00 |        0.14 |       0.86 |
-|     3 | Verbaliser  | Visual - Spatial  |    1.274 | \[0.745, 1.751\]   | 1.00 |       0.00 |        0.00 |       1.00 |
-|     4 | Visualiser  | Spatial - Control |   -0.093 | \[-0.447, 0.258\]  | 0.66 |       0.10 |        0.89 |       0.01 |
-|     4 | Visualiser  | Visual - Control  |    0.362 | \[-0.029, 0.744\]  | 0.94 |       0.00 |        0.51 |       0.49 |
-|     4 | Visualiser  | Visual - Spatial  |    0.448 | \[0.006, 0.817\]   | 0.97 |       0.00 |        0.33 |       0.67 |
-|     4 | Spatialiser | Spatial - Control |   -0.269 | \[-0.767, 0.188\]  | 0.86 |       0.36 |        0.63 |       0.01 |
-|     4 | Spatialiser | Visual - Control  |    0.195 | \[-0.372, 0.835\]  | 0.75 |       0.03 |        0.69 |       0.28 |
-|     4 | Spatialiser | Visual - Spatial  |    0.486 | \[-0.082, 1.058\]  | 0.93 |       0.00 |        0.36 |       0.64 |
-|     4 | Verbaliser  | Spatial - Control |   -0.068 | \[-0.482, 0.202\]  | 0.72 |       0.07 |        0.93 |       0.00 |
-|     4 | Verbaliser  | Visual - Control  |    0.535 | \[0.212, 0.946\]   | 1.00 |       0.00 |        0.23 |       0.77 |
-|     4 | Verbaliser  | Visual - Spatial  |    0.633 | \[0.293, 0.96\]    | 1.00 |       0.00 |        0.11 |       0.89 |
+| phase | cluster     | contrast          | Estimate | 95% CI             |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|------:|:------------|:------------------|---------:|:-------------------|------:|-----------:|------------:|-----------:|
+|     1 | Visualiser  | Spatial - Control |    0.152 | \[-0.384, 0.711\]  | 0.714 |      0.028 |       0.759 |      0.214 |
+|     1 | Visualiser  | Visual - Control  |    0.874 | \[0.304, 1.458\]   | 0.998 |      0.000 |       0.042 |      0.959 |
+|     1 | Visualiser  | Visual - Spatial  |    0.717 | \[0.138, 1.311\]   | 0.994 |      0.000 |       0.120 |      0.880 |
+|     1 | Spatialiser | Spatial - Control |    0.167 | \[-0.555, 0.88\]   | 0.673 |      0.082 |       0.632 |      0.286 |
+|     1 | Spatialiser | Visual - Control  |    0.163 | \[-0.556, 0.93\]   | 0.666 |      0.078 |       0.627 |      0.295 |
+|     1 | Spatialiser | Visual - Spatial  |    0.003 | \[-0.76, 0.771\]   | 0.505 |      0.165 |       0.669 |      0.166 |
+|     1 | Verbaliser  | Spatial - Control |   -0.238 | \[-0.777, 0.27\]   | 0.811 |      0.311 |       0.680 |      0.009 |
+|     1 | Verbaliser  | Visual - Control  |    0.031 | \[-0.504, 0.605\]  | 0.557 |      0.066 |       0.817 |      0.117 |
+|     1 | Verbaliser  | Visual - Spatial  |    0.272 | \[-0.254, 0.808\]  | 0.846 |      0.009 |       0.636 |      0.356 |
+|     2 | Visualiser  | Spatial - Control |    1.109 | \[0.753, 1.468\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+|     2 | Visualiser  | Visual - Control  |    0.572 | \[0.218, 0.935\]   | 1.000 |      0.000 |       0.130 |      0.870 |
+|     2 | Visualiser  | Visual - Spatial  |   -0.537 | \[-0.907, -0.161\] | 0.995 |      0.799 |       0.200 |      0.000 |
+|     2 | Spatialiser | Spatial - Control |    0.522 | \[-0.001, 1.015\]  | 0.975 |      0.002 |       0.280 |      0.719 |
+|     2 | Spatialiser | Visual - Control  |    0.188 | \[-0.362, 0.728\]  | 0.772 |      0.023 |       0.712 |      0.266 |
+|     2 | Spatialiser | Visual - Spatial  |   -0.323 | \[-0.848, 0.209\]  | 0.871 |      0.444 |       0.551 |      0.005 |
+|     2 | Verbaliser  | Spatial - Control |    0.746 | \[0.353, 1.105\]   | 1.000 |      0.000 |       0.028 |      0.972 |
+|     2 | Verbaliser  | Visual - Control  |    0.023 | \[-0.346, 0.371\]  | 0.545 |      0.020 |       0.952 |      0.028 |
+|     2 | Verbaliser  | Visual - Spatial  |   -0.732 | \[-1.112, -0.348\] | 1.000 |      0.970 |       0.030 |      0.000 |
+|     3 | Visualiser  | Spatial - Control |   -0.940 | \[-1.408, -0.458\] | 1.000 |      0.991 |       0.010 |      0.000 |
+|     3 | Visualiser  | Visual - Control  |    0.640 | \[0.05, 1.191\]    | 0.984 |      0.000 |       0.167 |      0.833 |
+|     3 | Visualiser  | Visual - Spatial  |    1.572 | \[1.06, 2.116\]    | 1.000 |      0.000 |       0.000 |      1.000 |
+|     3 | Spatialiser | Spatial - Control |   -0.638 | \[-1.332, 0.032\]  | 0.968 |      0.768 |       0.230 |      0.002 |
+|     3 | Spatialiser | Visual - Control  |    0.061 | \[-0.696, 0.815\]  | 0.566 |      0.130 |       0.649 |      0.220 |
+|     3 | Spatialiser | Visual - Spatial  |    0.706 | \[0.031, 1.404\]   | 0.983 |      0.000 |       0.170 |      0.830 |
+|     3 | Verbaliser  | Spatial - Control |   -0.582 | \[-1.048, -0.121\] | 0.993 |      0.839 |       0.162 |      0.000 |
+|     3 | Verbaliser  | Visual - Control  |    0.696 | \[0.155, 1.258\]   | 0.994 |      0.000 |       0.118 |      0.881 |
+|     3 | Verbaliser  | Visual - Spatial  |    1.287 | \[0.8, 1.776\]     | 1.000 |      0.000 |       0.000 |      1.000 |
+|     4 | Visualiser  | Spatial - Control |   -0.083 | \[-0.453, 0.279\]  | 0.661 |      0.067 |       0.925 |      0.007 |
+|     4 | Visualiser  | Visual - Control  |    0.353 | \[-0.045, 0.737\]  | 0.956 |      0.000 |       0.532 |      0.468 |
+|     4 | Visualiser  | Visual - Spatial  |    0.436 | \[0.023, 0.822\]   | 0.982 |      0.000 |       0.370 |      0.629 |
+|     4 | Spatialiser | Spatial - Control |   -0.219 | \[-0.815, 0.325\]  | 0.788 |      0.312 |       0.672 |      0.016 |
+|     4 | Spatialiser | Visual - Control  |    0.188 | \[-0.43, 0.812\]   | 0.730 |      0.040 |       0.677 |      0.282 |
+|     4 | Spatialiser | Visual - Spatial  |    0.414 | \[-0.157, 1.02\]   | 0.917 |      0.001 |       0.437 |      0.562 |
+|     4 | Verbaliser  | Spatial - Control |   -0.081 | \[-0.442, 0.283\]  | 0.660 |      0.074 |       0.918 |      0.009 |
+|     4 | Verbaliser  | Visual - Control  |    0.537 | \[0.123, 0.944\]   | 0.995 |      0.000 |       0.210 |      0.789 |
+|     4 | Verbaliser  | Visual - Spatial  |    0.621 | \[0.229, 1.008\]   | 0.999 |      0.000 |       0.116 |      0.884 |
 
 #### Frequentist
 

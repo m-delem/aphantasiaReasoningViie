@@ -194,11 +194,11 @@ times:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/build_formula.html">build_formula</a></span><span class="op">(</span><span class="st">"rt_total"</span>, <span class="st">"group_2"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; rt_total ~ group_2 * category + (category | id) + (1 | problem)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x55d382281410&gt;</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x5611df42a878&gt;</span></span>
 <span> </span>
 <span><span class="fu"><a href="../reference/build_formula.html">build_formula</a></span><span class="op">(</span><span class="st">"rt_total"</span>, <span class="st">"cluster"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; rt_total ~ cluster * category + (category | id) + (1 | problem)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x55d381681650&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x5611dee8bd38&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="bayesian-models">Bayesian models<a class="anchor" aria-label="anchor" href="#bayesian-models"></a>
@@ -257,7 +257,7 @@ RT model priors is done in the chunk below.</p>
 <span><span class="co">#   )</span></span>
 <span><span class="co"># }</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="st">"marginaleffects_safe"</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># To limit draws that will be used for marginaleffects</span></span>
+<span><span class="va">draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2000</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># To limit draws that will be used for marginaleffects</span></span>
 <span></span>
 <span><span class="va">prior_rt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fu">brms</span><span class="fu">::</span><span class="fu"><a href="https://paulbuerkner.com/brms/reference/set_prior.html" class="external-link">prior</a></span><span class="op">(</span><span class="fu">normal</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">0.05</span><span class="op">)</span>, class <span class="op">=</span> <span class="st">"Intercept"</span><span class="op">)</span>,</span>
@@ -286,12 +286,7 @@ reasonable range of RT values.</p>
 <span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="va">mb_rt_prior</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">60</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required namespace: rstan</span></span>
-<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">size</span> : <span style="color: #0000BB;">""</span></span></span>
-<span><span class="co">#&gt; Warning: Removed 12281 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_density()`).</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysing_rt_files/figure-html/test_rt_prior-1.png" class="r-plt" alt="Prior predictive distributions." width="576"></p>
 </div>
 <div class="section level3">
@@ -337,22 +332,35 @@ contrasts between groups).</p>
 <span></span>
 <span><span class="co"># Singularity check</span></span>
 <span><span class="va">mb_rt_vviq_2</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/get_singularity.html">get_singularity</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The model is not singular, parameter estimates are trustworthy.</span></span>
 <span><span class="co"># Model performance indices</span></span>
-<span><span class="co"># mb_rt_vviq_2  |&gt; </span></span>
-<span><span class="co">#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |&gt; </span></span>
-<span><span class="co">#   knitr::kable(align = "c")</span></span>
-<span><span class="co"># Posterior predictive check (best model performance indicator)</span></span>
-<span><span class="va">mb_rt_vviq_2</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">size</span> : <span style="color: #0000BB;">""</span></span></span></code></pre></div>
-<p><img src="analysing_rt_files/figure-html/bayesian-vviq-2-groups-1.png" class="r-plt" alt="Posterior predictive distributions." width="576"></p>
+<span><span class="va">mb_rt_vviq_2</span>  <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/get_performance.html">get_performance</a></span><span class="op">(</span>metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WAIC"</span>, <span class="st">"R2"</span>, <span class="st">"RMSE"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>align <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="center">WAIC</th>
+<th align="center">R2</th>
+<th align="center">R2 (marg.)</th>
+<th align="center">RMSE</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">12104.6</td>
+<td align="center">0.510</td>
+<td align="center">0.020</td>
+<td align="center">5.865</td>
+</tr></tbody>
+</table>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Posterior predictive check (best model performance indicator)</span></span>
+<span><span class="va">mb_rt_vviq_2</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
+<p><img src="analysing_rt_files/figure-html/bayesian-vviq-2-groups-1.png" class="r-plt" alt="Posterior predictive distributions." width="576"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Group contrasts</span></span>
 <span><span class="va">mb_rt_vviq_2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://marginaleffects.com/man/r/comparisons.html" class="external-link">avg_comparisons</a></span><span class="op">(</span></span>
-<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"group_2"</span> <span class="op">=</span> <span class="st">"pairwise"</span><span class="op">)</span>, draw_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4000</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"group_2"</span> <span class="op">=</span> <span class="st">"pairwise"</span><span class="op">)</span>, </span>
+<span>    draw_ids <span class="op">=</span> <span class="va">draws</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/report_rope.html">report_rope</a></span><span class="op">(</span><span class="va">contrast</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -376,15 +384,15 @@ contrasts between groups).</p>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">Typical - Aphantasia</td>
-<td align="right">0.606</td>
-<td align="left">[-1.867, 3.145]</td>
-<td align="right">0.696</td>
-<td align="right">0.111</td>
-<td align="right">0.47</td>
-<td align="right">0.42</td>
+<td align="right">0.569</td>
+<td align="left">[-1.896, 2.982]</td>
+<td align="right">0.681</td>
+<td align="right">0.129</td>
+<td align="right">0.464</td>
+<td align="right">0.408</td>
 </tr></tbody>
 </table>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Category contrasts within groups</span></span>
 <span><span class="va">mb_rt_vviq_2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://marginaleffects.com/man/r/comparisons.html" class="external-link">avg_comparisons</a></span><span class="op">(</span></span>
@@ -392,13 +400,13 @@ contrasts between groups).</p>
 <span>    draw_ids <span class="op">=</span> <span class="va">draws</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/report_rope.html">report_rope</a></span><span class="op">(</span><span class="va">group_2</span>, <span class="va">contrast</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<table style="width:100%;" class="table">
+<table class="table">
 <colgroup>
 <col width="11%">
 <col width="19%">
 <col width="9%">
 <col width="17%">
-<col width="5%">
+<col width="6%">
 <col width="11%">
 <col width="12%">
 <col width="11%">
@@ -417,66 +425,66 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Spatial - Control</td>
-<td align="right">-0.108</td>
-<td align="left">[-1.976, 1.523]</td>
-<td align="right">0.56</td>
-<td align="right">0.18</td>
-<td align="right">0.69</td>
-<td align="right">0.13</td>
+<td align="right">-0.076</td>
+<td align="left">[-1.989, 1.682]</td>
+<td align="right">0.539</td>
+<td align="right">0.188</td>
+<td align="right">0.675</td>
+<td align="right">0.137</td>
 </tr>
 <tr class="even">
 <td align="left">Aphantasia</td>
 <td align="left">Visual - Control</td>
-<td align="right">1.695</td>
-<td align="left">[-0.369, 3.073]</td>
-<td align="right">0.95</td>
-<td align="right">0.01</td>
-<td align="right">0.21</td>
-<td align="right">0.78</td>
+<td align="right">1.668</td>
+<td align="left">[-0.141, 3.496]</td>
+<td align="right">0.961</td>
+<td align="right">0.004</td>
+<td align="right">0.188</td>
+<td align="right">0.807</td>
 </tr>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">1.671</td>
-<td align="left">[-0.301, 3.803]</td>
-<td align="right">0.94</td>
-<td align="right">0.01</td>
-<td align="right">0.22</td>
-<td align="right">0.77</td>
+<td align="right">1.753</td>
+<td align="left">[-0.085, 3.658]</td>
+<td align="right">0.966</td>
+<td align="right">0.005</td>
+<td align="right">0.176</td>
+<td align="right">0.819</td>
 </tr>
 <tr class="even">
 <td align="left">Typical</td>
 <td align="left">Spatial - Control</td>
-<td align="right">0.271</td>
-<td align="left">[-1.846, 1.88]</td>
-<td align="right">0.59</td>
-<td align="right">0.11</td>
-<td align="right">0.70</td>
-<td align="right">0.19</td>
+<td align="right">0.112</td>
+<td align="left">[-1.828, 1.964]</td>
+<td align="right">0.544</td>
+<td align="right">0.146</td>
+<td align="right">0.652</td>
+<td align="right">0.202</td>
 </tr>
 <tr class="odd">
 <td align="left">Typical</td>
 <td align="left">Visual - Control</td>
-<td align="right">2.393</td>
-<td align="left">[0.669, 3.79]</td>
-<td align="right">0.99</td>
-<td align="right">0.00</td>
-<td align="right">0.06</td>
-<td align="right">0.94</td>
+<td align="right">2.436</td>
+<td align="left">[0.558, 4.24]</td>
+<td align="right">0.996</td>
+<td align="right">0.000</td>
+<td align="right">0.052</td>
+<td align="right">0.949</td>
 </tr>
 <tr class="even">
 <td align="left">Typical</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">2.294</td>
-<td align="left">[0.439, 4.003]</td>
-<td align="right">1.00</td>
-<td align="right">0.00</td>
-<td align="right">0.12</td>
-<td align="right">0.88</td>
+<td align="right">2.371</td>
+<td align="left">[0.374, 4.176]</td>
+<td align="right">0.989</td>
+<td align="right">0.000</td>
+<td align="right">0.073</td>
+<td align="right">0.926</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Interaction contrasts</span></span>
 <span><span class="va">mb_rt_vviq_2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://marginaleffects.com/man/r/comparisons.html" class="external-link">avg_comparisons</a></span><span class="op">(</span></span>
@@ -486,13 +494,13 @@ contrasts between groups).</p>
 <span>    draw_ids <span class="op">=</span> <span class="va">draws</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/report_rope.html">report_rope</a></span><span class="op">(</span><span class="va">hypothesis</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<table style="width:100%;" class="table">
+<table class="table">
 <colgroup>
 <col width="17%">
 <col width="20%">
 <col width="8%">
 <col width="15%">
-<col width="4%">
+<col width="5%">
 <col width="10%">
 <col width="11%">
 <col width="10%">
@@ -511,32 +519,32 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Spatial - Control</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-0.228</td>
-<td align="left">[-1.572, 1.279]</td>
-<td align="right">0.63</td>
-<td align="right">0.17</td>
-<td align="right">0.74</td>
-<td align="right">0.09</td>
+<td align="right">-0.181</td>
+<td align="left">[-1.561, 1.102]</td>
+<td align="right">0.612</td>
+<td align="right">0.156</td>
+<td align="right">0.784</td>
+<td align="right">0.060</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Control</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-0.756</td>
-<td align="left">[-2.262, 0.844]</td>
-<td align="right">0.90</td>
-<td align="right">0.42</td>
-<td align="right">0.55</td>
-<td align="right">0.03</td>
+<td align="right">-0.774</td>
+<td align="left">[-2.19, 0.69]</td>
+<td align="right">0.851</td>
+<td align="right">0.448</td>
+<td align="right">0.540</td>
+<td align="right">0.012</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Spatial</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-0.555</td>
-<td align="left">[-2.167, 0.604]</td>
-<td align="right">0.74</td>
-<td align="right">0.39</td>
-<td align="right">0.59</td>
-<td align="right">0.02</td>
+<td align="right">-0.585</td>
+<td align="left">[-1.94, 0.781]</td>
+<td align="right">0.789</td>
+<td align="right">0.338</td>
+<td align="right">0.641</td>
+<td align="right">0.021</td>
 </tr>
 </tbody>
 </table>
@@ -544,7 +552,7 @@ contrasts between groups).</p>
 <div class="section level4">
 <h4 id="frequentist">Frequentist<a class="anchor" aria-label="anchor" href="#frequentist"></a>
 </h4>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mf_rt_vviq_2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">glmmTMB</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/glmmTMB/man/glmmTMB.html" class="external-link">glmmTMB</a></span><span class="op">(</span></span>
 <span>    data    <span class="op">=</span> <span class="va">df_rt</span>,</span>
@@ -555,7 +563,6 @@ contrasts between groups).</p>
 <span></span>
 <span><span class="co"># Singularity check</span></span>
 <span><span class="va">mf_rt_vviq_2</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/get_singularity.html">get_singularity</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The model is not singular, parameter estimates are trustworthy.</span></span>
 <span><span class="co"># Model performance indices</span></span>
 <span><span class="va">mf_rt_vviq_2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/get_performance.html">get_performance</a></span><span class="op">(</span>metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AICc"</span>, <span class="st">"R2"</span>, <span class="st">"RMSE"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -574,19 +581,14 @@ contrasts between groups).</p>
 <td align="center">5.904</td>
 </tr></tbody>
 </table>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Posterior predictive check (best model performance indicator)</span></span>
 <span><span class="va">mf_rt_vviq_2</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">size</span> : <span style="color: #0000BB;">""</span></span></span>
-<span><span class="co">#&gt; Warning: Removed 7 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_density()`).</span></span></code></pre></div>
+<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysing_rt_files/figure-html/frequentist-vviq-2-groups-1.png" class="r-plt" alt="Posterior predictive distributions." width="576"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Group contrasts</span></span>
-<span><span class="va">mf_rt_vviq_2</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group_2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; NOTE: Results may be misleading due to involvement in interactions</span></span></code></pre></div>
+<span><span class="va">mf_rt_vviq_2</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group_2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Contrast</th>
@@ -601,7 +603,7 @@ contrasts between groups).</p>
 <td align="right">0.572</td>
 </tr></tbody>
 </table>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Category contrasts within groups</span></span>
 <span><span class="va">mf_rt_vviq_2</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">category</span> <span class="op">|</span> <span class="va">group_2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -657,7 +659,7 @@ contrasts between groups).</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Interaction contrasts</span></span>
 <span><span class="va">mf_rt_vviq_2</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">category</span> <span class="op">*</span> <span class="va">group_2</span>, interaction <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -708,7 +710,7 @@ contrasts between groups).</p>
 <div class="section level4">
 <h4 id="bayesian-1">Bayesian<a class="anchor" aria-label="anchor" href="#bayesian-1"></a>
 </h4>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_rt_vviq_3</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/fit_brms_model.html">fit_brms_model</a></span><span class="op">(</span></span>
 <span>    formula <span class="op">=</span> <span class="fu"><a href="../reference/build_formula.html">build_formula</a></span><span class="op">(</span><span class="st">"rt_total"</span>, <span class="st">"group_3"</span><span class="op">)</span>,</span>
@@ -720,18 +722,30 @@ contrasts between groups).</p>
 <span></span>
 <span><span class="co"># Singularity check</span></span>
 <span><span class="va">mb_rt_vviq_3</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/get_singularity.html">get_singularity</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The model is not singular, parameter estimates are trustworthy.</span></span>
 <span><span class="co"># Model performance indices</span></span>
-<span><span class="co"># mb_rt_vviq_3  |&gt; </span></span>
-<span><span class="co">#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |&gt; </span></span>
-<span><span class="co">#   knitr::kable(align = "c")</span></span>
-<span><span class="co"># Posterior predictive check (best model performance indicator)</span></span>
+<span><span class="va">mb_rt_vviq_3</span>  <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/get_performance.html">get_performance</a></span><span class="op">(</span>metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WAIC"</span>, <span class="st">"R2"</span>, <span class="st">"RMSE"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>align <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="center">WAIC</th>
+<th align="center">R2</th>
+<th align="center">R2 (marg.)</th>
+<th align="center">RMSE</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">12106.0</td>
+<td align="center">0.511</td>
+<td align="center">0.037</td>
+<td align="center">5.860</td>
+</tr></tbody>
+</table>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Posterior predictive check (best model performance indicator)</span></span>
 <span><span class="va">mb_rt_vviq_3</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">size</span> : <span style="color: #0000BB;">""</span></span></span></code></pre></div>
+<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysing_rt_files/figure-html/bayesian-vviq-3-groups-1.png" class="r-plt" alt="Posterior predictive distributions." width="576"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Group contrasts</span></span>
 <span><span class="va">mb_rt_vviq_3</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://marginaleffects.com/man/r/comparisons.html" class="external-link">avg_comparisons</a></span><span class="op">(</span></span>
@@ -744,10 +758,10 @@ contrasts between groups).</p>
 <col width="29%">
 <col width="9%">
 <col width="17%">
-<col width="5%">
-<col width="12%">
+<col width="6%">
+<col width="11%">
 <col width="13%">
-<col width="12%">
+<col width="11%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">contrast</th>
@@ -761,34 +775,34 @@ contrasts between groups).</p>
 <tbody>
 <tr class="odd">
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">3.401</td>
-<td align="left">[-0.584, 6.496]</td>
-<td align="right">0.96</td>
-<td align="right">0.03</td>
-<td align="right">0.07</td>
-<td align="right">0.90</td>
+<td align="right">3.376</td>
+<td align="left">[-0.608, 6.877]</td>
+<td align="right">0.955</td>
+<td align="right">0.021</td>
+<td align="right">0.076</td>
+<td align="right">0.903</td>
 </tr>
 <tr class="even">
 <td align="left">Aphantasia - Typical</td>
-<td align="right">0.642</td>
-<td align="left">[-1.648, 3.372]</td>
-<td align="right">0.64</td>
-<td align="right">0.16</td>
-<td align="right">0.42</td>
-<td align="right">0.42</td>
+<td align="right">0.683</td>
+<td align="left">[-2.087, 3.563]</td>
+<td align="right">0.679</td>
+<td align="right">0.128</td>
+<td align="right">0.434</td>
+<td align="right">0.437</td>
 </tr>
 <tr class="odd">
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">-2.931</td>
-<td align="left">[-5.395, 0.18]</td>
-<td align="right">0.96</td>
-<td align="right">0.87</td>
-<td align="right">0.11</td>
-<td align="right">0.02</td>
+<td align="right">-2.686</td>
+<td align="left">[-5.69, 0.935]</td>
+<td align="right">0.933</td>
+<td align="right">0.856</td>
+<td align="right">0.118</td>
+<td align="right">0.026</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Category contrasts within groups</span></span>
 <span><span class="va">mb_rt_vviq_3</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://marginaleffects.com/man/r/comparisons.html" class="external-link">avg_comparisons</a></span><span class="op">(</span></span>
@@ -803,7 +817,7 @@ contrasts between groups).</p>
 <col width="18%">
 <col width="9%">
 <col width="16%">
-<col width="5%">
+<col width="6%">
 <col width="11%">
 <col width="12%">
 <col width="11%">
@@ -822,96 +836,96 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Spatial - Control</td>
-<td align="right">0.143</td>
-<td align="left">[-1.87, 1.853]</td>
-<td align="right">0.58</td>
-<td align="right">0.17</td>
-<td align="right">0.56</td>
-<td align="right">0.27</td>
+<td align="right">0.247</td>
+<td align="left">[-1.786, 2.234]</td>
+<td align="right">0.592</td>
+<td align="right">0.136</td>
+<td align="right">0.604</td>
+<td align="right">0.260</td>
 </tr>
 <tr class="even">
 <td align="left">Aphantasia</td>
 <td align="left">Visual - Control</td>
-<td align="right">1.621</td>
-<td align="left">[-0.576, 3.793]</td>
-<td align="right">0.95</td>
-<td align="right">0.01</td>
-<td align="right">0.21</td>
-<td align="right">0.78</td>
+<td align="right">1.522</td>
+<td align="left">[-0.714, 3.782]</td>
+<td align="right">0.921</td>
+<td align="right">0.018</td>
+<td align="right">0.245</td>
+<td align="right">0.738</td>
 </tr>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">1.514</td>
-<td align="left">[-0.723, 3.127]</td>
-<td align="right">0.90</td>
-<td align="right">0.02</td>
-<td align="right">0.26</td>
-<td align="right">0.72</td>
+<td align="right">1.287</td>
+<td align="left">[-0.775, 3.362]</td>
+<td align="right">0.892</td>
+<td align="right">0.020</td>
+<td align="right">0.315</td>
+<td align="right">0.664</td>
 </tr>
 <tr class="even">
 <td align="left">Hypophantasia</td>
 <td align="left">Spatial - Control</td>
-<td align="right">-0.705</td>
-<td align="left">[-3.012, 1.496]</td>
-<td align="right">0.77</td>
-<td align="right">0.44</td>
-<td align="right">0.48</td>
-<td align="right">0.08</td>
+<td align="right">-0.604</td>
+<td align="left">[-2.635, 1.487]</td>
+<td align="right">0.722</td>
+<td align="right">0.394</td>
+<td align="right">0.526</td>
+<td align="right">0.080</td>
 </tr>
 <tr class="odd">
 <td align="left">Hypophantasia</td>
 <td align="left">Visual - Control</td>
-<td align="right">1.931</td>
-<td align="left">[-0.199, 4.132]</td>
-<td align="right">0.96</td>
-<td align="right">0.00</td>
-<td align="right">0.19</td>
-<td align="right">0.81</td>
+<td align="right">1.937</td>
+<td align="left">[-0.328, 4.132]</td>
+<td align="right">0.956</td>
+<td align="right">0.007</td>
+<td align="right">0.170</td>
+<td align="right">0.823</td>
 </tr>
 <tr class="even">
 <td align="left">Hypophantasia</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">2.665</td>
-<td align="left">[0.418, 4.56]</td>
-<td align="right">0.98</td>
-<td align="right">0.00</td>
-<td align="right">0.08</td>
-<td align="right">0.92</td>
+<td align="right">2.503</td>
+<td align="left">[0.377, 4.641]</td>
+<td align="right">0.987</td>
+<td align="right">0.000</td>
+<td align="right">0.068</td>
+<td align="right">0.932</td>
 </tr>
 <tr class="odd">
 <td align="left">Typical</td>
 <td align="left">Spatial - Control</td>
-<td align="right">0.009</td>
-<td align="left">[-1.72, 1.944]</td>
-<td align="right">0.51</td>
-<td align="right">0.17</td>
-<td align="right">0.61</td>
-<td align="right">0.22</td>
+<td align="right">0.122</td>
+<td align="left">[-1.63, 1.891]</td>
+<td align="right">0.560</td>
+<td align="right">0.133</td>
+<td align="right">0.657</td>
+<td align="right">0.210</td>
 </tr>
 <tr class="even">
 <td align="left">Typical</td>
 <td align="left">Visual - Control</td>
-<td align="right">2.321</td>
-<td align="left">[0.494, 4.644]</td>
-<td align="right">0.99</td>
-<td align="right">0.00</td>
-<td align="right">0.07</td>
-<td align="right">0.93</td>
+<td align="right">2.458</td>
+<td align="left">[0.493, 4.396]</td>
+<td align="right">0.993</td>
+<td align="right">0.000</td>
+<td align="right">0.054</td>
+<td align="right">0.945</td>
 </tr>
 <tr class="odd">
 <td align="left">Typical</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">2.368</td>
-<td align="left">[0.916, 4.107]</td>
-<td align="right">0.99</td>
-<td align="right">0.00</td>
-<td align="right">0.02</td>
-<td align="right">0.98</td>
+<td align="right">2.309</td>
+<td align="left">[0.453, 4.185]</td>
+<td align="right">0.993</td>
+<td align="right">0.001</td>
+<td align="right">0.060</td>
+<td align="right">0.939</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Interaction contrasts</span></span>
 <span><span class="va">mb_rt_vviq_3</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://marginaleffects.com/man/r/comparisons.html" class="external-link">avg_comparisons</a></span><span class="op">(</span></span>
@@ -927,9 +941,9 @@ contrasts between groups).</p>
 <col width="24%">
 <col width="8%">
 <col width="14%">
-<col width="4%">
+<col width="5%">
 <col width="10%">
-<col width="11%">
+<col width="10%">
 <col width="10%">
 </colgroup>
 <thead><tr class="header">
@@ -946,92 +960,92 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Spatial - Control</td>
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">0.757</td>
-<td align="left">[-1.03, 2.718]</td>
-<td align="right">0.85</td>
-<td align="right">0.05</td>
-<td align="right">0.47</td>
-<td align="right">0.48</td>
+<td align="right">0.817</td>
+<td align="left">[-1.065, 2.727]</td>
+<td align="right">0.783</td>
+<td align="right">0.042</td>
+<td align="right">0.475</td>
+<td align="right">0.483</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Control</td>
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">-0.321</td>
-<td align="left">[-2.656, 2.29]</td>
-<td align="right">0.65</td>
-<td align="right">0.25</td>
-<td align="right">0.60</td>
-<td align="right">0.15</td>
+<td align="right">-0.424</td>
+<td align="left">[-2.566, 1.689]</td>
+<td align="right">0.640</td>
+<td align="right">0.329</td>
+<td align="right">0.554</td>
+<td align="right">0.116</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Spatial</td>
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">-1.007</td>
-<td align="left">[-3.433, 0.788]</td>
-<td align="right">0.87</td>
-<td align="right">0.58</td>
-<td align="right">0.39</td>
-<td align="right">0.03</td>
+<td align="right">-1.216</td>
+<td align="left">[-3.197, 0.826]</td>
+<td align="right">0.876</td>
+<td align="right">0.639</td>
+<td align="right">0.336</td>
+<td align="right">0.024</td>
 </tr>
 <tr class="even">
 <td align="left">Spatial - Control</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">0.003</td>
-<td align="left">[-1.004, 1.647]</td>
-<td align="right">0.51</td>
-<td align="right">0.09</td>
-<td align="right">0.78</td>
-<td align="right">0.13</td>
+<td align="right">0.111</td>
+<td align="left">[-1.441, 1.607]</td>
+<td align="right">0.558</td>
+<td align="right">0.113</td>
+<td align="right">0.723</td>
+<td align="right">0.164</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Control</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-0.796</td>
-<td align="left">[-2.363, 0.683]</td>
-<td align="right">0.88</td>
-<td align="right">0.45</td>
-<td align="right">0.54</td>
-<td align="right">0.01</td>
+<td align="right">-0.932</td>
+<td align="left">[-2.544, 0.714]</td>
+<td align="right">0.866</td>
+<td align="right">0.527</td>
+<td align="right">0.455</td>
+<td align="right">0.018</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Spatial</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-0.961</td>
-<td align="left">[-2.657, 0.456]</td>
-<td align="right">0.83</td>
-<td align="right">0.55</td>
-<td align="right">0.45</td>
-<td align="right">0.00</td>
+<td align="right">-1.037</td>
+<td align="left">[-2.622, 0.619]</td>
+<td align="right">0.889</td>
+<td align="right">0.587</td>
+<td align="right">0.402</td>
+<td align="right">0.012</td>
 </tr>
 <tr class="odd">
 <td align="left">Spatial - Control</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">-0.853</td>
-<td align="left">[-2.709, 1.133]</td>
-<td align="right">0.83</td>
-<td align="right">0.49</td>
-<td align="right">0.48</td>
-<td align="right">0.03</td>
+<td align="right">-0.704</td>
+<td align="left">[-2.534, 0.967]</td>
+<td align="right">0.790</td>
+<td align="right">0.428</td>
+<td align="right">0.538</td>
+<td align="right">0.034</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Control</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">-0.688</td>
-<td align="left">[-2.365, 1.147]</td>
-<td align="right">0.74</td>
-<td align="right">0.41</td>
-<td align="right">0.46</td>
-<td align="right">0.13</td>
+<td align="right">-0.537</td>
+<td align="left">[-2.421, 1.301]</td>
+<td align="right">0.704</td>
+<td align="right">0.362</td>
+<td align="right">0.565</td>
+<td align="right">0.074</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Spatial</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">0.281</td>
-<td align="left">[-1.331, 1.716]</td>
-<td align="right">0.63</td>
-<td align="right">0.12</td>
-<td align="right">0.66</td>
-<td align="right">0.22</td>
+<td align="right">0.202</td>
+<td align="left">[-1.665, 2.057]</td>
+<td align="right">0.584</td>
+<td align="right">0.130</td>
+<td align="right">0.633</td>
+<td align="right">0.236</td>
 </tr>
 </tbody>
 </table>
@@ -1039,7 +1053,7 @@ contrasts between groups).</p>
 <div class="section level4">
 <h4 id="frequentist-1">Frequentist<a class="anchor" aria-label="anchor" href="#frequentist-1"></a>
 </h4>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mf_rt_vviq_3</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">glmmTMB</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/glmmTMB/man/glmmTMB.html" class="external-link">glmmTMB</a></span><span class="op">(</span></span>
 <span>    data    <span class="op">=</span> <span class="va">df_rt</span>,</span>
@@ -1050,7 +1064,6 @@ contrasts between groups).</p>
 <span></span>
 <span><span class="co"># Singularity check</span></span>
 <span><span class="va">mf_rt_vviq_3</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/get_singularity.html">get_singularity</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The model is not singular, parameter estimates are trustworthy.</span></span>
 <span><span class="co"># Model performance indices</span></span>
 <span><span class="va">mf_rt_vviq_3</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/get_performance.html">get_performance</a></span><span class="op">(</span>metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AICc"</span>, <span class="st">"R2"</span>, <span class="st">"RMSE"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -1069,18 +1082,13 @@ contrasts between groups).</p>
 <td align="center">5.903</td>
 </tr></tbody>
 </table>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Posterior predictive check (best model performance indicator)</span></span>
 <span><span class="va">mf_rt_vviq_3</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">size</span> : <span style="color: #0000BB;">""</span></span></span>
-<span><span class="co">#&gt; Warning: Removed 20 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_density()`).</span></span></code></pre></div>
+<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysing_rt_files/figure-html/frequentist-vviq-3-groups-1.png" class="r-plt" alt="Posterior predictive distributions." width="576"></p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mf_rt_vviq_3</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group_3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; NOTE: Results may be misleading due to involvement in interactions</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mf_rt_vviq_3</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group_3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Contrast</th>
@@ -1109,7 +1117,7 @@ contrasts between groups).</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mf_rt_vviq_3</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">category</span> <span class="op">|</span> <span class="va">group_3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -1185,7 +1193,7 @@ contrasts between groups).</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mf_rt_vviq_3</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">category</span> <span class="op">*</span> <span class="va">group_3</span>, interaction <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table style="width:100%;" class="table">
@@ -1277,7 +1285,7 @@ contrasts between groups).</p>
 <div class="section level4">
 <h4 id="bayesian-2">Bayesian<a class="anchor" aria-label="anchor" href="#bayesian-2"></a>
 </h4>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_rt_osivq</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/fit_brms_model.html">fit_brms_model</a></span><span class="op">(</span></span>
 <span>    formula <span class="op">=</span> <span class="fu"><a href="../reference/build_formula.html">build_formula</a></span><span class="op">(</span><span class="st">"rt_total"</span>, <span class="st">"cluster"</span><span class="op">)</span>,</span>
@@ -1289,18 +1297,30 @@ contrasts between groups).</p>
 <span></span>
 <span><span class="co"># Singularity check</span></span>
 <span><span class="va">mb_rt_osivq</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/get_singularity.html">get_singularity</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The model is not singular, parameter estimates are trustworthy.</span></span>
 <span><span class="co"># Model performance indices</span></span>
-<span><span class="co"># mb_rt_osivq  |&gt; </span></span>
-<span><span class="co">#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |&gt; </span></span>
-<span><span class="co">#   knitr::kable(align = "c")</span></span>
-<span><span class="co"># Posterior predictive check (best model performance indicator)</span></span>
+<span><span class="va">mb_rt_osivq</span>  <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/get_performance.html">get_performance</a></span><span class="op">(</span>metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WAIC"</span>, <span class="st">"R2"</span>, <span class="st">"RMSE"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>align <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="center">WAIC</th>
+<th align="center">R2</th>
+<th align="center">R2 (marg.)</th>
+<th align="center">RMSE</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">12105.0</td>
+<td align="center">0.511</td>
+<td align="center">0.028</td>
+<td align="center">5.864</td>
+</tr></tbody>
+</table>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Posterior predictive check (best model performance indicator)</span></span>
 <span><span class="va">mb_rt_osivq</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">size</span> : <span style="color: #0000BB;">""</span></span></span></code></pre></div>
+<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysing_rt_files/figure-html/bayesian-osivq-3-clusters-1.png" class="r-plt" alt="Posterior predictive distributions." width="576"></p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Group contrasts</span></span>
 <span><span class="va">mb_rt_osivq</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://marginaleffects.com/man/r/comparisons.html" class="external-link">avg_comparisons</a></span><span class="op">(</span></span>
@@ -1310,10 +1330,10 @@ contrasts between groups).</p>
 <span>  <span class="fu"><a href="../reference/report_rope.html">report_rope</a></span><span class="op">(</span><span class="va">contrast</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="28%">
+<col width="27%">
 <col width="10%">
 <col width="17%">
-<col width="5%">
+<col width="6%">
 <col width="12%">
 <col width="13%">
 <col width="12%">
@@ -1330,34 +1350,34 @@ contrasts between groups).</p>
 <tbody>
 <tr class="odd">
 <td align="left">Spatialiser - Visualiser</td>
-<td align="right">-2.304</td>
-<td align="left">[-4.973, 1.091]</td>
-<td align="right">0.89</td>
-<td align="right">0.81</td>
-<td align="right">0.14</td>
-<td align="right">0.05</td>
+<td align="right">-1.599</td>
+<td align="left">[-4.733, 2.009]</td>
+<td align="right">0.832</td>
+<td align="right">0.661</td>
+<td align="right">0.260</td>
+<td align="right">0.079</td>
 </tr>
 <tr class="even">
 <td align="left">Verbaliser - Spatialiser</td>
-<td align="right">1.100</td>
-<td align="left">[-3.177, 3.404]</td>
-<td align="right">0.72</td>
-<td align="right">0.14</td>
-<td align="right">0.32</td>
-<td align="right">0.54</td>
+<td align="right">0.769</td>
+<td align="left">[-2.701, 3.785]</td>
+<td align="right">0.682</td>
+<td align="right">0.166</td>
+<td align="right">0.358</td>
+<td align="right">0.475</td>
 </tr>
 <tr class="odd">
 <td align="left">Verbaliser - Visualiser</td>
-<td align="right">-1.310</td>
-<td align="left">[-3.404, 0.913]</td>
-<td align="right">0.86</td>
-<td align="right">0.63</td>
-<td align="right">0.34</td>
-<td align="right">0.03</td>
+<td align="right">-0.811</td>
+<td align="left">[-3.62, 1.903]</td>
+<td align="right">0.720</td>
+<td align="right">0.486</td>
+<td align="right">0.403</td>
+<td align="right">0.111</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Category contrasts within groups</span></span>
 <span><span class="va">mb_rt_osivq</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://marginaleffects.com/man/r/comparisons.html" class="external-link">avg_comparisons</a></span><span class="op">(</span></span>
@@ -1369,10 +1389,10 @@ contrasts between groups).</p>
 <table class="table">
 <colgroup>
 <col width="12%">
-<col width="19%">
+<col width="18%">
 <col width="9%">
-<col width="17%">
-<col width="5%">
+<col width="16%">
+<col width="6%">
 <col width="11%">
 <col width="12%">
 <col width="11%">
@@ -1391,96 +1411,96 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Visualiser</td>
 <td align="left">Spatial - Control</td>
-<td align="right">0.444</td>
-<td align="left">[-1.445, 2.431]</td>
-<td align="right">0.70</td>
-<td align="right">0.09</td>
-<td align="right">0.57</td>
-<td align="right">0.34</td>
+<td align="right">0.376</td>
+<td align="left">[-1.57, 2.33]</td>
+<td align="right">0.651</td>
+<td align="right">0.112</td>
+<td align="right">0.582</td>
+<td align="right">0.306</td>
 </tr>
 <tr class="even">
 <td align="left">Visualiser</td>
 <td align="left">Visual - Control</td>
-<td align="right">2.891</td>
-<td align="left">[0.898, 4.468]</td>
-<td align="right">1.00</td>
-<td align="right">0.00</td>
-<td align="right">0.03</td>
-<td align="right">0.97</td>
+<td align="right">2.895</td>
+<td align="left">[0.942, 4.905]</td>
+<td align="right">0.998</td>
+<td align="right">0.000</td>
+<td align="right">0.023</td>
+<td align="right">0.977</td>
 </tr>
 <tr class="odd">
 <td align="left">Visualiser</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">2.417</td>
-<td align="left">[0.384, 4.048]</td>
-<td align="right">0.99</td>
-<td align="right">0.01</td>
-<td align="right">0.07</td>
-<td align="right">0.92</td>
+<td align="right">2.515</td>
+<td align="left">[0.464, 4.567]</td>
+<td align="right">0.992</td>
+<td align="right">0.002</td>
+<td align="right">0.051</td>
+<td align="right">0.948</td>
 </tr>
 <tr class="even">
 <td align="left">Spatialiser</td>
 <td align="left">Spatial - Control</td>
-<td align="right">-0.015</td>
-<td align="left">[-1.799, 1.713]</td>
-<td align="right">0.52</td>
-<td align="right">0.20</td>
-<td align="right">0.63</td>
-<td align="right">0.17</td>
+<td align="right">-0.146</td>
+<td align="left">[-2.206, 1.973]</td>
+<td align="right">0.555</td>
+<td align="right">0.262</td>
+<td align="right">0.551</td>
+<td align="right">0.186</td>
 </tr>
 <tr class="odd">
 <td align="left">Spatialiser</td>
 <td align="left">Visual - Control</td>
-<td align="right">1.334</td>
-<td align="left">[-0.463, 3.846]</td>
-<td align="right">0.92</td>
-<td align="right">0.01</td>
-<td align="right">0.32</td>
-<td align="right">0.67</td>
+<td align="right">1.496</td>
+<td align="left">[-0.705, 3.694]</td>
+<td align="right">0.911</td>
+<td align="right">0.020</td>
+<td align="right">0.268</td>
+<td align="right">0.713</td>
 </tr>
 <tr class="even">
 <td align="left">Spatialiser</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">1.517</td>
-<td align="left">[-0.775, 3.808]</td>
-<td align="right">0.91</td>
-<td align="right">0.02</td>
-<td align="right">0.30</td>
-<td align="right">0.68</td>
+<td align="right">1.616</td>
+<td align="left">[-0.548, 3.884]</td>
+<td align="right">0.926</td>
+<td align="right">0.011</td>
+<td align="right">0.234</td>
+<td align="right">0.755</td>
 </tr>
 <tr class="odd">
 <td align="left">Verbaliser</td>
 <td align="left">Spatial - Control</td>
-<td align="right">-0.212</td>
-<td align="left">[-2.023, 1.974]</td>
-<td align="right">0.53</td>
-<td align="right">0.25</td>
-<td align="right">0.53</td>
-<td align="right">0.22</td>
+<td align="right">-0.272</td>
+<td align="left">[-2.128, 1.737]</td>
+<td align="right">0.605</td>
+<td align="right">0.252</td>
+<td align="right">0.624</td>
+<td align="right">0.125</td>
 </tr>
 <tr class="even">
 <td align="left">Verbaliser</td>
 <td align="left">Visual - Control</td>
-<td align="right">1.541</td>
-<td align="left">[-0.248, 3.418]</td>
-<td align="right">0.95</td>
-<td align="right">0.00</td>
-<td align="right">0.23</td>
-<td align="right">0.77</td>
+<td align="right">1.580</td>
+<td align="left">[-0.393, 3.44]</td>
+<td align="right">0.950</td>
+<td align="right">0.006</td>
+<td align="right">0.240</td>
+<td align="right">0.753</td>
 </tr>
 <tr class="odd">
 <td align="left">Verbaliser</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">1.393</td>
-<td align="left">[-0.351, 3.605]</td>
-<td align="right">0.94</td>
-<td align="right">0.01</td>
-<td align="right">0.21</td>
-<td align="right">0.78</td>
+<td align="right">1.771</td>
+<td align="left">[-0.031, 3.659]</td>
+<td align="right">0.973</td>
+<td align="right">0.004</td>
+<td align="right">0.168</td>
+<td align="right">0.828</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Interaction contrasts</span></span>
 <span><span class="va">mb_rt_osivq</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://marginaleffects.com/man/r/comparisons.html" class="external-link">avg_comparisons</a></span><span class="op">(</span></span>
@@ -1496,7 +1516,7 @@ contrasts between groups).</p>
 <col width="23%">
 <col width="8%">
 <col width="14%">
-<col width="4%">
+<col width="5%">
 <col width="10%">
 <col width="11%">
 <col width="10%">
@@ -1515,92 +1535,92 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Spatial - Control</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">0.067</td>
-<td align="left">[-2.086, 1.764]</td>
-<td align="right">0.52</td>
-<td align="right">0.17</td>
-<td align="right">0.64</td>
-<td align="right">0.19</td>
+<td align="right">0.108</td>
+<td align="left">[-1.76, 1.931]</td>
+<td align="right">0.546</td>
+<td align="right">0.157</td>
+<td align="right">0.623</td>
+<td align="right">0.220</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Control</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">-0.093</td>
-<td align="left">[-1.71, 1.884]</td>
-<td align="right">0.53</td>
-<td align="right">0.26</td>
-<td align="right">0.58</td>
-<td align="right">0.16</td>
+<td align="right">-0.083</td>
+<td align="left">[-1.926, 1.861]</td>
+<td align="right">0.536</td>
+<td align="right">0.211</td>
+<td align="right">0.623</td>
+<td align="right">0.166</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Spatial</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">-0.198</td>
-<td align="left">[-2.234, 2.09]</td>
-<td align="right">0.59</td>
-<td align="right">0.22</td>
-<td align="right">0.65</td>
-<td align="right">0.13</td>
+<td align="right">-0.177</td>
+<td align="left">[-1.992, 1.736]</td>
+<td align="right">0.571</td>
+<td align="right">0.239</td>
+<td align="right">0.626</td>
+<td align="right">0.135</td>
 </tr>
 <tr class="even">
 <td align="left">Spatial - Control</td>
 <td align="left">Visualiser - Spatialiser</td>
-<td align="right">0.482</td>
-<td align="left">[-1.072, 2.158]</td>
-<td align="right">0.73</td>
-<td align="right">0.04</td>
-<td align="right">0.59</td>
-<td align="right">0.37</td>
+<td align="right">0.527</td>
+<td align="left">[-1.395, 2.3]</td>
+<td align="right">0.708</td>
+<td align="right">0.074</td>
+<td align="right">0.567</td>
+<td align="right">0.358</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Control</td>
 <td align="left">Visualiser - Spatialiser</td>
-<td align="right">1.583</td>
-<td align="left">[-0.61, 3.289]</td>
-<td align="right">0.89</td>
-<td align="right">0.00</td>
-<td align="right">0.27</td>
-<td align="right">0.73</td>
+<td align="right">1.458</td>
+<td align="left">[-0.483, 3.31]</td>
+<td align="right">0.926</td>
+<td align="right">0.009</td>
+<td align="right">0.276</td>
+<td align="right">0.715</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Spatial</td>
 <td align="left">Visualiser - Spatialiser</td>
-<td align="right">0.895</td>
-<td align="left">[-0.863, 2.8]</td>
-<td align="right">0.81</td>
-<td align="right">0.03</td>
-<td align="right">0.45</td>
-<td align="right">0.52</td>
+<td align="right">0.917</td>
+<td align="left">[-1.029, 2.861]</td>
+<td align="right">0.823</td>
+<td align="right">0.038</td>
+<td align="right">0.442</td>
+<td align="right">0.519</td>
 </tr>
 <tr class="odd">
 <td align="left">Spatial - Control</td>
 <td align="left">Visualiser - Verbaliser</td>
-<td align="right">0.603</td>
-<td align="left">[-0.964, 2.159]</td>
-<td align="right">0.76</td>
-<td align="right">0.04</td>
-<td align="right">0.60</td>
-<td align="right">0.36</td>
+<td align="right">0.611</td>
+<td align="left">[-0.818, 2.094]</td>
+<td align="right">0.779</td>
+<td align="right">0.021</td>
+<td align="right">0.611</td>
+<td align="right">0.368</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Control</td>
 <td align="left">Visualiser - Verbaliser</td>
-<td align="right">1.272</td>
-<td align="left">[-0.081, 2.842]</td>
-<td align="right">0.94</td>
-<td align="right">0.00</td>
-<td align="right">0.26</td>
-<td align="right">0.74</td>
+<td align="right">1.343</td>
+<td align="left">[-0.173, 2.882]</td>
+<td align="right">0.957</td>
+<td align="right">0.002</td>
+<td align="right">0.255</td>
+<td align="right">0.743</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Spatial</td>
 <td align="left">Visualiser - Verbaliser</td>
-<td align="right">0.771</td>
-<td align="left">[-1.052, 2.348]</td>
-<td align="right">0.81</td>
-<td align="right">0.04</td>
-<td align="right">0.51</td>
-<td align="right">0.45</td>
+<td align="right">0.736</td>
+<td align="left">[-0.794, 2.294]</td>
+<td align="right">0.821</td>
+<td align="right">0.018</td>
+<td align="right">0.544</td>
+<td align="right">0.438</td>
 </tr>
 </tbody>
 </table>
@@ -1608,7 +1628,7 @@ contrasts between groups).</p>
 <div class="section level4">
 <h4 id="frequentist-2">Frequentist<a class="anchor" aria-label="anchor" href="#frequentist-2"></a>
 </h4>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mf_rt_osivq</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">glmmTMB</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/glmmTMB/man/glmmTMB.html" class="external-link">glmmTMB</a></span><span class="op">(</span></span>
 <span>    data    <span class="op">=</span> <span class="va">df_rt</span>,</span>
@@ -1619,7 +1639,6 @@ contrasts between groups).</p>
 <span></span>
 <span><span class="co"># Singularity check</span></span>
 <span><span class="va">mf_rt_osivq</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/get_singularity.html">get_singularity</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The model is not singular, parameter estimates are trustworthy.</span></span>
 <span><span class="co"># Model performance indices</span></span>
 <span><span class="va">mf_rt_osivq</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/get_performance.html">get_performance</a></span><span class="op">(</span>metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AICc"</span>, <span class="st">"R2"</span>, <span class="st">"RMSE"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -1638,18 +1657,13 @@ contrasts between groups).</p>
 <td align="center">5.902</td>
 </tr></tbody>
 </table>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Posterior predictive check (best model performance indicator)</span></span>
 <span><span class="va">mf_rt_osivq</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">size</span> : <span style="color: #0000BB;">""</span></span></span>
-<span><span class="co">#&gt; Warning: Removed 18 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_density()`).</span></span></code></pre></div>
+<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysing_rt_files/figure-html/frequentist-osivq-3-clusters-1.png" class="r-plt" alt="Posterior predictive distributions." width="576"></p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mf_rt_osivq</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">cluster</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; NOTE: Results may be misleading due to involvement in interactions</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mf_rt_osivq</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">cluster</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Contrast</th>
@@ -1678,7 +1692,7 @@ contrasts between groups).</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mf_rt_osivq</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">category</span> <span class="op">|</span> <span class="va">cluster</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -1754,7 +1768,7 @@ contrasts between groups).</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mf_rt_osivq</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">category</span> <span class="op">*</span> <span class="va">cluster</span>, interaction <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table style="width:100%;" class="table">
@@ -1846,7 +1860,7 @@ contrasts between groups).</p>
 <div class="section level4">
 <h4 id="bayesian-3">Bayesian<a class="anchor" aria-label="anchor" href="#bayesian-3"></a>
 </h4>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_rt_strat</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/fit_brms_model.html">fit_brms_model</a></span><span class="op">(</span></span>
 <span>    formula <span class="op">=</span> <span class="fu"><a href="../reference/build_formula.html">build_formula</a></span><span class="op">(</span><span class="st">"rt_total"</span>, <span class="st">"strategy_group"</span><span class="op">)</span>,</span>
@@ -1858,18 +1872,30 @@ contrasts between groups).</p>
 <span></span>
 <span><span class="co"># Singularity check</span></span>
 <span><span class="va">mb_rt_strat</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/get_singularity.html">get_singularity</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The model is not singular, parameter estimates are trustworthy.</span></span>
 <span><span class="co"># Model performance indices</span></span>
-<span><span class="co"># mb_rt_strat  |&gt; </span></span>
-<span><span class="co">#   get_performance(metrics = c("WAIC", "R2", "RMSE")) |&gt; </span></span>
-<span><span class="co">#   knitr::kable(align = "c")</span></span>
-<span><span class="co"># Posterior predictive check (best model performance indicator)</span></span>
+<span><span class="va">mb_rt_strat</span>  <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/get_performance.html">get_performance</a></span><span class="op">(</span>metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WAIC"</span>, <span class="st">"R2"</span>, <span class="st">"RMSE"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>align <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="center">WAIC</th>
+<th align="center">R2</th>
+<th align="center">R2 (marg.)</th>
+<th align="center">RMSE</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">12104.0</td>
+<td align="center">0.510</td>
+<td align="center">0.021</td>
+<td align="center">5.864</td>
+</tr></tbody>
+</table>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Posterior predictive check (best model performance indicator)</span></span>
 <span><span class="va">mb_rt_strat</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">size</span> : <span style="color: #0000BB;">""</span></span></span></code></pre></div>
+<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysing_rt_files/figure-html/bayesian-strategy-groups-1.png" class="r-plt" alt="Posterior predictive distributions." width="576"></p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Group contrasts</span></span>
 <span><span class="va">mb_rt_strat</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://marginaleffects.com/man/r/comparisons.html" class="external-link">avg_comparisons</a></span><span class="op">(</span></span>
@@ -1877,12 +1903,12 @@ contrasts between groups).</p>
 <span>    draw_ids <span class="op">=</span> <span class="va">draws</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/report_rope.html">report_rope</a></span><span class="op">(</span><span class="va">contrast</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<table style="width:100%;" class="table">
+<table class="table">
 <colgroup>
 <col width="39%">
 <col width="8%">
-<col width="15%">
-<col width="4%">
+<col width="14%">
+<col width="5%">
 <col width="10%">
 <col width="11%">
 <col width="10%">
@@ -1898,15 +1924,15 @@ contrasts between groups).</p>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">No_visual_strategy - Visual_strategy_user</td>
-<td align="right">0.66</td>
-<td align="left">[-1.375, 2.723]</td>
-<td align="right">0.71</td>
-<td align="right">0.11</td>
-<td align="right">0.49</td>
-<td align="right">0.4</td>
+<td align="right">1.057</td>
+<td align="left">[-1.368, 3.515]</td>
+<td align="right">0.801</td>
+<td align="right">0.066</td>
+<td align="right">0.37</td>
+<td align="right">0.563</td>
 </tr></tbody>
 </table>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Category contrasts within groups</span></span>
 <span><span class="va">mb_rt_strat</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://marginaleffects.com/man/r/comparisons.html" class="external-link">avg_comparisons</a></span><span class="op">(</span></span>
@@ -1915,13 +1941,13 @@ contrasts between groups).</p>
 <span>    draw_ids <span class="op">=</span> <span class="va">draws</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/report_rope.html">report_rope</a></span><span class="op">(</span><span class="va">strategy_group</span>, <span class="va">contrast</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<table style="width:100%;" class="table">
+<table class="table">
 <colgroup>
 <col width="20%">
 <col width="17%">
 <col width="8%">
 <col width="15%">
-<col width="4%">
+<col width="5%">
 <col width="10%">
 <col width="11%">
 <col width="10%">
@@ -1940,66 +1966,66 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Visual_strategy_user</td>
 <td align="left">Spatial - Control</td>
-<td align="right">0.083</td>
-<td align="left">[-1.707, 1.586]</td>
-<td align="right">0.54</td>
-<td align="right">0.12</td>
-<td align="right">0.65</td>
-<td align="right">0.23</td>
+<td align="right">0.031</td>
+<td align="left">[-1.704, 1.866]</td>
+<td align="right">0.513</td>
+<td align="right">0.143</td>
+<td align="right">0.682</td>
+<td align="right">0.174</td>
 </tr>
 <tr class="even">
 <td align="left">Visual_strategy_user</td>
 <td align="left">Visual - Control</td>
-<td align="right">2.823</td>
-<td align="left">[0.803, 4.001]</td>
-<td align="right">1.00</td>
-<td align="right">0.00</td>
-<td align="right">0.03</td>
-<td align="right">0.97</td>
+<td align="right">2.482</td>
+<td align="left">[0.563, 4.356]</td>
+<td align="right">0.994</td>
+<td align="right">0.000</td>
+<td align="right">0.049</td>
+<td align="right">0.951</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual_strategy_user</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">2.459</td>
-<td align="left">[0.712, 4.59]</td>
-<td align="right">1.00</td>
-<td align="right">0.00</td>
-<td align="right">0.04</td>
-<td align="right">0.96</td>
+<td align="right">2.418</td>
+<td align="left">[0.509, 4.397]</td>
+<td align="right">0.992</td>
+<td align="right">0.002</td>
+<td align="right">0.054</td>
+<td align="right">0.945</td>
 </tr>
 <tr class="even">
 <td align="left">No_visual_strategy</td>
 <td align="left">Spatial - Control</td>
-<td align="right">-0.015</td>
-<td align="left">[-1.792, 1.997]</td>
-<td align="right">0.51</td>
-<td align="right">0.16</td>
-<td align="right">0.62</td>
-<td align="right">0.22</td>
+<td align="right">-0.009</td>
+<td align="left">[-1.752, 1.888]</td>
+<td align="right">0.504</td>
+<td align="right">0.175</td>
+<td align="right">0.646</td>
+<td align="right">0.178</td>
 </tr>
 <tr class="odd">
 <td align="left">No_visual_strategy</td>
 <td align="left">Visual - Control</td>
-<td align="right">1.975</td>
-<td align="left">[-0.032, 3.55]</td>
-<td align="right">0.97</td>
-<td align="right">0.02</td>
-<td align="right">0.10</td>
-<td align="right">0.88</td>
+<td align="right">1.742</td>
+<td align="left">[-0.201, 3.681]</td>
+<td align="right">0.964</td>
+<td align="right">0.005</td>
+<td align="right">0.179</td>
+<td align="right">0.816</td>
 </tr>
 <tr class="even">
 <td align="left">No_visual_strategy</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">1.846</td>
-<td align="left">[-0.08, 3.429]</td>
-<td align="right">0.96</td>
-<td align="right">0.01</td>
-<td align="right">0.16</td>
-<td align="right">0.83</td>
+<td align="right">1.719</td>
+<td align="left">[-0.292, 3.753]</td>
+<td align="right">0.956</td>
+<td align="right">0.006</td>
+<td align="right">0.178</td>
+<td align="right">0.816</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Interaction contrasts</span></span>
 <span><span class="va">mb_rt_strat</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">marginaleffects</span><span class="fu">::</span><span class="fu"><a href="https://marginaleffects.com/man/r/comparisons.html" class="external-link">avg_comparisons</a></span><span class="op">(</span></span>
@@ -2009,7 +2035,7 @@ contrasts between groups).</p>
 <span>    draw_ids <span class="op">=</span> <span class="va">draws</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/report_rope.html">report_rope</a></span><span class="op">(</span><span class="va">hypothesis</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
 <col width="14%">
 <col width="33%">
@@ -2034,32 +2060,32 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Spatial - Control</td>
 <td align="left">Visual_strategy_user - No_visual_strategy</td>
-<td align="right">0.048</td>
-<td align="left">[-1.368, 1.377]</td>
-<td align="right">0.54</td>
-<td align="right">0.12</td>
-<td align="right">0.77</td>
-<td align="right">0.11</td>
+<td align="right">0.038</td>
+<td align="left">[-1.248, 1.344]</td>
+<td align="right">0.525</td>
+<td align="right">0.093</td>
+<td align="right">0.799</td>
+<td align="right">0.108</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Control</td>
 <td align="left">Visual_strategy_user - No_visual_strategy</td>
-<td align="right">0.680</td>
-<td align="left">[-0.621, 2.076]</td>
-<td align="right">0.83</td>
-<td align="right">0.01</td>
-<td align="right">0.63</td>
-<td align="right">0.36</td>
+<td align="right">0.713</td>
+<td align="left">[-0.556, 1.975]</td>
+<td align="right">0.864</td>
+<td align="right">0.010</td>
+<td align="right">0.584</td>
+<td align="right">0.406</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Spatial</td>
 <td align="left">Visual_strategy_user - No_visual_strategy</td>
-<td align="right">0.796</td>
-<td align="left">[-0.83, 2.146]</td>
-<td align="right">0.77</td>
-<td align="right">0.02</td>
-<td align="right">0.53</td>
-<td align="right">0.45</td>
+<td align="right">0.661</td>
+<td align="left">[-0.662, 2.075]</td>
+<td align="right">0.820</td>
+<td align="right">0.012</td>
+<td align="right">0.610</td>
+<td align="right">0.379</td>
 </tr>
 </tbody>
 </table>
@@ -2067,7 +2093,7 @@ contrasts between groups).</p>
 <div class="section level4">
 <h4 id="frequentist-3">Frequentist<a class="anchor" aria-label="anchor" href="#frequentist-3"></a>
 </h4>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mf_rt_strat</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">glmmTMB</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/glmmTMB/man/glmmTMB.html" class="external-link">glmmTMB</a></span><span class="op">(</span></span>
 <span>    data    <span class="op">=</span> <span class="va">df_rt</span>,</span>
@@ -2078,7 +2104,6 @@ contrasts between groups).</p>
 <span></span>
 <span><span class="co"># Singularity check</span></span>
 <span><span class="va">mf_rt_strat</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/get_singularity.html">get_singularity</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The model is not singular, parameter estimates are trustworthy.</span></span>
 <span><span class="co"># Model performance indices</span></span>
 <span><span class="va">mf_rt_strat</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/get_performance.html">get_performance</a></span><span class="op">(</span>metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AICc"</span>, <span class="st">"R2"</span>, <span class="st">"RMSE"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -2097,18 +2122,13 @@ contrasts between groups).</p>
 <td align="center">5.902</td>
 </tr></tbody>
 </table>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Posterior predictive check (best model performance indicator)</span></span>
 <span><span class="va">mf_rt_strat</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">size</span> : <span style="color: #0000BB;">""</span></span></span>
-<span><span class="co">#&gt; Warning: Removed 11 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_density()`).</span></span></code></pre></div>
+<span>  <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_predictions.html" class="external-link">check_predictions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_pdf.html">theme_pdf</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysing_rt_files/figure-html/frequentist-strategy-groups-1.png" class="r-plt" alt="Posterior predictive distributions." width="576"></p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mf_rt_strat</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">strategy_group</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; NOTE: Results may be misleading due to involvement in interactions</span></span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mf_rt_strat</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">strategy_group</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="56%">
@@ -2129,7 +2149,7 @@ contrasts between groups).</p>
 <td align="right">0.478</td>
 </tr></tbody>
 </table>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mf_rt_strat</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">category</span> <span class="op">|</span> <span class="va">strategy_group</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -2184,7 +2204,7 @@ contrasts between groups).</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mf_rt_strat</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/report_contrast.html">report_contrast</a></span><span class="op">(</span><span class="op">~</span> <span class="va">category</span> <span class="op">*</span> <span class="va">strategy_group</span>, interaction <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -2239,7 +2259,7 @@ wraps functions from the <em>ggplot2</em> and <em>superb</em> packages
 to create nice visualisations easily. A little
 <code><a href="../reference/add_significance.html">add_significance()</a></code> helper function was also created to add
 significance stars to the plots.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dcousin3/superb/" class="external-link">superb</a></span><span class="op">)</span></span>
 <span></span>
