@@ -163,7 +163,7 @@ priors is done in the chunk below.
 #   )
 # }
 options("marginaleffects_safe" = FALSE)
-draws <- seq(1, 100, 1) # To limit draws that will be used for marginaleffects
+draws <- seq(1, 2000, 1) # To limit draws that will be used for marginaleffects
 
 prior_rt <- c(
   brms::prior(normal(3, 0.05), class = "Intercept"),
@@ -261,14 +261,14 @@ mb_rt_vviq_2 |>
 mb_rt_vviq_2 |> 
   marginaleffects::avg_comparisons(
     variables = list("group_2" = "pairwise"), 
-    # draw_ids = seq(1, 4000, 2)
+    draw_ids = draws
   ) |>
   report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
 mb_rt_vviq_2 |> 
   marginaleffects::avg_comparisons(
     variables = list("category" = "pairwise"), by = "group_2", 
-    # draw_ids = draws
+    draw_ids = draws
   ) |>
   report_rope(group_2, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -277,7 +277,7 @@ mb_rt_vviq_2 |>
     variables = list("category" = "pairwise"),
     by = "group_2",
     hypothesis = ~revpairwise, # for the interaction
-    # draw_ids = draws
+    draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -354,7 +354,7 @@ mb_rt_vviq_3 |>
 mb_rt_vviq_3 |> 
   marginaleffects::avg_comparisons(
     variables = list("group_3" = "revpairwise"),
-    # draw_ids = draws
+    draw_ids = draws
   ) |>
   report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
@@ -362,7 +362,7 @@ mb_rt_vviq_3 |>
   marginaleffects::avg_comparisons(
     variables = list("category" = "pairwise"),
     by = "group_3",
-    # draw_ids = draws
+    draw_ids = draws
   ) |>
   report_rope(group_3, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -371,7 +371,7 @@ mb_rt_vviq_3 |>
     variables = list("category" = "pairwise"),
     by = "group_3",
     hypothesis = ~revpairwise, # for the interaction
-    # draw_ids = draws
+    draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -445,7 +445,7 @@ mb_rt_osivq |>
 mb_rt_osivq |> 
   marginaleffects::avg_comparisons(
     variables = list("cluster" = "pairwise"),
-    # draw_ids = draws
+    draw_ids = draws
   ) |>
   report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
@@ -453,7 +453,7 @@ mb_rt_osivq |>
   marginaleffects::avg_comparisons(
     variables = list("category" = "pairwise"),
     by = "cluster",
-    # draw_ids = draws
+    draw_ids = draws
   ) |>
   report_rope(cluster, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -462,7 +462,7 @@ mb_rt_osivq |>
     variables = list("category" = "pairwise"),
     by = "cluster",
     hypothesis = ~revpairwise, # for the interaction
-    # draw_ids = draws
+    draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```
@@ -536,7 +536,7 @@ mb_rt_strat |>
 mb_rt_strat |> 
   marginaleffects::avg_comparisons(
     variables = list("strategy_group" = "pairwise"),
-    # draw_ids = draws
+    draw_ids = draws
   ) |>
   report_rope(contrast) |> knitr::kable()
 # Category contrasts within groups
@@ -544,7 +544,7 @@ mb_rt_strat |>
   marginaleffects::avg_comparisons(
     variables = list("category" = "pairwise"),
     by = "strategy_group",
-    # draw_ids = draws
+    draw_ids = draws
   ) |>
   report_rope(strategy_group, contrast) |> knitr::kable()
 # Interaction contrasts
@@ -553,7 +553,7 @@ mb_rt_strat |>
     variables = list("category" = "pairwise"),
     by = "strategy_group",
     hypothesis = ~revpairwise, # for the interaction
-    # draw_ids = draws
+    draw_ids = draws
   ) |> 
   report_rope(hypothesis) |> knitr::kable()
 ```

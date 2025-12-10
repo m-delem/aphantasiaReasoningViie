@@ -171,7 +171,7 @@ is done in the chunk below.
 #   )
 # }
 options("marginaleffects_safe" = FALSE)
-draws <- seq(1, 100, 1) # To limit draws that will be used for marginaleffects
+draws <- seq(1, 2000, 1) # To limit draws that will be used for marginaleffects
 
 prior_nl <- c(
   brms::prior(normal(0, 1), class = "b"),
@@ -239,7 +239,7 @@ marginaleffects::avg_comparisons(
   mb_nl_vviq_2, 
   variables = list("category" = "pairwise"), 
   by = c("group_2", "phase"), 
-  # draw_ids = draws
+  draw_ids = draws
   ) |> 
   report_rope(phase, group_2, contrast) |> knitr::kable()
 ```
@@ -358,7 +358,7 @@ marginaleffects::avg_comparisons(
   mb_nl_vviq_3, 
   variables = list("category" = "pairwise"), 
   by = c("group_3", "phase"), 
-  # draw_ids = draws
+  draw_ids = draws
   ) |> 
   report_rope(phase, group_3, contrast) |> knitr::kable()
 ```
@@ -467,7 +467,7 @@ marginaleffects::avg_comparisons(
   mb_nl_osivq, 
   variables = list("category" = "pairwise"), 
   by = c("cluster", "phase"), 
-  # draw_ids = draws
+  draw_ids = draws
   ) |> 
   report_rope(phase, cluster, contrast) |> knitr::kable()
 ```
