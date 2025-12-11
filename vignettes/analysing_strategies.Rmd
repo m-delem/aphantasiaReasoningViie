@@ -149,7 +149,7 @@ chunk below.
 #   )
 # }
 options("marginaleffects_safe" = FALSE)
-draws <- seq(1, 6000, 1) # To limit draws that will be used for marginaleffects
+draws <- seq(1, 8000, 1) # To limit draws that will be used for marginaleffects
 ```
 
 ## Frequentist models
