@@ -311,6 +311,7 @@ fit_clm <- function(formula, data, link = "probit") {
 #' @param file_refit Condition for refitting the model. Default is "on_change".
 #' @param file_compress Compression method for saving the model file. Default is
 #' "xz".
+#' @param model_folder Folder to save the fitted models. Default is "models/".
 #' @param sample_prior Logical. If TRUE, prior samples are drawn. If "only",
 #' only prior samples are drawn. Default is FALSE.
 #' FALSE
@@ -329,6 +330,7 @@ fit_brms_model <- function(
     backend = "rstan", # cmdstanr for a cool interface, but conflicts with pkgdown
     file_refit = "on_change",
     file_compress = "xz",
+    model_folder = "models/",
     sample_prior = FALSE, # TRUE if BFs needed
     save_pars = NULL,     # brms::save_pars(all = TRUE) if BFs needed
     adapt_delta = 0.95,
@@ -340,7 +342,7 @@ fit_brms_model <- function(
   # options(cmdstanr_write_stan_file_dir = "models/stan/")
 
   # Create a folder for the models if necessary
-  fs::dir_create("models/")
+  fs::dir_create(model_folder)
 
   # Parallel processing setup for 40k samples
   n_cores <- parallel::detectCores()

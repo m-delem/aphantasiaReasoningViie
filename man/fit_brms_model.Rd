@@ -9,9 +9,10 @@ fit_brms_model(
   iterations = 24000,
   warmup = 2000,
   refresh = 500,
-  backend = "cmdstanr",
+  backend = "rstan",
   file_refit = "on_change",
   file_compress = "xz",
+  model_folder = "models/",
   sample_prior = FALSE,
   save_pars = NULL,
   adapt_delta = 0.95,
@@ -37,6 +38,8 @@ if Bayes Factors are needed).}
 
 \item{file_compress}{Compression method for saving the model file. Default is
 "xz".}
+
+\item{model_folder}{Folder to save the fitted models. Default is "models/".}
 
 \item{sample_prior}{Logical. If TRUE, prior samples are drawn. If "only",
 only prior samples are drawn. Default is FALSE.
