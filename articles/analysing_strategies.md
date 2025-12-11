@@ -154,7 +154,7 @@ in the chunk below.
 #   )
 # }
 options("marginaleffects_safe" = FALSE)
-draws <- seq(1, 4000, 1) # To limit draws that will be used for marginaleffects
+draws <- seq(1, 6000, 1) # To limit draws that will be used for marginaleffects
 ```
 
 ### Frequentist models
@@ -231,11 +231,11 @@ mb_strats_vviq_2 |>
 
 | strategy     | contrast             | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:-------------|:---------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Visual       | Typical - Aphantasia |    1.699 | \[1.204, 2.202\]  | 1.000 |      0.000 |       0.000 |      1.000 |
-| Spatial      | Typical - Aphantasia |    0.405 | \[-0.036, 0.823\] | 0.965 |      0.015 |       0.068 |      0.917 |
-| Verbal       | Typical - Aphantasia |   -0.269 | \[-0.687, 0.157\] | 0.898 |      0.776 |       0.180 |      0.043 |
-| Semantic     | Typical - Aphantasia |   -0.229 | \[-0.741, 0.278\] | 0.806 |      0.694 |       0.198 |      0.108 |
-| Sensorimotor | Typical - Aphantasia |    0.128 | \[-0.299, 0.561\] | 0.721 |      0.144 |       0.306 |      0.550 |
+| Visual       | Typical - Aphantasia |    1.692 | \[1.213, 2.202\]  | 1.000 |      0.000 |       0.000 |      1.000 |
+| Spatial      | Typical - Aphantasia |    0.406 | \[-0.032, 0.82\]  | 0.966 |      0.013 |       0.070 |      0.917 |
+| Verbal       | Typical - Aphantasia |   -0.269 | \[-0.688, 0.152\] | 0.898 |      0.779 |       0.180 |      0.042 |
+| Semantic     | Typical - Aphantasia |   -0.231 | \[-0.739, 0.278\] | 0.807 |      0.694 |       0.199 |      0.107 |
+| Sensorimotor | Typical - Aphantasia |    0.137 | \[-0.286, 0.567\] | 0.728 |      0.140 |       0.294 |      0.566 |
 
 ``` r
 # Strategy contrasts within groups
@@ -250,26 +250,26 @@ mb_strats_vviq_2 |>
 
 | group_2    | contrast                | Estimate | 95% CI             |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:-----------|:------------------------|---------:|:-------------------|------:|-----------:|------------:|-----------:|
-| Aphantasia | Semantic - Spatial      |   -0.776 | \[-1.267, -0.304\] | 0.999 |      0.996 |       0.003 |      0.001 |
-| Aphantasia | Semantic - Verbal       |   -2.158 | \[-2.651, -1.662\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Aphantasia | Semantic - Visual       |    0.303 | \[-0.236, 0.887\]  | 0.861 |      0.074 |       0.160 |      0.765 |
-| Aphantasia | Sensorimotor - Semantic |    0.657 | \[0.183, 1.139\]   | 0.997 |      0.001 |       0.010 |      0.990 |
-| Aphantasia | Sensorimotor - Spatial  |   -0.118 | \[-0.581, 0.333\]  | 0.691 |      0.533 |       0.288 |      0.179 |
-| Aphantasia | Sensorimotor - Verbal   |   -1.499 | \[-1.94, -1.055\]  | 1.000 |      1.000 |       0.000 |      0.000 |
-| Aphantasia | Sensorimotor - Visual   |    0.960 | \[0.462, 1.487\]   | 1.000 |      0.000 |       0.000 |      1.000 |
-| Aphantasia | Spatial - Visual        |    1.079 | \[0.564, 1.614\]   | 1.000 |      0.000 |       0.000 |      1.000 |
-| Aphantasia | Verbal - Spatial        |    1.376 | \[0.928, 1.844\]   | 1.000 |      0.000 |       0.000 |      1.000 |
-| Aphantasia | Verbal - Visual         |    2.462 | \[1.937, 3.006\]   | 1.000 |      0.000 |       0.000 |      1.000 |
-| Typical    | Semantic - Spatial      |   -1.410 | \[-1.873, -0.96\]  | 1.000 |      1.000 |       0.000 |      0.000 |
-| Typical    | Semantic - Verbal       |   -2.119 | \[-2.61, -1.641\]  | 1.000 |      1.000 |       0.000 |      0.000 |
-| Typical    | Semantic - Visual       |   -1.623 | \[-2.068, -1.184\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Typical    | Sensorimotor - Semantic |    1.016 | \[0.571, 1.47\]    | 1.000 |      0.000 |       0.000 |      1.000 |
-| Typical    | Sensorimotor - Spatial  |   -0.386 | \[-0.794, 0.016\]  | 0.971 |      0.926 |       0.065 |      0.009 |
-| Typical    | Sensorimotor - Verbal   |   -1.097 | \[-1.523, -0.692\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Typical    | Sensorimotor - Visual   |   -0.609 | \[-0.99, -0.205\]  | 0.999 |      0.994 |       0.006 |      0.000 |
-| Typical    | Spatial - Visual        |   -0.213 | \[-0.623, 0.171\]  | 0.861 |      0.716 |       0.230 |      0.054 |
-| Typical    | Verbal - Spatial        |    0.710 | \[0.32, 1.122\]    | 1.000 |      0.000 |       0.001 |      0.999 |
-| Typical    | Verbal - Visual         |    0.497 | \[0.103, 0.896\]   | 0.994 |      0.001 |       0.024 |      0.976 |
+| Aphantasia | Semantic - Spatial      |   -0.776 | \[-1.269, -0.295\] | 0.999 |      0.996 |       0.003 |      0.001 |
+| Aphantasia | Semantic - Verbal       |   -2.160 | \[-2.656, -1.661\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Aphantasia | Semantic - Visual       |    0.301 | \[-0.235, 0.88\]   | 0.860 |      0.075 |       0.163 |      0.763 |
+| Aphantasia | Sensorimotor - Semantic |    0.656 | \[0.169, 1.14\]    | 0.996 |      0.001 |       0.012 |      0.987 |
+| Aphantasia | Sensorimotor - Spatial  |   -0.120 | \[-0.573, 0.327\]  | 0.695 |      0.535 |       0.289 |      0.176 |
+| Aphantasia | Sensorimotor - Verbal   |   -1.502 | \[-1.953, -1.06\]  | 1.000 |      1.000 |       0.000 |      0.000 |
+| Aphantasia | Sensorimotor - Visual   |    0.960 | \[0.46, 1.485\]    | 1.000 |      0.000 |       0.001 |      0.999 |
+| Aphantasia | Spatial - Visual        |    1.079 | \[0.576, 1.612\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Aphantasia | Verbal - Spatial        |    1.381 | \[0.929, 1.843\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Aphantasia | Verbal - Visual         |    2.462 | \[1.945, 3.006\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Typical    | Semantic - Spatial      |   -1.410 | \[-1.869, -0.966\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Typical    | Semantic - Verbal       |   -2.121 | \[-2.607, -1.653\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Typical    | Semantic - Visual       |   -1.622 | \[-2.07, -1.184\]  | 1.000 |      1.000 |       0.000 |      0.000 |
+| Typical    | Sensorimotor - Semantic |    1.023 | \[0.581, 1.477\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Typical    | Sensorimotor - Spatial  |   -0.384 | \[-0.788, 0.018\]  | 0.970 |      0.923 |       0.068 |      0.009 |
+| Typical    | Sensorimotor - Verbal   |   -1.095 | \[-1.514, -0.686\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Typical    | Sensorimotor - Visual   |   -0.602 | \[-0.987, -0.2\]   | 0.999 |      0.994 |       0.006 |      0.000 |
+| Typical    | Spatial - Visual        |   -0.208 | \[-0.611, 0.168\]  | 0.858 |      0.710 |       0.236 |      0.054 |
+| Typical    | Verbal - Spatial        |    0.710 | \[0.321, 1.118\]   | 1.000 |      0.000 |       0.001 |      0.999 |
+| Typical    | Verbal - Visual         |    0.501 | \[0.108, 0.896\]   | 0.995 |      0.001 |       0.021 |      0.978 |
 
 ``` r
 # Interaction contrasts
@@ -286,16 +286,16 @@ mb_strats_vviq_2 |>
 
 | Category contrast       | Grouping contrast    | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:------------------------|:---------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Semantic - Spatial      | Aphantasia - Typical |    0.631 | \[-0.017, 1.291\] | 0.970 |      0.016 |       0.046 |      0.939 |
-| Semantic - Verbal       | Aphantasia - Typical |   -0.033 | \[-0.721, 0.647\] | 0.543 |      0.428 |       0.228 |      0.343 |
-| Semantic - Visual       | Aphantasia - Typical |    1.931 | \[1.226, 2.647\]  | 1.000 |      0.000 |       0.000 |      1.000 |
-| Sensorimotor - Semantic | Aphantasia - Typical |   -0.357 | \[-1.013, 0.306\] | 0.862 |      0.785 |       0.130 |      0.086 |
-| Sensorimotor - Spatial  | Aphantasia - Typical |    0.274 | \[-0.345, 0.881\] | 0.817 |      0.116 |       0.172 |      0.712 |
-| Sensorimotor - Verbal   | Aphantasia - Typical |   -0.394 | \[-1.017, 0.22\]  | 0.899 |      0.836 |       0.106 |      0.058 |
-| Sensorimotor - Visual   | Aphantasia - Typical |    1.568 | \[0.925, 2.223\]  | 1.000 |      0.000 |       0.000 |      1.000 |
-| Spatial - Visual        | Aphantasia - Typical |    1.290 | \[0.659, 1.973\]  | 1.000 |      0.000 |       0.000 |      1.000 |
-| Verbal - Spatial        | Aphantasia - Typical |    0.670 | \[0.081, 1.267\]  | 0.987 |      0.007 |       0.021 |      0.972 |
-| Verbal - Visual         | Aphantasia - Typical |    1.957 | \[1.33, 2.664\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Semantic - Spatial      | Aphantasia - Typical |    0.632 | \[-0.014, 1.297\] | 0.971 |      0.015 |       0.044 |      0.941 |
+| Semantic - Verbal       | Aphantasia - Typical |   -0.034 | \[-0.719, 0.626\] | 0.543 |      0.426 |       0.230 |      0.344 |
+| Semantic - Visual       | Aphantasia - Typical |    1.925 | \[1.231, 2.645\]  | 1.000 |      0.000 |       0.000 |      1.000 |
+| Sensorimotor - Semantic | Aphantasia - Typical |   -0.364 | \[-1.04, 0.297\]  | 0.863 |      0.790 |       0.128 |      0.082 |
+| Sensorimotor - Spatial  | Aphantasia - Typical |    0.265 | \[-0.346, 0.857\] | 0.813 |      0.117 |       0.173 |      0.710 |
+| Sensorimotor - Verbal   | Aphantasia - Typical |   -0.403 | \[-1.017, 0.214\] | 0.905 |      0.841 |       0.107 |      0.053 |
+| Sensorimotor - Visual   | Aphantasia - Typical |    1.555 | \[0.916, 2.216\]  | 1.000 |      0.000 |       0.000 |      1.000 |
+| Spatial - Visual        | Aphantasia - Typical |    1.287 | \[0.675, 1.966\]  | 1.000 |      0.000 |       0.000 |      1.000 |
+| Verbal - Spatial        | Aphantasia - Typical |    0.675 | \[0.071, 1.267\]  | 0.986 |      0.007 |       0.022 |      0.970 |
+| Verbal - Visual         | Aphantasia - Typical |    1.958 | \[1.339, 2.654\]  | 1.000 |      0.000 |       0.000 |      1.000 |
 
 #### Frequentist
 
@@ -420,21 +420,21 @@ mb_strats_vviq_3 |>
 
 | strategy     | contrast                   | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:-------------|:---------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Visual       | Hypophantasia - Aphantasia |    1.693 | \[0.711, 2.875\]  | 1.000 |      0.000 |       0.000 |      1.000 |
-| Visual       | Typical - Aphantasia       |    2.754 | \[1.876, 3.832\]  | 1.000 |      0.000 |       0.000 |      1.000 |
-| Visual       | Typical - Hypophantasia    |    1.050 | \[0.421, 1.663\]  | 0.999 |      0.000 |       0.001 |      0.998 |
-| Spatial      | Hypophantasia - Aphantasia |   -0.608 | \[-1.31, 0.082\]  | 0.957 |      0.928 |       0.050 |      0.021 |
-| Spatial      | Typical - Aphantasia       |    0.200 | \[-0.275, 0.677\] | 0.793 |      0.112 |       0.231 |      0.658 |
-| Spatial      | Typical - Hypophantasia    |    0.814 | \[0.193, 1.455\]  | 0.995 |      0.002 |       0.009 |      0.989 |
-| Verbal       | Hypophantasia - Aphantasia |    0.091 | \[-0.581, 0.726\] | 0.606 |      0.279 |       0.230 |      0.491 |
-| Verbal       | Typical - Aphantasia       |   -0.229 | \[-0.7, 0.241\]   | 0.838 |      0.720 |       0.198 |      0.083 |
-| Verbal       | Typical - Hypophantasia    |   -0.323 | \[-0.894, 0.262\] | 0.865 |      0.775 |       0.148 |      0.076 |
-| Semantic     | Hypophantasia - Aphantasia |    0.203 | \[-0.597, 0.942\] | 0.699 |      0.220 |       0.176 |      0.604 |
-| Semantic     | Typical - Aphantasia       |   -0.160 | \[-0.739, 0.439\] | 0.695 |      0.576 |       0.220 |      0.203 |
-| Semantic     | Typical - Hypophantasia    |   -0.356 | \[-1.041, 0.393\] | 0.837 |      0.755 |       0.136 |      0.108 |
-| Sensorimotor | Hypophantasia - Aphantasia |   -0.010 | \[-0.706, 0.653\] | 0.512 |      0.395 |       0.236 |      0.369 |
-| Sensorimotor | Typical - Aphantasia       |    0.136 | \[-0.352, 0.622\] | 0.698 |      0.177 |       0.266 |      0.556 |
-| Sensorimotor | Typical - Hypophantasia    |    0.148 | \[-0.469, 0.753\] | 0.679 |      0.209 |       0.232 |      0.559 |
+| Visual       | Hypophantasia - Aphantasia |    1.699 | \[0.704, 2.884\]  | 1.000 |      0.000 |       0.000 |      1.000 |
+| Visual       | Typical - Aphantasia       |    2.745 | \[1.878, 3.855\]  | 1.000 |      0.000 |       0.000 |      1.000 |
+| Visual       | Typical - Hypophantasia    |    1.047 | \[0.422, 1.676\]  | 1.000 |      0.000 |       0.001 |      0.999 |
+| Spatial      | Hypophantasia - Aphantasia |   -0.602 | \[-1.31, 0.068\]  | 0.961 |      0.931 |       0.049 |      0.020 |
+| Spatial      | Typical - Aphantasia       |    0.201 | \[-0.28, 0.678\]  | 0.796 |      0.112 |       0.230 |      0.658 |
+| Spatial      | Typical - Hypophantasia    |    0.805 | \[0.194, 1.453\]  | 0.995 |      0.002 |       0.009 |      0.989 |
+| Verbal       | Hypophantasia - Aphantasia |    0.091 | \[-0.561, 0.718\] | 0.604 |      0.283 |       0.225 |      0.492 |
+| Verbal       | Typical - Aphantasia       |   -0.233 | \[-0.708, 0.241\] | 0.841 |      0.723 |       0.198 |      0.080 |
+| Verbal       | Typical - Hypophantasia    |   -0.323 | \[-0.897, 0.255\] | 0.867 |      0.780 |       0.145 |      0.076 |
+| Semantic     | Hypophantasia - Aphantasia |    0.205 | \[-0.587, 0.945\] | 0.700 |      0.218 |       0.178 |      0.604 |
+| Semantic     | Typical - Aphantasia       |   -0.155 | \[-0.738, 0.425\] | 0.695 |      0.573 |       0.226 |      0.201 |
+| Semantic     | Typical - Hypophantasia    |   -0.358 | \[-1.037, 0.375\] | 0.838 |      0.759 |       0.136 |      0.105 |
+| Sensorimotor | Hypophantasia - Aphantasia |   -0.012 | \[-0.684, 0.656\] | 0.515 |      0.398 |       0.233 |      0.369 |
+| Sensorimotor | Typical - Aphantasia       |    0.138 | \[-0.345, 0.625\] | 0.702 |      0.173 |       0.266 |      0.561 |
+| Sensorimotor | Typical - Hypophantasia    |    0.150 | \[-0.469, 0.754\] | 0.683 |      0.207 |       0.230 |      0.563 |
 
 ``` r
 # Strategy contrasts within groups
@@ -449,36 +449,36 @@ mb_strats_vviq_3 |>
 
 | group_3       | contrast                | Estimate | 95% CI             |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:--------------|:------------------------|---------:|:-------------------|------:|-----------:|------------:|-----------:|
-| Aphantasia    | Semantic - Spatial      |   -1.071 | \[-1.66, -0.478\]  | 1.000 |      0.999 |       0.000 |      0.000 |
-| Aphantasia    | Semantic - Verbal       |   -2.214 | \[-2.827, -1.629\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Aphantasia    | Semantic - Visual       |    1.276 | \[0.309, 2.434\]   | 0.997 |      0.002 |       0.004 |      0.994 |
-| Aphantasia    | Sensorimotor - Semantic |    0.746 | \[0.13, 1.346\]    | 0.991 |      0.004 |       0.015 |      0.982 |
-| Aphantasia    | Sensorimotor - Spatial  |   -0.324 | \[-0.874, 0.25\]   | 0.870 |      0.783 |       0.151 |      0.066 |
-| Aphantasia    | Sensorimotor - Verbal   |   -1.481 | \[-2.049, -0.899\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Aphantasia    | Sensorimotor - Visual   |    2.025 | \[1.056, 3.114\]   | 1.000 |      0.000 |       0.000 |      1.000 |
-| Aphantasia    | Spatial - Visual        |    2.341 | \[1.439, 3.45\]    | 1.000 |      0.000 |       0.000 |      1.000 |
-| Aphantasia    | Verbal - Spatial        |    1.149 | \[0.621, 1.679\]   | 1.000 |      0.000 |       0.000 |      1.000 |
-| Aphantasia    | Verbal - Visual         |    3.486 | \[2.551, 4.606\]   | 1.000 |      0.000 |       0.000 |      1.000 |
-| Hypophantasia | Semantic - Spatial      |   -0.262 | \[-1.12, 0.599\]   | 0.735 |      0.652 |       0.146 |      0.202 |
-| Hypophantasia | Semantic - Verbal       |   -2.116 | \[-2.935, -1.285\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Hypophantasia | Semantic - Visual       |   -0.235 | \[-1.082, 0.59\]   | 0.717 |      0.633 |       0.155 |      0.212 |
-| Hypophantasia | Sensorimotor - Semantic |    0.533 | \[-0.282, 1.378\]  | 0.899 |      0.066 |       0.084 |      0.850 |
-| Hypophantasia | Sensorimotor - Spatial  |    0.272 | \[-0.521, 1.055\]  | 0.750 |      0.178 |       0.154 |      0.667 |
-| Hypophantasia | Sensorimotor - Verbal   |   -1.574 | \[-2.349, -0.827\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Hypophantasia | Sensorimotor - Visual   |    0.303 | \[-0.482, 1.041\]  | 0.768 |      0.162 |       0.153 |      0.685 |
-| Hypophantasia | Spatial - Visual        |    0.030 | \[-0.799, 0.812\]  | 0.533 |      0.376 |       0.190 |      0.433 |
-| Hypophantasia | Verbal - Spatial        |    1.841 | \[1.058, 2.637\]   | 1.000 |      0.000 |       0.000 |      1.000 |
-| Hypophantasia | Verbal - Visual         |    1.870 | \[1.117, 2.62\]    | 1.000 |      0.000 |       0.000 |      1.000 |
-| Typical       | Semantic - Spatial      |   -1.417 | \[-1.879, -0.983\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Typical       | Semantic - Verbal       |   -2.136 | \[-2.599, -1.673\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Typical       | Semantic - Visual       |   -1.643 | \[-2.095, -1.164\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Typical       | Sensorimotor - Semantic |    1.034 | \[0.572, 1.477\]   | 1.000 |      0.000 |       0.000 |      1.000 |
-| Typical       | Sensorimotor - Spatial  |   -0.388 | \[-0.801, 0.02\]   | 0.970 |      0.917 |       0.075 |      0.009 |
-| Typical       | Sensorimotor - Verbal   |   -1.106 | \[-1.505, -0.707\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Typical       | Sensorimotor - Visual   |   -0.601 | \[-1.01, -0.204\]  | 0.999 |      0.995 |       0.005 |      0.000 |
-| Typical       | Spatial - Visual        |   -0.218 | \[-0.602, 0.174\]  | 0.859 |      0.722 |       0.221 |      0.057 |
-| Typical       | Verbal - Spatial        |    0.719 | \[0.338, 1.102\]   | 1.000 |      0.000 |       0.001 |      0.999 |
-| Typical       | Verbal - Visual         |    0.502 | \[0.106, 0.877\]   | 0.996 |      0.002 |       0.022 |      0.977 |
+| Aphantasia    | Semantic - Spatial      |   -1.070 | \[-1.669, -0.475\] | 1.000 |      0.999 |       0.001 |      0.000 |
+| Aphantasia    | Semantic - Verbal       |   -2.219 | \[-2.82, -1.627\]  | 1.000 |      1.000 |       0.000 |      0.000 |
+| Aphantasia    | Semantic - Visual       |    1.265 | \[0.309, 2.422\]   | 0.997 |      0.002 |       0.005 |      0.993 |
+| Aphantasia    | Sensorimotor - Semantic |    0.746 | \[0.127, 1.355\]   | 0.991 |      0.004 |       0.016 |      0.981 |
+| Aphantasia    | Sensorimotor - Spatial  |   -0.324 | \[-0.877, 0.249\]  | 0.870 |      0.782 |       0.150 |      0.068 |
+| Aphantasia    | Sensorimotor - Verbal   |   -1.483 | \[-2.039, -0.909\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Aphantasia    | Sensorimotor - Visual   |    2.017 | \[1.067, 3.118\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Aphantasia    | Spatial - Visual        |    2.332 | \[1.413, 3.452\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Aphantasia    | Verbal - Spatial        |    1.156 | \[0.604, 1.691\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Aphantasia    | Verbal - Visual         |    3.487 | \[2.566, 4.605\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Hypophantasia | Semantic - Spatial      |   -0.260 | \[-1.095, 0.576\]  | 0.738 |      0.652 |       0.150 |      0.198 |
+| Hypophantasia | Semantic - Verbal       |   -2.111 | \[-2.935, -1.307\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Hypophantasia | Semantic - Visual       |   -0.239 | \[-1.068, 0.582\]  | 0.718 |      0.634 |       0.154 |      0.212 |
+| Hypophantasia | Sensorimotor - Semantic |    0.530 | \[-0.275, 1.367\]  | 0.902 |      0.064 |       0.086 |      0.850 |
+| Hypophantasia | Sensorimotor - Spatial  |    0.266 | \[-0.513, 1.057\]  | 0.753 |      0.173 |       0.160 |      0.667 |
+| Hypophantasia | Sensorimotor - Verbal   |   -1.574 | \[-2.326, -0.833\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Hypophantasia | Sensorimotor - Visual   |    0.299 | \[-0.471, 1.056\]  | 0.768 |      0.161 |       0.154 |      0.685 |
+| Hypophantasia | Spatial - Visual        |    0.028 | \[-0.788, 0.813\]  | 0.528 |      0.382 |       0.188 |      0.430 |
+| Hypophantasia | Verbal - Spatial        |    1.838 | \[1.074, 2.615\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Hypophantasia | Verbal - Visual         |    1.868 | \[1.117, 2.623\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Typical       | Semantic - Spatial      |   -1.414 | \[-1.874, -0.983\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Typical       | Semantic - Verbal       |   -2.133 | \[-2.599, -1.669\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Typical       | Semantic - Visual       |   -1.640 | \[-2.095, -1.174\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Typical       | Sensorimotor - Semantic |    1.032 | \[0.584, 1.477\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Typical       | Sensorimotor - Spatial  |   -0.385 | \[-0.8, 0.021\]    | 0.968 |      0.914 |       0.077 |      0.009 |
+| Typical       | Sensorimotor - Verbal   |   -1.104 | \[-1.51, -0.705\]  | 1.000 |      1.000 |       0.000 |      0.000 |
+| Typical       | Sensorimotor - Visual   |   -0.602 | \[-1.008, -0.2\]   | 0.999 |      0.995 |       0.005 |      0.000 |
+| Typical       | Spatial - Visual        |   -0.219 | \[-0.609, 0.171\]  | 0.861 |      0.723 |       0.222 |      0.054 |
+| Typical       | Verbal - Spatial        |    0.720 | \[0.332, 1.105\]   | 1.000 |      0.000 |       0.001 |      0.999 |
+| Typical       | Verbal - Visual         |    0.501 | \[0.106, 0.877\]   | 0.995 |      0.002 |       0.022 |      0.977 |
 
 ``` r
 # Interaction contrasts
@@ -495,36 +495,36 @@ mb_strats_vviq_3 |>
 
 | Category contrast       | Grouping contrast          | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:------------------------|:---------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Semantic - Spatial      | Aphantasia - Hypophantasia |   -0.806 | \[-1.833, 0.244\] | 0.933 |      0.904 |       0.049 |      0.047 |
-| Semantic - Verbal       | Aphantasia - Hypophantasia |   -0.116 | \[-1.088, 0.892\] | 0.585 |      0.513 |       0.148 |      0.340 |
-| Semantic - Visual       | Aphantasia - Hypophantasia |    1.512 | \[0.241, 2.907\]  | 0.989 |      0.007 |       0.006 |      0.987 |
-| Sensorimotor - Semantic | Aphantasia - Hypophantasia |    0.219 | \[-0.816, 1.249\] | 0.657 |      0.276 |       0.131 |      0.593 |
-| Sensorimotor - Spatial  | Aphantasia - Hypophantasia |   -0.593 | \[-1.52, 0.385\]  | 0.892 |      0.846 |       0.080 |      0.075 |
-| Sensorimotor - Verbal   | Aphantasia - Hypophantasia |    0.113 | \[-0.866, 1.014\] | 0.587 |      0.334 |       0.155 |      0.511 |
-| Sensorimotor - Visual   | Aphantasia - Hypophantasia |    1.730 | \[0.53, 3.105\]   | 0.997 |      0.002 |       0.002 |      0.996 |
-| Spatial - Visual        | Aphantasia - Hypophantasia |    2.321 | \[1.104, 3.662\]  | 1.000 |      0.000 |       0.000 |      1.000 |
-| Verbal - Spatial        | Aphantasia - Hypophantasia |   -0.696 | \[-1.657, 0.239\] | 0.925 |      0.889 |       0.063 |      0.048 |
-| Verbal - Visual         | Aphantasia - Hypophantasia |    1.609 | \[0.404, 2.958\]  | 0.996 |      0.001 |       0.005 |      0.994 |
-| Semantic - Spatial      | Aphantasia - Typical       |    0.351 | \[-0.393, 1.101\] | 0.814 |      0.126 |       0.131 |      0.743 |
-| Semantic - Verbal       | Aphantasia - Typical       |   -0.077 | \[-0.833, 0.684\] | 0.582 |      0.480 |       0.200 |      0.320 |
-| Semantic - Visual       | Aphantasia - Typical       |    2.918 | \[1.811, 4.16\]   | 1.000 |      0.000 |       0.000 |      1.000 |
-| Sensorimotor - Semantic | Aphantasia - Typical       |   -0.285 | \[-1.038, 0.449\] | 0.768 |      0.678 |       0.164 |      0.158 |
-| Sensorimotor - Spatial  | Aphantasia - Typical       |    0.061 | \[-0.607, 0.753\] | 0.569 |      0.321 |       0.224 |      0.456 |
-| Sensorimotor - Verbal   | Aphantasia - Typical       |   -0.371 | \[-1.047, 0.31\]  | 0.852 |      0.780 |       0.132 |      0.088 |
-| Sensorimotor - Visual   | Aphantasia - Typical       |    2.623 | \[1.576, 3.794\]  | 1.000 |      0.000 |       0.000 |      1.000 |
-| Spatial - Visual        | Aphantasia - Typical       |    2.558 | \[1.531, 3.725\]  | 1.000 |      0.000 |       0.000 |      1.000 |
-| Verbal - Spatial        | Aphantasia - Typical       |    0.439 | \[-0.233, 1.106\] | 0.900 |      0.062 |       0.101 |      0.837 |
-| Verbal - Visual         | Aphantasia - Typical       |    2.997 | \[1.942, 4.175\]  | 1.000 |      0.000 |       0.000 |      1.000 |
-| Semantic - Spatial      | Hypophantasia - Typical    |    1.156 | \[0.192, 2.16\]   | 0.991 |      0.005 |       0.011 |      0.984 |
-| Semantic - Verbal       | Hypophantasia - Typical    |    0.029 | \[-0.932, 0.943\] | 0.527 |      0.388 |       0.171 |      0.441 |
-| Semantic - Visual       | Hypophantasia - Typical    |    1.397 | \[0.447, 2.333\]  | 0.997 |      0.002 |       0.004 |      0.994 |
-| Sensorimotor - Semantic | Hypophantasia - Typical    |   -0.505 | \[-1.416, 0.472\] | 0.855 |      0.800 |       0.092 |      0.108 |
-| Sensorimotor - Spatial  | Hypophantasia - Typical    |    0.655 | \[-0.225, 1.544\] | 0.932 |      0.044 |       0.056 |      0.900 |
-| Sensorimotor - Verbal   | Hypophantasia - Typical    |   -0.478 | \[-1.296, 0.388\] | 0.865 |      0.808 |       0.106 |      0.086 |
-| Sensorimotor - Visual   | Hypophantasia - Typical    |    0.892 | \[0.045, 1.758\]  | 0.981 |      0.013 |       0.020 |      0.967 |
-| Spatial - Visual        | Hypophantasia - Typical    |    0.248 | \[-0.672, 1.085\] | 0.697 |      0.228 |       0.156 |      0.616 |
-| Verbal - Spatial        | Hypophantasia - Typical    |    1.127 | \[0.276, 1.98\]   | 0.996 |      0.003 |       0.006 |      0.991 |
-| Verbal - Visual         | Hypophantasia - Typical    |    1.377 | \[0.499, 2.192\]  | 0.999 |      0.001 |       0.001 |      0.998 |
+| Semantic - Spatial      | Aphantasia - Hypophantasia |   -0.806 | \[-1.835, 0.24\]  | 0.935 |      0.906 |       0.049 |      0.045 |
+| Semantic - Verbal       | Aphantasia - Hypophantasia |   -0.122 | \[-1.088, 0.895\] | 0.592 |      0.520 |       0.146 |      0.334 |
+| Semantic - Visual       | Aphantasia - Hypophantasia |    1.516 | \[0.223, 2.936\]  | 0.989 |      0.007 |       0.008 |      0.985 |
+| Sensorimotor - Semantic | Aphantasia - Hypophantasia |    0.220 | \[-0.818, 1.228\] | 0.659 |      0.272 |       0.136 |      0.592 |
+| Sensorimotor - Spatial  | Aphantasia - Hypophantasia |   -0.588 | \[-1.538, 0.377\] | 0.889 |      0.846 |       0.082 |      0.072 |
+| Sensorimotor - Verbal   | Aphantasia - Hypophantasia |    0.105 | \[-0.845, 0.997\] | 0.584 |      0.332 |       0.164 |      0.503 |
+| Sensorimotor - Visual   | Aphantasia - Hypophantasia |    1.733 | \[0.491, 3.093\]  | 0.997 |      0.002 |       0.003 |      0.995 |
+| Spatial - Visual        | Aphantasia - Hypophantasia |    2.315 | \[1.077, 3.687\]  | 1.000 |      0.000 |       0.000 |      1.000 |
+| Verbal - Spatial        | Aphantasia - Hypophantasia |   -0.687 | \[-1.63, 0.234\]  | 0.925 |      0.891 |       0.062 |      0.047 |
+| Verbal - Visual         | Aphantasia - Hypophantasia |    1.618 | \[0.401, 2.967\]  | 0.997 |      0.001 |       0.005 |      0.994 |
+| Semantic - Spatial      | Aphantasia - Typical       |    0.349 | \[-0.392, 1.099\] | 0.813 |      0.124 |       0.134 |      0.743 |
+| Semantic - Verbal       | Aphantasia - Typical       |   -0.088 | \[-0.829, 0.663\] | 0.584 |      0.488 |       0.199 |      0.313 |
+| Semantic - Visual       | Aphantasia - Typical       |    2.903 | \[1.827, 4.152\]  | 1.000 |      0.000 |       0.000 |      1.000 |
+| Sensorimotor - Semantic | Aphantasia - Typical       |   -0.286 | \[-1.046, 0.447\] | 0.768 |      0.678 |       0.166 |      0.156 |
+| Sensorimotor - Spatial  | Aphantasia - Typical       |    0.058 | \[-0.616, 0.761\] | 0.566 |      0.326 |       0.219 |      0.455 |
+| Sensorimotor - Verbal   | Aphantasia - Typical       |   -0.377 | \[-1.041, 0.309\] | 0.858 |      0.786 |       0.130 |      0.085 |
+| Sensorimotor - Visual   | Aphantasia - Typical       |    2.617 | \[1.584, 3.798\]  | 1.000 |      0.000 |       0.000 |      1.000 |
+| Spatial - Visual        | Aphantasia - Typical       |    2.549 | \[1.52, 3.743\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Verbal - Spatial        | Aphantasia - Typical       |    0.442 | \[-0.239, 1.103\] | 0.898 |      0.062 |       0.103 |      0.836 |
+| Verbal - Visual         | Aphantasia - Typical       |    2.994 | \[1.972, 4.184\]  | 1.000 |      0.000 |       0.000 |      1.000 |
+| Semantic - Spatial      | Hypophantasia - Typical    |    1.152 | \[0.205, 2.131\]  | 0.992 |      0.004 |       0.011 |      0.985 |
+| Semantic - Verbal       | Hypophantasia - Typical    |    0.032 | \[-0.913, 0.932\] | 0.528 |      0.386 |       0.174 |      0.440 |
+| Semantic - Visual       | Hypophantasia - Typical    |    1.389 | \[0.452, 2.34\]   | 0.998 |      0.001 |       0.003 |      0.996 |
+| Sensorimotor - Semantic | Hypophantasia - Typical    |   -0.505 | \[-1.414, 0.46\]  | 0.855 |      0.805 |       0.088 |      0.107 |
+| Sensorimotor - Spatial  | Hypophantasia - Typical    |    0.648 | \[-0.22, 1.553\]  | 0.933 |      0.043 |       0.059 |      0.898 |
+| Sensorimotor - Verbal   | Hypophantasia - Typical    |   -0.477 | \[-1.288, 0.377\] | 0.867 |      0.812 |       0.100 |      0.087 |
+| Sensorimotor - Visual   | Hypophantasia - Typical    |    0.893 | \[0.049, 1.765\]  | 0.980 |      0.013 |       0.020 |      0.968 |
+| Spatial - Visual        | Hypophantasia - Typical    |    0.246 | \[-0.666, 1.114\] | 0.699 |      0.228 |       0.152 |      0.621 |
+| Verbal - Spatial        | Hypophantasia - Typical    |    1.122 | \[0.287, 1.978\]  | 0.996 |      0.003 |       0.006 |      0.991 |
+| Verbal - Visual         | Hypophantasia - Typical    |    1.372 | \[0.499, 2.195\]  | 0.999 |      0.001 |       0.001 |      0.998 |
 
 #### Frequentist
 
@@ -684,21 +684,21 @@ mb_strats_osivq |>
 
 | strategy     | contrast                 | Estimate | 95% CI             |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:-------------|:-------------------------|---------:|:-------------------|------:|-----------:|------------:|-----------:|
-| Visual       | Spatialiser - Visualiser |   -0.827 | \[-1.436, -0.228\] | 0.998 |      0.994 |       0.005 |      0.001 |
-| Visual       | Verbaliser - Spatialiser |   -0.709 | \[-1.349, -0.063\] | 0.984 |      0.968 |       0.024 |      0.009 |
-| Visual       | Verbaliser - Visualiser  |   -1.534 | \[-2.042, -1.027\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Spatial      | Spatialiser - Visualiser |   -0.043 | \[-0.632, 0.554\]  | 0.557 |      0.424 |       0.264 |      0.312 |
-| Spatial      | Verbaliser - Spatialiser |   -0.277 | \[-0.88, 0.297\]   | 0.830 |      0.732 |       0.175 |      0.094 |
-| Spatial      | Verbaliser - Visualiser  |   -0.329 | \[-0.8, 0.144\]    | 0.920 |      0.832 |       0.129 |      0.039 |
-| Verbal       | Spatialiser - Visualiser |    0.384 | \[-0.182, 0.956\]  | 0.910 |      0.044 |       0.112 |      0.844 |
-| Verbal       | Verbaliser - Spatialiser |    0.029 | \[-0.556, 0.591\]  | 0.540 |      0.331 |       0.270 |      0.399 |
-| Verbal       | Verbaliser - Visualiser  |    0.408 | \[-0.028, 0.845\]  | 0.965 |      0.011 |       0.076 |      0.913 |
-| Semantic     | Spatialiser - Visualiser |   -0.140 | \[-0.915, 0.558\]  | 0.645 |      0.548 |       0.202 |      0.250 |
-| Semantic     | Verbaliser - Spatialiser |    0.190 | \[-0.52, 0.962\]   | 0.697 |      0.208 |       0.190 |      0.602 |
-| Semantic     | Verbaliser - Visualiser  |    0.047 | \[-0.526, 0.611\]  | 0.566 |      0.307 |       0.271 |      0.422 |
-| Sensorimotor | Spatialiser - Visualiser |   -0.100 | \[-0.69, 0.504\]   | 0.636 |      0.500 |       0.252 |      0.248 |
-| Sensorimotor | Verbaliser - Spatialiser |   -0.152 | \[-0.778, 0.422\]  | 0.701 |      0.569 |       0.241 |      0.190 |
-| Sensorimotor | Verbaliser - Visualiser  |   -0.260 | \[-0.728, 0.213\]  | 0.863 |      0.752 |       0.184 |      0.063 |
+| Visual       | Spatialiser - Visualiser |   -0.820 | \[-1.432, -0.223\] | 0.997 |      0.991 |       0.007 |      0.001 |
+| Visual       | Verbaliser - Spatialiser |   -0.706 | \[-1.366, -0.056\] | 0.983 |      0.966 |       0.026 |      0.008 |
+| Visual       | Verbaliser - Visualiser  |   -1.527 | \[-2.045, -1.013\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Spatial      | Spatialiser - Visualiser |   -0.044 | \[-0.629, 0.56\]   | 0.561 |      0.425 |       0.268 |      0.307 |
+| Spatial      | Verbaliser - Spatialiser |   -0.278 | \[-0.884, 0.306\]  | 0.828 |      0.732 |       0.170 |      0.098 |
+| Spatial      | Verbaliser - Visualiser  |   -0.328 | \[-0.8, 0.144\]    | 0.921 |      0.836 |       0.127 |      0.037 |
+| Verbal       | Spatialiser - Visualiser |    0.383 | \[-0.181, 0.955\]  | 0.911 |      0.043 |       0.116 |      0.842 |
+| Verbal       | Verbaliser - Spatialiser |    0.024 | \[-0.557, 0.587\]  | 0.535 |      0.333 |       0.278 |      0.390 |
+| Verbal       | Verbaliser - Visualiser  |    0.406 | \[-0.034, 0.847\]  | 0.963 |      0.012 |       0.078 |      0.909 |
+| Semantic     | Spatialiser - Visualiser |   -0.148 | \[-0.911, 0.568\]  | 0.652 |      0.558 |       0.191 |      0.251 |
+| Semantic     | Verbaliser - Spatialiser |    0.189 | \[-0.529, 0.954\]  | 0.695 |      0.213 |       0.188 |      0.599 |
+| Semantic     | Verbaliser - Visualiser  |    0.042 | \[-0.534, 0.608\]  | 0.561 |      0.306 |       0.277 |      0.417 |
+| Sensorimotor | Spatialiser - Visualiser |   -0.110 | \[-0.698, 0.497\]  | 0.645 |      0.514 |       0.243 |      0.242 |
+| Sensorimotor | Verbaliser - Spatialiser |   -0.154 | \[-0.774, 0.432\]  | 0.696 |      0.569 |       0.236 |      0.196 |
+| Sensorimotor | Verbaliser - Visualiser  |   -0.263 | \[-0.746, 0.204\]  | 0.870 |      0.764 |       0.173 |      0.063 |
 
 ``` r
 # Strategy contrasts within groups
@@ -713,36 +713,36 @@ mb_strats_osivq |>
 
 | cluster     | contrast                | Estimate | 95% CI             |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:------------|:------------------------|---------:|:-------------------|------:|-----------:|------------:|-----------:|
-| Visualiser  | Semantic - Spatial      |   -1.254 | \[-1.774, -0.759\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Visualiser  | Semantic - Verbal       |   -1.884 | \[-2.4, -1.37\]    | 1.000 |      1.000 |       0.000 |      0.000 |
-| Visualiser  | Semantic - Visual       |   -1.559 | \[-2.068, -1.064\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Visualiser  | Sensorimotor - Semantic |    0.961 | \[0.45, 1.488\]    | 1.000 |      0.000 |       0.001 |      0.999 |
-| Visualiser  | Sensorimotor - Spatial  |   -0.292 | \[-0.776, 0.187\]  | 0.890 |      0.790 |       0.159 |      0.050 |
-| Visualiser  | Sensorimotor - Verbal   |   -0.916 | \[-1.362, -0.481\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Visualiser  | Sensorimotor - Visual   |   -0.591 | \[-1.057, -0.133\] | 0.994 |      0.982 |       0.016 |      0.002 |
-| Visualiser  | Spatial - Visual        |   -0.301 | \[-0.727, 0.147\]  | 0.903 |      0.817 |       0.140 |      0.043 |
-| Visualiser  | Verbal - Spatial        |    0.623 | \[0.17, 1.068\]    | 0.997 |      0.001 |       0.011 |      0.988 |
-| Visualiser  | Verbal - Visual         |    0.326 | \[-0.121, 0.775\]  | 0.918 |      0.032 |       0.125 |      0.843 |
-| Spatialiser | Semantic - Spatial      |   -1.369 | \[-2.154, -0.605\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Spatialiser | Semantic - Verbal       |   -2.421 | \[-3.224, -1.666\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Spatialiser | Semantic - Visual       |   -0.879 | \[-1.695, -0.099\] | 0.989 |      0.975 |       0.019 |      0.006 |
-| Spatialiser | Sensorimotor - Semantic |    1.014 | \[0.248, 1.833\]   | 0.997 |      0.002 |       0.005 |      0.994 |
-| Spatialiser | Sensorimotor - Spatial  |   -0.355 | \[-1.037, 0.337\]  | 0.838 |      0.762 |       0.134 |      0.103 |
-| Spatialiser | Sensorimotor - Verbal   |   -1.408 | \[-2.088, -0.75\]  | 1.000 |      1.000 |       0.000 |      0.000 |
-| Spatialiser | Sensorimotor - Visual   |    0.131 | \[-0.572, 0.858\]  | 0.640 |      0.266 |       0.198 |      0.537 |
-| Spatialiser | Spatial - Visual        |    0.486 | \[-0.216, 1.2\]    | 0.915 |      0.049 |       0.098 |      0.854 |
-| Spatialiser | Verbal - Spatial        |    1.060 | \[0.381, 1.743\]   | 0.998 |      0.001 |       0.002 |      0.997 |
-| Spatialiser | Verbal - Visual         |    1.538 | \[0.835, 2.266\]   | 1.000 |      0.000 |       0.000 |      1.000 |
-| Verbaliser  | Semantic - Spatial      |   -0.875 | \[-1.401, -0.375\] | 1.000 |      0.999 |       0.001 |      0.000 |
-| Verbaliser  | Semantic - Verbal       |   -2.243 | \[-2.78, -1.726\]  | 1.000 |      1.000 |       0.000 |      0.000 |
-| Verbaliser  | Semantic - Visual       |    0.019 | \[-0.542, 0.592\]  | 0.528 |      0.334 |       0.277 |      0.390 |
-| Verbaliser  | Sensorimotor - Semantic |    0.657 | \[0.135, 1.195\]   | 0.992 |      0.002 |       0.017 |      0.981 |
-| Verbaliser  | Sensorimotor - Spatial  |   -0.221 | \[-0.714, 0.242\]  | 0.818 |      0.695 |       0.215 |      0.090 |
-| Verbaliser  | Sensorimotor - Verbal   |   -1.594 | \[-2.061, -1.124\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Verbaliser  | Sensorimotor - Visual   |    0.675 | \[0.154, 1.199\]   | 0.994 |      0.002 |       0.014 |      0.985 |
-| Verbaliser  | Spatial - Visual        |    0.905 | \[0.398, 1.426\]   | 1.000 |      0.000 |       0.001 |      0.999 |
-| Verbaliser  | Verbal - Spatial        |    1.372 | \[0.896, 1.828\]   | 1.000 |      0.000 |       0.000 |      1.000 |
-| Verbaliser  | Verbal - Visual         |    2.272 | \[1.756, 2.803\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Visualiser  | Semantic - Spatial      |   -1.253 | \[-1.771, -0.752\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Visualiser  | Semantic - Verbal       |   -1.884 | \[-2.395, -1.365\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Visualiser  | Semantic - Visual       |   -1.550 | \[-2.067, -1.052\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Visualiser  | Sensorimotor - Semantic |    0.965 | \[0.461, 1.488\]   | 1.000 |      0.000 |       0.001 |      0.999 |
+| Visualiser  | Sensorimotor - Spatial  |   -0.288 | \[-0.762, 0.19\]   | 0.886 |      0.789 |       0.158 |      0.052 |
+| Visualiser  | Sensorimotor - Verbal   |   -0.912 | \[-1.36, -0.47\]   | 1.000 |      1.000 |       0.000 |      0.000 |
+| Visualiser  | Sensorimotor - Visual   |   -0.582 | \[-1.036, -0.124\] | 0.992 |      0.981 |       0.017 |      0.002 |
+| Visualiser  | Spatial - Visual        |   -0.294 | \[-0.73, 0.144\]   | 0.900 |      0.808 |       0.150 |      0.042 |
+| Visualiser  | Verbal - Spatial        |    0.625 | \[0.181, 1.069\]   | 0.997 |      0.001 |       0.010 |      0.990 |
+| Visualiser  | Verbal - Visual         |    0.336 | \[-0.116, 0.785\]  | 0.923 |      0.031 |       0.120 |      0.849 |
+| Spatialiser | Semantic - Spatial      |   -1.367 | \[-2.154, -0.598\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Spatialiser | Semantic - Verbal       |   -2.423 | \[-3.225, -1.665\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Spatialiser | Semantic - Visual       |   -0.884 | \[-1.704, -0.085\] | 0.987 |      0.972 |       0.021 |      0.007 |
+| Spatialiser | Sensorimotor - Semantic |    1.013 | \[0.236, 1.825\]   | 0.996 |      0.002 |       0.007 |      0.992 |
+| Spatialiser | Sensorimotor - Spatial  |   -0.358 | \[-1.045, 0.337\]  | 0.838 |      0.759 |       0.141 |      0.100 |
+| Spatialiser | Sensorimotor - Verbal   |   -1.414 | \[-2.094, -0.733\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Spatialiser | Sensorimotor - Visual   |    0.128 | \[-0.587, 0.858\]  | 0.638 |      0.269 |       0.199 |      0.532 |
+| Spatialiser | Spatial - Visual        |    0.484 | \[-0.22, 1.184\]   | 0.911 |      0.050 |       0.099 |      0.851 |
+| Spatialiser | Verbal - Spatial        |    1.064 | \[0.39, 1.743\]    | 0.999 |      0.001 |       0.002 |      0.997 |
+| Spatialiser | Verbal - Visual         |    1.535 | \[0.844, 2.254\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Verbaliser  | Semantic - Spatial      |   -0.878 | \[-1.402, -0.372\] | 1.000 |      0.999 |       0.001 |      0.000 |
+| Verbaliser  | Semantic - Verbal       |   -2.245 | \[-2.78, -1.723\]  | 1.000 |      1.000 |       0.000 |      0.000 |
+| Verbaliser  | Semantic - Visual       |    0.017 | \[-0.55, 0.598\]   | 0.522 |      0.342 |       0.273 |      0.385 |
+| Verbaliser  | Sensorimotor - Semantic |    0.658 | \[0.132, 1.195\]   | 0.991 |      0.002 |       0.018 |      0.980 |
+| Verbaliser  | Sensorimotor - Spatial  |   -0.225 | \[-0.714, 0.247\]  | 0.823 |      0.699 |       0.213 |      0.088 |
+| Verbaliser  | Sensorimotor - Verbal   |   -1.593 | \[-2.07, -1.121\]  | 1.000 |      1.000 |       0.000 |      0.000 |
+| Verbaliser  | Sensorimotor - Visual   |    0.672 | \[0.14, 1.205\]    | 0.994 |      0.002 |       0.015 |      0.983 |
+| Verbaliser  | Spatial - Visual        |    0.902 | \[0.377, 1.426\]   | 1.000 |      0.000 |       0.001 |      0.999 |
+| Verbaliser  | Verbal - Spatial        |    1.366 | \[0.899, 1.832\]   | 1.000 |      0.000 |       0.000 |      1.000 |
+| Verbaliser  | Verbal - Visual         |    2.266 | \[1.748, 2.797\]   | 1.000 |      0.000 |       0.000 |      1.000 |
 
 ``` r
 # Interaction contrasts
@@ -759,36 +759,36 @@ mb_strats_osivq |>
 
 | Category contrast       | Grouping contrast        | Estimate | 95% CI             |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:------------------------|:-------------------------|---------:|:-------------------|------:|-----------:|------------:|-----------:|
-| Semantic - Spatial      | Spatialiser - Verbaliser |   -0.485 | \[-1.416, 0.398\]  | 0.850 |      0.791 |       0.108 |      0.101 |
-| Semantic - Verbal       | Spatialiser - Verbaliser |   -0.162 | \[-1.128, 0.761\]  | 0.634 |      0.547 |       0.160 |      0.292 |
-| Semantic - Visual       | Spatialiser - Verbaliser |   -0.903 | \[-1.87, 0.033\]   | 0.970 |      0.953 |       0.028 |      0.018 |
-| Sensorimotor - Semantic | Spatialiser - Verbaliser |    0.364 | \[-0.546, 1.313\]  | 0.771 |      0.175 |       0.122 |      0.703 |
-| Sensorimotor - Spatial  | Spatialiser - Verbaliser |   -0.128 | \[-0.961, 0.718\]  | 0.624 |      0.528 |       0.176 |      0.295 |
-| Sensorimotor - Verbal   | Spatialiser - Verbaliser |    0.179 | \[-0.629, 1.007\]  | 0.667 |      0.250 |       0.182 |      0.568 |
-| Sensorimotor - Visual   | Spatialiser - Verbaliser |   -0.553 | \[-1.397, 0.342\]  | 0.888 |      0.844 |       0.081 |      0.076 |
-| Spatial - Visual        | Spatialiser - Verbaliser |   -0.423 | \[-1.273, 0.438\]  | 0.834 |      0.768 |       0.114 |      0.118 |
-| Verbal - Spatial        | Spatialiser - Verbaliser |   -0.305 | \[-1.124, 0.516\]  | 0.768 |      0.689 |       0.148 |      0.163 |
-| Verbal - Visual         | Spatialiser - Verbaliser |   -0.723 | \[-1.617, 0.127\]  | 0.955 |      0.924 |       0.047 |      0.029 |
-| Semantic - Spatial      | Visualiser - Spatialiser |    0.100 | \[-0.79, 1.052\]   | 0.585 |      0.330 |       0.170 |      0.500 |
-| Semantic - Verbal       | Visualiser - Spatialiser |    0.536 | \[-0.38, 1.502\]   | 0.875 |      0.087 |       0.084 |      0.829 |
-| Semantic - Visual       | Visualiser - Spatialiser |   -0.678 | \[-1.579, 0.275\]  | 0.919 |      0.885 |       0.058 |      0.057 |
-| Sensorimotor - Semantic | Visualiser - Spatialiser |   -0.049 | \[-1.019, 0.893\]  | 0.540 |      0.458 |       0.162 |      0.380 |
-| Sensorimotor - Spatial  | Visualiser - Spatialiser |    0.059 | \[-0.759, 0.926\]  | 0.554 |      0.360 |       0.179 |      0.462 |
-| Sensorimotor - Verbal   | Visualiser - Spatialiser |    0.493 | \[-0.319, 1.293\]  | 0.886 |      0.075 |       0.091 |      0.834 |
-| Sensorimotor - Visual   | Visualiser - Spatialiser |   -0.720 | \[-1.58, 0.106\]   | 0.955 |      0.926 |       0.048 |      0.026 |
-| Spatial - Visual        | Visualiser - Spatialiser |   -0.785 | \[-1.617, 0.052\]  | 0.967 |      0.951 |       0.030 |      0.020 |
-| Verbal - Spatial        | Visualiser - Spatialiser |   -0.431 | \[-1.266, 0.416\]  | 0.852 |      0.784 |       0.116 |      0.100 |
-| Verbal - Visual         | Visualiser - Spatialiser |   -1.219 | \[-2.021, -0.378\] | 0.998 |      0.996 |       0.004 |      0.001 |
-| Semantic - Spatial      | Visualiser - Verbaliser  |   -0.370 | \[-1.099, 0.337\]  | 0.846 |      0.776 |       0.130 |      0.094 |
-| Semantic - Verbal       | Visualiser - Verbaliser  |    0.369 | \[-0.359, 1.092\]  | 0.841 |      0.100 |       0.132 |      0.768 |
-| Semantic - Visual       | Visualiser - Verbaliser  |   -1.584 | \[-2.329, -0.811\] | 1.000 |      1.000 |       0.000 |      0.000 |
-| Sensorimotor - Semantic | Visualiser - Verbaliser  |    0.310 | \[-0.417, 1.055\]  | 0.800 |      0.137 |       0.150 |      0.713 |
-| Sensorimotor - Spatial  | Visualiser - Verbaliser  |   -0.068 | \[-0.741, 0.613\]  | 0.579 |      0.460 |       0.227 |      0.313 |
-| Sensorimotor - Verbal   | Visualiser - Verbaliser  |    0.668 | \[0.046, 1.307\]   | 0.981 |      0.009 |       0.025 |      0.966 |
-| Sensorimotor - Visual   | Visualiser - Verbaliser  |   -1.274 | \[-1.985, -0.56\]  | 1.000 |      1.000 |       0.000 |      0.000 |
-| Spatial - Visual        | Visualiser - Verbaliser  |   -1.208 | \[-1.89, -0.494\]  | 1.000 |      1.000 |       0.000 |      0.000 |
-| Verbal - Spatial        | Visualiser - Verbaliser  |   -0.744 | \[-1.379, -0.097\] | 0.990 |      0.974 |       0.022 |      0.004 |
-| Verbal - Visual         | Visualiser - Verbaliser  |   -1.954 | \[-2.616, -1.252\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Semantic - Spatial      | Spatialiser - Verbaliser |   -0.485 | \[-1.429, 0.446\]  | 0.845 |      0.790 |       0.103 |      0.107 |
+| Semantic - Verbal       | Spatialiser - Verbaliser |   -0.171 | \[-1.12, 0.75\]    | 0.636 |      0.557 |       0.151 |      0.292 |
+| Semantic - Visual       | Spatialiser - Verbaliser |   -0.899 | \[-1.889, 0.063\]  | 0.967 |      0.949 |       0.030 |      0.021 |
+| Sensorimotor - Semantic | Spatialiser - Verbaliser |    0.359 | \[-0.556, 1.313\]  | 0.769 |      0.178 |       0.119 |      0.704 |
+| Sensorimotor - Spatial  | Spatialiser - Verbaliser |   -0.126 | \[-0.968, 0.72\]   | 0.618 |      0.524 |       0.178 |      0.298 |
+| Sensorimotor - Verbal   | Spatialiser - Verbaliser |    0.175 | \[-0.623, 1.002\]  | 0.660 |      0.254 |       0.177 |      0.569 |
+| Sensorimotor - Visual   | Spatialiser - Verbaliser |   -0.548 | \[-1.403, 0.352\]  | 0.885 |      0.839 |       0.083 |      0.078 |
+| Spatial - Visual        | Spatialiser - Verbaliser |   -0.419 | \[-1.294, 0.448\]  | 0.829 |      0.764 |       0.116 |      0.121 |
+| Verbal - Spatial        | Spatialiser - Verbaliser |   -0.304 | \[-1.12, 0.518\]   | 0.768 |      0.689 |       0.148 |      0.163 |
+| Verbal - Visual         | Spatialiser - Verbaliser |   -0.719 | \[-1.613, 0.135\]  | 0.954 |      0.922 |       0.048 |      0.030 |
+| Semantic - Spatial      | Visualiser - Spatialiser |    0.101 | \[-0.813, 1.056\]  | 0.589 |      0.329 |       0.170 |      0.501 |
+| Semantic - Verbal       | Visualiser - Spatialiser |    0.539 | \[-0.397, 1.5\]    | 0.872 |      0.088 |       0.085 |      0.827 |
+| Semantic - Visual       | Visualiser - Spatialiser |   -0.665 | \[-1.597, 0.306\]  | 0.916 |      0.881 |       0.061 |      0.058 |
+| Sensorimotor - Semantic | Visualiser - Spatialiser |   -0.042 | \[-1, 0.892\]      | 0.534 |      0.450 |       0.163 |      0.386 |
+| Sensorimotor - Spatial  | Visualiser - Spatialiser |    0.062 | \[-0.755, 0.935\]  | 0.557 |      0.356 |       0.182 |      0.463 |
+| Sensorimotor - Verbal   | Visualiser - Spatialiser |    0.499 | \[-0.317, 1.303\]  | 0.888 |      0.072 |       0.090 |      0.838 |
+| Sensorimotor - Visual   | Visualiser - Spatialiser |   -0.712 | \[-1.572, 0.127\]  | 0.951 |      0.920 |       0.050 |      0.029 |
+| Spatial - Visual        | Visualiser - Spatialiser |   -0.772 | \[-1.606, 0.066\]  | 0.963 |      0.947 |       0.033 |      0.021 |
+| Verbal - Spatial        | Visualiser - Spatialiser |   -0.431 | \[-1.267, 0.409\]  | 0.855 |      0.784 |       0.119 |      0.097 |
+| Verbal - Visual         | Visualiser - Spatialiser |   -1.210 | \[-2.025, -0.388\] | 0.999 |      0.996 |       0.004 |      0.000 |
+| Semantic - Spatial      | Visualiser - Verbaliser  |   -0.371 | \[-1.101, 0.349\]  | 0.843 |      0.769 |       0.135 |      0.096 |
+| Semantic - Verbal       | Visualiser - Verbaliser  |    0.367 | \[-0.359, 1.09\]   | 0.840 |      0.101 |       0.132 |      0.767 |
+| Semantic - Visual       | Visualiser - Verbaliser  |   -1.574 | \[-2.332, -0.792\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Sensorimotor - Semantic | Visualiser - Verbaliser  |    0.313 | \[-0.411, 1.055\]  | 0.801 |      0.134 |       0.150 |      0.716 |
+| Sensorimotor - Spatial  | Visualiser - Verbaliser  |   -0.062 | \[-0.734, 0.622\]  | 0.571 |      0.452 |       0.233 |      0.314 |
+| Sensorimotor - Verbal   | Visualiser - Verbaliser  |    0.672 | \[0.047, 1.311\]   | 0.982 |      0.009 |       0.026 |      0.965 |
+| Sensorimotor - Visual   | Visualiser - Verbaliser  |   -1.256 | \[-1.978, -0.547\] | 1.000 |      1.000 |       0.000 |      0.000 |
+| Spatial - Visual        | Visualiser - Verbaliser  |   -1.200 | \[-1.874, -0.49\]  | 1.000 |      0.999 |       0.000 |      0.000 |
+| Verbal - Spatial        | Visualiser - Verbaliser  |   -0.740 | \[-1.383, -0.097\] | 0.990 |      0.974 |       0.021 |      0.005 |
+| Verbal - Visual         | Visualiser - Verbaliser  |   -1.939 | \[-2.613, -1.238\] | 1.000 |      1.000 |       0.000 |      0.000 |
 
 #### Frequentist
 
@@ -1092,14 +1092,14 @@ All done!
     #>  collate  C.UTF-8
     #>  ctype    C.UTF-8
     #>  tz       UTC
-    #>  date     2025-12-10
+    #>  date     2025-12-11
     #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
     #>  quarto   1.8.26 @ /usr/local/bin/quarto
     #> 
     #> ─ Packages ───────────────────────────────────────────────────────────────────
     #>  ! package                 * version     date (UTC) lib source
     #>    abind                     1.4-8       2024-09-12 [1] RSPM
-    #>    aphantasiaReasoningViie * 1.0         2025-12-10 [1] local
+    #>    aphantasiaReasoningViie * 1.0         2025-12-11 [1] local
     #>    assertthat                0.2.1       2019-03-21 [1] RSPM
     #>    backports                 1.5.0       2024-05-23 [1] RSPM
     #>    bayesplot                 1.14.0      2025-08-31 [1] RSPM
@@ -1210,7 +1210,7 @@ All done!
     #>    scales                    1.4.0       2025-04-24 [1] RSPM
     #>    see                       0.12.0      2025-09-14 [1] RSPM
     #>    sessioninfo               1.2.3       2025-02-05 [1] RSPM
-    #>    shiny                     1.12.0      2025-12-03 [1] RSPM
+    #>    shiny                     1.12.1      2025-12-09 [1] RSPM
     #>    showtext                  0.9-7       2024-03-02 [1] RSPM
     #>    showtextdb                3.0         2020-06-04 [1] RSPM
     #>    StanHeaders               2.32.10     2024-07-15 [1] RSPM
@@ -1230,7 +1230,7 @@ All done!
     #>    withr                     3.0.2       2024-10-28 [1] RSPM
     #>    xfun                      0.54        2025-10-30 [1] RSPM
     #>    xtable                    1.8-4       2019-04-21 [1] RSPM
-    #>    yaml                      2.3.11      2025-11-28 [1] RSPM
+    #>    yaml                      2.3.12      2025-12-10 [1] RSPM
     #> 
     #>  [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu
     #>  [2] /home/runner/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu/8f3cef43

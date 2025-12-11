@@ -477,14 +477,14 @@ the VIIE.
     #>  collate  C.UTF-8
     #>  ctype    C.UTF-8
     #>  tz       UTC
-    #>  date     2025-12-10
+    #>  date     2025-12-11
     #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
     #>  quarto   1.8.26 @ /usr/local/bin/quarto
     #> 
     #> ─ Packages ───────────────────────────────────────────────────────────────────
     #>  ! package                 * version    date (UTC) lib source
     #>    abind                     1.4-8      2024-09-12 [1] RSPM
-    #>    aphantasiaReasoningViie * 1.0        2025-12-10 [1] local
+    #>    aphantasiaReasoningViie * 1.0        2025-12-11 [1] local
     #>    backports                 1.5.0      2024-05-23 [1] RSPM
     #>    bayesplot                 1.14.0     2025-08-31 [1] RSPM
     #>  P boot                      1.3-32     2025-08-29 [?] CRAN (R 4.5.2)
@@ -572,7 +572,7 @@ the VIIE.
     #>    sass                      0.4.10     2025-04-11 [1] RSPM
     #>    scales                    1.4.0      2025-04-24 [1] RSPM
     #>    sessioninfo               1.2.3      2025-02-05 [1] RSPM
-    #>    shiny                     1.12.0     2025-12-03 [1] RSPM
+    #>    shiny                     1.12.1     2025-12-09 [1] RSPM
     #>    shinyBS                   0.61.1     2022-04-17 [1] RSPM
     #>    showtext                  0.9-7      2024-03-02 [1] RSPM
     #>    showtextdb                3.0        2020-06-04 [1] RSPM
@@ -594,7 +594,7 @@ the VIIE.
     #>    withr                     3.0.2      2024-10-28 [1] RSPM
     #>    xfun                      0.54       2025-10-30 [1] RSPM
     #>    xtable                    1.8-4      2019-04-21 [1] RSPM
-    #>    yaml                      2.3.11     2025-11-28 [1] RSPM
+    #>    yaml                      2.3.12     2025-12-10 [1] RSPM
     #>    zoo                       1.8-14     2025-04-10 [1] RSPM
     #> 
     #>  [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu

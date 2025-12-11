@@ -99,11 +99,11 @@ structure a lot of times:
 ``` r
 build_formula("accuracy", "group_2")
 #> accuracy ~ group_2 * category + (category | id) + (1 | problem)
-#> <environment: 0x55a3a83c9610>
+#> <environment: 0x55ef6c5f19d0>
 
 build_formula("accuracy", "cluster")
 #> accuracy ~ cluster * category + (category | id) + (1 | problem)
-#> <environment: 0x55a3aa51bdf8>
+#> <environment: 0x55ef6e7484c8>
 ```
 
 ### Bayesian models
@@ -164,7 +164,7 @@ accuracy models prior is done in the chunk below.
 #   )
 # }
 options("marginaleffects_safe" = FALSE)
-draws <- seq(1, 4000, 1) # To limit draws that will be used for marginaleffects
+draws <- seq(1, 6000, 1) # To limit draws that will be used for marginaleffects
 
 prior_acc <- c(brms::prior(normal(0, 1), class = "b"))
 ```
@@ -242,9 +242,9 @@ mb_acc_vviq_2 |>
   report_rope(contrast) |> knitr::kable()
 ```
 
-| contrast             | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
-|:---------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Typical - Aphantasia |    0.247 | \[-0.079, 0.567\] | 0.931 |      0.004 |       0.332 |      0.664 |
+| contrast             | Estimate | 95% CI            |   PD | Below ROPE | Inside ROPE | Above ROPE |
+|:---------------------|---------:|:------------------|-----:|-----------:|------------:|-----------:|
+| Typical - Aphantasia |    0.243 | \[-0.074, 0.564\] | 0.93 |      0.004 |       0.342 |      0.653 |
 
 ``` r
 # Category contrasts within groups
@@ -259,12 +259,12 @@ mb_acc_vviq_2 |>
 
 | group_2    | contrast          | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:-----------|:------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Aphantasia | Spatial - Control |   -0.037 | \[-0.666, 0.56\]  | 0.550 |      0.310 |       0.458 |      0.232 |
-| Aphantasia | Visual - Control  |   -0.014 | \[-0.603, 0.588\] | 0.519 |      0.285 |       0.463 |      0.252 |
-| Aphantasia | Visual - Spatial  |    0.021 | \[-0.554, 0.621\] | 0.527 |      0.225 |       0.498 |      0.277 |
-| Typical    | Spatial - Control |   -0.265 | \[-0.893, 0.331\] | 0.807 |      0.615 |       0.312 |      0.072 |
-| Typical    | Visual - Control  |   -0.500 | \[-1.08, 0.106\]  | 0.952 |      0.854 |       0.131 |      0.015 |
-| Typical    | Visual - Spatial  |   -0.232 | \[-0.791, 0.345\] | 0.789 |      0.567 |       0.356 |      0.078 |
+| Aphantasia | Spatial - Control |   -0.034 | \[-0.662, 0.559\] | 0.545 |      0.311 |       0.456 |      0.232 |
+| Aphantasia | Visual - Control  |   -0.020 | \[-0.62, 0.579\]  | 0.526 |      0.291 |       0.458 |      0.251 |
+| Aphantasia | Visual - Spatial  |    0.018 | \[-0.555, 0.596\] | 0.524 |      0.232 |       0.493 |      0.274 |
+| Typical    | Spatial - Control |   -0.261 | \[-0.893, 0.342\] | 0.807 |      0.607 |       0.321 |      0.073 |
+| Typical    | Visual - Control  |   -0.503 | \[-1.084, 0.082\] | 0.955 |      0.858 |       0.130 |      0.013 |
+| Typical    | Visual - Spatial  |   -0.237 | \[-0.789, 0.343\] | 0.796 |      0.576 |       0.347 |      0.077 |
 
 ``` r
 # Interaction contrasts
@@ -281,9 +281,9 @@ mb_acc_vviq_2 |>
 
 | Category contrast | Grouping contrast    | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:------------------|:---------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Spatial - Control | Aphantasia - Typical |    0.228 | \[-0.246, 0.707\] | 0.817 |      0.046 |       0.380 |      0.574 |
-| Visual - Control  | Aphantasia - Typical |    0.481 | \[0.008, 0.948\]  | 0.977 |      0.003 |       0.100 |      0.897 |
-| Visual - Spatial  | Aphantasia - Typical |    0.253 | \[-0.175, 0.685\] | 0.869 |      0.024 |       0.354 |      0.622 |
+| Spatial - Control | Aphantasia - Typical |    0.228 | \[-0.245, 0.71\]  | 0.820 |      0.045 |       0.384 |      0.571 |
+| Visual - Control  | Aphantasia - Typical |    0.480 | \[0.02, 0.938\]   | 0.980 |      0.002 |       0.096 |      0.901 |
+| Visual - Spatial  | Aphantasia - Typical |    0.252 | \[-0.177, 0.683\] | 0.867 |      0.024 |       0.348 |      0.628 |
 
 #### Frequentist
 
@@ -401,9 +401,9 @@ mb_acc_vviq_3 |>
 
 | contrast                   | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:---------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Hypophantasia - Aphantasia |   -0.161 | \[-0.657, 0.333\] | 0.741 |      0.466 |       0.450 |      0.085 |
-| Typical - Aphantasia       |    0.178 | \[-0.197, 0.557\] | 0.823 |      0.029 |       0.477 |      0.493 |
-| Typical - Hypophantasia    |    0.340 | \[-0.087, 0.787\] | 0.940 |      0.010 |       0.232 |      0.758 |
+| Hypophantasia - Aphantasia |   -0.160 | \[-0.654, 0.33\]  | 0.741 |      0.469 |       0.446 |      0.086 |
+| Typical - Aphantasia       |    0.176 | \[-0.2, 0.558\]   | 0.825 |      0.031 |       0.481 |      0.488 |
+| Typical - Hypophantasia    |    0.335 | \[-0.099, 0.799\] | 0.935 |      0.010 |       0.233 |      0.757 |
 
 ``` r
 # Category contrasts within groups
@@ -418,15 +418,15 @@ mb_acc_vviq_3 |>
 
 | group_3       | contrast          | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:--------------|:------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Aphantasia    | Spatial - Control |    0.062 | \[-0.597, 0.737\] | 0.580 |      0.232 |       0.417 |      0.351 |
-| Aphantasia    | Visual - Control  |   -0.002 | \[-0.661, 0.676\] | 0.501 |      0.294 |       0.414 |      0.291 |
-| Aphantasia    | Visual - Spatial  |   -0.058 | \[-0.713, 0.594\] | 0.570 |      0.355 |       0.416 |      0.229 |
-| Hypophantasia | Spatial - Control |   -0.204 | \[-0.932, 0.547\] | 0.702 |      0.525 |       0.314 |      0.160 |
-| Hypophantasia | Visual - Control  |   -0.080 | \[-0.823, 0.63\]  | 0.578 |      0.392 |       0.364 |      0.244 |
-| Hypophantasia | Visual - Spatial  |    0.108 | \[-0.6, 0.836\]   | 0.619 |      0.202 |       0.375 |      0.422 |
-| Typical       | Spatial - Control |   -0.257 | \[-0.864, 0.357\] | 0.805 |      0.600 |       0.324 |      0.075 |
-| Typical       | Visual - Control  |   -0.476 | \[-1.082, 0.112\] | 0.948 |      0.845 |       0.140 |      0.015 |
-| Typical       | Visual - Spatial  |   -0.213 | \[-0.771, 0.342\] | 0.780 |      0.542 |       0.379 |      0.079 |
+| Aphantasia    | Spatial - Control |    0.056 | \[-0.6, 0.719\]   | 0.571 |      0.238 |       0.412 |      0.350 |
+| Aphantasia    | Visual - Control  |   -0.002 | \[-0.662, 0.664\] | 0.501 |      0.294 |       0.416 |      0.290 |
+| Aphantasia    | Visual - Spatial  |   -0.056 | \[-0.699, 0.584\] | 0.570 |      0.348 |       0.423 |      0.228 |
+| Hypophantasia | Spatial - Control |   -0.205 | \[-0.936, 0.542\] | 0.704 |      0.528 |       0.316 |      0.156 |
+| Hypophantasia | Visual - Control  |   -0.078 | \[-0.813, 0.631\] | 0.576 |      0.387 |       0.370 |      0.243 |
+| Hypophantasia | Visual - Spatial  |    0.118 | \[-0.586, 0.819\] | 0.629 |      0.198 |       0.371 |      0.430 |
+| Typical       | Spatial - Control |   -0.258 | \[-0.871, 0.336\] | 0.804 |      0.601 |       0.327 |      0.072 |
+| Typical       | Visual - Control  |   -0.484 | \[-1.073, 0.099\] | 0.950 |      0.852 |       0.136 |      0.012 |
+| Typical       | Visual - Spatial  |   -0.216 | \[-0.777, 0.323\] | 0.784 |      0.545 |       0.380 |      0.075 |
 
 ``` r
 # Interaction contrasts
@@ -443,15 +443,15 @@ mb_acc_vviq_3 |>
 
 | Category contrast | Grouping contrast          | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:------------------|:---------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Spatial - Control | Aphantasia - Hypophantasia |    0.260 | \[-0.422, 0.932\] | 0.764 |      0.104 |       0.308 |      0.587 |
-| Visual - Control  | Aphantasia - Hypophantasia |    0.083 | \[-0.614, 0.759\] | 0.596 |      0.226 |       0.395 |      0.379 |
-| Visual - Spatial  | Aphantasia - Hypophantasia |   -0.181 | \[-0.841, 0.502\] | 0.704 |      0.499 |       0.356 |      0.145 |
-| Spatial - Control | Aphantasia - Typical       |    0.316 | \[-0.222, 0.849\] | 0.881 |      0.033 |       0.270 |      0.697 |
-| Visual - Control  | Aphantasia - Typical       |    0.475 | \[-0.047, 0.983\] | 0.963 |      0.006 |       0.127 |      0.867 |
-| Visual - Spatial  | Aphantasia - Typical       |    0.153 | \[-0.342, 0.672\] | 0.723 |      0.097 |       0.448 |      0.455 |
-| Spatial - Control | Hypophantasia - Typical    |    0.062 | \[-0.595, 0.699\] | 0.575 |      0.223 |       0.419 |      0.358 |
-| Visual - Control  | Hypophantasia - Typical    |    0.402 | \[-0.221, 0.994\] | 0.888 |      0.034 |       0.218 |      0.748 |
-| Visual - Spatial  | Hypophantasia - Typical    |    0.341 | \[-0.277, 0.905\] | 0.867 |      0.046 |       0.248 |      0.705 |
+| Spatial - Control | Aphantasia - Hypophantasia |    0.255 | \[-0.442, 0.948\] | 0.760 |      0.112 |       0.304 |      0.584 |
+| Visual - Control  | Aphantasia - Hypophantasia |    0.081 | \[-0.61, 0.743\]  | 0.593 |      0.230 |       0.393 |      0.377 |
+| Visual - Spatial  | Aphantasia - Hypophantasia |   -0.180 | \[-0.852, 0.5\]   | 0.706 |      0.498 |       0.357 |      0.145 |
+| Spatial - Control | Aphantasia - Typical       |    0.318 | \[-0.223, 0.853\] | 0.877 |      0.035 |       0.273 |      0.693 |
+| Visual - Control  | Aphantasia - Typical       |    0.479 | \[-0.032, 0.992\] | 0.967 |      0.004 |       0.123 |      0.873 |
+| Visual - Spatial  | Aphantasia - Typical       |    0.161 | \[-0.344, 0.68\]  | 0.731 |      0.094 |       0.436 |      0.470 |
+| Spatial - Control | Hypophantasia - Typical    |    0.063 | \[-0.579, 0.694\] | 0.575 |      0.223 |       0.415 |      0.362 |
+| Visual - Control  | Hypophantasia - Typical    |    0.409 | \[-0.201, 1\]     | 0.897 |      0.031 |       0.207 |      0.762 |
+| Visual - Spatial  | Hypophantasia - Typical    |    0.345 | \[-0.269, 0.926\] | 0.872 |      0.043 |       0.249 |      0.708 |
 
 #### Frequentist
 
@@ -571,11 +571,11 @@ mb_acc_osivq |>
   report_rope(contrast) |> knitr::kable()
 ```
 
-| contrast                 | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
-|:-------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Spatialiser - Visualiser |   -0.079 | \[-0.537, 0.372\] | 0.630 |      0.325 |       0.543 |      0.131 |
-| Verbaliser - Spatialiser |   -0.132 | \[-0.6, 0.331\]   | 0.718 |      0.417 |       0.494 |      0.089 |
-| Verbaliser - Visualiser  |   -0.212 | \[-0.561, 0.146\] | 0.878 |      0.569 |       0.415 |      0.016 |
+| contrast                 | Estimate | 95% CI           |    PD | Below ROPE | Inside ROPE | Above ROPE |
+|:-------------------------|---------:|:-----------------|------:|-----------:|------------:|-----------:|
+| Spatialiser - Visualiser |   -0.080 | \[-0.543, 0.38\] | 0.629 |      0.325 |       0.544 |      0.131 |
+| Verbaliser - Spatialiser |   -0.133 | \[-0.599, 0.33\] | 0.717 |      0.418 |       0.492 |      0.090 |
+| Verbaliser - Visualiser  |   -0.210 | \[-0.56, 0.146\] | 0.883 |      0.565 |       0.419 |      0.016 |
 
 ``` r
 # Category contrasts within groups
@@ -590,15 +590,15 @@ mb_acc_osivq |>
 
 | cluster     | contrast          | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:------------|:------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Visualiser  | Spatial - Control |   -0.288 | \[-0.926, 0.333\] | 0.824 |      0.633 |       0.300 |      0.068 |
-| Visualiser  | Visual - Control  |   -0.463 | \[-1.067, 0.127\] | 0.940 |      0.835 |       0.150 |      0.015 |
-| Visualiser  | Visual - Spatial  |   -0.183 | \[-0.752, 0.439\] | 0.731 |      0.501 |       0.382 |      0.117 |
-| Spatialiser | Spatial - Control |    0.027 | \[-0.759, 0.803\] | 0.522 |      0.292 |       0.362 |      0.346 |
-| Spatialiser | Visual - Control  |   -0.227 | \[-0.987, 0.498\] | 0.734 |      0.551 |       0.319 |      0.130 |
-| Spatialiser | Visual - Spatial  |   -0.265 | \[-0.99, 0.485\]  | 0.760 |      0.583 |       0.295 |      0.122 |
-| Verbaliser  | Spatial - Control |   -0.078 | \[-0.72, 0.53\]   | 0.601 |      0.376 |       0.422 |      0.202 |
-| Verbaliser  | Visual - Control  |   -0.104 | \[-0.714, 0.492\] | 0.628 |      0.398 |       0.445 |      0.158 |
-| Verbaliser  | Visual - Spatial  |   -0.032 | \[-0.627, 0.598\] | 0.538 |      0.307 |       0.438 |      0.255 |
+| Visualiser  | Spatial - Control |   -0.287 | \[-0.926, 0.348\] | 0.821 |      0.630 |       0.298 |      0.071 |
+| Visualiser  | Visual - Control  |   -0.465 | \[-1.064, 0.129\] | 0.941 |      0.833 |       0.151 |      0.016 |
+| Visualiser  | Visual - Spatial  |   -0.185 | \[-0.754, 0.434\] | 0.731 |      0.505 |       0.381 |      0.114 |
+| Spatialiser | Spatial - Control |    0.024 | \[-0.75, 0.811\]  | 0.524 |      0.297 |       0.358 |      0.345 |
+| Spatialiser | Visual - Control  |   -0.231 | \[-0.97, 0.491\]  | 0.740 |      0.558 |       0.313 |      0.128 |
+| Spatialiser | Visual - Spatial  |   -0.263 | \[-0.981, 0.47\]  | 0.758 |      0.584 |       0.295 |      0.120 |
+| Verbaliser  | Spatial - Control |   -0.076 | \[-0.709, 0.532\] | 0.599 |      0.377 |       0.423 |      0.200 |
+| Verbaliser  | Visual - Control  |   -0.102 | \[-0.702, 0.492\] | 0.627 |      0.396 |       0.442 |      0.162 |
+| Verbaliser  | Visual - Spatial  |   -0.025 | \[-0.621, 0.596\] | 0.533 |      0.303 |       0.441 |      0.256 |
 
 ``` r
 # Interaction contrasts
@@ -615,15 +615,15 @@ mb_acc_osivq |>
 
 | Category contrast | Grouping contrast        | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:------------------|:-------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Spatial - Control | Spatialiser - Verbaliser |    0.116 | \[-0.568, 0.768\] | 0.622 |      0.203 |       0.374 |      0.423 |
-| Visual - Control  | Spatialiser - Verbaliser |   -0.131 | \[-0.786, 0.507\] | 0.656 |      0.434 |       0.399 |      0.167 |
-| Visual - Spatial  | Spatialiser - Verbaliser |   -0.242 | \[-0.866, 0.403\] | 0.768 |      0.571 |       0.327 |      0.102 |
-| Spatial - Control | Visualiser - Spatialiser |   -0.313 | \[-0.98, 0.359\]  | 0.831 |      0.654 |       0.274 |      0.072 |
-| Visual - Control  | Visualiser - Spatialiser |   -0.231 | \[-0.84, 0.39\]   | 0.765 |      0.565 |       0.340 |      0.095 |
-| Visual - Spatial  | Visualiser - Spatialiser |    0.083 | \[-0.516, 0.694\] | 0.607 |      0.194 |       0.422 |      0.384 |
-| Spatial - Control | Visualiser - Verbaliser  |   -0.210 | \[-0.725, 0.314\] | 0.787 |      0.539 |       0.390 |      0.071 |
-| Visual - Control  | Visualiser - Verbaliser  |   -0.359 | \[-0.84, 0.121\]  | 0.927 |      0.766 |       0.219 |      0.015 |
-| Visual - Spatial  | Visualiser - Verbaliser  |   -0.149 | \[-0.645, 0.341\] | 0.724 |      0.453 |       0.458 |      0.089 |
+| Spatial - Control | Spatialiser - Verbaliser |    0.112 | \[-0.565, 0.781\] | 0.619 |      0.202 |       0.376 |      0.422 |
+| Visual - Control  | Spatialiser - Verbaliser |   -0.135 | \[-0.783, 0.51\]  | 0.662 |      0.441 |       0.395 |      0.165 |
+| Visual - Spatial  | Spatialiser - Verbaliser |   -0.240 | \[-0.866, 0.389\] | 0.773 |      0.572 |       0.330 |      0.099 |
+| Spatial - Control | Visualiser - Spatialiser |   -0.314 | \[-0.977, 0.364\] | 0.829 |      0.655 |       0.272 |      0.073 |
+| Visual - Control  | Visualiser - Spatialiser |   -0.228 | \[-0.846, 0.393\] | 0.769 |      0.565 |       0.341 |      0.095 |
+| Visual - Spatial  | Visualiser - Spatialiser |    0.082 | \[-0.521, 0.693\] | 0.603 |      0.198 |       0.424 |      0.378 |
+| Spatial - Control | Visualiser - Verbaliser  |   -0.207 | \[-0.725, 0.314\] | 0.782 |      0.535 |       0.392 |      0.073 |
+| Visual - Control  | Visualiser - Verbaliser  |   -0.361 | \[-0.847, 0.13\]  | 0.928 |      0.768 |       0.216 |      0.015 |
+| Visual - Spatial  | Visualiser - Verbaliser  |   -0.155 | \[-0.645, 0.328\] | 0.732 |      0.460 |       0.454 |      0.086 |
 
 #### Frequentist
 
@@ -743,9 +743,9 @@ mb_acc_strat |>
   report_rope(contrast) |> knitr::kable()
 ```
 
-| contrast                                  | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
-|:------------------------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| No_visual_strategy - Visual_strategy_user |    0.005 | \[-0.337, 0.333\] | 0.514 |       0.13 |       0.722 |      0.148 |
+| contrast                                  | Estimate | 95% CI           |   PD | Below ROPE | Inside ROPE | Above ROPE |
+|:------------------------------------------|---------:|:-----------------|-----:|-----------:|------------:|-----------:|
+| No_visual_strategy - Visual_strategy_user |    0.004 | \[-0.33, 0.336\] | 0.51 |      0.128 |       0.723 |      0.149 |
 
 ``` r
 # Category contrasts within groups
@@ -760,12 +760,12 @@ mb_acc_strat |>
 
 | strategy_group       | contrast          | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:---------------------|:------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Visual_strategy_user | Spatial - Control |   -0.302 | \[-0.875, 0.292\] | 0.836 |      0.653 |       0.294 |      0.052 |
-| Visual_strategy_user | Visual - Control  |   -0.356 | \[-0.914, 0.201\] | 0.898 |      0.736 |       0.234 |      0.030 |
-| Visual_strategy_user | Visual - Spatial  |   -0.068 | \[-0.608, 0.482\] | 0.589 |      0.336 |       0.474 |      0.189 |
-| No_visual_strategy   | Spatial - Control |   -0.019 | \[-0.604, 0.596\] | 0.525 |      0.284 |       0.453 |      0.263 |
-| No_visual_strategy   | Visual - Control  |   -0.234 | \[-0.798, 0.345\] | 0.783 |      0.569 |       0.351 |      0.080 |
-| No_visual_strategy   | Visual - Spatial  |   -0.229 | \[-0.775, 0.373\] | 0.777 |      0.555 |       0.358 |      0.087 |
+| Visual_strategy_user | Spatial - Control |   -0.303 | \[-0.902, 0.298\] | 0.830 |      0.651 |       0.294 |      0.055 |
+| Visual_strategy_user | Visual - Control  |   -0.355 | \[-0.936, 0.201\] | 0.896 |      0.733 |       0.237 |      0.030 |
+| Visual_strategy_user | Visual - Spatial  |   -0.068 | \[-0.607, 0.485\] | 0.586 |      0.333 |       0.476 |      0.191 |
+| No_visual_strategy   | Spatial - Control |   -0.015 | \[-0.621, 0.597\] | 0.520 |      0.289 |       0.444 |      0.267 |
+| No_visual_strategy   | Visual - Control  |   -0.230 | \[-0.81, 0.353\]  | 0.781 |      0.565 |       0.352 |      0.082 |
+| No_visual_strategy   | Visual - Spatial  |   -0.227 | \[-0.779, 0.371\] | 0.779 |      0.554 |       0.359 |      0.086 |
 
 ``` r
 # Interaction contrasts
@@ -782,9 +782,9 @@ mb_acc_strat |>
 
 | Category contrast | Grouping contrast                         | Estimate | 95% CI            |    PD | Below ROPE | Inside ROPE | Above ROPE |
 |:------------------|:------------------------------------------|---------:|:------------------|------:|-----------:|------------:|-----------:|
-| Spatial - Control | Visual_strategy_user - No_visual_strategy |   -0.286 | \[-0.768, 0.194\] | 0.871 |      0.654 |       0.318 |      0.028 |
-| Visual - Control  | Visual_strategy_user - No_visual_strategy |   -0.127 | \[-0.577, 0.34\]  | 0.711 |      0.409 |       0.502 |      0.088 |
-| Visual - Spatial  | Visual_strategy_user - No_visual_strategy |    0.156 | \[-0.294, 0.608\] | 0.756 |      0.072 |       0.473 |      0.454 |
+| Spatial - Control | Visual_strategy_user - No_visual_strategy |   -0.288 | \[-0.771, 0.198\] | 0.872 |      0.660 |       0.312 |      0.029 |
+| Visual - Control  | Visual_strategy_user - No_visual_strategy |   -0.125 | \[-0.581, 0.328\] | 0.710 |      0.402 |       0.509 |      0.089 |
+| Visual - Spatial  | Visual_strategy_user - No_visual_strategy |    0.160 | \[-0.289, 0.603\] | 0.762 |      0.068 |       0.471 |      0.460 |
 
 #### Frequentist
 
@@ -946,14 +946,14 @@ All done!
     #>  collate  C.UTF-8
     #>  ctype    C.UTF-8
     #>  tz       UTC
-    #>  date     2025-12-10
+    #>  date     2025-12-11
     #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
     #>  quarto   1.8.26 @ /usr/local/bin/quarto
     #> 
     #> ─ Packages ───────────────────────────────────────────────────────────────────
     #>  ! package                 * version    date (UTC) lib source
     #>    abind                     1.4-8      2024-09-12 [1] RSPM
-    #>    aphantasiaReasoningViie * 1.0        2025-12-10 [1] local
+    #>    aphantasiaReasoningViie * 1.0        2025-12-11 [1] local
     #>    assertthat                0.2.1      2019-03-21 [1] RSPM
     #>    backports                 1.5.0      2024-05-23 [1] RSPM
     #>    bayesplot                 1.14.0     2025-08-31 [1] RSPM
@@ -1075,7 +1075,7 @@ All done!
     #>    scales                    1.4.0      2025-04-24 [1] RSPM
     #>    see                       0.12.0     2025-09-14 [1] RSPM
     #>    sessioninfo               1.2.3      2025-02-05 [1] RSPM
-    #>    shiny                     1.12.0     2025-12-03 [1] RSPM
+    #>    shiny                     1.12.1     2025-12-09 [1] RSPM
     #>    shinyBS                   0.61.1     2022-04-17 [1] RSPM
     #>    showtext                  0.9-7      2024-03-02 [1] RSPM
     #>    showtextdb                3.0        2020-06-04 [1] RSPM
@@ -1096,7 +1096,7 @@ All done!
     #>    withr                     3.0.2      2024-10-28 [1] RSPM
     #>    xfun                      0.54       2025-10-30 [1] RSPM
     #>    xtable                    1.8-4      2019-04-21 [1] RSPM
-    #>    yaml                      2.3.11     2025-11-28 [1] RSPM
+    #>    yaml                      2.3.12     2025-12-10 [1] RSPM
     #>    zoo                       1.8-14     2025-04-10 [1] RSPM
     #> 
     #>  [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu

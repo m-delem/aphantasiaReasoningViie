@@ -10,9 +10,10 @@ fit_brms_model(
   iterations = 24000,
   warmup = 2000,
   refresh = 500,
-  backend = "cmdstanr",
+  backend = "rstan",
   file_refit = "on_change",
   file_compress = "xz",
+  model_folder = "models/",
   sample_prior = FALSE,
   save_pars = NULL,
   adapt_delta = 0.95,
@@ -52,6 +53,10 @@ fit_brms_model(
 - file_compress:
 
   Compression method for saving the model file. Default is "xz".
+
+- model_folder:
+
+  Folder to save the fitted models. Default is "models/".
 
 - sample_prior:
 

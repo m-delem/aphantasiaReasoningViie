@@ -136,14 +136,14 @@ Clusters are there, ready for analysis!
     #>  collate  C.UTF-8
     #>  ctype    C.UTF-8
     #>  tz       UTC
-    #>  date     2025-12-10
+    #>  date     2025-12-11
     #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
     #>  quarto   1.8.26 @ /usr/local/bin/quarto
     #> 
     #> ─ Packages ───────────────────────────────────────────────────────────────────
     #>  ! package                 * version date (UTC) lib source
     #>    abind                     1.4-8   2024-09-12 [1] RSPM
-    #>    aphantasiaReasoningViie * 1.0     2025-12-10 [1] local
+    #>    aphantasiaReasoningViie * 1.0     2025-12-11 [1] local
     #>    assertthat                0.2.1   2019-03-21 [1] RSPM
     #>    bslib                     0.9.0   2025-01-30 [1] RSPM
     #>    cachem                    1.1.0   2024-05-16 [1] RSPM
@@ -213,7 +213,7 @@ Clusters are there, ready for analysis!
     #>    sass                      0.4.10  2025-04-11 [1] RSPM
     #>    scales                    1.4.0   2025-04-24 [1] RSPM
     #>    sessioninfo               1.2.3   2025-02-05 [1] RSPM
-    #>    shiny                     1.12.0  2025-12-03 [1] RSPM
+    #>    shiny                     1.12.1  2025-12-09 [1] RSPM
     #>    stringi                   1.8.7   2025-03-27 [1] RSPM
     #>    stringr                   1.6.0   2025-11-04 [1] RSPM
     #>    systemfonts               1.3.1   2025-10-01 [1] RSPM
@@ -226,7 +226,7 @@ Clusters are there, ready for analysis!
     #>    withr                     3.0.2   2024-10-28 [1] RSPM
     #>    xfun                      0.54    2025-10-30 [1] RSPM
     #>    xtable                    1.8-4   2019-04-21 [1] RSPM
-    #>    yaml                      2.3.11  2025-11-28 [1] RSPM
+    #>    yaml                      2.3.12  2025-12-10 [1] RSPM
     #> 
     #>  [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu
     #>  [2] /home/runner/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu/8f3cef43

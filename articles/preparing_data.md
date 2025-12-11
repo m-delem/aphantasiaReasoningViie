@@ -389,13 +389,13 @@ Data all set for analyses!
     #>  collate  C.UTF-8
     #>  ctype    C.UTF-8
     #>  tz       UTC
-    #>  date     2025-12-10
+    #>  date     2025-12-11
     #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
     #>  quarto   1.8.26 @ /usr/local/bin/quarto
     #> 
     #> ─ Packages ───────────────────────────────────────────────────────────────────
     #>  ! package                 * version date (UTC) lib source
-    #>    aphantasiaReasoningViie * 1.0     2025-12-10 [1] local
+    #>    aphantasiaReasoningViie * 1.0     2025-12-11 [1] local
     #>    bslib                     0.9.0   2025-01-30 [1] RSPM
     #>    cachem                    1.1.0   2024-05-16 [1] RSPM
     #>    cli                       3.6.5   2025-04-23 [1] RSPM
@@ -453,7 +453,7 @@ Data all set for analyses!
     #>    vctrs                     0.6.5   2023-12-01 [1] RSPM
     #>    withr                     3.0.2   2024-10-28 [1] RSPM
     #>    xfun                      0.54    2025-10-30 [1] RSPM
-    #>    yaml                      2.3.11  2025-11-28 [1] RSPM
+    #>    yaml                      2.3.12  2025-12-10 [1] RSPM
     #> 
     #>  [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu
     #>  [2] /home/runner/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu/8f3cef43
