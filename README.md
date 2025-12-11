@@ -49,7 +49,7 @@ analyses, including:
   analyses](https://m-delem.github.io/aphantasiaReasoningViie/articles/analysing_strategies.html)
 
 - [The exploratory non-linear RT
-  models](https://m-delem.github.io/aphantasiaReasoningViie/articles/nl_modelling.html)
+  models](https://m-delem.github.io/aphantasiaReasoningViie/articles/analysing_rt_nl.html)
 
 The source code for these notebooks is available in the `vignettes/`
 folder of the package repository.
