@@ -156,7 +156,7 @@ models prior is done in the chunk below.
 #   )
 # }
 options("marginaleffects_safe" = FALSE)
-draws <- seq(1, 14000, 1) # To limit draws that will be used for marginaleffects
+draws <- seq(1, 16000, 1) # To limit draws that will be used for marginaleffects
 
 prior_acc <- c(brms::prior(normal(0, 1), class = "b"))
 ```

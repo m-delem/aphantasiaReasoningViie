@@ -1,4 +1,6 @@
-# Run all_data_preparation.R first
+devtools::load_all()
+
+df_survey <- get_clustered_data("survey")
 
 describe_survey_data(df_survey, "cluster") |>
   dplyr::select(cluster:`RSPM-18`) |>

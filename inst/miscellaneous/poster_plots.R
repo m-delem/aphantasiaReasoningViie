@@ -1,4 +1,7 @@
-# Run all_data_preparation.R first
+devtools::load_all()
+
+# Accuracy --------------------------------
+df_expe <- get_clustered_data("experiment")
 
 pa <- plot_superb_categories(
   df_expe, accuracy, group_2,
@@ -14,6 +17,12 @@ save_plot(
   verbose = TRUE
 )
 
+# RT -------------------------
+df_rt <-
+  df_expe |>
+  filter_trials_on_rt(verbose = TRUE) |>
+  dplyr::select(id, group_4:strategy_group, problem, category, rt_total)
+
 pr <- plot_superb_categories(
   df_rt, rt_total, group_2,
   title = "Response time per group and problem type",
@@ -28,6 +37,11 @@ save_plot(
   print_it = TRUE,
   verbose = TRUE
 )
+
+# Strategies -------------------------
+df_strats_long <-
+  get_clustered_data("survey") |>
+  pivot_strategies_longer(ordered = TRUE)
 
 ps <-
   plot_strategies_scores(
