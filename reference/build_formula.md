@@ -27,5 +27,5 @@ A formula object for the model.
 ``` r
 build_formula("accuracy", "group")
 #> accuracy ~ group * category + (category | id) + (1 | problem)
-#> <environment: 0x5630b41902a0>
+#> <environment: 0x55d52e1019f0>
 ```
