@@ -8,14 +8,14 @@
 <a href="https://doi.org/10.17605/OSF.IO/HFBCP" target="_blank"><img alt="OSF badge" src="https://img.shields.io/badge/OSF-https://osf.io/hfbcp/-337AB7?logo=osf"/></a>
 <a href="https://m-delem.github.io/aphantasiaReasoningViie/" target="_blank"><img alt="Docs badge" src="https://img.shields.io/badge/Documentation-website-009e73?style=flat&logo=Google%20Docs&logoColor=009e73&logoSize=auto"/></a>
 <a href="https://app.codecov.io/gh/m-delem/aphantasiaReasoningViie" target="_blank"><img alt="Codecov test coverage" src="https://codecov.io/gh/m-delem/aphantasiaReasoningViie/graph/badge.svg" /></a>
-<a href="https://doi.org/10.31234/osf.io/vsjtb_v1" target="_blank"><img alt="DOI badge" src="https://img.shields.io/badge/Preprint-white?style=flat&logo=osf&logoColor=337AB7&logoSize=auto"/></a>
+<a href="https://doi.org/10.31234/osf.io/vsjtb_v2" target="_blank"><img alt="DOI badge" src="https://img.shields.io/badge/Preprint-white?style=flat&logo=osf&logoColor=337AB7&logoSize=auto"/></a>
 <!-- badges: end -->
 
 aphantasiaReasoningViie is a data analysis project wrapped in an R
 package for reproducibility[^1]. It contains the code and data to
 reproduce the analyses presented in the article “*The Impact of Mental
 Images on Reasoning: A Study on Aphantasia*”. You can read the preprint
-<a href="https://doi.org/10.31234/osf.io/vsjtb_v1" target="_blank">here</a>.
+<a href="https://doi.org/10.31234/osf.io/vsjtb_v2" target="_blank">here</a>.
 All study materials are available on the Open Science Framework
 <a href="https://doi.org/10.17605/OSF.IO/HFBCP" target="_blank">here</a>.
 
