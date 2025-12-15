@@ -597,8 +597,7 @@ mf_rt_strat |> report_contrast(~ category * strategy_group, interaction = TRUE) 
 The figures showing the distribution of response times displayed in the
 manuscript were created with the `plot_superb_raincloud()` function from the
 package, which wraps functions from the *ggplot2* and *superb* packages to
-create nice visualisations easily. A little `add_significance()` helper function
-was also created to add significance stars to the plots.
+create nice visualisations easily.
 
 ```{r}
 #| label: plot-rt
@@ -621,30 +620,7 @@ pr1 <-
     plot.background = ggplot2::element_rect(fill = "white", colour = NA),
     axis_rel_x = 1.2,
     exp_add_right = 0.7
-  ) +
-  add_significance(
-    size_star = 4,
-    tibble::tibble(
-      x_star = 2,
-      y_star = 30,
-      stars  = "**",
-      x_line = .data$x_star - 0.14,
-      x_line_end = .data$x_star + 0.14,
-      y_line = 29.5
-    )
-  ) +
-  add_significance(
-    size_star = 4,
-    tibble::tibble(
-      x_star = 2.07,
-      y_star = 28,
-      stars  = "*",
-      x_line = .data$x_star - 0.07,
-      x_line_end = .data$x_star + 0.07,
-      y_line = 27.5
-    )
   )
-
 pr2 <-
   plot_superb_raincloud(
     df_rt, rt_total, group_3,
@@ -653,30 +629,7 @@ pr2 <-
     plot.background = ggplot2::element_rect(fill = "white", colour = NA),
     axis_rel_x = 1.2,
     exp_add_right = 0.7
-  ) +
-  add_significance(
-    size_star = 4,
-    tibble::tibble(
-      x_star = 3,
-      y_star = 30,
-      stars  = "**",
-      x_line = .data$x_star - 0.14,
-      x_line_end = .data$x_star + 0.14,
-      y_line = 29.5
-    )
-  ) +
-  add_significance(
-    size_star = 4,
-    tibble::tibble(
-      x_star = 3.07,
-      y_star = 28,
-      stars  = "*",
-      x_line = .data$x_star - 0.07,
-      x_line_end = .data$x_star + 0.07,
-      y_line = 27.5
-    )
   )
-
 pr3 <-
   plot_superb_raincloud(
     df_rt, rt_total, cluster,
@@ -685,28 +638,6 @@ pr3 <-
     plot.background = ggplot2::element_rect(fill = "white", colour = NA),
     axis_rel_x = 1.2,
     exp_add_right = 0.7
-  ) +
-  add_significance(
-    size_star = 4,
-    tibble::tibble(
-      x_star = 3,
-      y_star = 30,
-      stars  = "***",
-      x_line = .data$x_star - 0.14,
-      x_line_end = .data$x_star + 0.14,
-      y_line = 29.5
-    )
-  ) +
-  add_significance(
-    size_star = 4,
-    tibble::tibble(
-      x_star = 3.07,
-      y_star = 28,
-      stars  = "*",
-      x_line = .data$x_star - 0.07,
-      x_line_end = .data$x_star + 0.07,
-      y_line = 27.5
-    )
   )
 
 pr <- pr1 + pr2 + pr3 +

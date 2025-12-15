@@ -373,6 +373,7 @@ save_ggplot <- function(
 #' @param lw Line width of the significance line. Default is 0.2.
 #' @param color Color of the star label and line. Default is "black".
 #' @param linetype Line type of the significance line. Default is "solid".
+#' @param ... Additional arguments passed to the `geom_text()` layer.
 #'
 #' @returns A list of ggplot2 layers that can be added to a ggplot object.
 #' @export
@@ -398,7 +399,8 @@ add_significance <- function(
     size_star = 2.5,
     lw = 0.2,
     color = "black",
-    linetype = "solid"
+    linetype = "solid",
+    ...
 ){
   list(
     ggplot2::geom_text(
@@ -410,7 +412,8 @@ add_significance <- function(
       ),
       size        = size_star,
       color       = color,
-      inherit.aes = FALSE
+      inherit.aes = FALSE,
+      ...
     ),
     ggplot2::geom_segment(
       data = df,

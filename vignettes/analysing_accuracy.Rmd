@@ -554,8 +554,7 @@ mf_acc_strat |> report_contrast(~ category * strategy_group, interaction = TRUE)
 The figures showing the distribution of accuracy data displayed in the
 manuscript were created with the `plot_superb_jitter()` function from the
 package, which wraps functions from the *ggplot2* and *superb* packages to
-create nice visualisations easily. A little `add_significance()` helper function
-was also created to add significance stars to the plots.
+create nice visualisations easily.
 
 ```{r}
 #| label: plot-accuracy
@@ -577,19 +576,7 @@ pa1 <-
     base_size = 12,
     plot.background = ggplot2::element_rect(fill = "white", colour = NA),
     axis_rel = 1.2
-  ) +
-  add_significance(
-    size_star = 4,
-    tibble::tibble(
-      x_star = 2,
-      y_star = 1.07,
-      stars  = "*",
-      x_line = .data$x_star - 0.16,
-      x_line_end = .data$x_star + 0.16,
-      y_line = 1.05
-    )
   )
-
 pa2 <-
   plot_superb_jitter(
     df_expe, accuracy, group_3,
@@ -597,19 +584,7 @@ pa2 <-
     base_size = 12,
     plot.background = ggplot2::element_rect(fill = "white", colour = NA),
     axis_rel = 1.2
-  ) +
-  add_significance(
-    size_star = 4,
-    tibble::tibble(
-      x_star = 3,
-      y_star = 1.07,
-      stars  = "*",
-      x_line = .data$x_star - 0.16,
-      x_line_end = .data$x_star + 0.16,
-      y_line = 1.05
-    )
   )
-
 pa3 <-
   plot_superb_jitter(
     df_expe, accuracy, cluster,
@@ -617,17 +592,6 @@ pa3 <-
     base_size = 12,
     plot.background = ggplot2::element_rect(fill = "white", colour = NA),
     axis_rel = 1.2
-  ) +
-  add_significance(
-    size_star = 4,
-    tibble::tibble(
-      x_star = 3,
-      y_star = 1.065,
-      stars  = "°",
-      x_line = .data$x_star - 0.16,
-      x_line_end = .data$x_star + 0.16,
-      y_line = 1.05
-    )
   )
 
 pa <- pa1 + pa2 + pa3 +
