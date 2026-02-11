@@ -227,7 +227,7 @@ done in the chunk below.</p>
 <span><span class="co">#   )</span></span>
 <span><span class="co"># }</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="st">"marginaleffects_safe"</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">16000</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># To limit draws that will be used for marginaleffects</span></span></code></pre></div>
+<span><span class="va">draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">14000</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># To limit draws that will be used for marginaleffects</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="frequentist-models">Frequentist models<a class="anchor" aria-label="anchor" href="#frequentist-models"></a>
@@ -323,8 +323,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Visual</td>
 <td align="left">Typical - Aphantasia</td>
-<td align="right">1.693</td>
-<td align="left">[1.212, 2.197]</td>
+<td align="right">1.695</td>
+<td align="left">[1.215, 2.2]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -334,41 +334,41 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Spatial</td>
 <td align="left">Typical - Aphantasia</td>
 <td align="right">0.401</td>
-<td align="left">[-0.032, 0.823]</td>
+<td align="left">[-0.032, 0.821]</td>
 <td align="right">0.965</td>
 <td align="right">0.012</td>
 <td align="right">0.074</td>
-<td align="right">0.913</td>
+<td align="right">0.914</td>
 </tr>
 <tr class="odd">
 <td align="left">Verbal</td>
 <td align="left">Typical - Aphantasia</td>
-<td align="right">-0.266</td>
-<td align="left">[-0.68, 0.151]</td>
-<td align="right">0.897</td>
-<td align="right">0.784</td>
-<td align="right">0.174</td>
+<td align="right">-0.267</td>
+<td align="left">[-0.68, 0.148]</td>
+<td align="right">0.896</td>
+<td align="right">0.782</td>
+<td align="right">0.176</td>
 <td align="right">0.042</td>
 </tr>
 <tr class="even">
 <td align="left">Semantic</td>
 <td align="left">Typical - Aphantasia</td>
 <td align="right">-0.228</td>
-<td align="left">[-0.742, 0.278]</td>
-<td align="right">0.812</td>
+<td align="left">[-0.742, 0.279]</td>
+<td align="right">0.810</td>
 <td align="right">0.693</td>
-<td align="right">0.204</td>
-<td align="right">0.103</td>
+<td align="right">0.203</td>
+<td align="right">0.105</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor</td>
 <td align="left">Typical - Aphantasia</td>
-<td align="right">0.136</td>
-<td align="left">[-0.289, 0.575]</td>
-<td align="right">0.732</td>
+<td align="right">0.135</td>
+<td align="left">[-0.29, 0.568]</td>
+<td align="right">0.731</td>
 <td align="right">0.140</td>
-<td align="right">0.294</td>
-<td align="right">0.566</td>
+<td align="right">0.295</td>
+<td align="right">0.565</td>
 </tr>
 </tbody>
 </table>
@@ -406,18 +406,18 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Semantic - Spatial</td>
-<td align="right">-0.780</td>
-<td align="left">[-1.266, -0.297]</td>
+<td align="right">-0.781</td>
+<td align="left">[-1.268, -0.296]</td>
 <td align="right">0.999</td>
 <td align="right">0.996</td>
 <td align="right">0.003</td>
-<td align="right">0.000</td>
+<td align="right">0.001</td>
 </tr>
 <tr class="even">
 <td align="left">Aphantasia</td>
 <td align="left">Semantic - Verbal</td>
-<td align="right">-2.159</td>
-<td align="left">[-2.658, -1.669]</td>
+<td align="right">-2.160</td>
+<td align="left">[-2.659, -1.667]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -426,18 +426,18 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Semantic - Visual</td>
-<td align="right">0.304</td>
-<td align="left">[-0.245, 0.862]</td>
+<td align="right">0.305</td>
+<td align="left">[-0.245, 0.861]</td>
 <td align="right">0.863</td>
-<td align="right">0.073</td>
-<td align="right">0.159</td>
-<td align="right">0.769</td>
+<td align="right">0.074</td>
+<td align="right">0.157</td>
+<td align="right">0.770</td>
 </tr>
 <tr class="even">
 <td align="left">Aphantasia</td>
 <td align="left">Sensorimotor - Semantic</td>
-<td align="right">0.655</td>
-<td align="left">[0.165, 1.14]</td>
+<td align="right">0.656</td>
+<td align="left">[0.167, 1.14]</td>
 <td align="right">0.996</td>
 <td align="right">0.001</td>
 <td align="right">0.012</td>
@@ -447,17 +447,17 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Aphantasia</td>
 <td align="left">Sensorimotor - Spatial</td>
 <td align="right">-0.125</td>
-<td align="left">[-0.581, 0.336]</td>
-<td align="right">0.702</td>
-<td align="right">0.541</td>
-<td align="right">0.289</td>
-<td align="right">0.170</td>
+<td align="left">[-0.581, 0.337]</td>
+<td align="right">0.700</td>
+<td align="right">0.540</td>
+<td align="right">0.287</td>
+<td align="right">0.172</td>
 </tr>
 <tr class="even">
 <td align="left">Aphantasia</td>
 <td align="left">Sensorimotor - Verbal</td>
-<td align="right">-1.502</td>
-<td align="left">[-1.962, -1.06]</td>
+<td align="right">-1.501</td>
+<td align="left">[-1.961, -1.058]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -466,18 +466,18 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Sensorimotor - Visual</td>
-<td align="right">0.958</td>
-<td align="left">[0.457, 1.484]</td>
+<td align="right">0.961</td>
+<td align="left">[0.46, 1.487]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
-<td align="right">0.001</td>
-<td align="right">0.999</td>
+<td align="right">0.000</td>
+<td align="right">1.000</td>
 </tr>
 <tr class="even">
 <td align="left">Aphantasia</td>
 <td align="left">Spatial - Visual</td>
-<td align="right">1.082</td>
-<td align="left">[0.571, 1.613]</td>
+<td align="right">1.084</td>
+<td align="left">[0.574, 1.614]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -486,7 +486,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Verbal - Spatial</td>
-<td align="right">1.377</td>
+<td align="right">1.378</td>
 <td align="left">[0.926, 1.844]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -496,8 +496,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Aphantasia</td>
 <td align="left">Verbal - Visual</td>
-<td align="right">2.461</td>
-<td align="left">[1.944, 2.996]</td>
+<td align="right">2.462</td>
+<td align="left">[1.945, 2.997]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -506,8 +506,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Typical</td>
 <td align="left">Semantic - Spatial</td>
-<td align="right">-1.408</td>
-<td align="left">[-1.862, -0.959]</td>
+<td align="right">-1.409</td>
+<td align="left">[-1.863, -0.958]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -516,8 +516,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Typical</td>
 <td align="left">Semantic - Verbal</td>
-<td align="right">-2.125</td>
-<td align="left">[-2.59, -1.666]</td>
+<td align="right">-2.126</td>
+<td align="left">[-2.592, -1.662]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -526,8 +526,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Typical</td>
 <td align="left">Semantic - Visual</td>
-<td align="right">-1.623</td>
-<td align="left">[-2.066, -1.182]</td>
+<td align="right">-1.624</td>
+<td align="left">[-2.068, -1.182]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -536,8 +536,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Typical</td>
 <td align="left">Sensorimotor - Semantic</td>
-<td align="right">1.024</td>
-<td align="left">[0.571, 1.486]</td>
+<td align="right">1.023</td>
+<td align="left">[0.571, 1.481]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -547,17 +547,17 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Typical</td>
 <td align="left">Sensorimotor - Spatial</td>
 <td align="right">-0.385</td>
-<td align="left">[-0.784, 0.021]</td>
-<td align="right">0.969</td>
-<td align="right">0.919</td>
+<td align="left">[-0.782, 0.017]</td>
+<td align="right">0.971</td>
+<td align="right">0.920</td>
 <td align="right">0.072</td>
-<td align="right">0.009</td>
+<td align="right">0.008</td>
 </tr>
 <tr class="even">
 <td align="left">Typical</td>
 <td align="left">Sensorimotor - Verbal</td>
 <td align="right">-1.098</td>
-<td align="left">[-1.501, -0.695]</td>
+<td align="left">[-1.504, -0.694]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -566,8 +566,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Typical</td>
 <td align="left">Sensorimotor - Visual</td>
-<td align="right">-0.601</td>
-<td align="left">[-0.996, -0.203]</td>
+<td align="right">-0.602</td>
+<td align="left">[-0.993, -0.205]</td>
 <td align="right">0.999</td>
 <td align="right">0.993</td>
 <td align="right">0.006</td>
@@ -577,17 +577,17 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Typical</td>
 <td align="left">Spatial - Visual</td>
 <td align="right">-0.212</td>
-<td align="left">[-0.607, 0.167]</td>
-<td align="right">0.858</td>
-<td align="right">0.716</td>
-<td align="right">0.231</td>
-<td align="right">0.054</td>
+<td align="left">[-0.609, 0.167]</td>
+<td align="right">0.859</td>
+<td align="right">0.715</td>
+<td align="right">0.232</td>
+<td align="right">0.052</td>
 </tr>
 <tr class="odd">
 <td align="left">Typical</td>
 <td align="left">Verbal - Spatial</td>
 <td align="right">0.711</td>
-<td align="left">[0.322, 1.117]</td>
+<td align="left">[0.322, 1.118]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.001</td>
@@ -596,12 +596,12 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Typical</td>
 <td align="left">Verbal - Visual</td>
-<td align="right">0.501</td>
-<td align="left">[0.117, 0.886]</td>
-<td align="right">0.995</td>
+<td align="right">0.500</td>
+<td align="left">[0.114, 0.885]</td>
+<td align="right">0.994</td>
 <td align="right">0.001</td>
-<td align="right">0.019</td>
-<td align="right">0.980</td>
+<td align="right">0.020</td>
+<td align="right">0.979</td>
 </tr>
 </tbody>
 </table>
@@ -642,27 +642,27 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Semantic - Spatial</td>
 <td align="left">Aphantasia - Typical</td>
 <td align="right">0.628</td>
-<td align="left">[-0.03, 1.3]</td>
-<td align="right">0.970</td>
-<td align="right">0.015</td>
+<td align="left">[-0.03, 1.297]</td>
+<td align="right">0.969</td>
+<td align="right">0.016</td>
 <td align="right">0.042</td>
-<td align="right">0.943</td>
+<td align="right">0.942</td>
 </tr>
 <tr class="even">
 <td align="left">Semantic - Verbal</td>
 <td align="left">Aphantasia - Typical</td>
 <td align="right">-0.034</td>
-<td align="left">[-0.703, 0.627]</td>
-<td align="right">0.542</td>
+<td align="left">[-0.708, 0.627]</td>
+<td align="right">0.543</td>
 <td align="right">0.421</td>
-<td align="right">0.236</td>
-<td align="right">0.343</td>
+<td align="right">0.235</td>
+<td align="right">0.344</td>
 </tr>
 <tr class="odd">
 <td align="left">Semantic - Visual</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">1.927</td>
-<td align="left">[1.231, 2.633]</td>
+<td align="right">1.929</td>
+<td align="left">[1.231, 2.635]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -671,38 +671,38 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Sensorimotor - Semantic</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-0.365</td>
-<td align="left">[-1.046, 0.297]</td>
-<td align="right">0.862</td>
-<td align="right">0.787</td>
-<td align="right">0.129</td>
+<td align="right">-0.363</td>
+<td align="left">[-1.044, 0.304]</td>
+<td align="right">0.861</td>
+<td align="right">0.786</td>
+<td align="right">0.130</td>
 <td align="right">0.084</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor - Spatial</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">0.265</td>
-<td align="left">[-0.35, 0.856]</td>
-<td align="right">0.802</td>
-<td align="right">0.123</td>
-<td align="right">0.176</td>
-<td align="right">0.701</td>
+<td align="right">0.266</td>
+<td align="left">[-0.346, 0.855]</td>
+<td align="right">0.803</td>
+<td align="right">0.122</td>
+<td align="right">0.174</td>
+<td align="right">0.704</td>
 </tr>
 <tr class="even">
 <td align="left">Sensorimotor - Verbal</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-0.404</td>
-<td align="left">[-1.011, 0.2]</td>
+<td align="right">-0.403</td>
+<td align="left">[-1.01, 0.203]</td>
 <td align="right">0.905</td>
 <td align="right">0.840</td>
-<td align="right">0.110</td>
-<td align="right">0.051</td>
+<td align="right">0.108</td>
+<td align="right">0.052</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor - Visual</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">1.557</td>
-<td align="left">[0.916, 2.207]</td>
+<td align="right">1.560</td>
+<td align="left">[0.92, 2.209]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -711,8 +711,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Spatial - Visual</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">1.295</td>
-<td align="left">[0.668, 1.944]</td>
+<td align="right">1.298</td>
+<td align="left">[0.675, 1.943]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -722,7 +722,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Verbal - Spatial</td>
 <td align="left">Aphantasia - Typical</td>
 <td align="right">0.668</td>
-<td align="left">[0.073, 1.272]</td>
+<td align="left">[0.076, 1.271]</td>
 <td align="right">0.986</td>
 <td align="right">0.006</td>
 <td align="right">0.024</td>
@@ -731,8 +731,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Verbal - Visual</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">1.960</td>
-<td align="left">[1.334, 2.614]</td>
+<td align="right">1.963</td>
+<td align="left">[1.337, 2.617]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1145,8 +1145,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Visual</td>
 <td align="left">Hypophantasia - Aphantasia</td>
-<td align="right">1.690</td>
-<td align="left">[0.699, 2.896]</td>
+<td align="right">1.691</td>
+<td align="left">[0.708, 2.887]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1155,8 +1155,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Visual</td>
 <td align="left">Typical - Aphantasia</td>
-<td align="right">2.729</td>
-<td align="left">[1.877, 3.859]</td>
+<td align="right">2.727</td>
+<td align="left">[1.88, 3.852]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1166,7 +1166,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Visual</td>
 <td align="left">Typical - Hypophantasia</td>
 <td align="right">1.044</td>
-<td align="left">[0.436, 1.67]</td>
+<td align="left">[0.437, 1.664]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.001</td>
@@ -1176,27 +1176,27 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Spatial</td>
 <td align="left">Hypophantasia - Aphantasia</td>
 <td align="right">-0.603</td>
-<td align="left">[-1.306, 0.081]</td>
-<td align="right">0.958</td>
-<td align="right">0.927</td>
+<td align="left">[-1.308, 0.072]</td>
+<td align="right">0.960</td>
+<td align="right">0.928</td>
 <td align="right">0.051</td>
-<td align="right">0.022</td>
+<td align="right">0.021</td>
 </tr>
 <tr class="odd">
 <td align="left">Spatial</td>
 <td align="left">Typical - Aphantasia</td>
 <td align="right">0.197</td>
-<td align="left">[-0.281, 0.676]</td>
-<td align="right">0.795</td>
-<td align="right">0.112</td>
-<td align="right">0.231</td>
-<td align="right">0.657</td>
+<td align="left">[-0.278, 0.674]</td>
+<td align="right">0.796</td>
+<td align="right">0.110</td>
+<td align="right">0.234</td>
+<td align="right">0.656</td>
 </tr>
 <tr class="even">
 <td align="left">Spatial</td>
 <td align="left">Typical - Hypophantasia</td>
-<td align="right">0.804</td>
-<td align="left">[0.178, 1.45]</td>
+<td align="right">0.805</td>
+<td align="left">[0.178, 1.453]</td>
 <td align="right">0.994</td>
 <td align="right">0.002</td>
 <td align="right">0.012</td>
@@ -1205,59 +1205,59 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Verbal</td>
 <td align="left">Hypophantasia - Aphantasia</td>
-<td align="right">0.094</td>
-<td align="left">[-0.547, 0.727]</td>
+<td align="right">0.095</td>
+<td align="left">[-0.548, 0.726]</td>
 <td align="right">0.609</td>
-<td align="right">0.279</td>
-<td align="right">0.226</td>
-<td align="right">0.494</td>
+<td align="right">0.280</td>
+<td align="right">0.225</td>
+<td align="right">0.495</td>
 </tr>
 <tr class="even">
 <td align="left">Verbal</td>
 <td align="left">Typical - Aphantasia</td>
 <td align="right">-0.232</td>
-<td align="left">[-0.706, 0.238]</td>
-<td align="right">0.838</td>
+<td align="left">[-0.709, 0.235]</td>
+<td align="right">0.839</td>
 <td align="right">0.717</td>
 <td align="right">0.201</td>
-<td align="right">0.083</td>
+<td align="right">0.082</td>
 </tr>
 <tr class="odd">
 <td align="left">Verbal</td>
 <td align="left">Typical - Hypophantasia</td>
-<td align="right">-0.329</td>
-<td align="left">[-0.909, 0.255]</td>
+<td align="right">-0.330</td>
+<td align="left">[-0.905, 0.256]</td>
 <td align="right">0.867</td>
-<td align="right">0.783</td>
+<td align="right">0.784</td>
 <td align="right">0.141</td>
 <td align="right">0.075</td>
 </tr>
 <tr class="even">
 <td align="left">Semantic</td>
 <td align="left">Hypophantasia - Aphantasia</td>
-<td align="right">0.205</td>
-<td align="left">[-0.564, 0.939]</td>
-<td align="right">0.701</td>
-<td align="right">0.217</td>
-<td align="right">0.180</td>
-<td align="right">0.604</td>
+<td align="right">0.203</td>
+<td align="left">[-0.565, 0.94]</td>
+<td align="right">0.699</td>
+<td align="right">0.218</td>
+<td align="right">0.181</td>
+<td align="right">0.602</td>
 </tr>
 <tr class="odd">
 <td align="left">Semantic</td>
 <td align="left">Typical - Aphantasia</td>
-<td align="right">-0.151</td>
-<td align="left">[-0.735, 0.443]</td>
+<td align="right">-0.152</td>
+<td align="left">[-0.737, 0.442]</td>
 <td align="right">0.690</td>
 <td align="right">0.568</td>
-<td align="right">0.227</td>
-<td align="right">0.205</td>
+<td align="right">0.226</td>
+<td align="right">0.206</td>
 </tr>
 <tr class="even">
 <td align="left">Semantic</td>
 <td align="left">Typical - Hypophantasia</td>
-<td align="right">-0.353</td>
-<td align="left">[-1.029, 0.354]</td>
-<td align="right">0.840</td>
+<td align="right">-0.352</td>
+<td align="left">[-1.03, 0.357]</td>
+<td align="right">0.839</td>
 <td align="right">0.761</td>
 <td align="right">0.138</td>
 <td align="right">0.101</td>
@@ -1265,31 +1265,31 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Sensorimotor</td>
 <td align="left">Hypophantasia - Aphantasia</td>
-<td align="right">-0.007</td>
-<td align="left">[-0.682, 0.653]</td>
-<td align="right">0.508</td>
-<td align="right">0.388</td>
+<td align="right">-0.009</td>
+<td align="left">[-0.682, 0.654]</td>
+<td align="right">0.511</td>
+<td align="right">0.390</td>
 <td align="right">0.237</td>
-<td align="right">0.375</td>
+<td align="right">0.373</td>
 </tr>
 <tr class="even">
 <td align="left">Sensorimotor</td>
 <td align="left">Typical - Aphantasia</td>
-<td align="right">0.140</td>
-<td align="left">[-0.349, 0.636]</td>
-<td align="right">0.711</td>
-<td align="right">0.169</td>
-<td align="right">0.268</td>
-<td align="right">0.563</td>
+<td align="right">0.139</td>
+<td align="left">[-0.351, 0.636]</td>
+<td align="right">0.709</td>
+<td align="right">0.172</td>
+<td align="right">0.266</td>
+<td align="right">0.562</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor</td>
 <td align="left">Typical - Hypophantasia</td>
 <td align="right">0.144</td>
-<td align="left">[-0.459, 0.757]</td>
-<td align="right">0.680</td>
-<td align="right">0.212</td>
-<td align="right">0.230</td>
+<td align="left">[-0.46, 0.753]</td>
+<td align="right">0.681</td>
+<td align="right">0.211</td>
+<td align="right">0.232</td>
 <td align="right">0.557</td>
 </tr>
 </tbody>
@@ -1328,8 +1328,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Semantic - Spatial</td>
-<td align="right">-1.070</td>
-<td align="left">[-1.686, -0.454]</td>
+<td align="right">-1.069</td>
+<td align="left">[-1.687, -0.455]</td>
 <td align="right">1.000</td>
 <td align="right">0.999</td>
 <td align="right">0.001</td>
@@ -1338,8 +1338,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Aphantasia</td>
 <td align="left">Semantic - Verbal</td>
-<td align="right">-2.216</td>
-<td align="left">[-2.84, -1.61]</td>
+<td align="right">-2.217</td>
+<td align="left">[-2.84, -1.617]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -1348,8 +1348,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Semantic - Visual</td>
-<td align="right">1.254</td>
-<td align="left">[0.309, 2.443]</td>
+<td align="right">1.253</td>
+<td align="left">[0.311, 2.43]</td>
 <td align="right">0.997</td>
 <td align="right">0.002</td>
 <td align="right">0.005</td>
@@ -1358,28 +1358,28 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Aphantasia</td>
 <td align="left">Sensorimotor - Semantic</td>
-<td align="right">0.740</td>
-<td align="left">[0.117, 1.371]</td>
+<td align="right">0.742</td>
+<td align="left">[0.116, 1.372]</td>
 <td align="right">0.990</td>
 <td align="right">0.004</td>
-<td align="right">0.017</td>
+<td align="right">0.018</td>
 <td align="right">0.979</td>
 </tr>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Sensorimotor - Spatial</td>
-<td align="right">-0.328</td>
+<td align="right">-0.327</td>
 <td align="left">[-0.887, 0.239]</td>
 <td align="right">0.873</td>
-<td align="right">0.785</td>
-<td align="right">0.149</td>
+<td align="right">0.784</td>
+<td align="right">0.150</td>
 <td align="right">0.066</td>
 </tr>
 <tr class="even">
 <td align="left">Aphantasia</td>
 <td align="left">Sensorimotor - Verbal</td>
-<td align="right">-1.481</td>
-<td align="left">[-2.045, -0.91]</td>
+<td align="right">-1.480</td>
+<td align="left">[-2.043, -0.91]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -1389,7 +1389,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Aphantasia</td>
 <td align="left">Sensorimotor - Visual</td>
 <td align="right">1.995</td>
-<td align="left">[1.073, 3.147]</td>
+<td align="left">[1.075, 3.137]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1398,8 +1398,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Aphantasia</td>
 <td align="left">Spatial - Visual</td>
-<td align="right">2.319</td>
-<td align="left">[1.409, 3.464]</td>
+<td align="right">2.317</td>
+<td align="left">[1.412, 3.458]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1408,8 +1408,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Verbal - Spatial</td>
-<td align="right">1.147</td>
-<td align="left">[0.602, 1.702]</td>
+<td align="right">1.148</td>
+<td align="left">[0.604, 1.695]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1419,7 +1419,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Aphantasia</td>
 <td align="left">Verbal - Visual</td>
 <td align="right">3.472</td>
-<td align="left">[2.562, 4.616]</td>
+<td align="left">[2.562, 4.615]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1428,18 +1428,18 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Hypophantasia</td>
 <td align="left">Semantic - Spatial</td>
-<td align="right">-0.265</td>
-<td align="left">[-1.087, 0.563]</td>
+<td align="right">-0.266</td>
+<td align="left">[-1.088, 0.564]</td>
 <td align="right">0.737</td>
 <td align="right">0.654</td>
-<td align="right">0.152</td>
-<td align="right">0.194</td>
+<td align="right">0.151</td>
+<td align="right">0.195</td>
 </tr>
 <tr class="even">
 <td align="left">Hypophantasia</td>
 <td align="left">Semantic - Verbal</td>
 <td align="right">-2.111</td>
-<td align="left">[-2.919, -1.327]</td>
+<td align="left">[-2.921, -1.323]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -1448,38 +1448,38 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Hypophantasia</td>
 <td align="left">Semantic - Visual</td>
-<td align="right">-0.238</td>
-<td align="left">[-1.036, 0.574]</td>
-<td align="right">0.717</td>
-<td align="right">0.630</td>
-<td align="right">0.163</td>
-<td align="right">0.208</td>
+<td align="right">-0.239</td>
+<td align="left">[-1.042, 0.569]</td>
+<td align="right">0.720</td>
+<td align="right">0.632</td>
+<td align="right">0.162</td>
+<td align="right">0.206</td>
 </tr>
 <tr class="even">
 <td align="left">Hypophantasia</td>
 <td align="left">Sensorimotor - Semantic</td>
 <td align="right">0.533</td>
-<td align="left">[-0.254, 1.326]</td>
+<td align="left">[-0.253, 1.325]</td>
 <td align="right">0.908</td>
 <td align="right">0.058</td>
-<td align="right">0.082</td>
-<td align="right">0.860</td>
+<td align="right">0.081</td>
+<td align="right">0.861</td>
 </tr>
 <tr class="odd">
 <td align="left">Hypophantasia</td>
 <td align="left">Sensorimotor - Spatial</td>
 <td align="right">0.269</td>
-<td align="left">[-0.507, 1.055]</td>
-<td align="right">0.753</td>
+<td align="left">[-0.51, 1.048]</td>
+<td align="right">0.755</td>
 <td align="right">0.175</td>
-<td align="right">0.159</td>
-<td align="right">0.666</td>
+<td align="right">0.157</td>
+<td align="right">0.667</td>
 </tr>
 <tr class="even">
 <td align="left">Hypophantasia</td>
 <td align="left">Sensorimotor - Verbal</td>
 <td align="right">-1.577</td>
-<td align="left">[-2.321, -0.843]</td>
+<td align="left">[-2.326, -0.841]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -1488,28 +1488,28 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Hypophantasia</td>
 <td align="left">Sensorimotor - Visual</td>
-<td align="right">0.299</td>
-<td align="left">[-0.451, 1.067]</td>
-<td align="right">0.774</td>
-<td align="right">0.157</td>
-<td align="right">0.150</td>
-<td align="right">0.693</td>
+<td align="right">0.298</td>
+<td align="left">[-0.454, 1.064]</td>
+<td align="right">0.772</td>
+<td align="right">0.158</td>
+<td align="right">0.151</td>
+<td align="right">0.691</td>
 </tr>
 <tr class="even">
 <td align="left">Hypophantasia</td>
 <td align="left">Spatial - Visual</td>
-<td align="right">0.028</td>
-<td align="left">[-0.767, 0.828]</td>
-<td align="right">0.527</td>
-<td align="right">0.376</td>
-<td align="right">0.195</td>
-<td align="right">0.429</td>
+<td align="right">0.026</td>
+<td align="left">[-0.767, 0.82]</td>
+<td align="right">0.525</td>
+<td align="right">0.378</td>
+<td align="right">0.196</td>
+<td align="right">0.426</td>
 </tr>
 <tr class="odd">
 <td align="left">Hypophantasia</td>
 <td align="left">Verbal - Spatial</td>
-<td align="right">1.848</td>
-<td align="left">[1.075, 2.628]</td>
+<td align="right">1.846</td>
+<td align="left">[1.077, 2.628]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1518,8 +1518,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Hypophantasia</td>
 <td align="left">Verbal - Visual</td>
-<td align="right">1.881</td>
-<td align="left">[1.125, 2.622]</td>
+<td align="right">1.879</td>
+<td align="left">[1.117, 2.62]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1529,7 +1529,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Typical</td>
 <td align="left">Semantic - Spatial</td>
 <td align="right">-1.415</td>
-<td align="left">[-1.874, -0.976]</td>
+<td align="left">[-1.874, -0.975]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -1538,8 +1538,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Typical</td>
 <td align="left">Semantic - Verbal</td>
-<td align="right">-2.134</td>
-<td align="left">[-2.597, -1.681]</td>
+<td align="right">-2.133</td>
+<td align="left">[-2.599, -1.678]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -1548,8 +1548,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Typical</td>
 <td align="left">Semantic - Visual</td>
-<td align="right">-1.634</td>
-<td align="left">[-2.089, -1.183]</td>
+<td align="right">-1.635</td>
+<td align="left">[-2.088, -1.183]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -1559,7 +1559,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Typical</td>
 <td align="left">Sensorimotor - Semantic</td>
 <td align="right">1.029</td>
-<td align="left">[0.584, 1.485]</td>
+<td align="left">[0.581, 1.483]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1569,17 +1569,17 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Typical</td>
 <td align="left">Sensorimotor - Spatial</td>
 <td align="right">-0.386</td>
-<td align="left">[-0.785, 0.01]</td>
-<td align="right">0.971</td>
+<td align="left">[-0.786, 0.015]</td>
+<td align="right">0.970</td>
 <td align="right">0.918</td>
 <td align="right">0.074</td>
-<td align="right">0.008</td>
+<td align="right">0.009</td>
 </tr>
 <tr class="even">
 <td align="left">Typical</td>
 <td align="left">Sensorimotor - Verbal</td>
 <td align="right">-1.105</td>
-<td align="left">[-1.507, -0.706]</td>
+<td align="left">[-1.507, -0.707]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -1589,7 +1589,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Typical</td>
 <td align="left">Sensorimotor - Visual</td>
 <td align="right">-0.602</td>
-<td align="left">[-0.994, -0.205]</td>
+<td align="left">[-0.996, -0.205]</td>
 <td align="right">0.999</td>
 <td align="right">0.994</td>
 <td align="right">0.006</td>
@@ -1599,17 +1599,17 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Typical</td>
 <td align="left">Spatial - Visual</td>
 <td align="right">-0.217</td>
-<td align="left">[-0.607, 0.174]</td>
+<td align="left">[-0.609, 0.175]</td>
 <td align="right">0.860</td>
-<td align="right">0.719</td>
-<td align="right">0.226</td>
-<td align="right">0.056</td>
+<td align="right">0.718</td>
+<td align="right">0.227</td>
+<td align="right">0.055</td>
 </tr>
 <tr class="odd">
 <td align="left">Typical</td>
 <td align="left">Verbal - Spatial</td>
-<td align="right">0.719</td>
-<td align="left">[0.329, 1.108]</td>
+<td align="right">0.718</td>
+<td align="left">[0.329, 1.106]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.001</td>
@@ -1618,8 +1618,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Typical</td>
 <td align="left">Verbal - Visual</td>
-<td align="right">0.503</td>
-<td align="left">[0.112, 0.883]</td>
+<td align="right">0.501</td>
+<td align="left">[0.111, 0.882]</td>
 <td align="right">0.995</td>
 <td align="right">0.001</td>
 <td align="right">0.021</td>
@@ -1663,8 +1663,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Semantic - Spatial</td>
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">-0.804</td>
-<td align="left">[-1.84, 0.221]</td>
+<td align="right">-0.802</td>
+<td align="left">[-1.84, 0.225]</td>
 <td align="right">0.937</td>
 <td align="right">0.911</td>
 <td align="right">0.047</td>
@@ -1673,32 +1673,32 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Semantic - Verbal</td>
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">-0.116</td>
-<td align="left">[-1.092, 0.889]</td>
-<td align="right">0.587</td>
-<td align="right">0.513</td>
+<td align="right">-0.115</td>
+<td align="left">[-1.092, 0.888]</td>
+<td align="right">0.586</td>
+<td align="right">0.512</td>
 <td align="right">0.147</td>
 <td align="right">0.340</td>
 </tr>
 <tr class="odd">
 <td align="left">Semantic - Visual</td>
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">1.504</td>
-<td align="left">[0.22, 2.918]</td>
+<td align="right">1.507</td>
+<td align="left">[0.23, 2.908]</td>
 <td align="right">0.989</td>
 <td align="right">0.007</td>
 <td align="right">0.009</td>
-<td align="right">0.984</td>
+<td align="right">0.985</td>
 </tr>
 <tr class="even">
 <td align="left">Sensorimotor - Semantic</td>
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">0.208</td>
+<td align="right">0.212</td>
 <td align="left">[-0.806, 1.218]</td>
-<td align="right">0.658</td>
-<td align="right">0.277</td>
+<td align="right">0.660</td>
+<td align="right">0.275</td>
 <td align="right">0.138</td>
-<td align="right">0.585</td>
+<td align="right">0.587</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor - Spatial</td>
@@ -1707,24 +1707,24 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">[-1.56, 0.358]</td>
 <td align="right">0.889</td>
 <td align="right">0.846</td>
-<td align="right">0.078</td>
+<td align="right">0.079</td>
 <td align="right">0.076</td>
 </tr>
 <tr class="even">
 <td align="left">Sensorimotor - Verbal</td>
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">0.101</td>
-<td align="left">[-0.821, 1.014]</td>
-<td align="right">0.584</td>
-<td align="right">0.336</td>
-<td align="right">0.163</td>
-<td align="right">0.501</td>
+<td align="right">0.103</td>
+<td align="left">[-0.822, 1.016]</td>
+<td align="right">0.585</td>
+<td align="right">0.334</td>
+<td align="right">0.164</td>
+<td align="right">0.502</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor - Visual</td>
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">1.715</td>
-<td align="left">[0.497, 3.079]</td>
+<td align="right">1.720</td>
+<td align="left">[0.5, 3.068]</td>
 <td align="right">0.997</td>
 <td align="right">0.002</td>
 <td align="right">0.003</td>
@@ -1733,8 +1733,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Spatial - Visual</td>
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">2.307</td>
-<td align="left">[1.061, 3.687]</td>
+<td align="right">2.309</td>
+<td align="left">[1.072, 3.683]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1744,17 +1744,17 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Verbal - Spatial</td>
 <td align="left">Aphantasia - Hypophantasia</td>
 <td align="right">-0.696</td>
-<td align="left">[-1.654, 0.243]</td>
-<td align="right">0.927</td>
-<td align="right">0.894</td>
-<td align="right">0.059</td>
-<td align="right">0.047</td>
+<td align="left">[-1.648, 0.237]</td>
+<td align="right">0.928</td>
+<td align="right">0.896</td>
+<td align="right">0.058</td>
+<td align="right">0.046</td>
 </tr>
 <tr class="even">
 <td align="left">Verbal - Visual</td>
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">1.607</td>
-<td align="left">[0.405, 2.967]</td>
+<td align="right">1.610</td>
+<td align="left">[0.408, 2.964]</td>
 <td align="right">0.996</td>
 <td align="right">0.002</td>
 <td align="right">0.004</td>
@@ -1763,28 +1763,28 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Semantic - Spatial</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">0.343</td>
-<td align="left">[-0.412, 1.118]</td>
+<td align="right">0.345</td>
+<td align="left">[-0.413, 1.115]</td>
 <td align="right">0.812</td>
-<td align="right">0.126</td>
-<td align="right">0.137</td>
-<td align="right">0.737</td>
+<td align="right">0.127</td>
+<td align="right">0.135</td>
+<td align="right">0.738</td>
 </tr>
 <tr class="even">
 <td align="left">Semantic - Verbal</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-0.084</td>
-<td align="left">[-0.834, 0.671]</td>
-<td align="right">0.587</td>
-<td align="right">0.484</td>
-<td align="right">0.198</td>
-<td align="right">0.317</td>
+<td align="right">-0.085</td>
+<td align="left">[-0.844, 0.67]</td>
+<td align="right">0.588</td>
+<td align="right">0.485</td>
+<td align="right">0.197</td>
+<td align="right">0.318</td>
 </tr>
 <tr class="odd">
 <td align="left">Semantic - Visual</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">2.888</td>
-<td align="left">[1.835, 4.146]</td>
+<td align="right">2.886</td>
+<td align="left">[1.837, 4.144]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1793,38 +1793,38 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Sensorimotor - Semantic</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-0.286</td>
-<td align="left">[-1.066, 0.477]</td>
-<td align="right">0.769</td>
-<td align="right">0.684</td>
+<td align="right">-0.285</td>
+<td align="left">[-1.067, 0.475]</td>
+<td align="right">0.767</td>
+<td align="right">0.682</td>
 <td align="right">0.156</td>
-<td align="right">0.160</td>
+<td align="right">0.161</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor - Spatial</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">0.055</td>
-<td align="left">[-0.628, 0.749]</td>
-<td align="right">0.563</td>
-<td align="right">0.327</td>
-<td align="right">0.222</td>
+<td align="right">0.056</td>
+<td align="left">[-0.626, 0.753]</td>
+<td align="right">0.564</td>
+<td align="right">0.326</td>
+<td align="right">0.223</td>
 <td align="right">0.451</td>
 </tr>
 <tr class="even">
 <td align="left">Sensorimotor - Verbal</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-0.376</td>
+<td align="right">-0.375</td>
 <td align="left">[-1.057, 0.308]</td>
 <td align="right">0.859</td>
-<td align="right">0.787</td>
-<td align="right">0.129</td>
+<td align="right">0.786</td>
+<td align="right">0.130</td>
 <td align="right">0.084</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor - Visual</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">2.597</td>
-<td align="left">[1.601, 3.827]</td>
+<td align="right">2.598</td>
+<td align="left">[1.601, 3.816]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1833,8 +1833,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Spatial - Visual</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">2.538</td>
-<td align="left">[1.53, 3.761]</td>
+<td align="right">2.537</td>
+<td align="left">[1.533, 3.751]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1844,17 +1844,17 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Verbal - Spatial</td>
 <td align="left">Aphantasia - Typical</td>
 <td align="right">0.435</td>
-<td align="left">[-0.244, 1.106]</td>
-<td align="right">0.896</td>
-<td align="right">0.061</td>
+<td align="left">[-0.241, 1.104]</td>
+<td align="right">0.898</td>
+<td align="right">0.060</td>
 <td align="right">0.105</td>
-<td align="right">0.834</td>
+<td align="right">0.835</td>
 </tr>
 <tr class="even">
 <td align="left">Verbal - Visual</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">2.974</td>
-<td align="left">[1.997, 4.179]</td>
+<td align="right">2.977</td>
+<td align="left">[2.001, 4.173]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -1863,48 +1863,48 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Semantic - Spatial</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">1.151</td>
-<td align="left">[0.218, 2.097]</td>
+<td align="right">1.152</td>
+<td align="left">[0.211, 2.096]</td>
 <td align="right">0.993</td>
-<td align="right">0.003</td>
+<td align="right">0.004</td>
 <td align="right">0.010</td>
-<td align="right">0.987</td>
+<td align="right">0.986</td>
 </tr>
 <tr class="even">
 <td align="left">Semantic - Verbal</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">0.025</td>
-<td align="left">[-0.894, 0.925]</td>
-<td align="right">0.522</td>
-<td align="right">0.393</td>
-<td align="right">0.174</td>
-<td align="right">0.433</td>
+<td align="right">0.024</td>
+<td align="left">[-0.902, 0.934]</td>
+<td align="right">0.521</td>
+<td align="right">0.395</td>
+<td align="right">0.172</td>
+<td align="right">0.432</td>
 </tr>
 <tr class="odd">
 <td align="left">Semantic - Visual</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">1.392</td>
-<td align="left">[0.482, 2.334]</td>
+<td align="right">1.390</td>
+<td align="left">[0.47, 2.324]</td>
 <td align="right">0.999</td>
 <td align="right">0.001</td>
-<td align="right">0.003</td>
+<td align="right">0.002</td>
 <td align="right">0.997</td>
 </tr>
 <tr class="even">
 <td align="left">Sensorimotor - Semantic</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">-0.496</td>
-<td align="left">[-1.407, 0.422]</td>
+<td align="right">-0.497</td>
+<td align="left">[-1.407, 0.424]</td>
 <td align="right">0.860</td>
 <td align="right">0.805</td>
 <td align="right">0.094</td>
-<td align="right">0.101</td>
+<td align="right">0.102</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor - Spatial</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">0.654</td>
-<td align="left">[-0.206, 1.547]</td>
+<td align="right">0.655</td>
+<td align="left">[-0.208, 1.546]</td>
 <td align="right">0.931</td>
 <td align="right">0.043</td>
 <td align="right">0.061</td>
@@ -1913,9 +1913,9 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Sensorimotor - Verbal</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">-0.474</td>
-<td align="left">[-1.301, 0.364]</td>
-<td align="right">0.868</td>
+<td align="right">-0.476</td>
+<td align="left">[-1.301, 0.366]</td>
+<td align="right">0.867</td>
 <td align="right">0.812</td>
 <td align="right">0.099</td>
 <td align="right">0.089</td>
@@ -1924,37 +1924,37 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Sensorimotor - Visual</td>
 <td align="left">Hypophantasia - Typical</td>
 <td align="right">0.898</td>
-<td align="left">[0.041, 1.774]</td>
+<td align="left">[0.04, 1.768]</td>
 <td align="right">0.980</td>
 <td align="right">0.011</td>
 <td align="right">0.022</td>
-<td align="right">0.967</td>
+<td align="right">0.966</td>
 </tr>
 <tr class="even">
 <td align="left">Spatial - Visual</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">0.243</td>
-<td align="left">[-0.636, 1.13]</td>
+<td align="right">0.240</td>
+<td align="left">[-0.636, 1.125]</td>
 <td align="right">0.701</td>
-<td align="right">0.224</td>
-<td align="right">0.155</td>
-<td align="right">0.621</td>
+<td align="right">0.227</td>
+<td align="right">0.153</td>
+<td align="right">0.620</td>
 </tr>
 <tr class="odd">
 <td align="left">Verbal - Spatial</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">1.128</td>
-<td align="left">[0.275, 2.005]</td>
+<td align="right">1.129</td>
+<td align="left">[0.275, 2.01]</td>
 <td align="right">0.996</td>
-<td align="right">0.002</td>
+<td align="right">0.003</td>
 <td align="right">0.007</td>
 <td align="right">0.991</td>
 </tr>
 <tr class="even">
 <td align="left">Verbal - Visual</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">1.377</td>
-<td align="left">[0.524, 2.21]</td>
+<td align="right">1.376</td>
+<td align="left">[0.523, 2.208]</td>
 <td align="right">0.999</td>
 <td align="right">0.000</td>
 <td align="right">0.001</td>
@@ -2642,8 +2642,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Visual</td>
 <td align="left">Spatialiser - Visualiser</td>
-<td align="right">-0.821</td>
-<td align="left">[-1.427, -0.226]</td>
+<td align="right">-0.820</td>
+<td align="left">[-1.427, -0.222]</td>
 <td align="right">0.997</td>
 <td align="right">0.992</td>
 <td align="right">0.007</td>
@@ -2652,8 +2652,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Visual</td>
 <td align="left">Verbaliser - Spatialiser</td>
-<td align="right">-0.710</td>
-<td align="left">[-1.366, -0.061]</td>
+<td align="right">-0.711</td>
+<td align="left">[-1.363, -0.059]</td>
 <td align="right">0.984</td>
 <td align="right">0.965</td>
 <td align="right">0.028</td>
@@ -2662,8 +2662,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Visual</td>
 <td align="left">Verbaliser - Visualiser</td>
-<td align="right">-1.530</td>
-<td align="left">[-2.055, -1.023]</td>
+<td align="right">-1.531</td>
+<td align="left">[-2.052, -1.022]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -2672,122 +2672,122 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Spatial</td>
 <td align="left">Spatialiser - Visualiser</td>
-<td align="right">-0.045</td>
-<td align="left">[-0.632, 0.546]</td>
-<td align="right">0.562</td>
-<td align="right">0.427</td>
+<td align="right">-0.046</td>
+<td align="left">[-0.634, 0.548]</td>
+<td align="right">0.563</td>
+<td align="right">0.429</td>
 <td align="right">0.262</td>
-<td align="right">0.310</td>
+<td align="right">0.309</td>
 </tr>
 <tr class="odd">
 <td align="left">Spatial</td>
 <td align="left">Verbaliser - Spatialiser</td>
 <td align="right">-0.281</td>
-<td align="left">[-0.878, 0.308]</td>
-<td align="right">0.829</td>
-<td align="right">0.732</td>
-<td align="right">0.171</td>
+<td align="left">[-0.877, 0.306]</td>
+<td align="right">0.831</td>
+<td align="right">0.733</td>
+<td align="right">0.170</td>
 <td align="right">0.097</td>
 </tr>
 <tr class="even">
 <td align="left">Spatial</td>
 <td align="left">Verbaliser - Visualiser</td>
-<td align="right">-0.330</td>
+<td align="right">-0.331</td>
 <td align="left">[-0.793, 0.14]</td>
-<td align="right">0.920</td>
-<td align="right">0.833</td>
+<td align="right">0.919</td>
+<td align="right">0.832</td>
 <td align="right">0.132</td>
-<td align="right">0.035</td>
+<td align="right">0.036</td>
 </tr>
 <tr class="odd">
 <td align="left">Verbal</td>
 <td align="left">Spatialiser - Visualiser</td>
 <td align="right">0.389</td>
-<td align="left">[-0.178, 0.962]</td>
-<td align="right">0.910</td>
-<td align="right">0.045</td>
+<td align="left">[-0.176, 0.96]</td>
+<td align="right">0.909</td>
+<td align="right">0.044</td>
 <td align="right">0.114</td>
-<td align="right">0.841</td>
+<td align="right">0.842</td>
 </tr>
 <tr class="even">
 <td align="left">Verbal</td>
 <td align="left">Verbaliser - Spatialiser</td>
 <td align="right">0.020</td>
-<td align="left">[-0.56, 0.59]</td>
-<td align="right">0.528</td>
+<td align="left">[-0.559, 0.586]</td>
+<td align="right">0.527</td>
 <td align="right">0.342</td>
-<td align="right">0.271</td>
-<td align="right">0.387</td>
+<td align="right">0.273</td>
+<td align="right">0.385</td>
 </tr>
 <tr class="odd">
 <td align="left">Verbal</td>
 <td align="left">Verbaliser - Visualiser</td>
-<td align="right">0.409</td>
-<td align="left">[-0.049, 0.86]</td>
-<td align="right">0.959</td>
-<td align="right">0.014</td>
+<td align="right">0.408</td>
+<td align="left">[-0.045, 0.856]</td>
+<td align="right">0.960</td>
+<td align="right">0.013</td>
 <td align="right">0.078</td>
 <td align="right">0.908</td>
 </tr>
 <tr class="even">
 <td align="left">Semantic</td>
 <td align="left">Spatialiser - Visualiser</td>
-<td align="right">-0.150</td>
-<td align="left">[-0.911, 0.565]</td>
-<td align="right">0.658</td>
-<td align="right">0.557</td>
+<td align="right">-0.149</td>
+<td align="left">[-0.912, 0.568]</td>
+<td align="right">0.657</td>
+<td align="right">0.556</td>
 <td align="right">0.195</td>
-<td align="right">0.248</td>
+<td align="right">0.249</td>
 </tr>
 <tr class="odd">
 <td align="left">Semantic</td>
 <td align="left">Verbaliser - Spatialiser</td>
-<td align="right">0.196</td>
+<td align="right">0.193</td>
 <td align="left">[-0.523, 0.96]</td>
-<td align="right">0.700</td>
-<td align="right">0.214</td>
-<td align="right">0.183</td>
-<td align="right">0.603</td>
+<td align="right">0.697</td>
+<td align="right">0.215</td>
+<td align="right">0.185</td>
+<td align="right">0.600</td>
 </tr>
 <tr class="even">
 <td align="left">Semantic</td>
 <td align="left">Verbaliser - Visualiser</td>
-<td align="right">0.046</td>
-<td align="left">[-0.516, 0.605]</td>
-<td align="right">0.565</td>
-<td align="right">0.301</td>
-<td align="right">0.275</td>
-<td align="right">0.424</td>
+<td align="right">0.045</td>
+<td align="left">[-0.522, 0.604]</td>
+<td align="right">0.564</td>
+<td align="right">0.302</td>
+<td align="right">0.276</td>
+<td align="right">0.422</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor</td>
 <td align="left">Spatialiser - Visualiser</td>
 <td align="right">-0.106</td>
 <td align="left">[-0.713, 0.489]</td>
-<td align="right">0.637</td>
-<td align="right">0.508</td>
-<td align="right">0.244</td>
-<td align="right">0.248</td>
+<td align="right">0.640</td>
+<td align="right">0.509</td>
+<td align="right">0.246</td>
+<td align="right">0.246</td>
 </tr>
 <tr class="even">
 <td align="left">Sensorimotor</td>
 <td align="left">Verbaliser - Spatialiser</td>
-<td align="right">-0.161</td>
-<td align="left">[-0.761, 0.436]</td>
+<td align="right">-0.162</td>
+<td align="left">[-0.758, 0.432]</td>
 <td align="right">0.700</td>
 <td align="right">0.578</td>
-<td align="right">0.226</td>
+<td align="right">0.227</td>
 <td align="right">0.196</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor</td>
 <td align="left">Verbaliser - Visualiser</td>
-<td align="right">-0.265</td>
+<td align="right">-0.267</td>
 <td align="left">[-0.742, 0.201]</td>
-<td align="right">0.871</td>
-<td align="right">0.762</td>
-<td align="right">0.176</td>
-<td align="right">0.062</td>
+<td align="right">0.872</td>
+<td align="right">0.765</td>
+<td align="right">0.174</td>
+<td align="right">0.061</td>
 </tr>
 </tbody>
 </table>
@@ -2825,8 +2825,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Visualiser</td>
 <td align="left">Semantic - Spatial</td>
-<td align="right">-1.254</td>
-<td align="left">[-1.762, -0.751]</td>
+<td align="right">-1.255</td>
+<td align="left">[-1.767, -0.751]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -2836,7 +2836,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Visualiser</td>
 <td align="left">Semantic - Verbal</td>
 <td align="right">-1.886</td>
-<td align="left">[-2.386, -1.384]</td>
+<td align="left">[-2.39, -1.386]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -2846,7 +2846,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Visualiser</td>
 <td align="left">Semantic - Visual</td>
 <td align="right">-1.555</td>
-<td align="left">[-2.072, -1.064]</td>
+<td align="left">[-2.069, -1.064]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -2856,7 +2856,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Visualiser</td>
 <td align="left">Sensorimotor - Semantic</td>
 <td align="right">0.969</td>
-<td align="left">[0.463, 1.478]</td>
+<td align="left">[0.462, 1.479]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.001</td>
@@ -2866,17 +2866,17 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Visualiser</td>
 <td align="left">Sensorimotor - Spatial</td>
 <td align="right">-0.286</td>
-<td align="left">[-0.752, 0.172]</td>
+<td align="left">[-0.755, 0.173]</td>
 <td align="right">0.890</td>
-<td align="right">0.790</td>
-<td align="right">0.160</td>
+<td align="right">0.791</td>
+<td align="right">0.159</td>
 <td align="right">0.050</td>
 </tr>
 <tr class="even">
 <td align="left">Visualiser</td>
 <td align="left">Sensorimotor - Verbal</td>
 <td align="right">-0.917</td>
-<td align="left">[-1.372, -0.463]</td>
+<td align="left">[-1.366, -0.464]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -2885,41 +2885,41 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Visualiser</td>
 <td align="left">Sensorimotor - Visual</td>
-<td align="right">-0.585</td>
-<td align="left">[-1.05, -0.136]</td>
+<td align="right">-0.584</td>
+<td align="left">[-1.047, -0.139]</td>
 <td align="right">0.994</td>
 <td align="right">0.983</td>
-<td align="right">0.016</td>
+<td align="right">0.015</td>
 <td align="right">0.002</td>
 </tr>
 <tr class="even">
 <td align="left">Visualiser</td>
 <td align="left">Spatial - Visual</td>
-<td align="right">-0.298</td>
-<td align="left">[-0.743, 0.147]</td>
-<td align="right">0.904</td>
-<td align="right">0.810</td>
+<td align="right">-0.297</td>
+<td align="left">[-0.743, 0.148]</td>
+<td align="right">0.902</td>
+<td align="right">0.808</td>
 <td align="right">0.149</td>
-<td align="right">0.041</td>
+<td align="right">0.042</td>
 </tr>
 <tr class="odd">
 <td align="left">Visualiser</td>
 <td align="left">Verbal - Spatial</td>
-<td align="right">0.628</td>
-<td align="left">[0.176, 1.079]</td>
+<td align="right">0.627</td>
+<td align="left">[0.173, 1.083]</td>
 <td align="right">0.997</td>
 <td align="right">0.001</td>
 <td align="right">0.010</td>
-<td align="right">0.990</td>
+<td align="right">0.989</td>
 </tr>
 <tr class="even">
 <td align="left">Visualiser</td>
 <td align="left">Verbal - Visual</td>
 <td align="right">0.331</td>
-<td align="left">[-0.12, 0.774]</td>
+<td align="left">[-0.12, 0.776]</td>
 <td align="right">0.924</td>
 <td align="right">0.032</td>
-<td align="right">0.122</td>
+<td align="right">0.123</td>
 <td align="right">0.846</td>
 </tr>
 <tr class="odd">
@@ -2935,8 +2935,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Spatialiser</td>
 <td align="left">Semantic - Verbal</td>
-<td align="right">-2.429</td>
-<td align="left">[-3.245, -1.67]</td>
+<td align="right">-2.427</td>
+<td align="left">[-3.242, -1.67]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -2945,38 +2945,38 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Spatialiser</td>
 <td align="left">Semantic - Visual</td>
-<td align="right">-0.885</td>
-<td align="left">[-1.704, -0.088]</td>
-<td align="right">0.986</td>
-<td align="right">0.973</td>
+<td align="right">-0.884</td>
+<td align="left">[-1.711, -0.091]</td>
+<td align="right">0.987</td>
+<td align="right">0.974</td>
 <td align="right">0.020</td>
-<td align="right">0.007</td>
+<td align="right">0.006</td>
 </tr>
 <tr class="even">
 <td align="left">Spatialiser</td>
 <td align="left">Sensorimotor - Semantic</td>
-<td align="right">1.014</td>
-<td align="left">[0.234, 1.839]</td>
+<td align="right">1.012</td>
+<td align="left">[0.234, 1.837]</td>
 <td align="right">0.995</td>
 <td align="right">0.002</td>
 <td align="right">0.007</td>
-<td align="right">0.990</td>
+<td align="right">0.991</td>
 </tr>
 <tr class="odd">
 <td align="left">Spatialiser</td>
 <td align="left">Sensorimotor - Spatial</td>
 <td align="right">-0.349</td>
-<td align="left">[-1.045, 0.335]</td>
-<td align="right">0.834</td>
-<td align="right">0.755</td>
-<td align="right">0.142</td>
+<td align="left">[-1.046, 0.335]</td>
+<td align="right">0.836</td>
+<td align="right">0.756</td>
+<td align="right">0.141</td>
 <td align="right">0.103</td>
 </tr>
 <tr class="even">
 <td align="left">Spatialiser</td>
 <td align="left">Sensorimotor - Verbal</td>
-<td align="right">-1.417</td>
-<td align="left">[-2.116, -0.726]</td>
+<td align="right">-1.419</td>
+<td align="left">[-2.114, -0.729]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -2985,28 +2985,28 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Spatialiser</td>
 <td align="left">Sensorimotor - Visual</td>
-<td align="right">0.127</td>
-<td align="left">[-0.58, 0.85]</td>
-<td align="right">0.640</td>
-<td align="right">0.268</td>
-<td align="right">0.200</td>
-<td align="right">0.532</td>
+<td align="right">0.126</td>
+<td align="left">[-0.584, 0.849]</td>
+<td align="right">0.638</td>
+<td align="right">0.271</td>
+<td align="right">0.199</td>
+<td align="right">0.530</td>
 </tr>
 <tr class="even">
 <td align="left">Spatialiser</td>
 <td align="left">Spatial - Visual</td>
-<td align="right">0.479</td>
-<td align="left">[-0.223, 1.177]</td>
-<td align="right">0.910</td>
-<td align="right">0.052</td>
-<td align="right">0.098</td>
-<td align="right">0.850</td>
+<td align="right">0.480</td>
+<td align="left">[-0.221, 1.17]</td>
+<td align="right">0.909</td>
+<td align="right">0.051</td>
+<td align="right">0.100</td>
+<td align="right">0.849</td>
 </tr>
 <tr class="odd">
 <td align="left">Spatialiser</td>
 <td align="left">Verbal - Spatial</td>
-<td align="right">1.068</td>
-<td align="left">[0.383, 1.75]</td>
+<td align="right">1.069</td>
+<td align="left">[0.383, 1.749]</td>
 <td align="right">0.999</td>
 <td align="right">0.001</td>
 <td align="right">0.003</td>
@@ -3016,7 +3016,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Spatialiser</td>
 <td align="left">Verbal - Visual</td>
 <td align="right">1.544</td>
-<td align="left">[0.841, 2.246]</td>
+<td align="left">[0.84, 2.246]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -3025,8 +3025,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Verbaliser</td>
 <td align="left">Semantic - Spatial</td>
-<td align="right">-0.878</td>
-<td align="left">[-1.405, -0.363]</td>
+<td align="right">-0.880</td>
+<td align="left">[-1.403, -0.363]</td>
 <td align="right">1.000</td>
 <td align="right">0.999</td>
 <td align="right">0.001</td>
@@ -3035,8 +3035,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Verbaliser</td>
 <td align="left">Semantic - Verbal</td>
-<td align="right">-2.246</td>
-<td align="left">[-2.774, -1.733]</td>
+<td align="right">-2.247</td>
+<td align="left">[-2.774, -1.731]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -3045,18 +3045,18 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Verbaliser</td>
 <td align="left">Semantic - Visual</td>
-<td align="right">0.020</td>
-<td align="left">[-0.544, 0.591]</td>
-<td align="right">0.525</td>
-<td align="right">0.340</td>
+<td align="right">0.019</td>
+<td align="left">[-0.549, 0.59]</td>
+<td align="right">0.524</td>
+<td align="right">0.342</td>
 <td align="right">0.270</td>
-<td align="right">0.389</td>
+<td align="right">0.388</td>
 </tr>
 <tr class="even">
 <td align="left">Verbaliser</td>
 <td align="left">Sensorimotor - Semantic</td>
 <td align="right">0.654</td>
-<td align="left">[0.13, 1.189]</td>
+<td align="left">[0.13, 1.192]</td>
 <td align="right">0.993</td>
 <td align="right">0.002</td>
 <td align="right">0.018</td>
@@ -3066,17 +3066,17 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Verbaliser</td>
 <td align="left">Sensorimotor - Spatial</td>
 <td align="right">-0.227</td>
-<td align="left">[-0.696, 0.257]</td>
+<td align="left">[-0.698, 0.256]</td>
 <td align="right">0.826</td>
-<td align="right">0.702</td>
-<td align="right">0.210</td>
+<td align="right">0.703</td>
+<td align="right">0.209</td>
 <td align="right">0.088</td>
 </tr>
 <tr class="even">
 <td align="left">Verbaliser</td>
 <td align="left">Sensorimotor - Verbal</td>
 <td align="right">-1.596</td>
-<td align="left">[-2.066, -1.121]</td>
+<td align="left">[-2.07, -1.119]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -3085,8 +3085,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Verbaliser</td>
 <td align="left">Sensorimotor - Visual</td>
-<td align="right">0.672</td>
-<td align="left">[0.155, 1.21]</td>
+<td align="right">0.671</td>
+<td align="left">[0.153, 1.208]</td>
 <td align="right">0.995</td>
 <td align="right">0.002</td>
 <td align="right">0.013</td>
@@ -3096,7 +3096,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Verbaliser</td>
 <td align="left">Spatial - Visual</td>
 <td align="right">0.899</td>
-<td align="left">[0.38, 1.433]</td>
+<td align="left">[0.38, 1.431]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.001</td>
@@ -3105,8 +3105,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Verbaliser</td>
 <td align="left">Verbal - Spatial</td>
-<td align="right">1.370</td>
-<td align="left">[0.901, 1.835]</td>
+<td align="right">1.369</td>
+<td align="left">[0.899, 1.838]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -3115,8 +3115,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Verbaliser</td>
 <td align="left">Verbal - Visual</td>
-<td align="right">2.270</td>
-<td align="left">[1.742, 2.805]</td>
+<td align="right">2.269</td>
+<td align="left">[1.745, 2.805]</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
@@ -3160,98 +3160,98 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Semantic - Spatial</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">-0.485</td>
-<td align="left">[-1.441, 0.447]</td>
+<td align="right">-0.483</td>
+<td align="left">[-1.443, 0.447]</td>
 <td align="right">0.845</td>
-<td align="right">0.790</td>
-<td align="right">0.100</td>
+<td align="right">0.789</td>
+<td align="right">0.101</td>
 <td align="right">0.110</td>
 </tr>
 <tr class="even">
 <td align="left">Semantic - Verbal</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">-0.177</td>
-<td align="left">[-1.127, 0.735]</td>
-<td align="right">0.647</td>
-<td align="right">0.563</td>
-<td align="right">0.158</td>
-<td align="right">0.279</td>
+<td align="right">-0.174</td>
+<td align="left">[-1.123, 0.732]</td>
+<td align="right">0.645</td>
+<td align="right">0.561</td>
+<td align="right">0.159</td>
+<td align="right">0.281</td>
 </tr>
 <tr class="odd">
 <td align="left">Semantic - Visual</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">-0.907</td>
-<td align="left">[-1.911, 0.071]</td>
+<td align="right">-0.905</td>
+<td align="left">[-1.908, 0.071]</td>
 <td align="right">0.966</td>
-<td align="right">0.948</td>
-<td align="right">0.030</td>
+<td align="right">0.949</td>
+<td align="right">0.029</td>
 <td align="right">0.022</td>
 </tr>
 <tr class="even">
 <td align="left">Sensorimotor - Semantic</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">0.360</td>
-<td align="left">[-0.573, 1.342]</td>
+<td align="right">0.357</td>
+<td align="left">[-0.57, 1.339]</td>
 <td align="right">0.774</td>
-<td align="right">0.171</td>
-<td align="right">0.121</td>
-<td align="right">0.708</td>
+<td align="right">0.172</td>
+<td align="right">0.122</td>
+<td align="right">0.706</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor - Spatial</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">-0.121</td>
-<td align="left">[-0.964, 0.719]</td>
-<td align="right">0.612</td>
-<td align="right">0.519</td>
-<td align="right">0.181</td>
-<td align="right">0.300</td>
+<td align="right">-0.122</td>
+<td align="left">[-0.96, 0.718]</td>
+<td align="right">0.614</td>
+<td align="right">0.520</td>
+<td align="right">0.182</td>
+<td align="right">0.298</td>
 </tr>
 <tr class="even">
 <td align="left">Sensorimotor - Verbal</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">0.182</td>
-<td align="left">[-0.653, 1.006]</td>
+<td align="right">0.179</td>
+<td align="left">[-0.646, 1]</td>
 <td align="right">0.664</td>
 <td align="right">0.252</td>
-<td align="right">0.172</td>
-<td align="right">0.576</td>
+<td align="right">0.174</td>
+<td align="right">0.575</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor - Visual</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">-0.544</td>
-<td align="left">[-1.433, 0.346]</td>
-<td align="right">0.886</td>
-<td align="right">0.838</td>
-<td align="right">0.086</td>
-<td align="right">0.076</td>
+<td align="right">-0.547</td>
+<td align="left">[-1.432, 0.344]</td>
+<td align="right">0.885</td>
+<td align="right">0.837</td>
+<td align="right">0.087</td>
+<td align="right">0.077</td>
 </tr>
 <tr class="even">
 <td align="left">Spatial - Visual</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">-0.420</td>
-<td align="left">[-1.315, 0.445]</td>
-<td align="right">0.828</td>
-<td align="right">0.763</td>
-<td align="right">0.116</td>
-<td align="right">0.122</td>
+<td align="right">-0.421</td>
+<td align="left">[-1.314, 0.439]</td>
+<td align="right">0.827</td>
+<td align="right">0.764</td>
+<td align="right">0.115</td>
+<td align="right">0.121</td>
 </tr>
 <tr class="odd">
 <td align="left">Verbal - Spatial</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">-0.301</td>
-<td align="left">[-1.121, 0.527]</td>
-<td align="right">0.765</td>
-<td align="right">0.685</td>
-<td align="right">0.145</td>
-<td align="right">0.170</td>
+<td align="right">-0.299</td>
+<td align="left">[-1.121, 0.521]</td>
+<td align="right">0.766</td>
+<td align="right">0.686</td>
+<td align="right">0.147</td>
+<td align="right">0.167</td>
 </tr>
 <tr class="even">
 <td align="left">Verbal - Visual</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">-0.725</td>
-<td align="left">[-1.617, 0.148]</td>
+<td align="right">-0.726</td>
+<td align="left">[-1.614, 0.148]</td>
 <td align="right">0.950</td>
 <td align="right">0.921</td>
 <td align="right">0.048</td>
@@ -3260,28 +3260,28 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Semantic - Spatial</td>
 <td align="left">Visualiser - Spatialiser</td>
-<td align="right">0.110</td>
-<td align="left">[-0.823, 1.054]</td>
-<td align="right">0.591</td>
-<td align="right">0.329</td>
-<td align="right">0.165</td>
-<td align="right">0.506</td>
+<td align="right">0.104</td>
+<td align="left">[-0.825, 1.058]</td>
+<td align="right">0.587</td>
+<td align="right">0.332</td>
+<td align="right">0.166</td>
+<td align="right">0.502</td>
 </tr>
 <tr class="even">
 <td align="left">Semantic - Verbal</td>
 <td align="left">Visualiser - Spatialiser</td>
 <td align="right">0.543</td>
-<td align="left">[-0.375, 1.501]</td>
-<td align="right">0.877</td>
+<td align="left">[-0.379, 1.5]</td>
+<td align="right">0.876</td>
 <td align="right">0.084</td>
 <td align="right">0.085</td>
-<td align="right">0.832</td>
+<td align="right">0.831</td>
 </tr>
 <tr class="odd">
 <td align="left">Semantic - Visual</td>
 <td align="left">Visualiser - Spatialiser</td>
 <td align="right">-0.666</td>
-<td align="left">[-1.596, 0.293]</td>
+<td align="left">[-1.596, 0.295]</td>
 <td align="right">0.915</td>
 <td align="right">0.878</td>
 <td align="right">0.064</td>
@@ -3290,98 +3290,98 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="even">
 <td align="left">Sensorimotor - Semantic</td>
 <td align="left">Visualiser - Spatialiser</td>
-<td align="right">-0.045</td>
-<td align="left">[-1.004, 0.889]</td>
-<td align="right">0.537</td>
-<td align="right">0.455</td>
-<td align="right">0.161</td>
-<td align="right">0.384</td>
+<td align="right">-0.042</td>
+<td align="left">[-1, 0.888]</td>
+<td align="right">0.535</td>
+<td align="right">0.452</td>
+<td align="right">0.163</td>
+<td align="right">0.385</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor - Spatial</td>
 <td align="left">Visualiser - Spatialiser</td>
-<td align="right">0.058</td>
-<td align="left">[-0.768, 0.914]</td>
-<td align="right">0.554</td>
+<td align="right">0.060</td>
+<td align="left">[-0.768, 0.916]</td>
+<td align="right">0.556</td>
 <td align="right">0.355</td>
 <td align="right">0.185</td>
-<td align="right">0.459</td>
+<td align="right">0.460</td>
 </tr>
 <tr class="even">
 <td align="left">Sensorimotor - Verbal</td>
 <td align="left">Visualiser - Spatialiser</td>
-<td align="right">0.493</td>
-<td align="left">[-0.32, 1.322]</td>
-<td align="right">0.885</td>
-<td align="right">0.075</td>
+<td align="right">0.494</td>
+<td align="left">[-0.314, 1.322]</td>
+<td align="right">0.887</td>
+<td align="right">0.073</td>
 <td align="right">0.093</td>
-<td align="right">0.832</td>
+<td align="right">0.834</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor - Visual</td>
 <td align="left">Visualiser - Spatialiser</td>
-<td align="right">-0.716</td>
-<td align="left">[-1.567, 0.127]</td>
-<td align="right">0.951</td>
-<td align="right">0.921</td>
+<td align="right">-0.713</td>
+<td align="left">[-1.57, 0.13]</td>
+<td align="right">0.950</td>
+<td align="right">0.920</td>
 <td align="right">0.050</td>
-<td align="right">0.029</td>
+<td align="right">0.030</td>
 </tr>
 <tr class="even">
 <td align="left">Spatial - Visual</td>
 <td align="left">Visualiser - Spatialiser</td>
-<td align="right">-0.774</td>
-<td align="left">[-1.591, 0.063]</td>
+<td align="right">-0.772</td>
+<td align="left">[-1.591, 0.066]</td>
 <td align="right">0.964</td>
 <td align="right">0.946</td>
 <td align="right">0.034</td>
-<td align="right">0.020</td>
+<td align="right">0.021</td>
 </tr>
 <tr class="odd">
 <td align="left">Verbal - Spatial</td>
 <td align="left">Visualiser - Spatialiser</td>
 <td align="right">-0.439</td>
-<td align="left">[-1.27, 0.388]</td>
-<td align="right">0.850</td>
-<td align="right">0.786</td>
-<td align="right">0.114</td>
+<td align="left">[-1.273, 0.395]</td>
+<td align="right">0.851</td>
+<td align="right">0.787</td>
+<td align="right">0.113</td>
 <td align="right">0.100</td>
 </tr>
 <tr class="even">
 <td align="left">Verbal - Visual</td>
 <td align="left">Visualiser - Spatialiser</td>
-<td align="right">-1.216</td>
-<td align="left">[-2.038, -0.395]</td>
+<td align="right">-1.214</td>
+<td align="left">[-2.036, -0.394]</td>
 <td align="right">0.998</td>
 <td align="right">0.996</td>
-<td align="right">0.003</td>
-<td align="right">0.000</td>
+<td align="right">0.004</td>
+<td align="right">0.001</td>
 </tr>
 <tr class="odd">
 <td align="left">Semantic - Spatial</td>
 <td align="left">Visualiser - Verbaliser</td>
-<td align="right">-0.376</td>
-<td align="left">[-1.104, 0.351]</td>
-<td align="right">0.846</td>
-<td align="right">0.773</td>
-<td align="right">0.129</td>
-<td align="right">0.098</td>
+<td align="right">-0.375</td>
+<td align="left">[-1.107, 0.35]</td>
+<td align="right">0.845</td>
+<td align="right">0.772</td>
+<td align="right">0.130</td>
+<td align="right">0.099</td>
 </tr>
 <tr class="even">
 <td align="left">Semantic - Verbal</td>
 <td align="left">Visualiser - Verbaliser</td>
 <td align="right">0.365</td>
-<td align="left">[-0.349, 1.068]</td>
+<td align="left">[-0.35, 1.07]</td>
 <td align="right">0.842</td>
 <td align="right">0.099</td>
-<td align="right">0.135</td>
-<td align="right">0.766</td>
+<td align="right">0.134</td>
+<td align="right">0.767</td>
 </tr>
 <tr class="odd">
 <td align="left">Semantic - Visual</td>
 <td align="left">Visualiser - Verbaliser</td>
-<td align="right">-1.577</td>
-<td align="left">[-2.335, -0.821]</td>
+<td align="right">-1.576</td>
+<td align="left">[-2.333, -0.812]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -3391,37 +3391,37 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Sensorimotor - Semantic</td>
 <td align="left">Visualiser - Verbaliser</td>
 <td align="right">0.314</td>
-<td align="left">[-0.42, 1.06]</td>
-<td align="right">0.805</td>
-<td align="right">0.131</td>
-<td align="right">0.148</td>
+<td align="left">[-0.421, 1.063]</td>
+<td align="right">0.804</td>
+<td align="right">0.130</td>
+<td align="right">0.150</td>
 <td align="right">0.720</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor - Spatial</td>
 <td align="left">Visualiser - Verbaliser</td>
-<td align="right">-0.059</td>
-<td align="left">[-0.724, 0.594]</td>
-<td align="right">0.571</td>
-<td align="right">0.450</td>
+<td align="right">-0.058</td>
+<td align="left">[-0.727, 0.595]</td>
+<td align="right">0.570</td>
+<td align="right">0.449</td>
 <td align="right">0.235</td>
 <td align="right">0.316</td>
 </tr>
 <tr class="even">
 <td align="left">Sensorimotor - Verbal</td>
 <td align="left">Visualiser - Verbaliser</td>
-<td align="right">0.675</td>
-<td align="left">[0.035, 1.328]</td>
-<td align="right">0.981</td>
-<td align="right">0.009</td>
-<td align="right">0.029</td>
-<td align="right">0.962</td>
+<td align="right">0.674</td>
+<td align="left">[0.044, 1.326]</td>
+<td align="right">0.982</td>
+<td align="right">0.008</td>
+<td align="right">0.028</td>
+<td align="right">0.963</td>
 </tr>
 <tr class="odd">
 <td align="left">Sensorimotor - Visual</td>
 <td align="left">Visualiser - Verbaliser</td>
-<td align="right">-1.259</td>
-<td align="left">[-1.978, -0.567]</td>
+<td align="right">-1.258</td>
+<td align="left">[-1.975, -0.567]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -3431,8 +3431,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Spatial - Visual</td>
 <td align="left">Visualiser - Verbaliser</td>
 <td align="right">-1.199</td>
-<td align="left">[-1.896, -0.513]</td>
-<td align="right">0.999</td>
+<td align="left">[-1.897, -0.509]</td>
+<td align="right">1.000</td>
 <td align="right">0.999</td>
 <td align="right">0.001</td>
 <td align="right">0.000</td>
@@ -3440,8 +3440,8 @@ contrasts (differences in strategy contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Verbal - Spatial</td>
 <td align="left">Visualiser - Verbaliser</td>
-<td align="right">-0.741</td>
-<td align="left">[-1.393, -0.092]</td>
+<td align="right">-0.739</td>
+<td align="left">[-1.395, -0.092]</td>
 <td align="right">0.989</td>
 <td align="right">0.974</td>
 <td align="right">0.021</td>
@@ -3451,7 +3451,7 @@ contrasts (differences in strategy contrasts between groups).</p>
 <td align="left">Verbal - Visual</td>
 <td align="left">Visualiser - Verbaliser</td>
 <td align="right">-1.940</td>
-<td align="left">[-2.631, -1.243]</td>
+<td align="left">[-2.628, -1.241]</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">0.000</td>
@@ -4094,20 +4094,7 @@ plots.</p>
 <span>    title <span class="op">=</span> <span class="st">"VVIQ 2 groups"</span>,</span>
 <span>    base_size <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>    plot.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/add_significance.html">add_significance</a></span><span class="op">(</span></span>
-<span>    size_star <span class="op">=</span> <span class="va">star_size</span>,</span>
-<span>    color <span class="op">=</span> <span class="st">"#1b6096"</span>,</span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>      x_star <span class="op">=</span> <span class="fl">1.28</span>,</span>
-<span>      y_star <span class="op">=</span> <span class="fl">4.67</span>,</span>
-<span>      stars  <span class="op">=</span> <span class="st">"***"</span>,</span>
-<span>      x_line <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">-</span> <span class="fl">0.5</span>,</span>
-<span>      x_line_end <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">+</span> <span class="fl">0.5</span>,</span>
-<span>      y_line <span class="op">=</span> <span class="fl">4.6</span></span>
-<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span></span>
 <span><span class="va">ps2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/plot_strategies_scores.html">plot_strategies_scores</a></span><span class="op">(</span></span>
 <span>    <span class="va">df_strats_long</span>,</span>
@@ -4115,58 +4102,7 @@ plots.</p>
 <span>    title <span class="op">=</span> <span class="st">"VVIQ 3 groups"</span>,</span>
 <span>    base_size <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>    plot.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/add_significance.html">add_significance</a></span><span class="op">(</span></span>
-<span>    size_star <span class="op">=</span> <span class="va">star_size</span>,</span>
-<span>    color <span class="op">=</span> <span class="st">"#1b6096"</span>,</span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>      x_star <span class="op">=</span> <span class="fl">1.28</span>,</span>
-<span>      y_star <span class="op">=</span> <span class="fl">4.67</span>,</span>
-<span>      stars  <span class="op">=</span> <span class="st">"**"</span>,</span>
-<span>      x_line <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">-</span> <span class="fl">0.5</span>,</span>
-<span>      x_line_end <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">+</span> <span class="fl">0.5</span>,</span>
-<span>      y_line <span class="op">=</span> <span class="fl">4.6</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/add_significance.html">add_significance</a></span><span class="op">(</span></span>
-<span>    size_star <span class="op">=</span> <span class="va">star_size</span>,</span>
-<span>    color <span class="op">=</span> <span class="st">"#1b6096"</span>,</span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>      x_star <span class="op">=</span> <span class="fl">2.28</span>,</span>
-<span>      y_star <span class="op">=</span> <span class="fl">4.79</span>,</span>
-<span>      stars  <span class="op">=</span> <span class="st">"**"</span>,</span>
-<span>      x_line <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">-</span> <span class="fl">0.5</span>,</span>
-<span>      x_line_end <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">+</span> <span class="fl">0.5</span>,</span>
-<span>      y_line <span class="op">=</span> <span class="fl">4.72</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/add_significance.html">add_significance</a></span><span class="op">(</span></span>
-<span>    size_star <span class="op">=</span> <span class="va">star_size</span>,</span>
-<span>    color <span class="op">=</span> <span class="st">"#1b6096"</span>,</span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>      x_star <span class="op">=</span> <span class="fl">1.78</span>,</span>
-<span>      y_star <span class="op">=</span> <span class="fl">5.07</span>,</span>
-<span>      stars  <span class="op">=</span> <span class="st">"***"</span>,</span>
-<span>      x_line <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">-</span> <span class="fl">1</span>,</span>
-<span>      x_line_end <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">+</span> <span class="fl">1</span>,</span>
-<span>      y_line <span class="op">=</span> <span class="fl">5</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/add_significance.html">add_significance</a></span><span class="op">(</span></span>
-<span>    size_star <span class="op">=</span> <span class="va">star_size</span>,</span>
-<span>    color <span class="op">=</span> <span class="st">"#318f2c"</span>,</span>
-<span>    linetype <span class="op">=</span> <span class="st">"longdash"</span>,</span>
-<span>    lw <span class="op">=</span> <span class="fl">0.3</span>,</span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>      x_star <span class="op">=</span> <span class="fl">2.38</span>,</span>
-<span>      y_star <span class="op">=</span> <span class="fl">4.54</span>,</span>
-<span>      stars  <span class="op">=</span> <span class="st">"*"</span>,</span>
-<span>      x_line <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">-</span> <span class="fl">0.5</span>,</span>
-<span>      x_line_end <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">+</span> <span class="fl">0.5</span>,</span>
-<span>      y_line <span class="op">=</span> <span class="fl">4.47</span></span>
-<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span></span>
 <span><span class="va">ps3</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/plot_strategies_scores.html">plot_strategies_scores</a></span><span class="op">(</span></span>
 <span>    <span class="va">df_strats_long</span>,</span>
@@ -4174,30 +4110,6 @@ plots.</p>
 <span>    title <span class="op">=</span> <span class="st">"OSIVQ clusters"</span>,</span>
 <span>    base_size <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>    plot.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/add_significance.html">add_significance</a></span><span class="op">(</span></span>
-<span>    size_star <span class="op">=</span> <span class="va">star_size</span>,</span>
-<span>    color <span class="op">=</span> <span class="st">"#1b6096"</span>,</span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>      x_star <span class="op">=</span> <span class="fl">2.28</span>,</span>
-<span>      y_star <span class="op">=</span> <span class="fl">4.79</span>,</span>
-<span>      stars  <span class="op">=</span> <span class="st">"*"</span>,</span>
-<span>      x_line <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">-</span> <span class="fl">0.5</span>,</span>
-<span>      x_line_end <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">+</span> <span class="fl">0.5</span>,</span>
-<span>      y_line <span class="op">=</span> <span class="fl">4.72</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/add_significance.html">add_significance</a></span><span class="op">(</span></span>
-<span>    size_star <span class="op">=</span> <span class="va">star_size</span>,</span>
-<span>    color <span class="op">=</span> <span class="st">"#1b6096"</span>,</span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>      x_star <span class="op">=</span> <span class="fl">1.78</span>,</span>
-<span>      y_star <span class="op">=</span> <span class="fl">5.07</span>,</span>
-<span>      stars  <span class="op">=</span> <span class="st">"***"</span>,</span>
-<span>      x_line <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">-</span> <span class="fl">1</span>,</span>
-<span>      x_line_end <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">+</span> <span class="fl">1</span>,</span>
-<span>      y_line <span class="op">=</span> <span class="fl">5</span></span>
-<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">ps</span> <span class="op">&lt;-</span></span>
@@ -4246,145 +4158,145 @@ plots.</p>
 <span><span class="co">#&gt;  collate  C.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2025-12-12</span></span>
+<span><span class="co">#&gt;  date     2026-02-11</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)</span></span>
-<span><span class="co">#&gt;  quarto   1.8.26 @ /usr/local/bin/quarto</span></span>
+<span><span class="co">#&gt;  quarto   1.8.27 @ /usr/local/bin/quarto</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">!</span> <span style="color: #555555; font-style: italic;">package                </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version    </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
-<span><span class="co">#&gt;    abind                     1.4-8       <span style="color: #555555;">2024-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    aphantasiaReasoningViie * 1.0         <span style="color: #555555;">2025-12-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
-<span><span class="co">#&gt;    assertthat                0.2.1       <span style="color: #555555;">2019-03-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    backports                 1.5.0       <span style="color: #555555;">2024-05-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    bayesplot                 1.14.0      <span style="color: #555555;">2025-08-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    bayestestR                0.17.0      <span style="color: #555555;">2025-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    bridgesampling            1.2-1       <span style="color: #555555;">2025-11-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    brms                      2.23.0      <span style="color: #555555;">2025-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    Brobdingnag               1.2-9       <span style="color: #555555;">2022-10-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    bslib                     0.9.0       <span style="color: #555555;">2025-01-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    cachem                    1.1.0       <span style="color: #555555;">2024-05-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    checkmate                 2.3.3       <span style="color: #555555;">2025-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> class                     7.3-23      <span style="color: #555555;">2025-01-01</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
-<span><span class="co">#&gt;    cli                       3.6.5       <span style="color: #555555;">2025-04-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    clue                      0.3-66      <span style="color: #555555;">2024-11-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> cluster                   2.1.8.1     <span style="color: #555555;">2025-03-12</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
-<span><span class="co">#&gt;    clusterCrit               1.3.0       <span style="color: #555555;">2023-11-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    clValid                   0.7         <span style="color: #555555;">2021-02-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    coda                      0.19-4.1    <span style="color: #555555;">2024-01-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> codetools                 0.2-20      <span style="color: #555555;">2024-03-31</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
-<span><span class="co">#&gt;    collapse                  2.1.5       <span style="color: #555555;">2025-11-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    combinat                  0.0-8       <span style="color: #555555;">2012-10-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    crayon                    1.5.3       <span style="color: #555555;">2024-06-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    curl                      7.0.0       <span style="color: #555555;">2025-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    data.table                1.17.8      <span style="color: #555555;">2025-07-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    datawizard                1.3.0       <span style="color: #555555;">2025-10-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    desc                      1.4.3       <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> devtools                * 2.4.6       <span style="color: #555555;">2025-10-03</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    diceR                     3.1.0       <span style="color: #555555;">2025-06-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    digest                    0.6.39      <span style="color: #555555;">2025-11-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    distributional            0.5.0       <span style="color: #555555;">2024-09-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    dplyr                     1.1.4       <span style="color: #555555;">2023-11-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    e1071                     1.7-16      <span style="color: #555555;">2024-09-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> ellipsis                  0.3.2       <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    emmeans                   2.0.0       <span style="color: #555555;">2025-10-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    estimability              1.5.1       <span style="color: #555555;">2024-05-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    evaluate                  1.0.5       <span style="color: #555555;">2025-08-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    farver                    2.1.2       <span style="color: #555555;">2024-05-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    fastmap                   1.2.0       <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    forcats                   1.0.1       <span style="color: #555555;">2025-09-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    Formula                   1.2-5       <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    fs                        1.6.6       <span style="color: #555555;">2025-04-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    generics                  0.1.4       <span style="color: #555555;">2025-05-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    ggplot2                   4.0.1       <span style="color: #555555;">2025-11-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    glue                      1.8.0       <span style="color: #555555;">2024-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    gridExtra                 2.3         <span style="color: #555555;">2017-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    gtable                    0.3.6       <span style="color: #555555;">2024-10-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    haven                     2.5.5       <span style="color: #555555;">2025-05-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    highr                     0.11        <span style="color: #555555;">2024-05-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    hms                       1.1.4       <span style="color: #555555;">2025-10-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    htmltools                 0.5.9       <span style="color: #555555;">2025-12-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    htmlwidgets               1.6.4       <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    httpuv                    1.6.16      <span style="color: #555555;">2025-04-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    inline                    0.3.21      <span style="color: #555555;">2025-01-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    insight                   1.4.4       <span style="color: #555555;">2025-12-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    jquerylib                 0.1.4       <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    jsonlite                  2.0.0       <span style="color: #555555;">2025-03-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    klaR                      1.7-3       <span style="color: #555555;">2023-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    knitr                     1.50        <span style="color: #555555;">2025-03-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    labeling                  0.4.3       <span style="color: #555555;">2023-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    labelled                  2.16.0      <span style="color: #555555;">2025-10-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    later                     1.4.4       <span style="color: #555555;">2025-08-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> lattice                   0.22-7      <span style="color: #555555;">2025-04-02</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
-<span><span class="co">#&gt;    lifecycle                 1.0.4       <span style="color: #555555;">2023-11-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    loo                       2.8.0       <span style="color: #555555;">2024-07-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    magrittr                  2.0.4       <span style="color: #555555;">2025-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    marginaleffects           0.31.0      <span style="color: #555555;">2025-11-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> MASS                      7.3-65      <span style="color: #555555;">2025-02-28</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> Matrix                    1.7-4       <span style="color: #555555;">2025-08-28</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
-<span><span class="co">#&gt;    matrixStats               1.5.0       <span style="color: #555555;">2025-01-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    mclust                    6.1.2       <span style="color: #555555;">2025-10-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    memoise                   2.0.1       <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> mgcv                      1.9-3       <span style="color: #555555;">2025-04-04</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
-<span><span class="co">#&gt;    mime                      0.13        <span style="color: #555555;">2025-03-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    miniUI                    0.1.2       <span style="color: #555555;">2025-04-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    mvtnorm                   1.3-3       <span style="color: #555555;">2025-01-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> nlme                      3.1-168     <span style="color: #555555;">2025-03-31</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
-<span><span class="co">#&gt;    numDeriv                  <span style="color: #BB00BB; font-weight: bold;">2016.8-1.1 </span> <span style="color: #555555;">2019-06-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    ordinal                   <span style="color: #BB00BB; font-weight: bold;">2023.12-4.1</span> <span style="color: #555555;">2024-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    otel                      0.2.0       <span style="color: #555555;">2025-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    patchwork               * 1.3.2       <span style="color: #555555;">2025-08-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    performance               0.15.3      <span style="color: #555555;">2025-12-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    pillar                    1.11.1      <span style="color: #555555;">2025-09-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    pkgbuild                  1.4.8       <span style="color: #555555;">2025-05-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    pkgconfig                 2.0.3       <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    pkgdown                   2.2.0       <span style="color: #555555;">2025-11-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">any (@2.2.0)</span></span></span>
-<span><span class="co">#&gt;    pkgload                   1.4.1       <span style="color: #555555;">2025-09-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    plyr                      1.8.9       <span style="color: #555555;">2023-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    posterior                 1.6.1       <span style="color: #555555;">2025-02-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    promises                  1.5.0       <span style="color: #555555;">2025-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    proxy                     0.4-27      <span style="color: #555555;">2022-06-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    purrr                     1.2.0       <span style="color: #555555;">2025-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    questionr                 0.8.1       <span style="color: #555555;">2025-06-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    QuickJSR                  1.8.1       <span style="color: #555555;">2025-09-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    R6                        2.6.1       <span style="color: #555555;">2025-02-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    ragg                      1.5.0       <span style="color: #555555;">2025-09-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    RColorBrewer              1.1-3       <span style="color: #555555;">2022-04-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    Rcpp                      1.1.0       <span style="color: #555555;">2025-07-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    RcppParallel              5.1.11-1    <span style="color: #555555;">2025-08-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> remotes                   2.5.0       <span style="color: #555555;">2024-03-17</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    renv                      1.1.4       <span style="color: #555555;">2025-03-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.5.0)</span></span></span>
-<span><span class="co">#&gt;    reshape2                  1.4.5       <span style="color: #555555;">2025-11-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    rlang                     1.1.6       <span style="color: #555555;">2025-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    rmarkdown                 2.30        <span style="color: #555555;">2025-09-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    rstan                     2.32.7      <span style="color: #555555;">2025-03-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    rstantools                2.5.0       <span style="color: #555555;">2025-09-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    rstudioapi                0.17.1      <span style="color: #555555;">2024-10-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    S7                        0.2.1       <span style="color: #555555;">2025-11-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    sass                      0.4.10      <span style="color: #555555;">2025-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    scales                    1.4.0       <span style="color: #555555;">2025-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    see                       0.12.0      <span style="color: #555555;">2025-09-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    sessioninfo               1.2.3       <span style="color: #555555;">2025-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    shiny                     1.12.1      <span style="color: #555555;">2025-12-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    showtext                  0.9-7       <span style="color: #555555;">2024-03-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    showtextdb                3.0         <span style="color: #555555;">2020-06-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    StanHeaders               2.32.10     <span style="color: #555555;">2024-07-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    stringi                   1.8.7       <span style="color: #555555;">2025-03-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    stringr                   1.6.0       <span style="color: #555555;">2025-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    sysfonts                  0.8.9       <span style="color: #555555;">2024-03-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    systemfonts               1.3.1       <span style="color: #555555;">2025-10-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    tensorA                   0.36.2.1    <span style="color: #555555;">2023-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    textshaping               1.0.4       <span style="color: #555555;">2025-10-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    tibble                    3.3.0       <span style="color: #555555;">2025-06-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    tidyr                     1.3.1       <span style="color: #555555;">2024-01-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    tidyselect                1.2.1       <span style="color: #555555;">2024-03-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    ucminf                    1.2.2       <span style="color: #555555;">2024-06-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> usethis                 * 3.2.1       <span style="color: #555555;">2025-09-06</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    vctrs                     0.6.5       <span style="color: #555555;">2023-12-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    viridisLite               0.4.2       <span style="color: #555555;">2023-05-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    withr                     3.0.2       <span style="color: #555555;">2024-10-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    xfun                      0.54        <span style="color: #555555;">2025-10-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    xtable                    1.8-4       <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    yaml                      2.3.12      <span style="color: #555555;">2025-12-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">!</span> <span style="color: #555555; font-style: italic;">package                </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version   </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
+<span><span class="co">#&gt;    abind                     1.4-8      <span style="color: #555555;">2024-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    aphantasiaReasoningViie * 1.0        <span style="color: #555555;">2026-02-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
+<span><span class="co">#&gt;    assertthat                0.2.1      <span style="color: #555555;">2019-03-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    backports                 1.5.0      <span style="color: #555555;">2024-05-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    bayesplot                 1.15.0     <span style="color: #555555;">2025-12-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    bayestestR                0.17.0     <span style="color: #555555;">2025-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    bridgesampling            1.2-1      <span style="color: #555555;">2025-11-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    brms                      2.23.0     <span style="color: #555555;">2025-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    Brobdingnag               1.2-9      <span style="color: #555555;">2022-10-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    bslib                     0.10.0     <span style="color: #555555;">2026-01-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    cachem                    1.1.0      <span style="color: #555555;">2024-05-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    checkmate                 2.3.4      <span style="color: #555555;">2026-02-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> class                     7.3-23     <span style="color: #555555;">2025-01-01</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
+<span><span class="co">#&gt;    cli                       3.6.5      <span style="color: #555555;">2025-04-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    clue                      0.3-66     <span style="color: #555555;">2024-11-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> cluster                   2.1.8.1    <span style="color: #555555;">2025-03-12</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
+<span><span class="co">#&gt;    clusterCrit               1.3.0      <span style="color: #555555;">2023-11-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    clValid                   0.7        <span style="color: #555555;">2021-02-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    coda                      0.19-4.1   <span style="color: #555555;">2024-01-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> codetools                 0.2-20     <span style="color: #555555;">2024-03-31</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
+<span><span class="co">#&gt;    collapse                  2.1.6      <span style="color: #555555;">2026-01-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    combinat                  0.0-8      <span style="color: #555555;">2012-10-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    crayon                    1.5.3      <span style="color: #555555;">2024-06-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    curl                      7.0.0      <span style="color: #555555;">2025-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    data.table                1.18.2.1   <span style="color: #555555;">2026-01-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    datawizard                1.3.0      <span style="color: #555555;">2025-10-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    desc                      1.4.3      <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> devtools                * 2.4.6      <span style="color: #555555;">2025-10-03</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    diceR                     3.1.0      <span style="color: #555555;">2025-06-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    digest                    0.6.39     <span style="color: #555555;">2025-11-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    distributional            0.6.0      <span style="color: #555555;">2026-01-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    dplyr                     1.2.0      <span style="color: #555555;">2026-02-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    e1071                     1.7-17     <span style="color: #555555;">2025-12-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> ellipsis                  0.3.2      <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    emmeans                   2.0.1      <span style="color: #555555;">2025-12-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    estimability              1.5.1      <span style="color: #555555;">2024-05-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    evaluate                  1.0.5      <span style="color: #555555;">2025-08-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    farver                    2.1.2      <span style="color: #555555;">2024-05-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    fastmap                   1.2.0      <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    forcats                   1.0.1      <span style="color: #555555;">2025-09-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    Formula                   1.2-5      <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    fs                        1.6.6      <span style="color: #555555;">2025-04-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    generics                  0.1.4      <span style="color: #555555;">2025-05-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    ggplot2                   4.0.2      <span style="color: #555555;">2026-02-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    glue                      1.8.0      <span style="color: #555555;">2024-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    gridExtra                 2.3        <span style="color: #555555;">2017-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    gtable                    0.3.6      <span style="color: #555555;">2024-10-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    haven                     2.5.5      <span style="color: #555555;">2025-05-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    highr                     0.11       <span style="color: #555555;">2024-05-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    hms                       1.1.4      <span style="color: #555555;">2025-10-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    htmltools                 0.5.9      <span style="color: #555555;">2025-12-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    htmlwidgets               1.6.4      <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    httpuv                    1.6.16     <span style="color: #555555;">2025-04-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    inline                    0.3.21     <span style="color: #555555;">2025-01-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    insight                   1.4.6      <span style="color: #555555;">2026-02-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    jquerylib                 0.1.4      <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    jsonlite                  2.0.0      <span style="color: #555555;">2025-03-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    klaR                      1.7-3      <span style="color: #555555;">2023-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    knitr                     1.51       <span style="color: #555555;">2025-12-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    labeling                  0.4.3      <span style="color: #555555;">2023-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    labelled                  2.16.0     <span style="color: #555555;">2025-10-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    later                     1.4.5      <span style="color: #555555;">2026-01-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> lattice                   0.22-7     <span style="color: #555555;">2025-04-02</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
+<span><span class="co">#&gt;    lifecycle                 1.0.5      <span style="color: #555555;">2026-01-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    loo                       2.9.0      <span style="color: #555555;">2025-12-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    magrittr                  2.0.4      <span style="color: #555555;">2025-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    marginaleffects           0.31.0     <span style="color: #555555;">2025-11-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> MASS                      7.3-65     <span style="color: #555555;">2025-02-28</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> Matrix                    1.7-4      <span style="color: #555555;">2025-08-28</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
+<span><span class="co">#&gt;    matrixStats               1.5.0      <span style="color: #555555;">2025-01-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    mclust                    6.1.2      <span style="color: #555555;">2025-10-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    memoise                   2.0.1      <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> mgcv                      1.9-3      <span style="color: #555555;">2025-04-04</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
+<span><span class="co">#&gt;    mime                      0.13       <span style="color: #555555;">2025-03-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    miniUI                    0.1.2      <span style="color: #555555;">2025-04-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    mvtnorm                   1.3-3      <span style="color: #555555;">2025-01-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> nlme                      3.1-168    <span style="color: #555555;">2025-03-31</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
+<span><span class="co">#&gt;    numDeriv                  <span style="color: #BB00BB; font-weight: bold;">2016.8-1.1</span> <span style="color: #555555;">2019-06-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    ordinal                   <span style="color: #BB00BB; font-weight: bold;">2025.12-29</span> <span style="color: #555555;">2026-01-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    otel                      0.2.0      <span style="color: #555555;">2025-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    patchwork               * 1.3.2      <span style="color: #555555;">2025-08-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    performance               0.16.0     <span style="color: #555555;">2026-02-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    pillar                    1.11.1     <span style="color: #555555;">2025-09-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    pkgbuild                  1.4.8      <span style="color: #555555;">2025-05-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    pkgconfig                 2.0.3      <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    pkgdown                   2.2.0      <span style="color: #555555;">2025-11-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">any (@2.2.0)</span></span></span>
+<span><span class="co">#&gt;    pkgload                   1.5.0      <span style="color: #555555;">2026-02-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    plyr                      1.8.9      <span style="color: #555555;">2023-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    posterior                 1.6.1      <span style="color: #555555;">2025-02-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    promises                  1.5.0      <span style="color: #555555;">2025-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    proxy                     0.4-29     <span style="color: #555555;">2025-12-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    purrr                     1.2.1      <span style="color: #555555;">2026-01-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    questionr                 0.8.2      <span style="color: #555555;">2026-01-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    QuickJSR                  1.9.0      <span style="color: #555555;">2026-01-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    R6                        2.6.1      <span style="color: #555555;">2025-02-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    ragg                      1.5.0      <span style="color: #555555;">2025-09-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    RColorBrewer              1.1-3      <span style="color: #555555;">2022-04-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    Rcpp                      1.1.1      <span style="color: #555555;">2026-01-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    RcppParallel              5.1.11-1   <span style="color: #555555;">2025-08-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> remotes                   2.5.0      <span style="color: #555555;">2024-03-17</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    renv                      1.1.4      <span style="color: #555555;">2025-03-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.5.0)</span></span></span>
+<span><span class="co">#&gt;    reshape2                  1.4.5      <span style="color: #555555;">2025-11-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    rlang                     1.1.7      <span style="color: #555555;">2026-01-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    rmarkdown                 2.30       <span style="color: #555555;">2025-09-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    rstan                     2.32.7     <span style="color: #555555;">2025-03-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    rstantools                2.6.0      <span style="color: #555555;">2026-01-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    rstudioapi                0.18.0     <span style="color: #555555;">2026-01-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    S7                        0.2.1      <span style="color: #555555;">2025-11-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    sass                      0.4.10     <span style="color: #555555;">2025-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    scales                    1.4.0      <span style="color: #555555;">2025-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    see                       0.13.0     <span style="color: #555555;">2026-01-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    sessioninfo               1.2.3      <span style="color: #555555;">2025-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    shiny                     1.12.1     <span style="color: #555555;">2025-12-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    showtext                  0.9-7      <span style="color: #555555;">2024-03-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    showtextdb                3.0        <span style="color: #555555;">2020-06-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    StanHeaders               2.32.10    <span style="color: #555555;">2024-07-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    stringi                   1.8.7      <span style="color: #555555;">2025-03-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    stringr                   1.6.0      <span style="color: #555555;">2025-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    sysfonts                  0.8.9      <span style="color: #555555;">2024-03-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    systemfonts               1.3.1      <span style="color: #555555;">2025-10-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    tensorA                   0.36.2.1   <span style="color: #555555;">2023-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    textshaping               1.0.4      <span style="color: #555555;">2025-10-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    tibble                    3.3.1      <span style="color: #555555;">2026-01-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    tidyr                     1.3.2      <span style="color: #555555;">2025-12-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    tidyselect                1.2.1      <span style="color: #555555;">2024-03-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    ucminf                    1.2.2      <span style="color: #555555;">2024-06-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> usethis                 * 3.2.1      <span style="color: #555555;">2025-09-06</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    vctrs                     0.7.1      <span style="color: #555555;">2026-01-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    viridisLite               0.4.3      <span style="color: #555555;">2026-02-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    withr                     3.0.2      <span style="color: #555555;">2024-10-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    xfun                      0.56       <span style="color: #555555;">2026-01-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    xtable                    1.8-4      <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    yaml                      2.3.12     <span style="color: #555555;">2025-12-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu/8f3cef43</span></span></span>

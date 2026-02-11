@@ -10,7 +10,8 @@ add_significance(
   size_star = 2.5,
   lw = 0.2,
   color = "black",
-  linetype = "solid"
+  linetype = "solid",
+  ...
 )
 ```
 
@@ -48,6 +49,10 @@ add_significance(
 - linetype:
 
   Line type of the significance line. Default is "solid".
+
+- ...:
+
+  Additional arguments passed to the `geom_text()` layer.
 
 ## Value
 

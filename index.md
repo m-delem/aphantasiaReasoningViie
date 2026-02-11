@@ -3,9 +3,9 @@
 aphantasiaReasoningViie is a data analysis project wrapped in an R
 package for reproducibility[¹](#fn1). It contains the code and data to
 reproduce the analyses presented in the article “*The Impact of Mental
-Images on Reasoning: A Study on Aphantasia*”. You can read the preprint
-[here](https://doi.org/10.31234/osf.io/vsjtb_v1). All study materials
-are available on the Open Science Framework
+Images on Reasoning: A Study on Aphantasia*”. You can read the article
+[here](https://doi.org/10.1016/j.neuropsychologia.2026.109376). All
+study materials are available on the Open Science Framework
 [here](https://doi.org/10.17605/OSF.IO/HFBCP).
 
 ## What exactly is in this R package?
@@ -75,9 +75,8 @@ permanent DOI to the code and data. Thus, if you use this code or data
 in your research, please cite the OSF project with the following:
 
 > Delem, M., Le Clézio, D., Monzel, M., & Plancher, G. (2025, November
-> 19). Supplementary materials for ‘The Impact of Mental Images on
-> Reasoning: A Study on Aphantasia’.
-> <https://doi.org/10.17605/OSF.IO/HFBCP>
+> 19). Supplements for ‘The Impact of Mental Images on Reasoning: A
+> Study on Aphantasia’. <https://doi.org/10.17605/OSF.IO/HFBCP>
 
 ------------------------------------------------------------------------
 

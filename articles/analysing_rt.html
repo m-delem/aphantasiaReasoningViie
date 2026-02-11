@@ -194,11 +194,11 @@ times:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/build_formula.html">build_formula</a></span><span class="op">(</span><span class="st">"rt_total"</span>, <span class="st">"group_2"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; rt_total ~ group_2 * category + (category | id) + (1 | problem)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x5641bd8ee088&gt;</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x55d7013a25c8&gt;</span></span>
 <span> </span>
 <span><span class="fu"><a href="../reference/build_formula.html">build_formula</a></span><span class="op">(</span><span class="st">"rt_total"</span>, <span class="st">"cluster"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; rt_total ~ cluster * category + (category | id) + (1 | problem)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x5641bdd98310&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x55d701275328&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="bayesian-models">Bayesian models<a class="anchor" aria-label="anchor" href="#bayesian-models"></a>
@@ -257,7 +257,7 @@ RT model priors is done in the chunk below.</p>
 <span><span class="co">#   )</span></span>
 <span><span class="co"># }</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="st">"marginaleffects_safe"</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">16000</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># To limit draws that will be used for marginaleffects</span></span>
+<span><span class="va">draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">14000</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># To limit draws that will be used for marginaleffects</span></span>
 <span></span>
 <span><span class="va">prior_rt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fu">brms</span><span class="fu">::</span><span class="fu"><a href="https://paulbuerkner.com/brms/reference/set_prior.html" class="external-link">prior</a></span><span class="op">(</span><span class="fu">normal</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">0.05</span><span class="op">)</span>, class <span class="op">=</span> <span class="st">"Intercept"</span><span class="op">)</span>,</span>
@@ -384,12 +384,12 @@ contrasts between groups).</p>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">Typical - Aphantasia</td>
-<td align="right">0.69</td>
-<td align="left">[-1.807, 3.088]</td>
-<td align="right">0.712</td>
-<td align="right">0.104</td>
+<td align="right">0.688</td>
+<td align="left">[-1.804, 3.086]</td>
+<td align="right">0.711</td>
+<td align="right">0.105</td>
 <td align="right">0.456</td>
-<td align="right">0.44</td>
+<td align="right">0.439</td>
 </tr></tbody>
 </table>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -425,29 +425,29 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Spatial - Control</td>
-<td align="right">-0.057</td>
-<td align="left">[-1.88, 1.725]</td>
-<td align="right">0.526</td>
-<td align="right">0.181</td>
+<td align="right">-0.058</td>
+<td align="left">[-1.879, 1.725]</td>
+<td align="right">0.527</td>
+<td align="right">0.182</td>
 <td align="right">0.673</td>
 <td align="right">0.145</td>
 </tr>
 <tr class="even">
 <td align="left">Aphantasia</td>
 <td align="left">Visual - Control</td>
-<td align="right">1.694</td>
-<td align="left">[-0.177, 3.591]</td>
-<td align="right">0.962</td>
+<td align="right">1.696</td>
+<td align="left">[-0.176, 3.583]</td>
+<td align="right">0.963</td>
 <td align="right">0.005</td>
-<td align="right">0.182</td>
+<td align="right">0.181</td>
 <td align="right">0.813</td>
 </tr>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">1.759</td>
-<td align="left">[-0.121, 3.645]</td>
-<td align="right">0.967</td>
+<td align="right">1.761</td>
+<td align="left">[-0.133, 3.665]</td>
+<td align="right">0.966</td>
 <td align="right">0.004</td>
 <td align="right">0.168</td>
 <td align="right">0.828</td>
@@ -455,28 +455,28 @@ contrasts between groups).</p>
 <tr class="even">
 <td align="left">Typical</td>
 <td align="left">Spatial - Control</td>
-<td align="right">0.140</td>
-<td align="left">[-1.682, 1.926]</td>
-<td align="right">0.560</td>
-<td align="right">0.134</td>
-<td align="right">0.663</td>
+<td align="right">0.139</td>
+<td align="left">[-1.681, 1.935]</td>
+<td align="right">0.561</td>
+<td align="right">0.135</td>
+<td align="right">0.662</td>
 <td align="right">0.203</td>
 </tr>
 <tr class="odd">
 <td align="left">Typical</td>
 <td align="left">Visual - Control</td>
-<td align="right">2.464</td>
-<td align="left">[0.551, 4.364]</td>
+<td align="right">2.467</td>
+<td align="left">[0.558, 4.362]</td>
 <td align="right">0.993</td>
 <td align="right">0.000</td>
 <td align="right">0.048</td>
-<td align="right">0.951</td>
+<td align="right">0.952</td>
 </tr>
 <tr class="even">
 <td align="left">Typical</td>
 <td align="left">Visual - Spatial</td>
 <td align="right">2.336</td>
-<td align="left">[0.401, 4.276]</td>
+<td align="left">[0.39, 4.283]</td>
 <td align="right">0.991</td>
 <td align="right">0.001</td>
 <td align="right">0.068</td>
@@ -519,31 +519,31 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Spatial - Control</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-0.194</td>
-<td align="left">[-1.505, 1.092]</td>
+<td align="right">-0.196</td>
+<td align="left">[-1.507, 1.089]</td>
 <td align="right">0.618</td>
-<td align="right">0.156</td>
-<td align="right">0.791</td>
-<td align="right">0.053</td>
+<td align="right">0.155</td>
+<td align="right">0.793</td>
+<td align="right">0.052</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Control</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-0.762</td>
-<td align="left">[-2.153, 0.596]</td>
+<td align="right">-0.764</td>
+<td align="left">[-2.155, 0.587]</td>
 <td align="right">0.867</td>
-<td align="right">0.439</td>
+<td align="right">0.438</td>
 <td align="right">0.553</td>
-<td align="right">0.009</td>
+<td align="right">0.008</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Spatial</td>
 <td align="left">Aphantasia - Typical</td>
 <td align="right">-0.575</td>
-<td align="left">[-1.935, 0.804]</td>
-<td align="right">0.794</td>
-<td align="right">0.333</td>
-<td align="right">0.647</td>
+<td align="left">[-1.938, 0.793]</td>
+<td align="right">0.795</td>
+<td align="right">0.332</td>
+<td align="right">0.648</td>
 <td align="right">0.020</td>
 </tr>
 </tbody>
@@ -775,8 +775,8 @@ contrasts between groups).</p>
 <tbody>
 <tr class="odd">
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">3.400</td>
-<td align="left">[-0.298, 7.002]</td>
+<td align="right">3.390</td>
+<td align="left">[-0.316, 6.951]</td>
 <td align="right">0.965</td>
 <td align="right">0.013</td>
 <td align="right">0.073</td>
@@ -784,21 +784,21 @@ contrasts between groups).</p>
 </tr>
 <tr class="even">
 <td align="left">Aphantasia - Typical</td>
-<td align="right">0.628</td>
-<td align="left">[-2.144, 3.562]</td>
+<td align="right">0.623</td>
+<td align="left">[-2.117, 3.544]</td>
 <td align="right">0.668</td>
-<td align="right">0.142</td>
-<td align="right">0.426</td>
-<td align="right">0.432</td>
+<td align="right">0.140</td>
+<td align="right">0.430</td>
+<td align="right">0.430</td>
 </tr>
 <tr class="odd">
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">-2.761</td>
-<td align="left">[-5.766, 0.529]</td>
-<td align="right">0.953</td>
-<td align="right">0.880</td>
-<td align="right">0.103</td>
-<td align="right">0.017</td>
+<td align="right">-2.751</td>
+<td align="left">[-5.746, 0.545]</td>
+<td align="right">0.951</td>
+<td align="right">0.878</td>
+<td align="right">0.104</td>
+<td align="right">0.018</td>
 </tr>
 </tbody>
 </table>
@@ -836,19 +836,19 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Spatial - Control</td>
-<td align="right">0.230</td>
-<td align="left">[-1.793, 2.301]</td>
+<td align="right">0.233</td>
+<td align="left">[-1.789, 2.297]</td>
 <td align="right">0.588</td>
-<td align="right">0.141</td>
-<td align="right">0.595</td>
+<td align="right">0.140</td>
+<td align="right">0.596</td>
 <td align="right">0.264</td>
 </tr>
 <tr class="even">
 <td align="left">Aphantasia</td>
 <td align="left">Visual - Control</td>
-<td align="right">1.517</td>
-<td align="left">[-0.546, 3.612]</td>
-<td align="right">0.929</td>
+<td align="right">1.514</td>
+<td align="left">[-0.55, 3.617]</td>
+<td align="right">0.928</td>
 <td align="right">0.012</td>
 <td align="right">0.251</td>
 <td align="right">0.737</td>
@@ -856,38 +856,38 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Aphantasia</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">1.298</td>
-<td align="left">[-0.815, 3.397]</td>
+<td align="right">1.300</td>
+<td align="left">[-0.812, 3.377]</td>
 <td align="right">0.887</td>
 <td align="right">0.022</td>
-<td align="right">0.320</td>
-<td align="right">0.658</td>
+<td align="right">0.321</td>
+<td align="right">0.657</td>
 </tr>
 <tr class="even">
 <td align="left">Hypophantasia</td>
 <td align="left">Spatial - Control</td>
-<td align="right">-0.603</td>
-<td align="left">[-2.636, 1.469]</td>
+<td align="right">-0.599</td>
+<td align="left">[-2.623, 1.473]</td>
 <td align="right">0.722</td>
-<td align="right">0.399</td>
-<td align="right">0.523</td>
+<td align="right">0.396</td>
+<td align="right">0.525</td>
 <td align="right">0.078</td>
 </tr>
 <tr class="odd">
 <td align="left">Hypophantasia</td>
 <td align="left">Visual - Control</td>
-<td align="right">1.943</td>
-<td align="left">[-0.231, 4.11]</td>
-<td align="right">0.962</td>
+<td align="right">1.946</td>
+<td align="left">[-0.261, 4.105]</td>
+<td align="right">0.961</td>
 <td align="right">0.006</td>
-<td align="right">0.156</td>
+<td align="right">0.155</td>
 <td align="right">0.838</td>
 </tr>
 <tr class="even">
 <td align="left">Hypophantasia</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">2.538</td>
-<td align="left">[0.413, 4.665]</td>
+<td align="right">2.537</td>
+<td align="left">[0.411, 4.667]</td>
 <td align="right">0.989</td>
 <td align="right">0.001</td>
 <td align="right">0.061</td>
@@ -896,18 +896,18 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Typical</td>
 <td align="left">Spatial - Control</td>
-<td align="right">0.112</td>
-<td align="left">[-1.674, 1.973]</td>
-<td align="right">0.552</td>
+<td align="right">0.110</td>
+<td align="left">[-1.672, 1.978]</td>
+<td align="right">0.550</td>
 <td align="right">0.144</td>
-<td align="right">0.651</td>
-<td align="right">0.206</td>
+<td align="right">0.652</td>
+<td align="right">0.204</td>
 </tr>
 <tr class="even">
 <td align="left">Typical</td>
 <td align="left">Visual - Control</td>
-<td align="right">2.440</td>
-<td align="left">[0.547, 4.355]</td>
+<td align="right">2.442</td>
+<td align="left">[0.543, 4.343]</td>
 <td align="right">0.993</td>
 <td align="right">0.000</td>
 <td align="right">0.048</td>
@@ -917,10 +917,10 @@ contrasts between groups).</p>
 <td align="left">Typical</td>
 <td align="left">Visual - Spatial</td>
 <td align="right">2.326</td>
-<td align="left">[0.391, 4.226]</td>
+<td align="left">[0.401, 4.216]</td>
 <td align="right">0.990</td>
 <td align="right">0.001</td>
-<td align="right">0.063</td>
+<td align="right">0.062</td>
 <td align="right">0.936</td>
 </tr>
 </tbody>
@@ -960,90 +960,90 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Spatial - Control</td>
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">0.834</td>
-<td align="left">[-1.11, 2.81]</td>
-<td align="right">0.798</td>
-<td align="right">0.044</td>
-<td align="right">0.469</td>
-<td align="right">0.487</td>
+<td align="right">0.832</td>
+<td align="left">[-1.104, 2.795]</td>
+<td align="right">0.799</td>
+<td align="right">0.043</td>
+<td align="right">0.472</td>
+<td align="right">0.485</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Control</td>
 <td align="left">Aphantasia - Hypophantasia</td>
 <td align="right">-0.416</td>
-<td align="left">[-2.421, 1.632]</td>
+<td align="left">[-2.418, 1.623]</td>
 <td align="right">0.658</td>
 <td align="right">0.330</td>
-<td align="right">0.567</td>
-<td align="right">0.104</td>
+<td align="right">0.568</td>
+<td align="right">0.102</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Spatial</td>
 <td align="left">Aphantasia - Hypophantasia</td>
-<td align="right">-1.241</td>
-<td align="left">[-3.277, 0.8]</td>
+<td align="right">-1.244</td>
+<td align="left">[-3.263, 0.775]</td>
 <td align="right">0.888</td>
-<td align="right">0.641</td>
-<td align="right">0.338</td>
-<td align="right">0.021</td>
+<td align="right">0.642</td>
+<td align="right">0.337</td>
+<td align="right">0.020</td>
 </tr>
 <tr class="even">
 <td align="left">Spatial - Control</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">0.113</td>
-<td align="left">[-1.405, 1.629]</td>
-<td align="right">0.558</td>
-<td align="right">0.105</td>
-<td align="right">0.729</td>
+<td align="right">0.117</td>
+<td align="left">[-1.4, 1.632]</td>
+<td align="right">0.559</td>
+<td align="right">0.103</td>
+<td align="right">0.730</td>
 <td align="right">0.167</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Control</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-0.919</td>
-<td align="left">[-2.5, 0.663]</td>
+<td align="right">-0.914</td>
+<td align="left">[-2.493, 0.661]</td>
 <td align="right">0.878</td>
-<td align="right">0.524</td>
-<td align="right">0.462</td>
+<td align="right">0.522</td>
+<td align="right">0.464</td>
 <td align="right">0.014</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Spatial</td>
 <td align="left">Aphantasia - Typical</td>
-<td align="right">-1.031</td>
-<td align="left">[-2.621, 0.588]</td>
-<td align="right">0.896</td>
-<td align="right">0.580</td>
-<td align="right">0.410</td>
+<td align="right">-1.033</td>
+<td align="left">[-2.616, 0.577]</td>
+<td align="right">0.898</td>
+<td align="right">0.581</td>
+<td align="right">0.408</td>
 <td align="right">0.011</td>
 </tr>
 <tr class="odd">
 <td align="left">Spatial - Control</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">-0.723</td>
-<td align="left">[-2.464, 1.028]</td>
-<td align="right">0.788</td>
-<td align="right">0.436</td>
-<td align="right">0.527</td>
-<td align="right">0.037</td>
+<td align="right">-0.721</td>
+<td align="left">[-2.449, 1.017]</td>
+<td align="right">0.786</td>
+<td align="right">0.435</td>
+<td align="right">0.529</td>
+<td align="right">0.036</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Control</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">-0.501</td>
-<td align="left">[-2.303, 1.279]</td>
-<td align="right">0.705</td>
-<td align="right">0.346</td>
-<td align="right">0.586</td>
+<td align="right">-0.499</td>
+<td align="left">[-2.309, 1.286]</td>
+<td align="right">0.704</td>
+<td align="right">0.345</td>
+<td align="right">0.588</td>
 <td align="right">0.067</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Spatial</td>
 <td align="left">Hypophantasia - Typical</td>
-<td align="right">0.221</td>
-<td align="left">[-1.612, 2.069]</td>
-<td align="right">0.593</td>
-<td align="right">0.125</td>
+<td align="right">0.213</td>
+<td align="left">[-1.605, 2.075]</td>
+<td align="right">0.590</td>
+<td align="right">0.126</td>
 <td align="right">0.631</td>
 <td align="right">0.244</td>
 </tr>
@@ -1328,11 +1328,11 @@ contrasts between groups).</p>
 <span>    draw_ids <span class="op">=</span> <span class="va">draws</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/report_rope.html">report_rope</a></span><span class="op">(</span><span class="va">contrast</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<table style="width:100%;" class="table">
+<table class="table">
 <colgroup>
-<col width="28%">
+<col width="27%">
 <col width="10%">
-<col width="16%">
+<col width="17%">
 <col width="6%">
 <col width="12%">
 <col width="13%">
@@ -1350,30 +1350,30 @@ contrasts between groups).</p>
 <tbody>
 <tr class="odd">
 <td align="left">Spatialiser - Visualiser</td>
-<td align="right">-1.593</td>
-<td align="left">[-4.85, 1.908]</td>
-<td align="right">0.822</td>
-<td align="right">0.663</td>
-<td align="right">0.256</td>
-<td align="right">0.080</td>
+<td align="right">-1.584</td>
+<td align="left">[-4.787, 1.894]</td>
+<td align="right">0.819</td>
+<td align="right">0.659</td>
+<td align="right">0.258</td>
+<td align="right">0.083</td>
 </tr>
 <tr class="even">
 <td align="left">Verbaliser - Spatialiser</td>
-<td align="right">0.784</td>
-<td align="left">[-2.63, 3.991]</td>
-<td align="right">0.677</td>
-<td align="right">0.169</td>
-<td align="right">0.351</td>
-<td align="right">0.480</td>
+<td align="right">0.786</td>
+<td align="left">[-2.606, 4]</td>
+<td align="right">0.676</td>
+<td align="right">0.170</td>
+<td align="right">0.350</td>
+<td align="right">0.481</td>
 </tr>
 <tr class="odd">
 <td align="left">Verbaliser - Visualiser</td>
-<td align="right">-0.799</td>
-<td align="left">[-3.564, 1.95]</td>
-<td align="right">0.718</td>
-<td align="right">0.478</td>
-<td align="right">0.407</td>
-<td align="right">0.115</td>
+<td align="right">-0.782</td>
+<td align="left">[-3.53, 1.95]</td>
+<td align="right">0.716</td>
+<td align="right">0.474</td>
+<td align="right">0.412</td>
+<td align="right">0.114</td>
 </tr>
 </tbody>
 </table>
@@ -1411,92 +1411,92 @@ contrasts between groups).</p>
 <tr class="odd">
 <td align="left">Visualiser</td>
 <td align="left">Spatial - Control</td>
-<td align="right">0.368</td>
-<td align="left">[-1.517, 2.304]</td>
-<td align="right">0.655</td>
-<td align="right">0.097</td>
-<td align="right">0.604</td>
-<td align="right">0.298</td>
+<td align="right">0.358</td>
+<td align="left">[-1.522, 2.301]</td>
+<td align="right">0.652</td>
+<td align="right">0.099</td>
+<td align="right">0.605</td>
+<td align="right">0.296</td>
 </tr>
 <tr class="even">
 <td align="left">Visualiser</td>
 <td align="left">Visual - Control</td>
-<td align="right">2.919</td>
-<td align="left">[0.943, 4.96]</td>
+<td align="right">2.898</td>
+<td align="left">[0.921, 4.947]</td>
 <td align="right">0.997</td>
 <td align="right">0.000</td>
-<td align="right">0.021</td>
+<td align="right">0.022</td>
 <td align="right">0.978</td>
 </tr>
 <tr class="odd">
 <td align="left">Visualiser</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">2.546</td>
-<td align="left">[0.543, 4.607]</td>
+<td align="right">2.534</td>
+<td align="left">[0.53, 4.602]</td>
 <td align="right">0.992</td>
 <td align="right">0.001</td>
-<td align="right">0.051</td>
-<td align="right">0.948</td>
+<td align="right">0.052</td>
+<td align="right">0.947</td>
 </tr>
 <tr class="even">
 <td align="left">Spatialiser</td>
 <td align="left">Spatial - Control</td>
-<td align="right">-0.133</td>
-<td align="left">[-2.234, 2.024]</td>
-<td align="right">0.549</td>
-<td align="right">0.249</td>
-<td align="right">0.576</td>
-<td align="right">0.175</td>
+<td align="right">-0.138</td>
+<td align="left">[-2.25, 2.027]</td>
+<td align="right">0.552</td>
+<td align="right">0.251</td>
+<td align="right">0.577</td>
+<td align="right">0.173</td>
 </tr>
 <tr class="odd">
 <td align="left">Spatialiser</td>
 <td align="left">Visual - Control</td>
-<td align="right">1.485</td>
-<td align="left">[-0.728, 3.705]</td>
-<td align="right">0.908</td>
+<td align="right">1.471</td>
+<td align="left">[-0.744, 3.689]</td>
+<td align="right">0.907</td>
 <td align="right">0.020</td>
-<td align="right">0.271</td>
-<td align="right">0.710</td>
+<td align="right">0.274</td>
+<td align="right">0.706</td>
 </tr>
 <tr class="even">
 <td align="left">Spatialiser</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">1.628</td>
-<td align="left">[-0.568, 3.84]</td>
-<td align="right">0.924</td>
+<td align="right">1.619</td>
+<td align="left">[-0.58, 3.843]</td>
+<td align="right">0.922</td>
 <td align="right">0.013</td>
-<td align="right">0.237</td>
-<td align="right">0.750</td>
+<td align="right">0.239</td>
+<td align="right">0.748</td>
 </tr>
 <tr class="odd">
 <td align="left">Verbaliser</td>
 <td align="left">Spatial - Control</td>
-<td align="right">-0.247</td>
-<td align="left">[-2.074, 1.627]</td>
-<td align="right">0.607</td>
-<td align="right">0.247</td>
-<td align="right">0.639</td>
-<td align="right">0.114</td>
+<td align="right">-0.257</td>
+<td align="left">[-2.091, 1.624]</td>
+<td align="right">0.609</td>
+<td align="right">0.250</td>
+<td align="right">0.637</td>
+<td align="right">0.113</td>
 </tr>
 <tr class="even">
 <td align="left">Verbaliser</td>
 <td align="left">Visual - Control</td>
-<td align="right">1.544</td>
-<td align="left">[-0.413, 3.518]</td>
-<td align="right">0.946</td>
-<td align="right">0.007</td>
-<td align="right">0.236</td>
-<td align="right">0.756</td>
+<td align="right">1.528</td>
+<td align="left">[-0.438, 3.52]</td>
+<td align="right">0.945</td>
+<td align="right">0.008</td>
+<td align="right">0.240</td>
+<td align="right">0.753</td>
 </tr>
 <tr class="odd">
 <td align="left">Verbaliser</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">1.788</td>
-<td align="left">[-0.115, 3.715]</td>
+<td align="right">1.782</td>
+<td align="left">[-0.115, 3.709]</td>
 <td align="right">0.968</td>
 <td align="right">0.004</td>
-<td align="right">0.165</td>
-<td align="right">0.831</td>
+<td align="right">0.166</td>
+<td align="right">0.829</td>
 </tr>
 </tbody>
 </table>
@@ -1536,28 +1536,28 @@ contrasts between groups).</p>
 <td align="left">Spatial - Control</td>
 <td align="left">Spatialiser - Verbaliser</td>
 <td align="right">0.106</td>
-<td align="left">[-1.702, 1.928]</td>
-<td align="right">0.546</td>
-<td align="right">0.144</td>
-<td align="right">0.650</td>
+<td align="left">[-1.7, 1.931]</td>
+<td align="right">0.547</td>
+<td align="right">0.142</td>
+<td align="right">0.652</td>
 <td align="right">0.206</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Control</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">-0.065</td>
-<td align="left">[-1.923, 1.842]</td>
+<td align="right">-0.069</td>
+<td align="left">[-1.923, 1.827]</td>
 <td align="right">0.525</td>
-<td align="right">0.196</td>
-<td align="right">0.639</td>
-<td align="right">0.165</td>
+<td align="right">0.197</td>
+<td align="right">0.636</td>
+<td align="right">0.168</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Spatial</td>
 <td align="left">Spatialiser - Verbaliser</td>
-<td align="right">-0.175</td>
-<td align="left">[-2.041, 1.736]</td>
-<td align="right">0.570</td>
+<td align="right">-0.177</td>
+<td align="left">[-2.041, 1.731]</td>
+<td align="right">0.572</td>
 <td align="right">0.237</td>
 <td align="right">0.621</td>
 <td align="right">0.142</td>
@@ -1565,62 +1565,62 @@ contrasts between groups).</p>
 <tr class="even">
 <td align="left">Spatial - Control</td>
 <td align="left">Visualiser - Spatialiser</td>
-<td align="right">0.501</td>
-<td align="left">[-1.306, 2.314]</td>
+<td align="right">0.498</td>
+<td align="left">[-1.303, 2.31]</td>
 <td align="right">0.707</td>
-<td align="right">0.070</td>
-<td align="right">0.580</td>
-<td align="right">0.350</td>
+<td align="right">0.069</td>
+<td align="right">0.582</td>
+<td align="right">0.348</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Control</td>
 <td align="left">Visualiser - Spatialiser</td>
-<td align="right">1.443</td>
-<td align="left">[-0.472, 3.324]</td>
-<td align="right">0.930</td>
+<td align="right">1.438</td>
+<td align="left">[-0.449, 3.324]</td>
+<td align="right">0.929</td>
 <td align="right">0.009</td>
-<td align="right">0.271</td>
-<td align="right">0.720</td>
+<td align="right">0.272</td>
+<td align="right">0.719</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Spatial</td>
 <td align="left">Visualiser - Spatialiser</td>
 <td align="right">0.930</td>
-<td align="left">[-1, 2.869]</td>
-<td align="right">0.831</td>
-<td align="right">0.034</td>
+<td align="left">[-0.989, 2.872]</td>
+<td align="right">0.830</td>
+<td align="right">0.033</td>
 <td align="right">0.442</td>
 <td align="right">0.525</td>
 </tr>
 <tr class="odd">
 <td align="left">Spatial - Control</td>
 <td align="left">Visualiser - Verbaliser</td>
-<td align="right">0.613</td>
-<td align="left">[-0.832, 2.061]</td>
+<td align="right">0.616</td>
+<td align="left">[-0.829, 2.063]</td>
 <td align="right">0.794</td>
 <td align="right">0.022</td>
-<td align="right">0.611</td>
-<td align="right">0.367</td>
+<td align="right">0.609</td>
+<td align="right">0.369</td>
 </tr>
 <tr class="even">
 <td align="left">Visual - Control</td>
 <td align="left">Visualiser - Verbaliser</td>
-<td align="right">1.376</td>
-<td align="left">[-0.153, 2.895]</td>
-<td align="right">0.961</td>
+<td align="right">1.373</td>
+<td align="left">[-0.149, 2.894]</td>
+<td align="right">0.962</td>
 <td align="right">0.002</td>
-<td align="right">0.254</td>
-<td align="right">0.745</td>
+<td align="right">0.255</td>
+<td align="right">0.744</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Spatial</td>
 <td align="left">Visualiser - Verbaliser</td>
-<td align="right">0.762</td>
-<td align="left">[-0.783, 2.284]</td>
-<td align="right">0.831</td>
-<td align="right">0.019</td>
-<td align="right">0.533</td>
-<td align="right">0.448</td>
+<td align="right">0.755</td>
+<td align="left">[-0.785, 2.291]</td>
+<td align="right">0.829</td>
+<td align="right">0.020</td>
+<td align="right">0.536</td>
+<td align="right">0.445</td>
 </tr>
 </tbody>
 </table>
@@ -1924,12 +1924,12 @@ contrasts between groups).</p>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">No_visual_strategy - Visual_strategy_user</td>
-<td align="right">1.129</td>
-<td align="left">[-1.332, 3.559]</td>
-<td align="right">0.821</td>
+<td align="right">1.134</td>
+<td align="left">[-1.322, 3.565]</td>
+<td align="right">0.822</td>
 <td align="right">0.054</td>
-<td align="right">0.36</td>
-<td align="right">0.585</td>
+<td align="right">0.358</td>
+<td align="right">0.588</td>
 </tr></tbody>
 </table>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
@@ -1967,60 +1967,60 @@ contrasts between groups).</p>
 <td align="left">Visual_strategy_user</td>
 <td align="left">Spatial - Control</td>
 <td align="right">0.048</td>
-<td align="left">[-1.717, 1.877]</td>
-<td align="right">0.522</td>
-<td align="right">0.147</td>
-<td align="right">0.673</td>
-<td align="right">0.180</td>
+<td align="left">[-1.726, 1.871]</td>
+<td align="right">0.521</td>
+<td align="right">0.148</td>
+<td align="right">0.671</td>
+<td align="right">0.181</td>
 </tr>
 <tr class="even">
 <td align="left">Visual_strategy_user</td>
 <td align="left">Visual - Control</td>
 <td align="right">2.462</td>
-<td align="left">[0.587, 4.356]</td>
+<td align="left">[0.586, 4.372]</td>
 <td align="right">0.994</td>
 <td align="right">0.000</td>
 <td align="right">0.046</td>
-<td align="right">0.954</td>
+<td align="right">0.953</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual_strategy_user</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">2.395</td>
-<td align="left">[0.534, 4.363]</td>
+<td align="right">2.402</td>
+<td align="left">[0.534, 4.377]</td>
 <td align="right">0.993</td>
 <td align="right">0.001</td>
 <td align="right">0.053</td>
-<td align="right">0.947</td>
+<td align="right">0.946</td>
 </tr>
 <tr class="even">
 <td align="left">No_visual_strategy</td>
 <td align="left">Spatial - Control</td>
-<td align="right">0.006</td>
-<td align="left">[-1.858, 1.92]</td>
-<td align="right">0.503</td>
-<td align="right">0.170</td>
+<td align="right">0.002</td>
+<td align="left">[-1.857, 1.919]</td>
+<td align="right">0.501</td>
+<td align="right">0.172</td>
 <td align="right">0.647</td>
-<td align="right">0.182</td>
+<td align="right">0.181</td>
 </tr>
 <tr class="odd">
 <td align="left">No_visual_strategy</td>
 <td align="left">Visual - Control</td>
 <td align="right">1.758</td>
-<td align="left">[-0.198, 3.685]</td>
-<td align="right">0.963</td>
+<td align="left">[-0.195, 3.689]</td>
+<td align="right">0.964</td>
 <td align="right">0.005</td>
-<td align="right">0.175</td>
-<td align="right">0.820</td>
+<td align="right">0.177</td>
+<td align="right">0.818</td>
 </tr>
 <tr class="even">
 <td align="left">No_visual_strategy</td>
 <td align="left">Visual - Spatial</td>
-<td align="right">1.743</td>
-<td align="left">[-0.21, 3.72]</td>
-<td align="right">0.960</td>
-<td align="right">0.005</td>
-<td align="right">0.184</td>
+<td align="right">1.748</td>
+<td align="left">[-0.216, 3.732]</td>
+<td align="right">0.959</td>
+<td align="right">0.006</td>
+<td align="right">0.183</td>
 <td align="right">0.811</td>
 </tr>
 </tbody>
@@ -2061,8 +2061,8 @@ contrasts between groups).</p>
 <td align="left">Spatial - Control</td>
 <td align="left">Visual_strategy_user - No_visual_strategy</td>
 <td align="right">0.037</td>
-<td align="left">[-1.274, 1.382]</td>
-<td align="right">0.523</td>
+<td align="left">[-1.266, 1.384]</td>
+<td align="right">0.522</td>
 <td align="right">0.091</td>
 <td align="right">0.799</td>
 <td align="right">0.110</td>
@@ -2071,21 +2071,21 @@ contrasts between groups).</p>
 <td align="left">Visual - Control</td>
 <td align="left">Visual_strategy_user - No_visual_strategy</td>
 <td align="right">0.706</td>
-<td align="left">[-0.668, 2.077]</td>
+<td align="left">[-0.662, 2.081]</td>
 <td align="right">0.845</td>
 <td align="right">0.012</td>
-<td align="right">0.579</td>
-<td align="right">0.409</td>
+<td align="right">0.580</td>
+<td align="right">0.408</td>
 </tr>
 <tr class="odd">
 <td align="left">Visual - Spatial</td>
 <td align="left">Visual_strategy_user - No_visual_strategy</td>
-<td align="right">0.660</td>
-<td align="left">[-0.719, 2.034]</td>
+<td align="right">0.662</td>
+<td align="left">[-0.711, 2.034]</td>
 <td align="right">0.825</td>
-<td align="right">0.015</td>
+<td align="right">0.014</td>
 <td align="right">0.601</td>
-<td align="right">0.384</td>
+<td align="right">0.385</td>
 </tr>
 </tbody>
 </table>
@@ -2256,9 +2256,7 @@ contrasts between groups).</p>
 the manuscript were created with the
 <code><a href="../reference/plot_superb_raincloud.html">plot_superb_raincloud()</a></code> function from the package, which
 wraps functions from the <em>ggplot2</em> and <em>superb</em> packages
-to create nice visualisations easily. A little
-<code><a href="../reference/add_significance.html">add_significance()</a></code> helper function was also created to add
-significance stars to the plots.</p>
+to create nice visualisations easily.</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dcousin3/superb/" class="external-link">superb</a></span><span class="op">)</span></span>
@@ -2271,30 +2269,7 @@ significance stars to the plots.</p>
 <span>    plot.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>    axis_rel_x <span class="op">=</span> <span class="fl">1.2</span>,</span>
 <span>    exp_add_right <span class="op">=</span> <span class="fl">0.7</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/add_significance.html">add_significance</a></span><span class="op">(</span></span>
-<span>    size_star <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>      x_star <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>      y_star <span class="op">=</span> <span class="fl">30</span>,</span>
-<span>      stars  <span class="op">=</span> <span class="st">"**"</span>,</span>
-<span>      x_line <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">-</span> <span class="fl">0.14</span>,</span>
-<span>      x_line_end <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">+</span> <span class="fl">0.14</span>,</span>
-<span>      y_line <span class="op">=</span> <span class="fl">29.5</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/add_significance.html">add_significance</a></span><span class="op">(</span></span>
-<span>    size_star <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>      x_star <span class="op">=</span> <span class="fl">2.07</span>,</span>
-<span>      y_star <span class="op">=</span> <span class="fl">28</span>,</span>
-<span>      stars  <span class="op">=</span> <span class="st">"*"</span>,</span>
-<span>      x_line <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">-</span> <span class="fl">0.07</span>,</span>
-<span>      x_line_end <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">+</span> <span class="fl">0.07</span>,</span>
-<span>      y_line <span class="op">=</span> <span class="fl">27.5</span></span>
-<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span></span>
 <span><span class="va">pr2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/plot_superb_raincloud.html">plot_superb_raincloud</a></span><span class="op">(</span></span>
 <span>    <span class="va">df_rt</span>, <span class="va">rt_total</span>, <span class="va">group_3</span>,</span>
@@ -2303,30 +2278,7 @@ significance stars to the plots.</p>
 <span>    plot.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>    axis_rel_x <span class="op">=</span> <span class="fl">1.2</span>,</span>
 <span>    exp_add_right <span class="op">=</span> <span class="fl">0.7</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/add_significance.html">add_significance</a></span><span class="op">(</span></span>
-<span>    size_star <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>      x_star <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>      y_star <span class="op">=</span> <span class="fl">30</span>,</span>
-<span>      stars  <span class="op">=</span> <span class="st">"**"</span>,</span>
-<span>      x_line <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">-</span> <span class="fl">0.14</span>,</span>
-<span>      x_line_end <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">+</span> <span class="fl">0.14</span>,</span>
-<span>      y_line <span class="op">=</span> <span class="fl">29.5</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/add_significance.html">add_significance</a></span><span class="op">(</span></span>
-<span>    size_star <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>      x_star <span class="op">=</span> <span class="fl">3.07</span>,</span>
-<span>      y_star <span class="op">=</span> <span class="fl">28</span>,</span>
-<span>      stars  <span class="op">=</span> <span class="st">"*"</span>,</span>
-<span>      x_line <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">-</span> <span class="fl">0.07</span>,</span>
-<span>      x_line_end <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">+</span> <span class="fl">0.07</span>,</span>
-<span>      y_line <span class="op">=</span> <span class="fl">27.5</span></span>
-<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span></span>
 <span><span class="va">pr3</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/plot_superb_raincloud.html">plot_superb_raincloud</a></span><span class="op">(</span></span>
 <span>    <span class="va">df_rt</span>, <span class="va">rt_total</span>, <span class="va">cluster</span>,</span>
@@ -2335,28 +2287,6 @@ significance stars to the plots.</p>
 <span>    plot.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>    axis_rel_x <span class="op">=</span> <span class="fl">1.2</span>,</span>
 <span>    exp_add_right <span class="op">=</span> <span class="fl">0.7</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/add_significance.html">add_significance</a></span><span class="op">(</span></span>
-<span>    size_star <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>      x_star <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>      y_star <span class="op">=</span> <span class="fl">30</span>,</span>
-<span>      stars  <span class="op">=</span> <span class="st">"***"</span>,</span>
-<span>      x_line <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">-</span> <span class="fl">0.14</span>,</span>
-<span>      x_line_end <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">+</span> <span class="fl">0.14</span>,</span>
-<span>      y_line <span class="op">=</span> <span class="fl">29.5</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/add_significance.html">add_significance</a></span><span class="op">(</span></span>
-<span>    size_star <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>      x_star <span class="op">=</span> <span class="fl">3.07</span>,</span>
-<span>      y_star <span class="op">=</span> <span class="fl">28</span>,</span>
-<span>      stars  <span class="op">=</span> <span class="st">"*"</span>,</span>
-<span>      x_line <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">-</span> <span class="fl">0.07</span>,</span>
-<span>      x_line_end <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x_star</span> <span class="op">+</span> <span class="fl">0.07</span>,</span>
-<span>      y_line <span class="op">=</span> <span class="fl">27.5</span></span>
-<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">pr</span> <span class="op">&lt;-</span> <span class="va">pr1</span> <span class="op">+</span> <span class="va">pr2</span> <span class="op">+</span> <span class="va">pr3</span> <span class="op">+</span></span>
@@ -2377,25 +2307,25 @@ significance stars to the plots.</p>
 <span><span class="co">#&gt;  collate  C.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2025-12-12</span></span>
+<span><span class="co">#&gt;  date     2026-02-11</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)</span></span>
-<span><span class="co">#&gt;  quarto   1.8.26 @ /usr/local/bin/quarto</span></span>
+<span><span class="co">#&gt;  quarto   1.8.27 @ /usr/local/bin/quarto</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">!</span> <span style="color: #555555; font-style: italic;">package                </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version   </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
 <span><span class="co">#&gt;    abind                     1.4-8      <span style="color: #555555;">2024-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    aphantasiaReasoningViie * 1.0        <span style="color: #555555;">2025-12-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
+<span><span class="co">#&gt;    aphantasiaReasoningViie * 1.0        <span style="color: #555555;">2026-02-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
 <span><span class="co">#&gt;    assertthat                0.2.1      <span style="color: #555555;">2019-03-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    backports                 1.5.0      <span style="color: #555555;">2024-05-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    bayesplot                 1.14.0     <span style="color: #555555;">2025-08-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    bayesplot                 1.15.0     <span style="color: #555555;">2025-12-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    bayestestR                0.17.0     <span style="color: #555555;">2025-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> boot                      1.3-32     <span style="color: #555555;">2025-08-29</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
 <span><span class="co">#&gt;    bridgesampling            1.2-1      <span style="color: #555555;">2025-11-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    brms                      2.23.0     <span style="color: #555555;">2025-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    Brobdingnag               1.2-9      <span style="color: #555555;">2022-10-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    bslib                     0.9.0      <span style="color: #555555;">2025-01-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    bslib                     0.10.0     <span style="color: #555555;">2026-01-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    cachem                    1.1.0      <span style="color: #555555;">2024-05-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    checkmate                 2.3.3      <span style="color: #555555;">2025-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    checkmate                 2.3.4      <span style="color: #555555;">2026-02-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> class                     7.3-23     <span style="color: #555555;">2025-01-01</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
 <span><span class="co">#&gt;    cli                       3.6.5      <span style="color: #555555;">2025-04-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    clue                      0.3-66     <span style="color: #555555;">2024-11-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -2404,21 +2334,21 @@ significance stars to the plots.</p>
 <span><span class="co">#&gt;    clValid                   0.7        <span style="color: #555555;">2021-02-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    coda                      0.19-4.1   <span style="color: #555555;">2024-01-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> codetools                 0.2-20     <span style="color: #555555;">2024-03-31</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
-<span><span class="co">#&gt;    collapse                  2.1.5      <span style="color: #555555;">2025-11-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    collapse                  2.1.6      <span style="color: #555555;">2026-01-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    combinat                  0.0-8      <span style="color: #555555;">2012-10-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    crayon                    1.5.3      <span style="color: #555555;">2024-06-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    curl                      7.0.0      <span style="color: #555555;">2025-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    data.table                1.17.8     <span style="color: #555555;">2025-07-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    data.table                1.18.2.1   <span style="color: #555555;">2026-01-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    datawizard                1.3.0      <span style="color: #555555;">2025-10-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    desc                      1.4.3      <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> devtools                * 2.4.6      <span style="color: #555555;">2025-10-03</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    diceR                     3.1.0      <span style="color: #555555;">2025-06-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    digest                    0.6.39     <span style="color: #555555;">2025-11-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    distributional            0.5.0      <span style="color: #555555;">2024-09-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    dplyr                     1.1.4      <span style="color: #555555;">2023-11-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    e1071                     1.7-16     <span style="color: #555555;">2024-09-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    distributional            0.6.0      <span style="color: #555555;">2026-01-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    dplyr                     1.2.0      <span style="color: #555555;">2026-02-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    e1071                     1.7-17     <span style="color: #555555;">2025-12-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> ellipsis                  0.3.2      <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    emmeans                   2.0.0      <span style="color: #555555;">2025-10-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    emmeans                   2.0.1      <span style="color: #555555;">2025-12-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    estimability              1.5.1      <span style="color: #555555;">2024-05-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    evaluate                  1.0.5      <span style="color: #555555;">2025-08-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    farver                    2.1.2      <span style="color: #555555;">2024-05-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -2428,8 +2358,8 @@ significance stars to the plots.</p>
 <span><span class="co">#&gt;    Formula                   1.2-5      <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    fs                        1.6.6      <span style="color: #555555;">2025-04-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    generics                  0.1.4      <span style="color: #555555;">2025-05-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    ggplot2                   4.0.1      <span style="color: #555555;">2025-11-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    glmmTMB                   1.1.13     <span style="color: #555555;">2025-10-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    ggplot2                   4.0.2      <span style="color: #555555;">2026-02-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    glmmTMB                   1.1.14     <span style="color: #555555;">2026-01-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    glue                      1.8.0      <span style="color: #555555;">2024-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    gridExtra                 2.3        <span style="color: #555555;">2017-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    gtable                    0.3.6      <span style="color: #555555;">2024-10-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -2440,18 +2370,18 @@ significance stars to the plots.</p>
 <span><span class="co">#&gt;    htmlwidgets               1.6.4      <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    httpuv                    1.6.16     <span style="color: #555555;">2025-04-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    inline                    0.3.21     <span style="color: #555555;">2025-01-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    insight                   1.4.4      <span style="color: #555555;">2025-12-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    insight                   1.4.6      <span style="color: #555555;">2026-02-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    jquerylib                 0.1.4      <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    jsonlite                  2.0.0      <span style="color: #555555;">2025-03-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    klaR                      1.7-3      <span style="color: #555555;">2023-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    knitr                     1.50       <span style="color: #555555;">2025-03-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    knitr                     1.51       <span style="color: #555555;">2025-12-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    labeling                  0.4.3      <span style="color: #555555;">2023-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    labelled                  2.16.0     <span style="color: #555555;">2025-10-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    later                     1.4.4      <span style="color: #555555;">2025-08-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    later                     1.4.5      <span style="color: #555555;">2026-01-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> lattice                   0.22-7     <span style="color: #555555;">2025-04-02</span> <span style="color: #555555;">[?]</span> <span style="color: #555555;">CRAN (R 4.5.2)</span></span></span>
-<span><span class="co">#&gt;    lifecycle                 1.0.4      <span style="color: #555555;">2023-11-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    lifecycle                 1.0.5      <span style="color: #555555;">2026-01-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    lme4                      1.1-38     <span style="color: #555555;">2025-12-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    loo                       2.8.0      <span style="color: #555555;">2024-07-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    loo                       2.9.0      <span style="color: #555555;">2025-12-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    lsr                       0.5.2      <span style="color: #555555;">2021-12-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    magrittr                  2.0.4      <span style="color: #555555;">2025-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    marginaleffects           0.31.0     <span style="color: #555555;">2025-11-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -2470,44 +2400,44 @@ significance stars to the plots.</p>
 <span><span class="co">#&gt;    numDeriv                  <span style="color: #BB00BB; font-weight: bold;">2016.8-1.1</span> <span style="color: #555555;">2019-06-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    otel                      0.2.0      <span style="color: #555555;">2025-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    patchwork               * 1.3.2      <span style="color: #555555;">2025-08-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    performance               0.15.3     <span style="color: #555555;">2025-12-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    performance               0.16.0     <span style="color: #555555;">2026-02-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    pillar                    1.11.1     <span style="color: #555555;">2025-09-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    pkgbuild                  1.4.8      <span style="color: #555555;">2025-05-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    pkgconfig                 2.0.3      <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    pkgdown                   2.2.0      <span style="color: #555555;">2025-11-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">any (@2.2.0)</span></span></span>
-<span><span class="co">#&gt;    pkgload                   1.4.1      <span style="color: #555555;">2025-09-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    pkgload                   1.5.0      <span style="color: #555555;">2026-02-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    plyr                      1.8.9      <span style="color: #555555;">2023-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    posterior                 1.6.1      <span style="color: #555555;">2025-02-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    promises                  1.5.0      <span style="color: #555555;">2025-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    proxy                     0.4-27     <span style="color: #555555;">2022-06-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    purrr                     1.2.0      <span style="color: #555555;">2025-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    questionr                 0.8.1      <span style="color: #555555;">2025-06-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    QuickJSR                  1.8.1      <span style="color: #555555;">2025-09-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    proxy                     0.4-29     <span style="color: #555555;">2025-12-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    purrr                     1.2.1      <span style="color: #555555;">2026-01-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    questionr                 0.8.2      <span style="color: #555555;">2026-01-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    QuickJSR                  1.9.0      <span style="color: #555555;">2026-01-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    R6                        2.6.1      <span style="color: #555555;">2025-02-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    ragg                      1.5.0      <span style="color: #555555;">2025-09-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    rbibutils                 2.4        <span style="color: #555555;">2025-11-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    rbibutils                 2.4.1      <span style="color: #555555;">2026-01-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    RColorBrewer              1.1-3      <span style="color: #555555;">2022-04-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    Rcpp                      1.1.0      <span style="color: #555555;">2025-07-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    Rcpp                      1.1.1      <span style="color: #555555;">2026-01-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    RcppParallel              5.1.11-1   <span style="color: #555555;">2025-08-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    Rdpack                    2.6.4      <span style="color: #555555;">2025-04-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    reformulas                0.4.2      <span style="color: #555555;">2025-10-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    Rdpack                    2.6.6      <span style="color: #555555;">2026-02-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    reformulas                0.4.4      <span style="color: #555555;">2026-02-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> remotes                   2.5.0      <span style="color: #555555;">2024-03-17</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    renv                      1.1.4      <span style="color: #555555;">2025-03-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.5.0)</span></span></span>
 <span><span class="co">#&gt;    reshape2                  1.4.5      <span style="color: #555555;">2025-11-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    rlang                     1.1.6      <span style="color: #555555;">2025-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    rlang                     1.1.7      <span style="color: #555555;">2026-01-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    rmarkdown                 2.30       <span style="color: #555555;">2025-09-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    rrapply                   1.2.8      <span style="color: #555555;">2025-11-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    rstan                     2.32.7     <span style="color: #555555;">2025-03-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    rstantools                2.5.0      <span style="color: #555555;">2025-09-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    rstudioapi                0.17.1     <span style="color: #555555;">2024-10-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    rstantools                2.6.0      <span style="color: #555555;">2026-01-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    rstudioapi                0.18.0     <span style="color: #555555;">2026-01-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    S7                        0.2.1      <span style="color: #555555;">2025-11-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    sandwich                  3.1-1      <span style="color: #555555;">2024-09-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    sass                      0.4.10     <span style="color: #555555;">2025-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    scales                    1.4.0      <span style="color: #555555;">2025-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    see                       0.12.0     <span style="color: #555555;">2025-09-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    see                       0.13.0     <span style="color: #555555;">2026-01-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    sessioninfo               1.2.3      <span style="color: #555555;">2025-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    shiny                     1.12.1     <span style="color: #555555;">2025-12-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    shinyBS                   0.61.1     <span style="color: #555555;">2022-04-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    shinyBS                   0.63.0     <span style="color: #555555;">2025-12-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    showtext                  0.9-7      <span style="color: #555555;">2024-03-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    showtextdb                3.0        <span style="color: #555555;">2020-06-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    StanHeaders               2.32.10    <span style="color: #555555;">2024-07-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -2518,17 +2448,17 @@ significance stars to the plots.</p>
 <span><span class="co">#&gt;    systemfonts               1.3.1      <span style="color: #555555;">2025-10-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    tensorA                   0.36.2.1   <span style="color: #555555;">2023-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    textshaping               1.0.4      <span style="color: #555555;">2025-10-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    tibble                    3.3.0      <span style="color: #555555;">2025-06-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    tidyr                     1.3.1      <span style="color: #555555;">2024-01-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    tibble                    3.3.1      <span style="color: #555555;">2026-01-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    tidyr                     1.3.2      <span style="color: #555555;">2025-12-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    tidyselect                1.2.1      <span style="color: #555555;">2024-03-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    TMB                       1.9.18     <span style="color: #555555;">2025-10-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    TMB                       1.9.19     <span style="color: #555555;">2025-12-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">P</span> usethis                 * 3.2.1      <span style="color: #555555;">2025-09-06</span> <span style="color: #555555;">[?]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    vctrs                     0.6.5      <span style="color: #555555;">2023-12-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    vctrs                     0.7.1      <span style="color: #555555;">2026-01-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    withr                     3.0.2      <span style="color: #555555;">2024-10-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    xfun                      0.54       <span style="color: #555555;">2025-10-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    xfun                      0.56       <span style="color: #555555;">2026-01-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    xtable                    1.8-4      <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;    yaml                      2.3.12     <span style="color: #555555;">2025-12-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;    zoo                       1.8-14     <span style="color: #555555;">2025-04-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;    zoo                       1.8-15     <span style="color: #555555;">2025-12-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu/8f3cef43</span></span></span>

@@ -477,23 +477,23 @@ the VIIE.
     #>  collate  C.UTF-8
     #>  ctype    C.UTF-8
     #>  tz       UTC
-    #>  date     2025-12-12
+    #>  date     2026-02-11
     #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
-    #>  quarto   1.8.26 @ /usr/local/bin/quarto
+    #>  quarto   1.8.27 @ /usr/local/bin/quarto
     #> 
     #> ─ Packages ───────────────────────────────────────────────────────────────────
     #>  ! package                 * version    date (UTC) lib source
     #>    abind                     1.4-8      2024-09-12 [1] RSPM
-    #>    aphantasiaReasoningViie * 1.0        2025-12-12 [1] local
+    #>    aphantasiaReasoningViie * 1.0        2026-02-11 [1] local
     #>    backports                 1.5.0      2024-05-23 [1] RSPM
-    #>    bayesplot                 1.14.0     2025-08-31 [1] RSPM
+    #>    bayesplot                 1.15.0     2025-12-12 [1] RSPM
     #>  P boot                      1.3-32     2025-08-29 [?] CRAN (R 4.5.2)
     #>    bridgesampling            1.2-1      2025-11-19 [1] RSPM
     #>    brms                      2.23.0     2025-09-09 [1] RSPM
     #>    Brobdingnag               1.2-9      2022-10-19 [1] RSPM
-    #>    bslib                     0.9.0      2025-01-30 [1] RSPM
+    #>    bslib                     0.10.0     2026-01-26 [1] RSPM
     #>    cachem                    1.1.0      2024-05-16 [1] RSPM
-    #>    checkmate                 2.3.3      2025-08-18 [1] RSPM
+    #>    checkmate                 2.3.4      2026-02-03 [1] RSPM
     #>    cli                       3.6.5      2025-04-23 [1] RSPM
     #>    coda                      0.19-4.1   2024-01-31 [1] RSPM
     #>    crayon                    1.5.3      2024-06-20 [1] RSPM
@@ -501,10 +501,10 @@ the VIIE.
     #>    desc                      1.4.3      2023-12-10 [1] RSPM
     #>  P devtools                * 2.4.6      2025-10-03 [?] RSPM
     #>    digest                    0.6.39     2025-11-19 [1] RSPM
-    #>    distributional            0.5.0      2024-09-17 [1] RSPM
-    #>    dplyr                     1.1.4      2023-11-17 [1] RSPM
+    #>    distributional            0.6.0      2026-01-14 [1] RSPM
+    #>    dplyr                     1.2.0      2026-02-03 [1] RSPM
     #>  P ellipsis                  0.3.2      2021-04-29 [?] RSPM
-    #>    emmeans                   2.0.0      2025-10-29 [1] RSPM
+    #>    emmeans                   2.0.1      2025-12-16 [1] RSPM
     #>    estimability              1.5.1      2024-05-12 [1] RSPM
     #>    evaluate                  1.0.5      2025-08-27 [1] RSPM
     #>    farver                    2.1.2      2024-05-13 [1] RSPM
@@ -513,8 +513,8 @@ the VIIE.
     #>  P foreign                   0.8-90     2025-03-31 [?] CRAN (R 4.5.2)
     #>    fs                        1.6.6      2025-04-12 [1] RSPM
     #>    generics                  0.1.4      2025-05-09 [1] RSPM
-    #>    ggplot2                   4.0.1      2025-11-14 [1] RSPM
-    #>    glmmTMB                   1.1.13     2025-10-09 [1] RSPM
+    #>    ggplot2                   4.0.2      2026-02-03 [1] RSPM
+    #>    glmmTMB                   1.1.14     2026-01-15 [1] RSPM
     #>    glue                      1.8.0      2024-09-30 [1] RSPM
     #>    gtable                    0.3.6      2024-10-25 [1] RSPM
     #>    htmltools                 0.5.9      2025-12-04 [1] RSPM
@@ -522,12 +522,12 @@ the VIIE.
     #>    httpuv                    1.6.16     2025-04-16 [1] RSPM
     #>    jquerylib                 0.1.4      2021-04-26 [1] RSPM
     #>    jsonlite                  2.0.0      2025-03-27 [1] RSPM
-    #>    knitr                     1.50       2025-03-16 [1] RSPM
-    #>    later                     1.4.4      2025-08-27 [1] RSPM
+    #>    knitr                     1.51       2025-12-20 [1] RSPM
+    #>    later                     1.4.5      2026-01-08 [1] RSPM
     #>  P lattice                   0.22-7     2025-04-02 [?] CRAN (R 4.5.2)
-    #>    lifecycle                 1.0.4      2023-11-07 [1] RSPM
+    #>    lifecycle                 1.0.5      2026-01-08 [1] RSPM
     #>    lme4                      1.1-38     2025-12-02 [1] RSPM
-    #>    loo                       2.8.0      2024-07-03 [1] RSPM
+    #>    loo                       2.9.0      2025-12-23 [1] RSPM
     #>    lsr                       0.5.2      2021-12-01 [1] RSPM
     #>    magrittr                  2.0.4      2025-09-12 [1] RSPM
     #>  P MASS                      7.3-65     2025-02-28 [?] CRAN (R 4.5.2)
@@ -546,34 +546,34 @@ the VIIE.
     #>    pkgbuild                  1.4.8      2025-05-26 [1] RSPM
     #>    pkgconfig                 2.0.3      2019-09-22 [1] RSPM
     #>    pkgdown                   2.2.0      2025-11-06 [1] any (@2.2.0)
-    #>    pkgload                   1.4.1      2025-09-23 [1] RSPM
+    #>    pkgload                   1.5.0      2026-02-03 [1] RSPM
     #>    plyr                      1.8.9      2023-10-02 [1] RSPM
     #>    posterior                 1.6.1      2025-02-27 [1] RSPM
     #>    progressr                 0.18.0     2025-11-06 [1] RSPM
     #>    promises                  1.5.0      2025-11-01 [1] RSPM
-    #>    purrr                     1.2.0      2025-11-04 [1] RSPM
+    #>    purrr                     1.2.1      2026-01-09 [1] RSPM
     #>    R6                        2.6.1      2025-02-15 [1] RSPM
     #>    ragg                      1.5.0      2025-09-02 [1] RSPM
-    #>    rbibutils                 2.4        2025-11-07 [1] RSPM
+    #>    rbibutils                 2.4.1      2026-01-21 [1] RSPM
     #>    RColorBrewer              1.1-3      2022-04-03 [1] RSPM
-    #>    Rcpp                      1.1.0      2025-07-02 [1] RSPM
+    #>    Rcpp                      1.1.1      2026-01-10 [1] RSPM
     #>    RcppParallel              5.1.11-1   2025-08-27 [1] RSPM
-    #>    Rdpack                    2.6.4      2025-04-09 [1] RSPM
-    #>    reformulas                0.4.2      2025-10-28 [1] RSPM
+    #>    Rdpack                    2.6.6      2026-02-08 [1] RSPM
+    #>    reformulas                0.4.4      2026-02-02 [1] RSPM
     #>  P remotes                   2.5.0      2024-03-17 [?] RSPM
     #>    renv                      1.1.4      2025-03-20 [1] RSPM (R 4.5.0)
     #>    reshape2                  1.4.5      2025-11-12 [1] RSPM
-    #>    rlang                     1.1.6      2025-04-11 [1] RSPM
+    #>    rlang                     1.1.7      2026-01-09 [1] RSPM
     #>    rmarkdown                 2.30       2025-09-28 [1] RSPM
     #>    rrapply                   1.2.8      2025-11-25 [1] RSPM
-    #>    rstantools                2.5.0      2025-09-01 [1] RSPM
+    #>    rstantools                2.6.0      2026-01-10 [1] RSPM
     #>    S7                        0.2.1      2025-11-14 [1] RSPM
     #>    sandwich                  3.1-1      2024-09-15 [1] RSPM
     #>    sass                      0.4.10     2025-04-11 [1] RSPM
     #>    scales                    1.4.0      2025-04-24 [1] RSPM
     #>    sessioninfo               1.2.3      2025-02-05 [1] RSPM
     #>    shiny                     1.12.1     2025-12-09 [1] RSPM
-    #>    shinyBS                   0.61.1     2022-04-17 [1] RSPM
+    #>    shinyBS                   0.63.0     2025-12-17 [1] RSPM
     #>    showtext                  0.9-7      2024-03-02 [1] RSPM
     #>    showtextdb                3.0        2020-06-04 [1] RSPM
     #>    stringi                   1.8.7      2025-03-27 [1] RSPM
@@ -583,19 +583,19 @@ the VIIE.
     #>    systemfonts               1.3.1      2025-10-01 [1] RSPM
     #>    tensorA                   0.36.2.1   2023-12-13 [1] RSPM
     #>    textshaping               1.0.4      2025-10-10 [1] RSPM
-    #>    tibble                    3.3.0      2025-06-08 [1] RSPM
-    #>    tidyr                     1.3.1      2024-01-24 [1] RSPM
+    #>    tibble                    3.3.1      2026-01-11 [1] RSPM
+    #>    tidyr                     1.3.2      2025-12-19 [1] RSPM
     #>    tidyselect                1.2.1      2024-03-11 [1] RSPM
-    #>    TMB                       1.9.18     2025-10-13 [1] RSPM
+    #>    TMB                       1.9.19     2025-12-15 [1] RSPM
     #>  P usethis                 * 3.2.1      2025-09-06 [?] RSPM
     #>    utf8                      1.2.6      2025-06-08 [1] RSPM
-    #>    vctrs                     0.6.5      2023-12-01 [1] RSPM
-    #>    viridisLite               0.4.2      2023-05-02 [1] RSPM
+    #>    vctrs                     0.7.1      2026-01-23 [1] RSPM
+    #>    viridisLite               0.4.3      2026-02-04 [1] RSPM
     #>    withr                     3.0.2      2024-10-28 [1] RSPM
-    #>    xfun                      0.54       2025-10-30 [1] RSPM
+    #>    xfun                      0.56       2026-01-18 [1] RSPM
     #>    xtable                    1.8-4      2019-04-21 [1] RSPM
     #>    yaml                      2.3.12     2025-12-10 [1] RSPM
-    #>    zoo                       1.8-14     2025-04-10 [1] RSPM
+    #>    zoo                       1.8-15     2025-12-15 [1] RSPM
     #> 
     #>  [1] /home/runner/.cache/R/renv/library/aphantasiaReasoningViie-b75da44b/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu
     #>  [2] /home/runner/.cache/R/renv/sandbox/linux-ubuntu-noble/R-4.5/x86_64-pc-linux-gnu/8f3cef43
