@@ -9,7 +9,8 @@ add_significance(
   size_star = 2.5,
   lw = 0.2,
   color = "black",
-  linetype = "solid"
+  linetype = "solid",
+  ...
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ desired aesthetics (x, y, colour, etc.) and the following columns:
 \item{color}{Color of the star label and line. Default is "black".}
 
 \item{linetype}{Line type of the significance line. Default is "solid".}
+
+\item{...}{Additional arguments passed to the \code{geom_text()} layer.}
 }
 \value{
 A list of ggplot2 layers that can be added to a ggplot object.
